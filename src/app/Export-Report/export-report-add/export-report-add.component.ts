@@ -6,6 +6,7 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ExportReportBranch, ExportReportCreate, ExportReportstatic, } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 interface Option {
   entityName: string;
   merchantLegalName: string;
@@ -18,14 +19,14 @@ interface Option {
   styleUrl: './export-report-add.component.css',
 })
 export class ExportReportAddComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   myForm!: FormGroup;
   merchantId: any = sessionStorage.getItem('merchantId');
   Daterange!: string;
   exportTypes: any;
   paymentstatus: any;
   roleName = sessionStorage.getItem('roleName');
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   getdashboard: any[] = [];
   actions: any;
   valueDownload: any;
@@ -51,7 +52,9 @@ export class ExportReportAddComponent implements OnInit {
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {
@@ -210,7 +213,7 @@ export class ExportReportAddComponent implements OnInit {
       merchant = matchedBox?.merchantId || 0; // Use matched merchantId or 0
     }
     let submitModel: ExportReportCreate = {
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
       exportDataName: this.exportDataName?.value,
       exportStartDate: this.exportStartDate?.value,
       exportEndDate: this.exportEndDate?.value,
@@ -298,7 +301,7 @@ export class ExportReportAddComponent implements OnInit {
     this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
 
     let submitModel: ExportReportstatic = {
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
       exportDataName: this.exportDataName?.value,
       exportType: this.exportTypes,
       dateRange: this.Daterange,
@@ -351,7 +354,7 @@ export class ExportReportAddComponent implements OnInit {
       this.branchmerchant = matchedBox?.merchantId; // Use matched merchantId or 0
     }
     let submitModel: ExportReportBranch = {
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
       exportDataName: this.exportDataName?.value,
       exportStartDate: this.exportStartDate?.value,
       exportEndDate: this.exportEndDate?.value,

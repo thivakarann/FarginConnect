@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Addfacheckkey } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-addfacheckkey',
@@ -13,23 +14,27 @@ import { Addfacheckkey } from '../../../fargin-model/fargin-model.module';
 })
 export class AddfacheckkeyComponent {
   facheckkeyFormGroup: any = FormGroup;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   facheckkey: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     private service: FarginServiceService,
     private router: Router,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.facheckkeyFormGroup = new FormGroup({
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
-      applicationId:new FormControl('',[Validators.required,Validators.pattern('^[A-Za-z0-9&\\-\\(\\)#._/]+$')]),
+      applicationId: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z0-9&\\-\\(\\)#._/]+$'),
+      ]),
       mode: new FormControl('', [Validators.required]),
     });
   }
@@ -51,25 +56,18 @@ export class AddfacheckkeyComponent {
       apiKey: this.apiKey.value.trim(),
       secretKey: this.secretKey?.value.trim(),
       applicationId: this.applicationId?.value,
-      mode:this.mode?.value,
-      createdBy:this.createdBy
-    }
+      mode: this.mode?.value,
+      createdBy: this.adminName,
+    };
     this.service.addfacheck(submitModel).subscribe((res: any) => {
       this.facheckkey = res.response;
-
-
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
-        this.dialog.closeAll()
-      
+        this.dialog.closeAll();
+      } else {
+        this.toastr.error(res.responseMessage);
       }
-      else {
-        this.toastr.error(res.responseMessage)
-      }
-    })
-  }
-  cancel() {
-    this.router.navigateByUrl('dashboard/view-facheck');
+    });
   }
 }

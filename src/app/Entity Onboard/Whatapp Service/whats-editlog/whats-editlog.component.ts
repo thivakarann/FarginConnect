@@ -10,6 +10,7 @@ import { Workbook } from 'exceljs';
 import { Location } from '@angular/common';
 import { WhatsappMessDescriptionComponent } from '../whatsapp-mess-description/whatsapp-mess-description.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-whats-editlog',
@@ -34,7 +35,7 @@ export class WhatsEditlogComponent {
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   whatsappid: any;
   searchPerformed: boolean = false;
   responseDataListnew: any = [];
@@ -46,7 +47,9 @@ export class WhatsEditlogComponent {
     private location: Location,
     private service: FarginServiceService,
     private activaterouter: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

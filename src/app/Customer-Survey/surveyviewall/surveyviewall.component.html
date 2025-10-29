@@ -1,63 +1,58 @@
 <h4 style="text-align:left;color:#141E46;">Survey Questions</h4>
+
 <mat-card-header>
   <div class="row mt-4">
     <div class="col">
       <div class="search ">
         <form class="form">
-            <label for="search">
-                <input #input required="" autocomplete="off" placeholder="Search"
-                    id="search" type="text" name="search" [(ngModel)]="currentfilval">
-                <div class="icon">
-                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                            stroke-linecap="round">
-                        </path>
-                    </svg>
-                    <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
-                        </path>
-                    </svg> -->
-                </div>
-                <button  (click)="reload()" type="reset" class="close-btn">
-                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                        <path clip-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            fill-rule="evenodd"></path>
-                    </svg>
-                </button>
-            </label>
+          <label for="search">
+            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text" name="search"
+              [(ngModel)]="currentfilval">
+            <div class="icon">
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                </path>
+              </svg>
+            </div>
+            <button (click)="Getall()" type="reset" class="close-btn">
+              <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </label>
         </form>
-
-    </div>  &nbsp;&nbsp;&nbsp;
-    <button (click)="search(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
-    mat-raised-button>Go</button> 
+      </div> &nbsp;&nbsp;&nbsp;
+      <button (click)="search(currentfilval)"
+        style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button>Go</button>
       <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
-       [hidden]="valuesurveyexport!=='Survey-Export'" (click)="exportexcel()">Export</button>
+        [hidden]="valuesurveyexport!=='Survey-Export'" (click)="exportexcel()">Export</button>
       <div class="col-md-4">
       </div>
-
     </div>
   </div>
 </mat-card-header>
 
-<!-- <mat-card> -->
 <mat-card-content>
   <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
       <ng-container matColumnDef="sno">
         <th mat-header-cell *matHeaderCellDef>S.No</th>
         <td mat-cell *matCellDef="let data; let i = index">
           {{ i + 1 }}
         </td>
       </ng-container>
+
       <ng-container matColumnDef="entityname">
         <th mat-header-cell *matHeaderCellDef>Entity Name</th>
         <td mat-cell *matCellDef="let data">
           {{ data.merchantId.entityName }}
         </td>
       </ng-container>
+
       <ng-container matColumnDef="questions">
         <th mat-header-cell *matHeaderCellDef>Questions</th>
         <td mat-cell *matCellDef="let data">
@@ -68,11 +63,11 @@
             {{ data.questions }}
           </span>
           <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="viewQuestions(data)">
-       
             {{ isSurveyVisible ? 'Read Less' : '...Read More' }}
           </i>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="view">
         <th mat-header-cell *matHeaderCellDef [hidden]="valuesurveyview!=='Survey-View'">View</th>
         <td style="cursor: pointer;" mat-cell *matCellDef="let data" [hidden]="valuesurveyview!=='Survey-View'">
@@ -85,7 +80,8 @@
         <td mat-cell *matCellDef="let data">
           {{ data.createdDatetime | date : "dd/MM/yyyy hh:mm a" }}
         </td>
-      </ng-container>   
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
       <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
       <tr *matNoDataRow>
@@ -96,11 +92,9 @@
     </table>
   </div>
 </mat-card-content>
-<mat-card-footer>
- 
-  <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
-  [pageSizeOptions]="[5, 10, 50, 100, 200,300,500]" aria-label="Select page">
-</mat-paginator>
- 
-</mat-card-footer>
 
+<mat-card-footer>
+  <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
+    [pageSizeOptions]="[5, 10, 50, 100, 200,300,500]" aria-label="Select page">
+  </mat-paginator>
+</mat-card-footer>

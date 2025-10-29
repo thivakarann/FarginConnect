@@ -5,6 +5,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { role, subpermission } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-add-role',
@@ -13,7 +14,7 @@ import { role, subpermission } from '../../fargin-model/fargin-model.module';
 })
 export class AddRoleComponent implements OnInit {
   addcategory: any = FormGroup;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   categoryName: any;
   permissionValue: any;
   @ViewChild('select') select: any = MatSelect;
@@ -29,6 +30,7 @@ export class AddRoleComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService,
     private fb: FormBuilder
   ) { }
@@ -97,7 +99,7 @@ export class AddRoleComponent implements OnInit {
   submit() {
     let submitModel: role = {
       roleName: this.roleName.value.trim(),
-      createdBy: this.createdBy,
+      createdBy: this.adminName,
       permission: this.permission?.value,
       subPermission: this.subPermission?.value,
     };

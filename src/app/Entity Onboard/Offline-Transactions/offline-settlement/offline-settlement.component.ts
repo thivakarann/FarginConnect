@@ -10,6 +10,7 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { OfflineSettlement } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-offline-settlement',
@@ -50,7 +51,7 @@ export class OfflineSettlementComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   id: any;
@@ -69,6 +70,8 @@ export class OfflineSettlementComponent {
     private location: Location,
     private router: Router,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
 
   ) { }
 

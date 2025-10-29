@@ -41,7 +41,6 @@
                 <div class="col-sm-4 form-group">
                     <label for="state">One-Time Setup Fee</label>
                     <input type="text" formControlName="technicalAmount" id="state" class="form-control">
-
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -145,8 +144,6 @@
                         <!-- <option value="Quarterly">Quarterly</option>
                         <option value="Half Yearly">Half-Yearly</option>
                         <option value="Year">Yearly</option> -->
-
-
                     </select>
                     <div style="
                     color: red;
@@ -158,15 +155,11 @@
                         Field is Required
                     </div>
                 </div>
-
-
             </div>
-
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="zip">Yearly Renewal Fee</label>
                     <input type="text" formControlName="renewalAmount" id="zip" class="form-control">
-
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -189,7 +182,6 @@
                 <div class="col-sm-4 form-group">
                     <label for="count">Customer Onboard Limit</label>
                     <input type="text" formControlName="countLimit" id="count" class="form-control">
-
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -210,17 +202,12 @@
                     </div>
                 </div>
             </div>
-
-
             <div>
                 <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
                 <button type="submit" class="btn" style="background-color:#141E46;color:white"
                     matDialogClose>Cancel</button>
             </div>
-
-
-
         </form>
     </main>
 </body>

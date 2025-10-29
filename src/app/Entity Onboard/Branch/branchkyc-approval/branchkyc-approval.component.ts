@@ -9,6 +9,7 @@ import {
   signaturebranchapprove,
 } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-branchkyc-approval',
@@ -16,7 +17,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
   styleUrl: './branchkyc-approval.component.css',
 })
 export class BranchkycApprovalComponent {
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   myForm!: FormGroup;
   id: any;
   approval: any;
@@ -27,6 +28,7 @@ export class BranchkycApprovalComponent {
     private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toaster: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog
   ) { }
 
@@ -53,7 +55,7 @@ export class BranchkycApprovalComponent {
         branchProofId: this.id,
         identityAdminComments: this.remarks?.value.trim(),
         identityAdminApprovalStatus: this.approvalStatus?.value,
-        identityAdminApprovedBy: this.createdBy,
+        identityAdminApprovedBy: this.adminName,
       };
 
       this.service.identitybranchApproval(submitModel).subscribe((res: any) => {
@@ -72,7 +74,7 @@ export class BranchkycApprovalComponent {
         branchProofId: this.id,
         addressAdminComments: this.remarks?.value,
         addressAdminApprovalStatus: this.approvalStatus?.value,
-        addressAdminApprovedBy: this.createdBy,
+        addressAdminApprovedBy: this.adminName,
       };
 
       this.service.addressbranchApproval(submitModel).subscribe((res: any) => {
@@ -91,7 +93,7 @@ export class BranchkycApprovalComponent {
         branchProofId: this.id,
         signatureAdminComments: this.remarks?.value,
         signatureAdminApprovalStatus: this.approvalStatus?.value,
-        signatureAdminApprovedBy: this.createdBy,
+        signatureAdminApprovedBy: this.adminName,
       };
 
       this.service.signbranchApproval(submitModel).subscribe((res: any) => {

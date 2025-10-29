@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { LevelTwoApproval } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-level-two-approval',
@@ -11,7 +12,7 @@ import { LevelTwoApproval } from '../../fargin-model/fargin-model.module';
   styleUrl: './level-two-approval.component.css',
 })
 export class LevelTwoApprovalComponent {
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   myForm!: FormGroup;
   merchantId: any;
   approval: any;
@@ -20,6 +21,7 @@ export class LevelTwoApprovalComponent {
   constructor(
     private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private cryptoService: EncyDecySericeService,
     private toaster: ToastrService,
     private dialog: MatDialog
   ) { }
@@ -45,7 +47,7 @@ export class LevelTwoApprovalComponent {
   submit() {
     let submitModel: LevelTwoApproval = {
       approvalStatusL2: this.approvalStatus?.value,
-      approvedByL2: this.createdBy,
+      approvedByL2: this.adminName,
       commentL2: this.remarks?.value.trim(),
     };
     this.service.MerchantLevel2ApprovalTwo(this.merchantId, submitModel).subscribe((res: any) => {

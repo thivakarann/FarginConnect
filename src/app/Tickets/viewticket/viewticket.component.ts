@@ -9,6 +9,7 @@ import { ViewDescriptionComponent } from '../view-description/view-description.c
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { TicketImageComponent } from '../ticket-image/ticket-image.component';
 import { UpdateStickerTicketComponent } from '../update-sticker-ticket/update-sticker-ticket.component';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-viewticket',
@@ -45,13 +46,14 @@ export class ViewticketComponent implements OnInit {
   valueTicketEdit: any;
   valueDescriptionView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valuestickeredit: any;
   searchPerformed: any;
 
-  constructor(private service: FarginServiceService, private dialog: MatDialog) { }
+  constructor(private service: FarginServiceService, private dialog: MatDialog,private cryptoService:EncyDecySericeService,
+) { }
 
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({

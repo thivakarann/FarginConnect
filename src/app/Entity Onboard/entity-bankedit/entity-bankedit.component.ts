@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { bankedit } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-bankedit',
@@ -21,12 +22,13 @@ export class EntityBankeditComponent implements OnInit {
   merchantBankId: any;
   bankData: any;
   BankNames: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -113,7 +115,7 @@ export class EntityBankeditComponent implements OnInit {
       accountType: this.accountType.value,
       typeMode: this.typemode.value,
       ledgerId: this.ledgerId?.value.trim(),
-      modifiedBy: this.getadminname,
+      modifiedBy: this.adminName,
     };
     this.service.EntitybankEdit(this.merchantBankId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

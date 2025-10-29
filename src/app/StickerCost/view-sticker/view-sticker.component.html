@@ -41,13 +41,6 @@
                     </td>
                 </ng-container> -->
 
-            <!-- <ng-container matColumnDef="Edit">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuesmsedit!=='SMS Cost-Edit'">Action</th>
-                    <td mat-cell *matCellDef="let viewall" (click)="EditSMS(viewall)" [hidden]="valuesmsedit!=='SMS Cost-Edit'">
-                        <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i>
-                    </td>
-                </ng-container> -->
-
             <ng-container matColumnDef="deliveryDays">
                 <th mat-header-cell *matHeaderCellDef>Sticker Delivery day</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.deliveryDays}}</td>
@@ -76,17 +69,11 @@
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
-            <!-- <tr *matNoDataRow>
-                    <td class="mat-cell" colspan="4">No Data For
-                        {{input.value}}
-                    </td>
-     
-                </tr> -->
         </table>
     </div>
 </mat-card-content>
-<mat-card-footer>
-    <mat-paginator [pageSizeOptions]="[5,10,20,50,100]"
-        showFirstLastButtonsaria-labels="select page of users"></mat-paginator>
 
+<mat-card-footer>
+    <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtonsaria-labels="select page of users">
+    </mat-paginator>
 </mat-card-footer>

@@ -12,6 +12,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { BouqetsEditComponent } from '../bouqets-edit/bouqets-edit.component';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-bouquets-viewall',
@@ -46,7 +47,7 @@ export class BouquetsViewallComponent implements OnInit {
   valueBroadcasterBouquetesEdit: any;
   valueBroadcasterBouquetesView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   values: any[] = [];
   actions: any;
   errorMessage: any;
@@ -84,6 +85,7 @@ export class BouquetsViewallComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {

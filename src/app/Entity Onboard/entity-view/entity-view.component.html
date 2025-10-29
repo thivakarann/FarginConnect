@@ -2025,23 +2025,28 @@
             <table class="table table-hover" id="customers">
               <tr>
                 <th>S No</th>
-                <th>Plan Name</th>
-                <th>Service Fee</th>
+                <!-- <th>Plan Name</th>
+                <th>Service Fee</th> -->
                 <th>Authorized Signatory Name</th>
                 <th>Authorized Signatory Designation</th>
-                <th [hidden]="valueagreementView !== 'Entity View Agreement-Plan Overview'">Plan Overview</th>
-                <th [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'">Admin Agreement Link
-                </th>
-                <th [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'">Entity Agreement Link
-                </th>
-                <th>Link Expiry Date</th>
+                 <th>Stamp Amount</th>
+                  <th>Consideration Amount</th>
+                <!-- <th [hidden]="valueagreementView !== 'Entity View Agreement-Plan Overview'">Plan Overview</th> -->
+                <!-- <th [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'">Admin Agreement Link
+                </th> -->
+                <!-- <th [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'">Entity Agreement Link
+                </th> -->
+                <!-- <th>Link Expiry Date</th> -->
+                 <th>Facheck E-Stamp Status</th>
                 <th>Fargin Signer Status</th>
-                <th>Fargin Signer Signed Date</th>
+                <!-- <th>Fargin Signer Signed Date</th> -->
                 <th>Entity Signer Status</th>
-                <th>Entity Signer Signed Date</th>
-                <th [hidden]="valueagreementlinkdate !=='Entity View Agreement-Link Expiry Date'">Link Expiry Date</th>
-                <th [hidden]="valueagreementlinkstatus !=='Entity View Agreement-Link Expiry Status'">Link Expiry Status
-                </th>
+                <th [hidden]="valueagreementStatus !=='Entity View Agreement-Check Status'">Check Signer Status</th>
+                 <th [hidden]="valueagreementResend !=='Entity View Agreement-Resend Link'">Resend Link</th>
+                <!-- <th>Entity Signer Signed Date</th> -->
+                <!-- <th [hidden]="valueagreementlinkdate !=='Entity View Agreement-Link Expiry Date'">Link Expiry Date</th> -->
+                <!-- <th [hidden]="valueagreementlinkstatus !=='Entity View Agreement-Link Expiry Status'">Link Expiry Status
+                </th> -->
                 <th [hidden]="valueagreementAgreement !== 'Entity View Agreement-Agreement'">Agreement</th>
                 <th [hidden]="valueagreementAgreementSigned !=='Entity View Agreement-Agreement Signed Copy'">Agreement
                   Signed Copy
@@ -2052,74 +2057,105 @@
               <tbody
                 *ngFor="let item of agreementdetails| search : searchTextargeement| paginate: {id: 'pagination6',itemsPerPage: itemsPerPage,currentPage: currentagreement};let i = index">
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.planName }}</td>
-                <td>{{ item.serviceFee }}</td>
+                <!-- <td>{{ item.planName }}</td> -->
+                <!-- <td>{{ item.serviceFee }}</td> -->
                 <td>{{ item.merchantName }}</td>
                 <td>{{ item.merchantDesignation }}</td>
-                <td [hidden]="valueagreementView !== 'Entity View Agreement-Plan Overview'">
+                <td>{{ item.stampAmount || '-' }}</td>
+                <td>{{ item.considerationAmount || '-' }}</td>
+                
+                <!-- <td [hidden]="valueagreementView !== 'Entity View Agreement-Plan Overview'">
                   <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
                     (click)="view(item.commercialId)"></i>
-                </td>
-                <td [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'"
+                </td> -->
+
+                <!-- <td [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'"
                   style="margin-top: 5px">
                   {{ item.adminAgreementLink | slice : 0 : 25 }}
                   <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
                     (click)="copyText2(item.adminAgreementLink, i)">
                   </i>
                   <span *ngIf="copiedIndex2 === i" style="color: green">Copied!</span>
-                </td>
-                <td [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'"
+                </td> -->
+
+                <!-- <td [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'"
                   style="margin-top: 5px">
                   {{ item.agreementLink | slice : 0 : 25 }}
                   <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
                     (click)="copyText1(item.agreementLink, i)">
                   </i>
                   <span *ngIf="copiedIndex === i" style="color: green">Copied!</span>
+                </td> -->
+
+                <!-- <td>{{ item.expiryLink | date : "dd/MM/yyyy hh:mm a" }}</td> -->
+
+                 <td>
+                  <span *ngIf="item?.facheckEstampSatus=='Success'" style="color:green">Success</span>
+                   <span *ngIf="item?.facheckEstampSatus=='Failed'" style="color:red">Failed</span>
+                  
                 </td>
-                <td>{{ item.expiryLink | date : "dd/MM/yyyy hh:mm a" }}</td>
-                <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
-                  {{ item.adminOtpStatus == 0 ? "Not Signed" : "Signed" }}
+
+                <td [ngClass]="item.adminAgreementStatus == 'PENDING' ? 'not-signed' : 'signed'">
+                  {{ item.adminAgreementStatus == 'PENDING' ? "Not Signed" : "Signed" }}
                 </td>
-                <td>
+
+                <!-- <td>
                   <span [hidden]="item.adminVerifiedDate != null">-</span>
                   <span [hidden]="item.adminVerifiedDate == null">{{ item.adminVerifiedDate }}</span>
+                </td> -->
+
+                <td [ngClass]="item.merchantAgreementStatus == 'PENDING' ? 'not-signed' : 'signed'">
+                  {{ item.merchantAgreementStatus == 'PENDING' ? "Not Signed" : "Signed" }}
                 </td>
-                <td [ngClass]="item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'">
-                  {{ item.merchanOtptStatus == 0 ? "Not Signed" : "Signed" }}
+
+                <td [hidden]="valueagreementStatus !=='Entity View Agreement-Check Status'">
+                <button (click)="AgrrementCheckStatus(item.agreementId)" style="border: 1px solid white; border-radius: 4px;font-size: 15px;padding:0">
+                  <i style="cursor: pointer; font-size: 20px;padding:0;color:#141E46" class="fa-solid fa-check-to-slot"></i>
+                </button>
                 </td>
-                <td>
+                <td [hidden]="valueagreementResend !=='Entity View Agreement-Resend Link'">
+                <button (click)="AgrrementSLink(item.agreementId)" style="border: 1px solid white; border-radius: 4px;font-size: 15px;padding:0">
+                  <i style="cursor: pointer; font-size: 20px;padding:0;color:#141E46" class="fa-solid fa-paper-plane"></i>
+                </button>
+                </td>
+
+                <!-- <td>
                   <span [hidden]="item.merchantVerifiedDate != null">-</span>
                   <span [hidden]="item.merchantVerifiedDate == null">{{ item.merchantVerifiedDate}}</span>
-                </td>
-                <td [hidden]="valueagreementlinkdate !=='Entity View Agreement-Link Expiry Date'">
+                </td> -->
+
+                <!-- <td [hidden]="valueagreementlinkdate !=='Entity View Agreement-Link Expiry Date'">
                   <i style="cursor: pointer; font-size: 15px;padding:0" class="fa-solid fa-calendar-days"
                     (click)="ExtendLinkDate(item.agreementId, item.expiryLink)">
                   </i>
-                </td>
-                <td [hidden]="valueagreementlinkstatus !=='Entity View Agreement-Link Expiry Status'">
+                </td> -->
+
+                <!-- <td [hidden]="valueagreementlinkstatus !=='Entity View Agreement-Link Expiry Status'">
                   <mat-slide-toggle class="example-margin" color="primary" [checked]="item.expiryLinkStatus == 1"
                     (change)="LinkExpirystatus($event, item.agreementId)" style="transform: scale(0.9);padding:0">
                   </mat-slide-toggle>
-                </td>
+                </td> -->
+
                 <td [hidden]="valueagreementAgreement !== 'Entity View Agreement-Agreement'">
                   <button style="border: 1px solid white; border-radius: 4px;font-size: 15px;padding:0"
                     (click)="viewagreementdoc(item.agreementId)">
-                    <i style="cursor: pointer; font-size: 15px;padding:0" class="fa-solid fa-file-contract"></i>
+                    <i style="cursor: pointer; font-size: 20px;padding:0" class="fa-solid fa-file-contract"></i>
                   </button>
                 </td>
+
                 <td [hidden]="valueagreementAgreementSigned !== 'Entity View Agreement-Agreement Signed Copy'">
                   <button style="
                     color: white;
                     border: 1px solid white;
                     border-radius: 4px;font-size: 17px;padding:0
                   " (click)="viewsignedagreementdoc(item.agreementId)"
-                    [disabled]="item.adminOtpStatus == 0 || item.merchanOtptStatus == 0" [ngClass]="{'disabled-btn':item.adminOtpStatus == 0 || item.merchanOtptStatus == 0,
-                    'enabled-btn':item.adminOtpStatus == 1 && item.merchanOtptStatus == 1}">
-                    <i style="cursor: pointer; font-size: 17px;padding:0" class="fa-solid fa-file-contract" [ngClass]="{
+                    [disabled]="item.adminAgreementStatus == 'PENDING' || item.merchantAgreementStatus == 'PENDING'" [ngClass]="{'disabled-btn':item.adminAgreementStatus == 'PENDING' || item.merchantAgreementStatus == 'PENDING',
+                    'enabled-btn':item.adminAgreementStatus == 'COMPLETED' && item.merchantAgreementStatus == 'COMPLETED'}">
+                    <i style="cursor: pointer; font-size: 20px;padding:0" class="fa-solid fa-file-contract" [ngClass]="{
                       'disabled-icon':
-                        item.adminOtpStatus == 0 || item.merchanOtptStatus == 0,
+                        item.adminAgreementStatus == 'PENDING' || item.merchantAgreementStatus == 'PENDING',
                       'enabled-icon':
-                        item.adminOtpStatus == 1 && item.merchanOtptStatus == 1
+                        item.adminAgreementStatus == 'COMPLETED' && item.merchantAgreementStatus == 'COMPLETED'
                     }">
                     </i>
                   </button>

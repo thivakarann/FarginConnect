@@ -4,6 +4,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { branchterminaledit } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-branch-terminal-edit',
@@ -12,7 +13,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 })
 export class BranchTerminalEditComponent implements OnInit {
   EditTerminal: any = FormGroup;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   branchTerminalId: any;
   TerminalNumber: any;
 
@@ -20,6 +21,7 @@ export class BranchTerminalEditComponent implements OnInit {
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -43,7 +45,7 @@ export class BranchTerminalEditComponent implements OnInit {
   submit() {
     let submitModel: branchterminaledit = {
       terminalNo: this.terminalNo.value,
-      modifiedBy: this.createdBy,
+      modifiedBy: this.adminName,
     };
     this.service.BranchTerminalEdit(this.branchTerminalId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { QrCodecreation } from '../../fargin-model/fargin-model.module';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-qrcreation',
@@ -21,7 +22,7 @@ export class QRcreationComponent implements OnInit {
   Check: any;
   ADD: boolean = false;
   merchantid: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   QRdetaisl: any;
   isCreated: boolean = false;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
@@ -29,6 +30,7 @@ export class QRcreationComponent implements OnInit {
   constructor(
     public QRcreation: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog
   ) { }
@@ -78,7 +80,7 @@ export class QRcreationComponent implements OnInit {
       merchantId: this.merchantid,
       qrReference: this.Entityurlname,
       qrGenerateLink: this.EntityURLLink,
-      qrCreatedBy: this.getadminname,
+      qrCreatedBy: this.adminName,
     };
     this.QRcreation.QRURLcreation(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {

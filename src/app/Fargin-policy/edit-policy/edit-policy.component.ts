@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-edit-policy',
@@ -11,9 +12,8 @@ import { FarginServiceService } from '../../service/fargin-service.service';
   styleUrl: './edit-policy.component.css'
 })
 export class EditPolicyComponent {
-
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
   policycreate: any = FormGroup;
   MerchantName: any;
   dataSource: any;
@@ -25,6 +25,7 @@ export class EditPolicyComponent {
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private router: Router,
     private ActivateRoute: ActivatedRoute) { }
 
@@ -69,7 +70,7 @@ export class EditPolicyComponent {
       disclaimer: this.disclaimer.value.trim(),
       privacyPolicy: this.privacyPolicy.value.trim(),
       refundPolicy: this.refundPolicy.value.trim(),
-      modifiedBy: this.getadminname,
+      modifiedBy: this.adminName,
     }
     this.service.editTermsPolicy(this.policyId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

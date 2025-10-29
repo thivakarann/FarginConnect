@@ -13,6 +13,7 @@ import { UpdateBankdetailStatus } from '../../../fargin-model/fargin-model.modul
 import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-bank-viewall',
@@ -46,26 +47,25 @@ export class BankViewallComponent implements OnInit {
   valuebankedit: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   valuetermViews: any;
   searchPerformed: boolean = false;
 
   constructor(
     public bankdetails: FarginServiceService,
-    private router: Router,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
+
   ngOnInit(): void {
 
     this.bankdetails.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
           if (this.roleId == 1) {
             this.valuebanklistadd = 'Bank Details-Add'
             this.valuebanklistexport = 'Bank Details-Export'
@@ -95,25 +95,8 @@ export class BankViewallComponent implements OnInit {
         }
       }
     });
-
-
     this.fetchBankDetails()
-
-
-  }
-  AddBankDetails() {
-    const dialogRef = this.dialog.open(AddbankDetailsComponent, {
-      enterAnimationDuration: "500ms",
-      exitAnimationDuration: "800ms",
-      disableClose: true
-    });
-
-    // Listen for updates when dialog emits event
-    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-      this.fetchBankDetails();
-    });
-  }
-
+  };
 
   fetchBankDetails() {
     this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
@@ -131,89 +114,7 @@ export class BankViewallComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       }
     });
-  }
-
-
-  reload() {
-    this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
-      }
-      else if (res.flag == 2) {
-        this.viewall = [];
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
-      }
-
-
-    });
-
-  }
-
-
-  Editbankdetails(id: any) {
-    const dialogRef = this.dialog.open(EditBankDetailsComponent, {
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: "1000ms",
-      data: { value: id },
-      disableClose: true
-    })
-
-
-    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-      this.fetchBankDetails();
-    });
-  }
-
-  ActiveStatus(event: MatSlideToggleChange, id: any) {
-
-    this.isChecked = event.checked;
-
-    let submitModel: UpdateBankdetailStatus = {
-      bankId: id,
-      activeStatus: this.isChecked ? 1 : 0,
-    };
-    this.bankdetails.activebankdetailsstatus(submitModel).subscribe((res: any) => {
-
-      if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
-            if (res.flag == 1) {
-              this.viewall = res.response;
-              this.viewall.reverse();
-              this.dataSource = new MatTableDataSource(this.viewall);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator;
-
-            }
-            else if (res.flag == 2) {
-              this.viewall = [];
-              this.dataSource = new MatTableDataSource(this.viewall);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator;
-
-            }
-
-
-          });
-        }, 500);
-
-      }
-      else {
-        this.toastr.error(res.responseMessage);
-      }
-
-    });
-
-  }
+  };
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -224,29 +125,68 @@ export class BankViewallComponent implements OnInit {
     }
   }
 
+  AddBankDetails() {
+    const dialogRef = this.dialog.open(AddbankDetailsComponent, {
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "500ms",
+      disableClose: true
+    });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchBankDetails();
+    });
+  };
+
+  Editbankdetails(id: any) {
+    const dialogRef = this.dialog.open(EditBankDetailsComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: "500ms",
+      data: { value: id },
+      disableClose: true
+    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchBankDetails();
+    });
+  }
+
+  ActiveStatus(event: MatSlideToggleChange, id: any) {
+    this.isChecked = event.checked;
+    let submitModel: UpdateBankdetailStatus = {
+      bankId: id,
+      activeStatus: this.isChecked ? 1 : 0,
+    };
+    this.bankdetails.activebankdetailsstatus(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          this.fetchBankDetails()
+        }, 200);
+
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
+  }
+
 
   exportexcel() {
-
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
       let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.bankName);
       if (element?.activeStatus == 1) {
         this.response.push("Active");
       }
-
       else {
         this.response.push("InActive");
       }
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-
       if (element?.modifiedAt != null) {
         let moddate = element.modifiedAt;
         this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
@@ -255,9 +195,6 @@ export class BankViewallComponent implements OnInit {
       else {
         this.response.push();
       }
-
-
-
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -265,7 +202,6 @@ export class BankViewallComponent implements OnInit {
   }
 
   excelexportCustomer() {
-    // const title='Business Category';
     const header = [
       "S.No",
       "Bank Name",
@@ -275,35 +211,23 @@ export class BankViewallComponent implements OnInit {
       "Modified By",
       "Modified At"
     ]
-
-
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Bank Details');
-    // Blank Row
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
-    // Cell Style : Fill and Border
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
       }
-
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
 
     data.forEach((d: any) => {
-      // 
-
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -313,11 +237,6 @@ export class BankViewallComponent implements OnInit {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
 
-
-
-
-
-
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -325,20 +244,10 @@ export class BankViewallComponent implements OnInit {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
-
-    }
-    );
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
+    });
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'Bank Details.xlsx');
     });
   }
-
-
-
 }

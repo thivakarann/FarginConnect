@@ -5,6 +5,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { manualPayment } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-update-manualpayment',
@@ -12,8 +13,8 @@ import { manualPayment } from '../../fargin-model/fargin-model.module';
   styleUrl: './update-manualpayment.component.css',
 })
 export class UpdateManualpaymentComponent {
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   id: any;
   myForm!: FormGroup;
   PaidAmount: any;
@@ -33,6 +34,7 @@ export class UpdateManualpaymentComponent {
   constructor(
     private router: Router,
     private Approval: FarginServiceService,
+    private cryptoService:EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService,
     private dialog: MatDialog
@@ -102,7 +104,7 @@ export class UpdateManualpaymentComponent {
       date: this.chequedate,
       merchantId: this.merchantId,
       paidAmount: this.payamount,
-      updatedBy: this.getadminname,
+      updatedBy: this.adminName,
     };
 
     this.Approval.UpdateManualPayment(

@@ -12,6 +12,7 @@ import { BouquetenameStatus } from '../../../fargin-model/fargin-model.module';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-bouquete-plan-viewall',
@@ -45,7 +46,7 @@ export class BouquetePlanViewallComponent {
   valuePlanStatus: any;
   valuePlanEdit: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   searchPerformed: boolean = false;
@@ -54,6 +55,7 @@ export class BouquetePlanViewallComponent {
     public Bouqutenameviewall: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {

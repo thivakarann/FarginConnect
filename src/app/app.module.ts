@@ -46,8 +46,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BusinessKycComponent } from './Main Master/businesscategory/business-kyc/business-kyc.component';
 import { BusinessKycCreateComponent } from './Main Master/businesscategory/business-kyc/business-kyc-create/business-kyc-create.component';
 import { BusinessKycEditComponent } from './Main Master/businesscategory/business-kyc/business-kyc-edit/business-kyc-edit.component';
-import { PermissionComponent } from './RolesandPermission/RolePermission/permission/permission.component';
-import { SubPermissionComponent } from './RolesandPermission/RolePermission/sub-permission/sub-permission.component';
 import { EntityViewallComponent } from './Entity Onboard/entity-viewall/entity-viewall.component';
 import { EntityAddComponent } from './Entity Onboard/entity-add/entity-add.component';
 import { DashboardContentComponent } from './dashboard-content/dashboard-content.component';
@@ -266,7 +264,6 @@ import { RefundPeriodViewallComponent } from './Main Master/Refund Period/refund
 import { RefundPeriodAddComponent } from './Main Master/Refund Period/refund-period-add/refund-period-add.component';
 import { RefundPeriodEditComponent } from './Main Master/Refund Period/refund-period-edit/refund-period-edit.component';
 import { EntityOfflineviewComponent } from './Entity Onboard/entity-offlineview/entity-offlineview.component';
-import { CreateBulkcampaignsComponent } from './Campaign/create-bulkcampaigns/create-bulkcampaigns.component';
 import { CreateCampaignsComponent } from './Campaign/create-campaigns/create-campaigns.component';
 import { CreateCommentcampaignsComponent } from './Campaign/create-commentcampaigns/create-commentcampaigns.component';
 import { EditCampaignComponent } from './Campaign/edit-campaign/edit-campaign.component';
@@ -341,8 +338,6 @@ import { LcopPlanViewComponent } from './Overall-Customer/lcop-plan-view/lcop-pl
     BusinessKycComponent,
     BusinessKycCreateComponent,
     BusinessKycEditComponent,
-    PermissionComponent,
-    SubPermissionComponent,
     EntityViewallComponent,
     EntityAddComponent,
     PgsetupCreateComponent,
@@ -568,7 +563,6 @@ import { LcopPlanViewComponent } from './Overall-Customer/lcop-plan-view/lcop-pl
     CreateCampaignsComponent,
     ViewCampaignsComponent,
     CreateCommentcampaignsComponent,
-    CreateBulkcampaignsComponent,
     ViewImagecampaignsComponent,
     ViewRecordcampaignsComponent,
     EditCampaignComponent,

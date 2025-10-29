@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { DPOCrate } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-dpobouquete-add',
@@ -13,8 +14,9 @@ import { DPOCrate } from '../../../fargin-model/fargin-model.module';
   styleUrl: './dpobouquete-add.component.css'
 })
 export class DPOBouqueteAddComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   details: any;
   channelslist: any;
@@ -30,7 +32,8 @@ export class DPOBouqueteAddComponent implements OnInit {
     public DPOBouquetAdd: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
   ) { }
   ngOnInit(): void {
 

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { addpolicy } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-add-policy',
@@ -11,8 +12,9 @@ import { FarginServiceService } from '../../service/fargin-service.service';
   styleUrl: './add-policy.component.css',
 })
 export class AddPolicyComponent {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   policycreate: any = FormGroup;
   MerchantName: any;
   dataSource: any;
@@ -21,6 +23,7 @@ export class AddPolicyComponent {
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private router: Router
   ) { }
 
@@ -57,7 +60,7 @@ export class AddPolicyComponent {
       disclaimer: this.disclaimer.value.trim(),
       privacyPolicy: this.privacyPolicy.value.trim(),
       refundPolicy: this.refundPolicy.value.trim(),
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
     };
     this.service.addTermsPolicy(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

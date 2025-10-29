@@ -3,6 +3,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-merchant-logo',
@@ -14,7 +15,7 @@ export class MerchantLogoComponent {
   imageSrc: any;
   flag: any;
   logoUpdate!: FormGroup;
-  modifiedBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   imageFile1!: string | Blob;
   updatedata: any;
   errorMessage!: string;
@@ -29,6 +30,7 @@ export class MerchantLogoComponent {
     private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService
   ) { }
 
@@ -80,7 +82,7 @@ export class MerchantLogoComponent {
   Update() {
     const formData = new FormData();
     formData.append('merchantId ', this.id);
-    formData.append('modifiedBy', this.modifiedBy);
+    formData.append('modifiedBy', this.adminName);
     formData.append('merchantLogo ', this.upload);
 
     this.service.EntitylogoUpdate(formData).subscribe((res: any) => {

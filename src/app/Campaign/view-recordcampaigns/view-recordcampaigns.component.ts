@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,11 +8,13 @@ import FileSaver from 'file-saver';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Location } from '@angular/common';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 @Component({
   selector: 'app-view-recordcampaigns',
   templateUrl: './view-recordcampaigns.component.html',
   styleUrl: './view-recordcampaigns.component.css'
 })
+
 export class ViewRecordcampaignsComponent {
   displayedColumns: any[] = [
     'uploadid',
@@ -24,7 +25,6 @@ export class ViewRecordcampaignsComponent {
     'Response',
   ];
   dataSource: any;
-
   viewBulk: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -34,7 +34,7 @@ export class ViewRecordcampaignsComponent {
   valueresponse: any;
   getdashboard: any[] = [];
   actions: any;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   roleName = sessionStorage.getItem('roleName');
   valueRouteStatusresponse: any;
   searchPerformed: boolean = false;
@@ -43,11 +43,12 @@ export class ViewRecordcampaignsComponent {
   valueEmails: any;
 
   constructor(
-    private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
     private activated: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cryptoService:EncyDecySericeService,
+
 
   ) { }
 
@@ -58,14 +59,11 @@ export class ViewRecordcampaignsComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
             this.valueEmails = 'Campaign-EmailsList';
-
           }
           else {
             for (let datas of this.getdashboard) {
@@ -82,10 +80,12 @@ export class ViewRecordcampaignsComponent {
         }
       }
     });
+    this.Getall();
+  }
+  Getall() {
     this.service.viewrecordcampaigns(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.viewBulk = res.response;
-
         this.dataSource = new MatTableDataSource(this.viewBulk?.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -97,7 +97,6 @@ export class ViewRecordcampaignsComponent {
         this.dataSource.paginator = this.paginator;
       }
     });
-
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -106,14 +105,15 @@ export class ViewRecordcampaignsComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  };
+
+  close() {
+    this.location.back()
   }
-  reload() {
-    window.location.reload();
-  }
+
   responseDownload(uploadId: any) {
     this.service.viewresponsecampaigns(uploadId).subscribe((res: any) => {
       this.responseData = res.response.data;
-
       if (res.flag == 1) {
         let sno = 1;
         this.responseExcelData = [];
@@ -134,17 +134,12 @@ export class ViewRecordcampaignsComponent {
 
   responseExcel() {
     const header = ['S.No', 'Email Address', 'Remarks'];
-
     const data = this.responseExcelData;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Email-Details');
-
     worksheet.addRow([]);
-
     let headerRow = worksheet.addRow(header);
-
     headerRow.font = { bold: true };
-
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
@@ -160,17 +155,11 @@ export class ViewRecordcampaignsComponent {
         right: { style: 'thin' },
       };
     });
-
     data.forEach((d: any) => {
-      //
-
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
       let qty2 = row.getCell(3);
-      // let qty3 = row.getCell(4);
-
-
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -189,24 +178,13 @@ export class ViewRecordcampaignsComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-      // qty3.border = {
-      //   top: { style: 'thin' },
-      //   left: { style: 'thin' },
-      //   bottom: { style: 'thin' },
-      //   right: { style: 'thin' },
-      // };
-
     });
-
     workbook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
-
       FileSaver.saveAs(blob, 'Email-Details.csv');
     });
   }
-  close() {
-    this.location.back()
-  }
+
 }

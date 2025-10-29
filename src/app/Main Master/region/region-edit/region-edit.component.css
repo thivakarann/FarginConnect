@@ -8,12 +8,12 @@ button {
   font: inherit;
 }
 
-a .page {
+.page {
+
   background-color: #fff;
   display: grid;
   grid-template-areas: "main";
   height: auto;
-  width: 500px;
   font-family: var(--font-sans);
 }
 
@@ -35,7 +35,7 @@ a .page {
 .form {
   background-color: #fff;
   display: grid;
-  width: 100%;
+  width:400px;
   max-width: 100%;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -71,8 +71,6 @@ a .page {
   margin-right: auto;
 }
 
-
-
 .flex {
   display: flex;
   justify-content: space-between;
@@ -82,7 +80,6 @@ a .page {
 .submit,
 .cancel {
   border: none;
-  border-radius: var(--radius-2);
   padding: 0.5em 1em;
   font-size: 1rem;
   cursor: pointer;
@@ -111,9 +108,11 @@ a .page {
   .main__form {
     padding: 10px;
   }
+
   .form {
     padding: 10px;
   }
+
   .submit,
   .cancel {
     padding: 0.5em 1em;
@@ -131,4 +130,8 @@ a .page {
   background-color: #bcdf72;
   color: #141E46;
   font-family: "Roboto";
+}
+
+mat-select {
+  width: 460px;
 }

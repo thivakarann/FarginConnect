@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import moment from 'moment';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-kycedit',
@@ -35,7 +36,7 @@ export class EntityKyceditComponent implements OnInit {
   DrivingDob: any;
   PassportDob: any;
   eighteenYearsAgo: Date;
-  getadminname: any = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   Hidden: boolean = false;
   Hidden2: boolean = false;
@@ -52,6 +53,7 @@ export class EntityKyceditComponent implements OnInit {
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder
@@ -441,7 +443,7 @@ export class EntityKyceditComponent implements OnInit {
     const formData = new FormData;
     formData.append('identityProof', this.identityProof.value);
     formData.append('proofId', this.proofId);
-    formData.append('modifiedBy', this.getadminname);
+    formData.append('modifiedBy', this.adminName);
     formData.append('identityProofNo', this.identityProofNo.value);
     formData.append('drivingLicenceDob', this.drivingLicenceDob.value || this.DrivingDob);
     formData.append('passportDob', this.passportDob.value || this.PassportDob);
@@ -466,7 +468,7 @@ export class EntityKyceditComponent implements OnInit {
     const formData = new FormData;
     formData.append('addressProof', this.addressProof.value);
     formData.append('proofId', this.proofId);
-    formData.append('addressModifiedBy', this.getadminname);
+    formData.append('addressModifiedBy', this.adminName);
     formData.append('addressProofNo', this.addressProofNo.value);
     formData.append('drivingLicenceDob', this.drivingLicenceDobs.value || this.DrivingDob);
     formData.append('passportDob', this.passportDobs.value || this.PassportDob);
@@ -491,7 +493,7 @@ export class EntityKyceditComponent implements OnInit {
     const formData = new FormData;
     formData.append('signatureProof', this.signatureProof.value);
     formData.append('proofId', this.proofId);
-    formData.append('signatureModifiedBy', this.getadminname);
+    formData.append('signatureModifiedBy', this.adminName);
     formData.append('signatureProofNo', this.signatureProofNo.value);
     formData.append('drivingLicenceDob', this.drivingLicenceDobss.value || this.DrivingDob);
     formData.append('passportDob', this.passportDobss.value || this.PassportDob);

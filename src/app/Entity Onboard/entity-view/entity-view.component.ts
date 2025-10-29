@@ -66,6 +66,7 @@ import { AddWhatsappServiceComponent } from '../Whatapp Service/add-whatsapp-ser
 import { WhatsappMessDescriptionComponent } from '../Whatapp Service/whatsapp-mess-description/whatsapp-mess-description.component';
 import { WhatsappApprovalComponent } from '../Whatapp Service/whatsapp-approval/whatsapp-approval.component';
 import { UpdatewhatsappServiceComponent } from '../Whatapp Service/updatewhatsapp-service/updatewhatsapp-service.component';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-view',
@@ -73,8 +74,9 @@ import { UpdatewhatsappServiceComponent } from '../Whatapp Service/updatewhatsap
   styleUrl: './entity-view.component.css',
 })
 export class EntityViewComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   id: any;
   details: any;
@@ -146,7 +148,7 @@ export class EntityViewComponent implements OnInit {
   merchantpayid: any;
   id2: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valueentitytransaction: any;
@@ -216,7 +218,7 @@ export class EntityViewComponent implements OnInit {
   valuewhatsappapproval: any;
   valuesmsstatus: any;
   valuewhatsappstatus: any;
-  valuewhatsappeditHistory:any;
+  valuewhatsappeditHistory: any;
   valuesmsview: any;
   valuesmsedit: any;
   valuewhatsappedit: any;
@@ -233,6 +235,8 @@ export class EntityViewComponent implements OnInit {
   valueagreementAgreement: any;
   valueagreementAgreementSigned: any;
   valueagreementlinkdate: any;
+  valueagreementStatus: any;
+  valueagreementResend: any;
   valueagreementlinkstatus: any;
   valueagreementlink: any;
   valueagreement: any;
@@ -275,7 +279,9 @@ export class EntityViewComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private ActivateRoute: ActivatedRoute
+    private ActivateRoute: ActivatedRoute,
+    private cryptoService: EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {
@@ -337,6 +343,8 @@ export class EntityViewComponent implements OnInit {
             this.valueagreementAgreement = 'Entity View Agreement-Agreement';
             this.valueagreementAgreementSigned = 'Entity View Agreement-Agreement Signed Copy';
             this.valueagreementlinkdate = 'Entity View Agreement-Link Expiry Date';
+            this.valueagreementStatus = 'Entity View Agreement-Check Status';
+            this.valueagreementResend = 'Entity View Agreement-Resend Link';
             this.valueagreementlinkstatus = 'Entity View Agreement-Link Expiry Status';
             this.valueagreementlink = 'Entity View Agreement-Entity Agreement Link';
             this.valuebranchcreate = 'Entity View Branch-Add';
@@ -385,7 +393,7 @@ export class EntityViewComponent implements OnInit {
               if (this.actions == 'Sms Setting-View') {
                 this.valuesmsview = 'Sms Setting-View';
               }
-                if (this.actions == 'WhatsApp Setting-Action-History') {
+              if (this.actions == 'WhatsApp Setting-Action-History') {
                 this.valuewhatsappeditHistory = 'WhatsApp Setting-Action-History';
               }
               if (this.actions == 'Sms Setting-Status') {
@@ -516,6 +524,12 @@ export class EntityViewComponent implements OnInit {
               }
               if (this.actions == 'Entity View Agreement-Add') {
                 this.valueagreementcreate = 'Entity View Agreement-Add';
+              }
+              if (this.actions == 'Entity View Agreement-Check Status') {
+                this.valueagreementStatus = 'Entity View Agreement-Check Status';
+              }
+              if (this.actions == 'Entity View Agreement-Resend Link') {
+                this.valueagreementResend = 'Entity View Agreement-Resend Link';
               }
               if (this.actions == 'Entity View Agreement-Plan Overview') {
                 this.valueagreementView = 'Entity View Agreement-Plan Overview';
@@ -1297,6 +1311,38 @@ export class EntityViewComponent implements OnInit {
     );
   };
 
+  AgrrementCheckStatus(id: any) {
+    this.MerchantView.AgreementCheckStatus(id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
+            this.agreementdetails = res.response.reverse();
+          });
+        }, 500);
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    })
+  }
+
+  AgrrementSLink(id: any) {
+    this.MerchantView.AgrementLinkSend(id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
+            this.agreementdetails = res.response.reverse();
+          });
+        }, 500);
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    })
+  }
+
 
   Entitybanksearch(id: any, filterValue: string) {
     if (!filterValue) {
@@ -1656,7 +1702,7 @@ export class EntityViewComponent implements OnInit {
       let submitModel: verify = {
         kycId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
 
       this.MerchantView.panVerifysIdentity(submitModel).subscribe(
@@ -1732,7 +1778,7 @@ export class EntityViewComponent implements OnInit {
       let submitModel: Pasportverify = {
         kycId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
         dateOfBirth: id4,
       };
       this.MerchantView.passportVerifyIdentity(submitModel).subscribe(
@@ -1772,7 +1818,7 @@ export class EntityViewComponent implements OnInit {
       let submitModel: verify = {
         kycId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.MerchantView.cinVerifyIdentity(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -1792,7 +1838,7 @@ export class EntityViewComponent implements OnInit {
       let submitModel: verify = {
         kycId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
 
       this.MerchantView.panverifyAddress(submitModel).subscribe((res: any) => {
@@ -1866,7 +1912,7 @@ export class EntityViewComponent implements OnInit {
       let submitModel: Pasportverify = {
         kycId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
         dateOfBirth: id4,
       };
       this.MerchantView.passportVerifyAddress(submitModel).subscribe(
@@ -1906,7 +1952,7 @@ export class EntityViewComponent implements OnInit {
       let submitModel: verify = {
         kycId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.MerchantView.cinVerifyAddress(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -1926,7 +1972,7 @@ export class EntityViewComponent implements OnInit {
       let submitModel: verify = {
         kycId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
 
       this.MerchantView.panverifysignature(submitModel).subscribe(
@@ -2004,7 +2050,7 @@ export class EntityViewComponent implements OnInit {
       let submitModel: Pasportverify = {
         kycId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
         dateOfBirth: id4,
       };
       this.MerchantView.passportVerifySignature(submitModel).subscribe(
@@ -2044,7 +2090,7 @@ export class EntityViewComponent implements OnInit {
       let submitModel: verify = {
         kycId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.MerchantView.cinverifySignature(submitModel).subscribe(
         (res: any) => {
@@ -2169,7 +2215,7 @@ export class EntityViewComponent implements OnInit {
     this.isChecked = event.checked;
     let submitModel: SmsStatus = {
       smsStatus: this.isChecked ? 1 : 0,
-      modifedBy: this.getadminname,
+      modifedBy: this.adminName,
     };
     this.MerchantView.smsStatus(this.merchantsmsId, submitModel).subscribe(
       (res: any) => {

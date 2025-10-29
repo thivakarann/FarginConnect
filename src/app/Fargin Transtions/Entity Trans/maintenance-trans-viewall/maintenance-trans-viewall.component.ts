@@ -15,6 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Manuvelduesforcloudfee } from '../../../Fargin Model/fargin-model/fargin-model.module';
 import { Router } from '@angular/router';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 interface Option { entityName: string; merchantId: number; }
 
 @Component({
@@ -71,7 +72,7 @@ export class MaintenanceTransViewallComponent {
   valuemaintainexport: any;
   valuemaintainview: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valuemaintainInvoicet: any;
@@ -129,7 +130,7 @@ export class MaintenanceTransViewallComponent {
   currentfilval: any;
   searchPerformed: boolean = false;
 
-  constructor(private router: Router, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
+  constructor(private cryptoService:EncyDecySericeService,private router: Router, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     const today = new Date();

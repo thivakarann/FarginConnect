@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LoaderService } from '../Loader service/loader.service';
 import { FarginServiceService } from '../service/fargin-service.service';
 import moment from 'moment';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-dashboard-merchantcontent',
@@ -26,7 +27,7 @@ export class DashboardMerchantcontentComponent {
   viewcustomersearch: any;
   customerInput: string = '';
   isNoDataFound: boolean = false;
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   getdashboard: any[] = [];
   actions: any;
   errorMessage: any;
@@ -43,6 +44,7 @@ export class DashboardMerchantcontentComponent {
   constructor(
     public loaderService: LoaderService,
     private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
   ) { }
 
 
@@ -189,7 +191,7 @@ export class DashboardMerchantcontentComponent {
     this.service.dashboardemployeecounts(this.merchantId).subscribe((res: any) => {
       this.dashboardemployecount = res.response;
     });
-    this.service.dashbaordcustomerday(this.merchantId,1).subscribe((res: any) => {
+    this.service.dashbaordcustomerday(this.merchantId, 1).subscribe((res: any) => {
       this.customertotal = res.response;
     });
     this.service.dashboardcurrentmonthcustomertransactions(this.merchantId).subscribe((res: any) => {

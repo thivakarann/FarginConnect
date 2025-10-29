@@ -4,61 +4,40 @@
 
 <body class="page">
     <main class="main page__main">
-
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="editbusinesskyc">
-
             <div class="form-group">
                 <label class="form__label" for="message">Business Category</label>
                 <select class="form-select" formControlName="businessCategoryId">
                     <option style="text-align: center;" selected disabled>Select
                     </option>
                     <option style="text-align: center;" *ngFor="let item of categoryName;"
-                        [value]="item.businessCategoryId">
-                        {{item.categoryName}}
+                        [value]="item.businessCategoryId">{{item.categoryName}}
                     </option>
                 </select>
                 <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
-                    *ngIf="businessCategoryId?.touched && businessCategoryId?.errors?.['required']">Please
-                    Choose document*</span>
+                    *ngIf="businessCategoryId?.touched && businessCategoryId?.errors?.['required']">
+                    Please Choose document*
+                </span>
             </div>
-
             <div class="form__linput">
                 <label class="form__label" for="fname">Document</label>
-                <!-- <mat-select #select class="form-select" multiple formControlName="kycCategoryId"
-            (ngModelChange)="kycId($event)" [value]="kycCategoryIds">
- 
-            <div class="select-all">
-                <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
-                    (change)="toggleAllSelection()">Select All</mat-checkbox>
-            </div>
- 
-            <mat-option *ngFor="let item of kycValue"
-                [value]="item.kycCategoryId">{{item.kycCategoryName}}</mat-option>
- 
-        </mat-select> -->
                 <select class="form-select" formControlName="kycCategoryId">
-                    <option style="text-align: center;" selected disabled>---Select--
-                    </option>
+                    <option style="text-align: center;" selected disabled>Select</option>
                     <option style="text-align: center;" *ngFor="let item of kycValue;" [value]="item.kycCategoryId">
                         {{item.kycCategoryName}}
                     </option>
                 </select>
-
                 <div style="color: red; font-size : 12px;margin-top: 2px;"
                     *ngIf="kycCategoryId?.invalid && kycCategoryId?.touched && kycCategoryId?.errors?.['required']">
                     Field is required
                 </div>
             </div>
-
-            <!-- <button class="primary-btn form__btn" type="submit">Submit</button> -->
             <div class="mt-3">
                 <button style="background-color: #7db855be" type="submit" class="submit" class="btn mx-1"
                     [disabled]="editbusinesskyc.invalid" (click)="Editsubmit()">Submit</button>
                 <button class="btn" style="background-color: #141e46; color: white" type="submit"
                     matDialogClose>Cancel</button>
             </div>
-
-
         </form>
     </main>
 </body>

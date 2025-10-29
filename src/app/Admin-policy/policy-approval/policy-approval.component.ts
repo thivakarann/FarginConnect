@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { policyApproval } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-policy-approval',
@@ -11,7 +12,7 @@ import { policyApproval } from '../../fargin-model/fargin-model.module';
   styleUrl: './policy-approval.component.css'
 })
 export class PolicyApprovalComponent {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   myForm!: FormGroup;
   id: any;
   approval: any;
@@ -20,6 +21,7 @@ export class PolicyApprovalComponent {
   constructor(private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toaster: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog,
   ) { }
 
@@ -38,7 +40,7 @@ export class PolicyApprovalComponent {
   submit() {
     let submitModel: policyApproval = {
       approvedStatus: this.approvalStatus?.value,
-      approvedBy: this.getadminname,
+      approvedBy: this.adminName,
     };
     this.service.ApprovalForPolicy(this.id, submitModel).subscribe((res: any) => {
       if (res.flag === 1) {

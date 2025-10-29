@@ -12,6 +12,7 @@ import moment from 'moment';
 import { Workbook } from 'exceljs';
 import { broadcasterstatus } from '../../../fargin-model/fargin-model.module';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-bouquatename-viewall',
@@ -44,7 +45,7 @@ export class BouquatenameViewallComponent implements OnInit {
   valuebroadcastStatus: any;
   valuebroadcastEdit: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   searchPerformed: boolean = false;
@@ -53,6 +54,7 @@ export class BouquatenameViewallComponent implements OnInit {
     public boardcasternameviewall: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {

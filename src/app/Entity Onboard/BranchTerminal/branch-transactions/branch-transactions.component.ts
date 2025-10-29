@@ -10,6 +10,7 @@ import moment from 'moment';
 import { Branchtransaction } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-branch-transactions',
@@ -52,7 +53,7 @@ export class BranchTransactionsComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   accountId: any = sessionStorage.getItem('accountId');
   searchPerformed: boolean = false;
   actions: any;
@@ -73,6 +74,8 @@ export class BranchTransactionsComponent {
     private ActivateRoute: ActivatedRoute,
     private location: Location,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

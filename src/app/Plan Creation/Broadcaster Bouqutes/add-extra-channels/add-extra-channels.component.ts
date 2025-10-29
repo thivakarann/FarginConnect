@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AddExtraChannels } from '../../../fargin-model/fargin-model.module';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-add-extra-channels',
@@ -14,8 +15,9 @@ import { ToastrService } from 'ngx-toastr';
 export class AddExtraChannelsComponent implements OnInit {
   id: any;
   channelslist: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
@@ -26,6 +28,7 @@ export class AddExtraChannelsComponent implements OnInit {
     public AddExtra: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService,
 
   ) { }

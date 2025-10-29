@@ -15,7 +15,7 @@ import {
   styleUrl: './editbeneficiary.component.css',
 })
 export class EditbeneficiaryComponent {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   beneficiaryFormGroup: any = FormGroup;
   upiFormGroup: any = FormGroup;
   data: any;

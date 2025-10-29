@@ -12,6 +12,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { RegionAddComponent } from './region-add/region-add.component';
 import { RegionEditComponent } from './region-edit/region-edit.component';
 import { RegionStatus } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-region',
@@ -48,7 +49,7 @@ export class RegionComponent implements OnInit {
   regionStatus: any;
   regionEdit: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   searchPerformed: boolean = false;
@@ -56,7 +57,9 @@ export class RegionComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
+
   ) { }
 
   ngOnInit() {

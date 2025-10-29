@@ -1,54 +1,48 @@
 <div class="container" style="padding: 0;">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0" >Update PG Setup-key</h5>
-
+        <h5 class="mb-0">Update PG Setup-key</h5>
     </div>
 
-
-<body class="page">
-    <main class="main page__main">
-        <form class="form main__form" autocomplete="off" role="form" [formGroup]="pgsetupformedit">
-        
-
-            <div class="form__grid">
-                <div class="form__linput">
-                    <label class="form__label" for="pgMode">PG Mode</label>
-                    <!-- <input class="form__input" id="pgMode" type="text" formControlName="pgMode" placeholder="Enter PG mode..." required/> -->
-                    <select class="form-select" formControlName="pgMode">
-                       
-                        <option value="Live">Live</option>
-                        <option value="Test">Test</option>
- 
-                    </select>
-                    <div class="form__error" *ngIf="pgMode?.invalid && pgMode?.touched && pgMode?.errors?.['required']">
-                        Field is required
+    <body class="page">
+        <main class="main page__main">
+            <form class="form main__form" autocomplete="off" role="form" [formGroup]="pgsetupformedit">
+                <div class="form__grid">
+                    <div class="form__linput">
+                        <label class="form__label" for="pgMode">PG Mode</label>
+                        <select class="form-select" formControlName="pgMode">
+                            <option value="Live">Live</option>
+                            <option value="Test">Test</option>
+                        </select>
+                        <div class="form__error"
+                            *ngIf="pgMode?.invalid && pgMode?.touched && pgMode?.errors?.['required']">
+                            Field is required
+                        </div>
+                    </div>
+                    <div class="form__linput">
+                        <label class="form__label" for="apiKey">API Key</label>
+                        <input class="form__input form-control" id="apiKey" type="text" formControlName="apiKey"
+                            required />
+                        <div class="form__error"
+                            *ngIf="apiKey?.invalid && apiKey?.touched && apiKey?.errors?.['required']">
+                            Field is required
+                        </div>
+                    </div>
+                    <div class="form__linput">
+                        <label class="form__label" for="secretKey ">Secret Key</label>
+                        <input class="form__input form-control" id="secretKey " type="text" formControlName="secretKey"
+                            required />
+                        <div class="form__error"
+                            *ngIf="secretKey ?.invalid && secretKey?.touched && secretKey ?.errors?.['required']">
+                            Field is required
+                        </div>
                     </div>
                 </div>
-
-                <div class="form__linput">
-                    <label class="form__label" for="apiKey">API Key</label>
-                    <input class="form__input form-control" id="apiKey" type="text" formControlName="apiKey"  required/>
-                    <div class="form__error" *ngIf="apiKey?.invalid && apiKey?.touched && apiKey?.errors?.['required']">
-                        Field is required
-                    </div>
+                <div class="mt-3">
+                    <button [disabled]="pgsetupformedit.invalid" type="submit" class="btn "
+                        style="background-color:#7db855be" (click)="submit()">Submit</button>
+                    <button type="submit" class="cancel" matDialogClose class="btn mx-2"
+                        style="background-color:#141E46;color:white">Cancel</button>
                 </div>
-
-                <div class="form__linput">
-                    <label class="form__label" for="secretKey ">Secret Key</label>
-                    <input class="form__input form-control" id="secretKey " type="text" formControlName="secretKey"  required/>
-                    <div class="form__error" *ngIf="secretKey ?.invalid && secretKey?.touched && secretKey ?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-
-              
-            </div>
-
-            <div class="mt-3">
-                <button [disabled]="pgsetupformedit.invalid" type="submit" class="btn " style="background-color:#7db855be"
-                 (click)="submit()">Submit</button> 
-                <button  type="submit" class="cancel" matDialogClose class="btn mx-2" style="background-color:#141E46;color:white" >Cancel</button>
-            </div>
-        </form>
-    </main>
-</body>
+            </form>
+        </main>
+    </body>

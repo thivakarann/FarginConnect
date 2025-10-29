@@ -5,14 +5,15 @@ import { ToastrService } from 'ngx-toastr';
 import { ChangePassword } from '../fargin-model/fargin-model.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrl: './change-password.component.css'
+  styleUrl: './change-password.component.css',
 })
 export class ChangePasswordComponent implements OnInit {
-  confirmPassword: any
+  confirmPassword: any;
   error: any;
   showPassword = false;
   showPassword1 = false;
@@ -21,20 +22,30 @@ export class ChangePasswordComponent implements OnInit {
   isConformPassword: boolean = false;
   isPasswordMatch: boolean = false;
   changeForm!: FormGroup;
-  adminId: any = sessionStorage.getItem('adminid');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
   constructor(
     private router: Router,
     private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService,
-    private dialog:MatDialog
+    private dialog: MatDialog
   ) { }
   ngOnInit(): void {
     this.changeForm = new FormGroup({
       oldpassword: new FormControl('', [Validators.required]),
-      newpassword: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$#^!%*?&])[A-Za-z\d$@$#^!%*?&].{7,}')]),
-      confirmpassword: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$#^!%*?&])[A-Za-z\d$@$#^!%*?&].{7,}')]),
-    })
-
+      newpassword: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$#^!%*?&])[A-Za-zd$@$#^!%*?&].{7,}'
+        ),
+      ]),
+      confirmpassword: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$#^!%*?&])[A-Za-zd$@$#^!%*?&].{7,}'
+        ),
+      ]),
+    });
   }
   get oldpassword() {
     return this.changeForm.get('oldpassword');
@@ -45,37 +56,30 @@ export class ChangePasswordComponent implements OnInit {
   get confirmpassword() {
     return this.changeForm.get('confirmpassword');
   }
-  // checkConform(passwordInput1: string, passwordInput2: string) {
-  //   this.isConformPassword = true;
-  //   if (passwordInput1 == passwordInput2) {
-  //     this.isPasswordMatch = true;
-  //     this.error = "Going good!!";
-  //   } else {
-  //     this.isPasswordMatch = false;
-  //     this.error = "Password Mismatch";
-  //   }
-  // }
-    checkConform(passwordInput1: string, passwordInput2: string) {
-  if (passwordInput1 && passwordInput2) {
-    this.isPasswordMatch = passwordInput1 === passwordInput2;
-    this.error = this.isPasswordMatch ? "Going good!!" : "Password Mismatch";
-  } else {
-    this.error = "";
-  }
-}
 
-  togglePasswordVisibility(passwordInput: { type: string; }) {
+  checkConform(passwordInput1: string, passwordInput2: string) {
+    if (passwordInput1 && passwordInput2) {
+      this.isPasswordMatch = passwordInput1 === passwordInput2;
+      this.error = this.isPasswordMatch ? 'Going good!!' : 'Password Mismatch';
+    } else {
+      this.error = '';
+    }
+  }
+
+  togglePasswordVisibility(passwordInput: { type: string }) {
     this.showPassword = !this.showPassword;
     passwordInput.type = this.showPassword ? 'text' : 'password';
   }
-  togglePasswordVisibility1(passwordInput1: { type: string; }) {
+  togglePasswordVisibility1(passwordInput1: { type: string }) {
     this.showPassword1 = !this.showPassword1;
     passwordInput1.type = this.showPassword1 ? 'text' : 'password';
   }
-  togglePasswordVisibility2(passwordInput2: { type: string; }) {
+  togglePasswordVisibility2(passwordInput2: { type: string }) {
     this.showPassword2 = !this.showPassword2;
     passwordInput2.type = this.showPassword2 ? 'text' : 'password';
   }
+
+
   Onsubmit() {
     let submitModel: ChangePassword = {
       userPassword: this.oldpassword?.value,
@@ -86,12 +90,9 @@ export class ChangePasswordComponent implements OnInit {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
         this.router.navigateByUrl('/login-page');
-      }
-      else {
+      } else {
         this.toastr.error(res.responseMessage);
       }
     });
   }
 }
-
-

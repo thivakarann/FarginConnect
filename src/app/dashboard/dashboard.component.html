@@ -45,7 +45,7 @@
 
             <li class="header-menu"><span></span></li>
 
-            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueEntityDashboard !=='Entity Dashboard'">
+            <li class="sidebar-dropdown" style="cursor: pointer;">
               <a>
                 <i class="fa fa-dashboard"></i>
                 <span>Dashboard</span>
@@ -313,7 +313,6 @@
            valuepgsetupkey!=='PG SetupKey' &&
            valueWithdrawalfee!=='Withdrawal Fee' &&
            valueBuisneesDoCument!=='Business Document Type' &&
-           valueBusinessPlan!=='Business Plan' &&
            valuerefundper!=='Refund Period' &&
            valueSignerDetails!=='Signer Details' && valuestickercost!=='Sticker Cost'  && valuebankdetails!=='Bank Details' && valuesmscost!=='SMS Cost' && valuemerchantPlan!=='Entity Plan'">
               <a>
@@ -342,13 +341,13 @@
                     <a routerLink="merchant-plan-viewall">Entity Plan</a>
                   </li>
 
-                  <li [hidden]="valueBusinessPlan!=='Business Plan'">
+                  <!-- <li [hidden]="valueBusinessPlan!=='Business Plan'">
                     <a routerLink="agreementplan">Business Plan</a>
-                  </li>
+                  </li> -->
                   <li [hidden]="valueehatsapp!=='WhatsappVendors'">
                     <a routerLink="vendors-viewall">WhatsApp Vendors</a>
                   </li>
-                  
+
                   <li [hidden]="valuesmscost!=='SMS Cost'">
                     <a routerLink="sms-cost-viewall">SMS Cost</a>
                   </li>

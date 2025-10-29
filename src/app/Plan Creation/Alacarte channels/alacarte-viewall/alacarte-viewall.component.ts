@@ -12,6 +12,7 @@ import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { AlacarteUploadbulkComponent } from '../alacarte-uploadbulk/alacarte-uploadbulk.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-alacarte-viewall',
@@ -51,7 +52,7 @@ export class AlacarteViewallComponent implements OnInit {
   valuealcartView: any;
   valuealcartEdit: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   responseDataListnew: any = [];
@@ -80,7 +81,8 @@ export class AlacarteViewallComponent implements OnInit {
     public AllcartViewall: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
   ) { }
   ngOnInit(): void {
     this.AllcartViewall.rolegetById(this.roleId).subscribe({

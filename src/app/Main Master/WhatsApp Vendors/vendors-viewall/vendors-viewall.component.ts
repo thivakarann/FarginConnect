@@ -12,6 +12,7 @@ import { VendorStatus } from '../../../fargin-model/fargin-model.module';
 import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-vendors-viewall',
@@ -52,7 +53,7 @@ export class VendorsViewallComponent implements OnInit {
   valuebankedit: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   valuetermViews: any;
   searchPerformed: boolean = false;
@@ -61,7 +62,8 @@ export class VendorsViewallComponent implements OnInit {
   constructor(
     public Vendordetails: FarginServiceService,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
   ) { }
   ngOnInit(): void {
     this.Getall();

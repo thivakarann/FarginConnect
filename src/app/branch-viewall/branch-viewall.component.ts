@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { BranchIndividualviewComponent } from '../branch-individualview/branch-individualview.component';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-branch-viewall',
@@ -17,7 +18,7 @@ export class BranchViewallComponent {
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   displayedColumns: string[] = [
     'sno',
     'merchantLegalName',
@@ -58,7 +59,9 @@ export class BranchViewallComponent {
     private service: FarginServiceService,
     private dialog: MatDialog,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

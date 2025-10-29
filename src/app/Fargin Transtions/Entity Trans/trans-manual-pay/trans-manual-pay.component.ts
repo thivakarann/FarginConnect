@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Console } from 'console';
 import { subsmanualpay } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-trans-manual-pay',
@@ -30,12 +31,13 @@ export class TransManualPayComponent implements OnInit {
   resendOtp: boolean = false;
   displayTimer: boolean = true;
   display!: string;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private router: Router,
     private ActivateRoute: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -84,7 +86,7 @@ export class TransManualPayComponent implements OnInit {
       paymentMode: this.paymentMode?.value,
       technicalPayStatus: 'Success',
       utrNumber: this.utrNumber?.value.trim() || '-',
-      updatedBy: this.createdBy,
+      updatedBy: this.adminName,
     };
 
     this.service.ManualPay(id, submitModel).subscribe((res: any) => {

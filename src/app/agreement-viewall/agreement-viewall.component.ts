@@ -8,6 +8,7 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { FarginServiceService } from '../service/fargin-service.service';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-agreement-viewall',
@@ -16,7 +17,7 @@ import { FarginServiceService } from '../service/fargin-service.service';
 })
 export class AgreementViewallComponent {
   strings = '@';
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -25,13 +26,18 @@ export class AgreementViewallComponent {
   displayedColumns: string[] = [
     'sno',
     'entityname',
-    'planname',
-    'agreementLink',
-    'servicefee',
-    'planoverview',
-    'agreement',
+    // 'planname',
+    // 'agreementLink',
+    // 'servicefee',
+    // 'planoverview',
+    'merchantName',
+    'merchantDesignation',
+    'stampAmount',
+    'considerationAmount',
+    'facheckEstampSatus',
     'farginsignerstatus',
     'entitysignerstatus',
+    'agreement',
     'signedcopy',
     'createdat',
     'createdby',
@@ -58,7 +64,9 @@ export class AgreementViewallComponent {
 
   constructor(
     private service: FarginServiceService,
-    private router: Router
+    private router: Router,
+    private cryptoService: EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {
@@ -196,26 +204,29 @@ export class AgreementViewallComponent {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.entityName);
-      this.response.push(element?.planName);
-      this.response.push(element?.serviceFee);
+      this.response.push(element?.merchantName);
+      this.response.push(element?.merchantDesignation);
+      this.response.push(element?.stampAmount);
+      this.response.push(element?.considerationAmount);
+      this.response.push(element?.facheckEstampSatus);
+      if (element?.adminAgreementStatus == 'PENDING') {
+        this.response.push('Not Signed');
+      } else {
+        this.response.push('Signed');
+      }
+      if (element?.merchantAgreementStatus == 'PENDING') {
+        this.response.push('Not Signed');
+      } else {
+        this.response.push('Signed');
+      }
+      this.response.push(element?.createdBy);
 
-      if (element?.adminOtpStatus == 0) {
-        this.response.push('Not Signed');
-      } else {
-        this.response.push('Signed');
-      }
-      if (element?.merchanOtptStatus == 0) {
-        this.response.push('Not Signed');
-      } else {
-        this.response.push('Signed');
-      }
       if (element.createdDateTime) {
         this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
       }
       else {
         this.response.push('');
       }
-      this.response.push(element?.createdBy);
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -226,12 +237,16 @@ export class AgreementViewallComponent {
     const header = [
       'S.No',
       'Entity Name',
-      'Plan Name',
-      'Service Fee',
+      'Signer Name',
+      'Signer Designation',
+      'Stamp Amount',
+      'Consideration Amount',
+      'Facheck E-Stamp Status',
       'Fargin Signer Status',
       'Entity Signer Status',
-      'Created At',
       'Created By',
+      'Created At',
+
     ];
 
     const data = this.responseDataListnew;
@@ -267,6 +282,9 @@ export class AgreementViewallComponent {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
+      let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
 
       qty.border = {
         top: { style: 'thin' },
@@ -311,6 +329,24 @@ export class AgreementViewallComponent {
         right: { style: 'thin' },
       };
       qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty9.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty10.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
         bottom: { style: 'thin' },

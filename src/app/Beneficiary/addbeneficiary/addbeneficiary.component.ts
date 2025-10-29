@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Addbeneficiary } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-addbeneficiary',
@@ -12,7 +13,7 @@ import { Addbeneficiary } from '../../fargin-model/fargin-model.module';
   styleUrl: './addbeneficiary.component.css'
 })
 export class AddbeneficiaryComponent {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   beneficiaryFormGroup: any = FormGroup;
   upiFormGroup: any = FormGroup;
   data: number = 1;
@@ -31,6 +32,7 @@ export class AddbeneficiaryComponent {
     private service: FarginServiceService,
     private router: Router,
     private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
     private toastr: ToastrService
   ) {}
 
@@ -190,7 +192,7 @@ export class AddbeneficiaryComponent {
         ifscCode:  this.beneficiaryFormGroup.get('ifscCode')?.value,
         accountType:  this.beneficiaryFormGroup.get('accountType')?.value,
         mobileNumber:  this.beneficiaryFormGroup.get('mobileNumber')?.value,
-        createdBy: this.getadminname,
+        createdBy: this.adminName,
         branchName:  this.beneficiaryFormGroup.get('branchName')?.value,
         upiName:  this.beneficiaryFormGroup.get('upiName')?.value,
         type:  this.beneficiaryFormGroup.get('type')?.value,
@@ -205,7 +207,7 @@ export class AddbeneficiaryComponent {
         ifscCode:  this.upiFormGroup.get('ifscCode')?.value,
         accountType:  this.upiFormGroup.get('accountType')?.value,
         mobileNumber:  this.upiFormGroup.get('mobile')?.value,
-        createdBy:  this.getadminname,
+        createdBy:  this.adminName,
         branchName:  this.upiFormGroup.get('branchName')?.value,
         upiName:  this.upiFormGroup.get('upiName')?.value,
         type:  this.upiFormGroup.get('types')?.value,

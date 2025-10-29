@@ -199,13 +199,14 @@ mat-card-content tr:nth-child(odd) {
     transform: scale(1);
     transition: 0s;
 }
+
 .example-container {
     max-height: 277px;
     height: 100%;
     overflow: auto;
     scrollbar-width: auto;
-  }
-  
-  table {
+}
+
+table {
     width: 100%;
-  }
+}

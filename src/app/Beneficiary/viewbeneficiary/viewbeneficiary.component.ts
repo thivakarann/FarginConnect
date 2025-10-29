@@ -10,6 +10,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import { Statusbeneficiary } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-viewbeneficiary',
@@ -50,7 +51,8 @@ export class ViewbeneficiaryComponent {
   valuepayoutStatus: any;
   valuepayoutEdit: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+
   actions: any;
   errorMessage: any;
 
@@ -58,41 +60,43 @@ export class ViewbeneficiaryComponent {
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
   ngOnInit(): void {
 
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-          
+
           if (this.roleId == 1) {
             this.valuepayoutCreate = 'Payout-Add';
-            this.valuepayoutExport='Payout-Export';
-            this.valuepayoutEdit='Payout-Edit';
-            this.valuepayoutStatus='Payout-Status'
+            this.valuepayoutExport = 'Payout-Export';
+            this.valuepayoutEdit = 'Payout-Edit';
+            this.valuepayoutStatus = 'Payout-Status'
           }
           else {
             for (let datas of this.getdashboard) {
 
               this.actions = datas.subPermissions;
-              
+
 
               if (this.actions == 'Payout-Add') {
                 this.valuepayoutCreate = 'Payout-Add';
               }
-              if(this.actions=='Payout-Export'){
-                this.valuepayoutExport='Payout-Export'
+              if (this.actions == 'Payout-Export') {
+                this.valuepayoutExport = 'Payout-Export'
               }
-              if(this.actions=='Payout-Edit'){
-                this.valuepayoutEdit='Payout-Edit'
+              if (this.actions == 'Payout-Edit') {
+                this.valuepayoutEdit = 'Payout-Edit'
               }
-              if(this.actions=='Payout-Status'){
-                this.valuepayoutStatus='Payout-Status'
+              if (this.actions == 'Payout-Status') {
+                this.valuepayoutStatus = 'Payout-Status'
               }
             }
           }
@@ -119,11 +123,11 @@ export class ViewbeneficiaryComponent {
         this.showcategoryData = true;
       }
     });
- 
+
 
   }
 
-  reload(){
+  reload() {
     window.location.reload()
   }
 
@@ -262,7 +266,7 @@ export class ViewbeneficiaryComponent {
     this.router.navigate([`dashboard/edit-beneficiary/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
@@ -272,7 +276,7 @@ export class ViewbeneficiaryComponent {
     };
 
     this.service.statusbeneficiarys(id, submitModel).subscribe((res: any) => {
-      
+
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();

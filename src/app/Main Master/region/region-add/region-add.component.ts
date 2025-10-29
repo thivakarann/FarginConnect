@@ -6,6 +6,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatOption, MatSelect } from '@angular/material/select';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-region-add',
@@ -14,8 +15,9 @@ import { MatOption, MatSelect } from '@angular/material/select';
 })
 export class RegionAddComponent implements OnInit {
 
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
   regioncreate: any = FormGroup;
@@ -66,6 +68,7 @@ export class RegionAddComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
+    private cryptoService:EncyDecySericeService,
     private toastr: ToastrService,
   ) { }
 
@@ -100,7 +103,7 @@ export class RegionAddComponent implements OnInit {
   RegionCreate() {
     const submitModel = this.selectedStates.map((stateName) => ({
       stateName: stateName, // Use the state name directly
-      createdBy: this.getadminname, // Keep createdBy as is
+      createdBy: this.adminName, // Keep createdBy as is
       serviceId: this.serviceId.value, // Adjust if you have different logic for serviceId
     }));
     this.service.RegionCreate(submitModel).subscribe((res: any) => {

@@ -19,61 +19,31 @@
                     *ngIf="businessCategoryId?.touched && businessCategoryId?.errors?.['required']">Field is
                     Required</span>
             </div>
-
             <div class="form__linput">
-                <label class="form__label" >Announcement</label>
-                <textarea class="form-control"  type="text" formControlName="announcementContentEnglish" 
-                   required ></textarea>
+                <label class="form__label">Announcement</label>
+                <textarea class="form-control" type="text" formControlName="announcementContentEnglish"
+                    required></textarea>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="announcementContentEnglish?.invalid && announcementContentEnglish?.touched && announcementContentEnglish?.errors?.['required']">
                     Field is required
                 </div>
             </div>
-
-            <!-- <div class="form__linput">
-                <label class="form__label" >Start Date</label>
-                <input class="form-control"  type="date" formControlName="startDate" 
-                   required >
+            <div class="form__linput">
+                <label class="form__label">Start Date</label>
+                <input class="form-control" type="date" formControlName="startDate" required [min]="minDate">
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="startDate?.invalid && startDate?.touched && startDate?.errors?.['required']">
                     Field is required
                 </div>
             </div>
-
             <div class="form__linput">
-                <label class="form__label" >End Date</label>
-                <input class="form-control"  type="date" formControlName="endDate" 
-                   required>
+                <label class="form__label">End Date</label>
+                <input class="form-control" type="date" formControlName="endDate" required [min]="startDate.value">
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="endDate?.invalid && endDate?.touched && endDate?.errors?.['required']">
                     Field is required
                 </div>
-            </div> -->
-
-            <div class="form__linput">
-                <label class="form__label" >Start Date</label>
-                <input class="form-control"  type="date" formControlName="startDate"
-                   required  [min]="minDate">
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
-                    *ngIf="startDate?.invalid && startDate?.touched && startDate?.errors?.['required']">
-                    Field is required
-                </div>
             </div>
- 
-            <div class="form__linput">
-                <label class="form__label" >End Date</label>
-                <input class="form-control"  type="date" formControlName="endDate"
-                   required  [min]="startDate.value" >
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
-                    *ngIf="endDate?.invalid && endDate?.touched && endDate?.errors?.['required']">
-                    Field is required
-                </div>
-                <!-- <div *ngIf="announcementform.errors?.dateRangeInvalid" style="color: red;">
-                    End Date must be greater than Start Date.
-                  </div> -->
-            </div>
-
-
             <div class="mt-3">
                 <button (click)="submit()" [disabled]="announcementform.invalid" type="submit" class="btn mx-1"
                     style="background-color: #7db855be">

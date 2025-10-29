@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Refundperiodadd } from '../../../Fargin Model/fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-refund-period-add',
@@ -11,20 +12,20 @@ import { Refundperiodadd } from '../../../Fargin Model/fargin-model/fargin-model
   styleUrl: './refund-period-add.component.css'
 })
 export class RefundPeriodAddComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
-  
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public refunddetailadd: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-
     this.myForm = new FormGroup({
       paymentMethod: new FormControl('', Validators.required),
       day: new FormControl(null, [
@@ -40,23 +41,19 @@ export class RefundPeriodAddComponent implements OnInit {
   }
   get day() {
     return this.myForm.get('day')
-
   }
 
   submit() {
     let submitModel: Refundperiodadd = {
       paymentMethod: this.paymentMethod?.value,
       day: this.day?.value,
-      createdBy: this.getadminname
+      createdBy: this.adminName
     }
-
     this.refunddetailadd.Refundperiodadd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-
-
       }
       else {
         this.toastr.error(res.responseMessage);

@@ -11,6 +11,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { OfflineDetailsComponent } from '../../../Overall-Customer/offline-details/offline-details.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-customers-view',
@@ -56,7 +57,7 @@ export class EntityCustomersViewComponent {
   valuetransreceipt: any;
   valueadditionalinvoice: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   totalPages: any;
@@ -192,7 +193,9 @@ export class EntityCustomersViewComponent {
     private toastr: ToastrService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

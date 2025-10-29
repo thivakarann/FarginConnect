@@ -11,6 +11,7 @@ import { Workbook } from 'exceljs';
 import { DatePipe } from '@angular/common';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-settlement',
@@ -51,7 +52,7 @@ export class EntitySettlementComponent {
   Viewall: any;
   Viewalloffline: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   responseDataListnew: any = [];
   responseDataListnewoffline: any = [];
@@ -103,6 +104,8 @@ export class EntitySettlementComponent {
     private ActivateRoute: ActivatedRoute,
     private Location: Location,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
 
   ) { }
 

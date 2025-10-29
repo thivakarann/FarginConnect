@@ -13,8 +13,9 @@ export class AdminEditComponent implements OnInit {
 
   editadminpolicy!: FormGroup;
   businessCategoryId: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   categorys: any;
   mccCodes: any;
   policyId: any;

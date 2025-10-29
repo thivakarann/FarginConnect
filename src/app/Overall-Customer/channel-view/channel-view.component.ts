@@ -6,6 +6,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-channel-view',
@@ -23,7 +24,7 @@ export class ChannelViewComponent {
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   merchantId = sessionStorage.getItem('merchantId') || '';
   Merchatid: any;
   searchPerformed: boolean = false;
@@ -36,6 +37,8 @@ export class ChannelViewComponent {
   constructor(
     public LCOPChannelList: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private cryptoService:EncyDecySericeService,
+
 
   ) { }
 

@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { SMSCostAdd } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-smscost-add',
@@ -11,8 +12,9 @@ import { SMSCostAdd } from '../../../fargin-model/fargin-model.module';
   styleUrl: './smscost-add.component.css'
 })
 export class SMScostAddComponent {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   minDate: string;
@@ -20,20 +22,15 @@ export class SMScostAddComponent {
   constructor(
     public addsms: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog
   ) {
-    const today = new Date();
-    // today.setDate(today.getDate() + 1);
-    // this.minDate = today.toISOString().split("T")[0];
-
     const now = new Date();
     this.minDate = now.toISOString().split('T')[0];
   }
 
   ngOnInit(): void {
-
     this.myForm = new FormGroup({
-      // amount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')]),
       amount: new FormControl('', [
         Validators.required,
         Validators.pattern('^(0\\.([0-9]{2}|[0-9]{1}))?$')
@@ -53,7 +50,7 @@ export class SMScostAddComponent {
   submit() {
     let submitModel: SMSCostAdd = {
       amount: this.amount?.value.trim(),
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
       effectiveDate: this.effectiveDate?.value
     }
 

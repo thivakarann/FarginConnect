@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Providercreate } from '../../../fargin-model/fargin-model.module';
 import { MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-serviceprovider-add',
@@ -13,12 +14,13 @@ import { MatDialog } from '@angular/material/dialog';
 export class ServiceproviderAddComponent implements OnInit {
   AdminForm!: FormGroup;
   showPassword: boolean = false;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
     private toaster: ToastrService
   ) { }
 
@@ -50,7 +52,7 @@ export class ServiceproviderAddComponent implements OnInit {
     let submitmodel: Providercreate = {
       serviceProviderName: this.providerName?.value.trim(),
       serviceProviderLink: this.serviceProviderLink?.value.trim(),
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
     };
 
     this.service.ServiceProviderCreate(submitmodel).subscribe((res: any) => {

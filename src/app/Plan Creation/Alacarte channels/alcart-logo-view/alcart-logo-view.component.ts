@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-alcart-logo-view',
@@ -11,8 +12,9 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
   styleUrl: './alcart-logo-view.component.css',
 })
 export class AlcartLogoViewComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   file1!: File;
   id: any;
@@ -25,6 +27,7 @@ export class AlcartLogoViewComponent implements OnInit {
   constructor(
     public Viewlogoimage: FarginServiceService,
     private router: Router,
+    private cryptoService:EncyDecySericeService,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog
@@ -90,7 +93,7 @@ export class AlcartLogoViewComponent implements OnInit {
   submit(event: Event) {
     const formData = new FormData();
     formData.append('logo', this.uploadidentityfront);
-    formData.append('modifiedBy', this.getadminname);
+    formData.append('modifiedBy', this.adminName);
     formData.append('alcotId', this.id);
 
     this.Viewlogoimage.AlcartImageUpdate(formData).subscribe((res: any) => {

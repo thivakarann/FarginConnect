@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CraeteWhatappService } from '../../../fargin-model/fargin-model.module';
 import { map, startWith, pairwise, filter } from 'rxjs/operators';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { map, startWith, pairwise, filter } from 'rxjs/operators';
 export class AddWhatsappServiceComponent implements OnInit {
 
   @Output() bankDetailsUpdated = new EventEmitter<void>();
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   myForm!: FormGroup;
   Vendors: any;
   TemplateDetails: any;
@@ -27,6 +28,7 @@ export class AddWhatsappServiceComponent implements OnInit {
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -83,8 +85,8 @@ export class AddWhatsappServiceComponent implements OnInit {
     return this.myForm.get('whatsappTemplateId');
   }
 
-  GetMessageTemplate(vendorId:any, templateType: string, tempLanguage: string) {
-    this.service.MerchantwiseWhatappTemplates(this.data.value,vendorId,templateType,tempLanguage)
+  GetMessageTemplate(vendorId: any, templateType: string, tempLanguage: string) {
+    this.service.MerchantwiseWhatappTemplates(this.data.value, vendorId, templateType, tempLanguage)
       .subscribe((res: any) => {
         if (res.flag == 1) {
           this.TemplateDetails = res.response;
@@ -111,7 +113,7 @@ export class AddWhatsappServiceComponent implements OnInit {
       whatsappTemplateId: selectedId,
       // templateCode: selectedTemplate?.templateCode,
       templateLanguage: this.tempLanguage?.value,
-      createdBy: this.getadminname
+      createdBy: this.adminName
     };
     this.service.CreateMerchatWhatappService(submitModel).subscribe((res: any) => {
       if (res.flag === 1) {

@@ -6,6 +6,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-customers-view-all',
@@ -53,7 +54,7 @@ export class EntityCustomersViewAllComponent {
   accountid: any;
   Viewall: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   pageIndex: number = 0;
   pageSize = 5;
@@ -69,7 +70,9 @@ export class EntityCustomersViewAllComponent {
     private router: Router,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({

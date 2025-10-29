@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { documentapproval } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-approval-bussinessdocument',
@@ -15,7 +16,7 @@ export class ApprovalBussinessdocumentComponent {
   id: any;
   approval: any;
   value: any;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   merchantDocumentId: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
@@ -23,6 +24,7 @@ export class ApprovalBussinessdocumentComponent {
     private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toaster: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog
   ) { }
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class ApprovalBussinessdocumentComponent {
 
     this.myForm = new FormGroup({
       approvalStatus: new FormControl('', [Validators.required]),
-      reMarks: new FormControl('', [Validators.required,Validators.maxLength(250)]),
+      reMarks: new FormControl('', [Validators.required, Validators.maxLength(250)]),
     });
   }
 
@@ -45,7 +47,7 @@ export class ApprovalBussinessdocumentComponent {
 
   submit() {
     let submitModel: documentapproval = {
-      approvalBy: this.createdBy,
+      approvalBy: this.adminName,
       approvalStatus: this.approvalStatus?.value,
       reMarks: this.reMarks?.value.trim(),
     };

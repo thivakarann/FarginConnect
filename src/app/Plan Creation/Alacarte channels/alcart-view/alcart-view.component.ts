@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { AlcartLogoViewComponent } from '../alcart-logo-view/alcart-logo-view.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-alcart-view',
@@ -11,8 +12,9 @@ import { AlcartLogoViewComponent } from '../alcart-logo-view/alcart-logo-view.co
   styleUrl: './alcart-view.component.css',
 })
 export class AlcartViewComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   id: any;
   regiondetails: any;
   alcardsdetails: any;
@@ -28,6 +30,7 @@ export class AlcartViewComponent implements OnInit {
     public AlcartView: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private ActivateRoute: ActivatedRoute,
     private dialog: MatDialog
   ) { }

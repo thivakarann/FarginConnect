@@ -12,6 +12,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { kyccateforysts } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-viewall-kyccategory',
@@ -43,7 +44,7 @@ export class ViewallKyccategoryComponent implements OnInit {
   valuekycstatus: any;
   valuekycedit: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   searchPerformed: boolean = false;
@@ -51,7 +52,9 @@ export class ViewallKyccategoryComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

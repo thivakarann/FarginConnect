@@ -12,6 +12,7 @@ import { BranchOnlineviewComponent } from './branch-onlineview/branch-onlineview
 import { Location } from '@angular/common';
 import moment from 'moment';
 import { ViewadditionalpaymentsComponent } from '../../Fargin Transtions/additionalpayments/viewadditionalpayments/viewadditionalpayments.component';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 @Component({
   selector: 'app-branch-onlinetransactions',
   templateUrl: './branch-onlinetransactions.component.html',
@@ -50,7 +51,7 @@ export class BranchOnlinetransactionsComponent {
   totalpage: any;
   currentpage: any;
   actions: any;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valuechannelexport: any;
   valuechannelView: any;
   roleName = sessionStorage.getItem('roleName');
@@ -98,7 +99,9 @@ export class BranchOnlinetransactionsComponent {
     private toastr: ToastrService,
     private router: Router,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

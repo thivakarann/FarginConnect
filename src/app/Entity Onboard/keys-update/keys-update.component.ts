@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { KeysUpdate } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-keys-update',
@@ -11,7 +12,7 @@ import { KeysUpdate } from '../../fargin-model/fargin-model.module';
   styleUrl: './keys-update.component.css'
 })
 export class KeysUpdateComponent {
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   myForm!: FormGroup;
   merchantId: any;
   approval: any;
@@ -23,6 +24,7 @@ export class KeysUpdateComponent {
   constructor(private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toaster: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog
   ) { }
   ngOnInit(): void {

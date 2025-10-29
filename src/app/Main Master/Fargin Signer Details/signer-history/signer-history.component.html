@@ -6,56 +6,24 @@
       <div class="search">
         <form class="form">
           <label for="search">
-            <input
-              #input
-              (keyup)="applyFilter($event)"
-              required=""
-              autocomplete="off"
-              placeholder="Search"
-              id="search"
-              type="text"
-            />
+            <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search" id="search"
+              type="text" />
             <div class="icon">
-              <svg
-                stroke-width="2"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                class="swap-on"
-              >
-                <path
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                ></path>
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                </path>
               </svg>
-              <svg
-                stroke-width="2"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                class="swap-off"
-              >
-                <path
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                ></path>
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round"></path>
               </svg>
             </div>
             <button type="reset" (click)="reload()" class="close-btn">
-              <svg
-                viewBox="0 0 20 20"
-                class="h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
+              <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  fill-rule="evenodd"
-                ></path>
+                  fill-rule="evenodd"></path>
               </svg>
             </button>
           </label>
@@ -63,28 +31,20 @@
       </div>
       &nbsp;&nbsp;&nbsp;
 
-      <button
-        style="
+      <button style="
           color: white;
           background-color: #141e46;
           border-radius: 10px;
           font-size: 12px;
-        "
-        mat-raised-button
-        (click)="exportexcel()"
-      >
+        " mat-raised-button (click)="exportexcel()">
         Export
       </button>
-      <button
-        style="
+      <button style="
           color: white;
           background-color: #141e46;
           border-radius: 10px;
           font-size: 12px;
-        "
-        mat-raised-button
-        (click)="close()"
-      >
+        " mat-raised-button (click)="close()">
         Back
       </button>
     </div>
@@ -92,17 +52,8 @@
 </mat-card-header>
 <!-- <mat-card> -->
 <mat-card-content>
-  <div
-    class="example-container text-nowrap mt-3"
-    style="overflow-x: scroll; scrollbar-width: thin"
-  >
-    <table
-      id="season-tble"
-      matSort
-      mat-table
-      [dataSource]="dataSource"
-      class="mat-elevation-z1"
-    >
+  <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin">
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
       <ng-container matColumnDef="S.No">
         <th mat-header-cell *matHeaderCellDef>S.No</th>
         <td mat-cell *matCellDef="let data; let i = index">
@@ -111,7 +62,7 @@
       </ng-container>
       <ng-container matColumnDef="signAdminName">
         <th mat-header-cell *matHeaderCellDef>
-            Signer Name
+          Signer Name
         </th>
         <td mat-cell *matCellDef="let data">
           {{ data?.signAdminName}}
@@ -120,46 +71,71 @@
 
       <ng-container matColumnDef="signAdminEmail">
         <th mat-header-cell *matHeaderCellDef>
-            Signer Email
+          Signer Email
         </th>
         <td mat-cell *matCellDef="let data">
-            {{ data?.signAdminEmail}}
+          {{ data?.signAdminEmail}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="signAdminMobile">
         <th mat-header-cell *matHeaderCellDef>
-            Signer Mobile
+          Signer Mobile
         </th>
         <td mat-cell *matCellDef="let data">
-            {{ data?.signAdminMobile}}
+          {{ data?.signAdminMobile}}
         </td>
       </ng-container>
 
-        <ng-container matColumnDef="adminPosition">
+      <ng-container matColumnDef="adminPosition">
         <th mat-header-cell *matHeaderCellDef>
-            Admin Position
+          Admin Position
         </th>
         <td mat-cell *matCellDef="let data">
-            {{ data?.adminPosition}}
+          {{ data?.adminPosition}}
         </td>
       </ng-container>
 
-      <!-- <ng-container matColumnDef="activeStatus">
-        <th mat-header-cell *matHeaderCellDef>
-            Status
-        </th>
+      <ng-container matColumnDef="adminCountry">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
         <td mat-cell *matCellDef="let data">
-            <span *ngIf=" data?.signingAdminModel?.activeStatus == 1" style="color: blue;">Active</span>
-            <span *ngIf=" data?.signingAdminModel?.activeStatus == 0" style="color: red;">InActive</span>
+          {{ data.adminCountry }}
         </td>
-      </ng-container> -->
+      </ng-container>
 
-   
+      <ng-container matColumnDef="adminState">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.adminState }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="adminCity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.adminCity }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="adminPincode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Pincode</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.adminPincode }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="adminAddress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.adminAddress }}
+        </td>
+      </ng-container>
+
+
 
       <ng-container matColumnDef="createdBy">
         <th mat-header-cell *matHeaderCellDef>
-        Updated By
+          Updated By
         </th>
         <td mat-cell *matCellDef="let data">
           {{ data.createdBy }}
@@ -167,7 +143,7 @@
       </ng-container>
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef>
-        Updated At
+          Updated At
         </th>
         <td mat-cell *matCellDef="let data">
           {{ data.createdAt | date : "dd/MM/yyyy hh:mm a" }}
@@ -180,11 +156,7 @@
         <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
           No Data
         </td>
-        <td
-          class="mat-cell"
-          colspan="0"
-          *ngIf="!searchPerformed && dataSource.data.length === 0"
-        >
+        <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">
           No Data
         </td>
       </tr>
@@ -192,9 +164,6 @@
   </div>
 </mat-card-content>
 <mat-card-footer>
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 20, 50, 100]"
-    showFirstLastButtons
-    aria-labels="select page of users"
-  ></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons
+    aria-labels="select page of users"></mat-paginator>
 </mat-card-footer>

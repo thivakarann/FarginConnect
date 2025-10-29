@@ -1,68 +1,61 @@
 .container {
-    max-width: 1500px;
-    margin-bottom: 10px;
-    /* Increase container width */
-  }
-  
-  .form-header {
-    background-color: #141E46;
-    /* Header background color */
-    color: white;
-    padding: 0.5rem;
-    margin-top: 10px;
-    border-radius: 0.5rem 0.5rem 0 0;
-    /* Rounded corners on top */
-    /* margin-bottom: 0.5rem; */
-  }
-  
+  max-width: 1500px;
+  margin-bottom: 10px;
+}
+
+.form-header {
+  background-color: #141E46;
+  color: white;
+  padding: 0.5rem;
+  margin-top: 10px;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.form-group label {
+  font-weight: 500;
+}
+
+.form-control {
+  border-radius: 0.375rem;
+}
+
+
+
+.well {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 576px) {
   .form-group label {
-    font-weight: 500;
+    font-size: 0.9rem;
   }
-  
-  .form-control {
-    border-radius: 0.375rem;
-  }
-  
-  
-  
-  .well {
-    background-color: #ffffff;
-    /* Card background color */
-    border: 1px solid #dee2e6;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    /* margin-top: 27px; */
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-    /* Light shadow */
-  }
-  
-  @media (max-width: 576px) {
-    .form-group label {
-        font-size: 0.9rem;
-        /* Adjust label font size for smaller screens */
-    }
-  }
-  
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    background-color: #bcdf72;
-    color: white;
-    font-family: "Roboto";
-  }
+}
 
-  .error {
-    color:red;
-    font-size: 12px;
-    font-weight: 500;
-    margin-top: 2px;
-    position: relative; ;
-  }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #bcdf72;
+  color: white;
+  font-family: "Roboto";
+}
 
-  .error1 {
-    color: red;
-    font-size: 12px;
-    margin-top: 2px;
-    font-weight: 500;
-    position: relative; 
-  }
+.error {
+  color: red;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 2px;
+  position: relative;
+  ;
+}
+
+.error1 {
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+  font-weight: 500;
+  position: relative;
+}

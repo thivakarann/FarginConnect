@@ -1090,7 +1090,13 @@ export interface Addsigner {
   readonly signAdminMobile: any,
   readonly signAdminName: any,
   readonly createdBy: any
-  readonly adminPosition: any
+  readonly adminPosition: any,
+  readonly adminCountry:any,
+  readonly adminState:any,
+  readonly adminPincode:any,
+  readonly adminAddress:any,
+  readonly adminCity:any
+
 }
 
 export interface Updatesigner {
@@ -1098,7 +1104,8 @@ export interface Updatesigner {
   readonly signAdminMobile: any,
   readonly signAdminName: any,
   readonly modifiedBy: any,
-  readonly signId: any
+  readonly signId: any,
+  
 }
 
 export interface UpdatesignerStatus {
@@ -1273,11 +1280,13 @@ export interface UpdateAgreementCommerical {
 }
 export interface CreatePlan {
   readonly merchantId: any;
-  readonly commercialId: any;
+  // readonly commercialId: any;
   readonly createdBy: any;
   readonly merchantPosition: any;
-  readonly expiryLink: any;
+  // readonly expiryLink: any;
   readonly authorizedName: any
+  readonly stampAmount:any;
+  readonly considerationAmount:any;
 }
 
 export interface AdminsignerOtp {

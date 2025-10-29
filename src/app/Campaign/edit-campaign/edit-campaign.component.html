@@ -5,38 +5,33 @@
 <body class="page">
     <main class="main page__main">
         <form class="form main__form" autocomplete="off" class="form" [formGroup]="setupformGroup">
-
-          
-
             <div class="form__linput">
                 <label class="form__label">Subject</label>
-                <input class="form-control" type="text" formControlName="subject" required
-                ngModel="{{view.subject}}" />
+                <input class="form-control" type="text" formControlName="subject" required ngModel="{{view.subject}}" />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="subject?.invalid && subject?.touched && subject?.errors?.['required']">
                     Field is required
                 </div>
             </div>
-
             <div class="form__linput">
                 <label class="form__label">Content</label>
                 <textarea class="form-control" type="text" formControlName="emailContent" required
-                ngModel="{{view.emailContent}}"></textarea>
-                
+                    ngModel="{{view.emailContent}}"></textarea>
+
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="emailContent?.invalid && emailContent?.touched && emailContent?.errors?.['required']">
                     Field is required
                 </div>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
-                *ngIf="emailContent?.invalid  && emailContent?.errors?.['maxlength']">
-                Only 1000 characters are allowed
-               </div>
+                    *ngIf="emailContent?.invalid  && emailContent?.errors?.['maxlength']">
+                    Only 1000 characters are allowed
+                </div>
             </div>
 
             <div class="form__linput">
                 <label class="form__label">Date</label>
-                <input  onkeydown="return false;" class="form-control" type="date" formControlName="EmailDate" [min]="minDate" required
-                    ngModel="{{view.emailDate}}" />
+                <input onkeydown="return false;" class="form-control" type="date" formControlName="EmailDate"
+                    [min]="minDate" required ngModel="{{view.emailDate}}" />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="EmailDate?.invalid && EmailDate?.touched && EmailDate?.errors?.['required']">
                     Field is required
@@ -44,25 +39,22 @@
             </div>
             <div class="form__linput ">
                 <label class="form__label">Upload File</label>
-                
-                <input type="file" accept=".csv" class="form-control" formControlName="uploadFile"  (change)="uploadBulkFile($event)" />
-              
-             
+                <input type="file" accept=".csv" class="form-control" formControlName="uploadFile"
+                    (change)="uploadBulkFile($event)" />
                 <div class="note">
-                
-                
-                  <ul >
-                    <li>Only Excel-compatible files are accepted. PNG, JPEG, GIF, and other file types are not supported.</li>
-                    <li style="color:red">Maximum 500 Records Only Allowed to Upload For Single Time</li>
-                  </ul>
-              </div>
+                    <ul>
+                        <li>Only Excel-compatible files are accepted. PNG, JPEG, GIF, and other file types are not
+                            supported.</li>
+                        <li style="color:red">Maximum 500 Records Only Allowed to Upload For Single Time</li>
+                    </ul>
+                </div>
             </div>
             <div class="mt-3">
                 <button type="submit" class="btn mx-1 " style="background-color:#7db855be" (click)="submit()"
                     [disabled]="setupformGroup.invalid">Submit</button>
-                <button matDialogClose  type="submit" class="btn" style="background-color:#141E46;color:white">Cancel</button>
+                <button matDialogClose type="submit" class="btn"
+                    style="background-color:#141E46;color:white">Cancel</button>
             </div>
         </form>
     </main>
 </body>
- 

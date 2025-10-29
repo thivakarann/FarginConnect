@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { additionalCumulativeRefunds, dueCumulativeRefunds } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-refund-getall',
@@ -73,7 +74,7 @@ export class RefundGetallComponent {
   secretKey: any;
   getdashboard: any[] = [];
   actions: any;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valuerenewexport: any;
   valuerenewview: any;
   valuerenewpay: any;
@@ -140,7 +141,9 @@ export class RefundGetallComponent {
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

@@ -15,6 +15,7 @@ import {
   branchverify,
 } from '../../../fargin-model/fargin-model.module';
 import { BranchkycExtraComponent } from '../branchkyc-extra/branchkyc-extra.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-branch-kyc',
@@ -25,8 +26,8 @@ export class BranchKycComponent {
   id: any;
   kycbranchdetails: any;
   merchantId: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  roleId: any = sessionStorage.getItem('roleId');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   getdashboard: any[] = [];
@@ -42,8 +43,11 @@ export class BranchKycComponent {
     private toastr: ToastrService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
-  ) {}
+    private location: Location,
+    
+    private cryptoService: EncyDecySericeService,
+
+  ) { }
 
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({
@@ -297,7 +301,7 @@ export class BranchKycComponent {
       let submitModel: branchverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
 
       this.service
@@ -317,7 +321,7 @@ export class BranchKycComponent {
       let submitModel: branchverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.service
         .adharbranchVerifyIdentity(submitModel)
@@ -338,7 +342,7 @@ export class BranchKycComponent {
         branchProofId: id1,
         facheckDocNumber: id,
         dateOfBirth: id3,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.service
         .drivingbranchVerifyIdentity(submitModel)
@@ -358,7 +362,7 @@ export class BranchKycComponent {
       let submitModel: branchPasportverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
         dateOfBirth: id4,
       };
       this.service
@@ -379,7 +383,7 @@ export class BranchKycComponent {
       let submitModel: branchverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.service
         .voterbranchVerifyIdentity(submitModel)
@@ -401,7 +405,7 @@ export class BranchKycComponent {
       let submitModel: branchverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
 
       this.service.panbranchVerifyAddress(submitModel).subscribe((res: any) => {
@@ -419,7 +423,7 @@ export class BranchKycComponent {
       let submitModel: branchverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.service
         .adharbranchVerifyAddress(submitModel)
@@ -440,7 +444,7 @@ export class BranchKycComponent {
         branchProofId: id1,
         facheckDocNumber: id,
         dateOfBirth: id3,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.service
         .drivingbranchVerifyAddress(submitModel)
@@ -460,7 +464,7 @@ export class BranchKycComponent {
       let submitModel: branchPasportverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
         dateOfBirth: id4,
       };
       this.service
@@ -481,7 +485,7 @@ export class BranchKycComponent {
       let submitModel: branchverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.service
         .voterbranchVerifyAddress(submitModel)
@@ -503,7 +507,7 @@ export class BranchKycComponent {
       let submitModel: branchverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
 
       this.service.panbranchVerifySigns(submitModel).subscribe((res: any) => {
@@ -521,7 +525,7 @@ export class BranchKycComponent {
       let submitModel: branchverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.service.adharbranchVerifySigns(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -540,7 +544,7 @@ export class BranchKycComponent {
         branchProofId: id1,
         facheckDocNumber: id,
         dateOfBirth: id3,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.service
         .drivingbranchVerifySigns(submitModel)
@@ -560,7 +564,7 @@ export class BranchKycComponent {
       let submitModel: branchPasportverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
         dateOfBirth: id4,
       };
       this.service
@@ -581,7 +585,7 @@ export class BranchKycComponent {
       let submitModel: branchverify = {
         branchProofId: id1,
         facheckDocNumber: id,
-        approvalBy: this.getadminname,
+        approvalBy: this.adminName,
       };
       this.service.voterbranchVerifySigns(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -595,7 +599,7 @@ export class BranchKycComponent {
       });
     }
   }
-  
+
   close() {
     this.location.back();
   }

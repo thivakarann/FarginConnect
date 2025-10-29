@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Branchadds } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Location } from '@angular/common';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-branch-add',
@@ -19,7 +20,7 @@ import { Location } from '@angular/common';
 export class BranchAddComponent {
   merchantid: any;
   branch!: FormGroup;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   options: any;
   plans: any;
   todayDate: string = '';
@@ -45,6 +46,7 @@ export class BranchAddComponent {
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private ActivateRoute: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private location: Location
@@ -77,7 +79,7 @@ export class BranchAddComponent {
       ]),
       accountHolderName: new FormControl('', [
         Validators.required,
-         Validators.pattern('^[A-Za-z. ]+$'),
+        Validators.pattern('^[A-Za-z. ]+$'),
         Validators.maxLength(50),
       ]),
       accountNumber: new FormControl('', [
@@ -555,7 +557,7 @@ export class BranchAddComponent {
       accountHolderName: this.accountHolderName?.value.trim(),
       accountNumber: this.accountNumber?.value,
       ifscCode: this.ifscCode?.value,
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
       merchantId: this.id,
       smsMerchantName: this.smsmerchantname?.value.trim()
     }
@@ -576,7 +578,7 @@ export class BranchAddComponent {
     const formData = new FormData();
     formData.append('merchantId', this.id);
     formData.append('branchId', this.branchId);
-    formData.append('createdBy', this.getadminname);
+    formData.append('createdBy', this.adminName);
     formData.append('identityFrontPath', this.uploadidentityfront);
     formData.append('identityBackPath', this.uploadidentityback);
     formData.append('identityProof', this.identityProof?.value);

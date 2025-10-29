@@ -4,6 +4,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { BranchEdit } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-branch-edit',
@@ -14,7 +15,7 @@ export class BranchEditComponent {
   id: any;
   branchid: any;
   branchedit!: FormGroup;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   options: any;
   plans: any;
   todayDate: string = '';
@@ -33,6 +34,7 @@ export class BranchEditComponent {
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -132,7 +134,7 @@ export class BranchEditComponent {
       accountNumber: this.accountNumber?.value,
       ifscCode: this.ifscCode?.value,
       smsMerchantName: this.smsmerchantname?.value.trim(),
-      modifiedBy: this.getadminname
+      modifiedBy: this.adminName
     }
 
     this.service.BranchUpdate(this.branchid, submitModel).subscribe((res: any) => {

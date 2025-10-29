@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { ExtraRegion } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-add-extra-region',
@@ -16,8 +17,9 @@ import { ExtraRegion } from '../../../fargin-model/fargin-model.module';
 export class AddExtraRegionComponent implements OnInit {
   id: any;
   channelslist: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
@@ -35,6 +37,7 @@ export class AddExtraRegionComponent implements OnInit {
     public AddExtra: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService,
     // private ActivateRoute: ActivatedRoute,
 

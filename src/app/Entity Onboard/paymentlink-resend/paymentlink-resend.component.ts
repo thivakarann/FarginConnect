@@ -4,6 +4,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { EmailTrigger } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-paymentlink-resend',
@@ -12,7 +13,7 @@ import { EmailTrigger } from '../../fargin-model/fargin-model.module';
 })
 export class PaymentlinkResendComponent {
   addcategory: any = FormGroup;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   merchantid: any;
   minDate: any = Date;
   maxDate: any = Date;
@@ -22,8 +23,9 @@ export class PaymentlinkResendComponent {
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.merchantid = this.data.value;
 

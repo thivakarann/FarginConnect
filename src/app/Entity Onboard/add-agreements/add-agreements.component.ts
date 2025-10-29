@@ -1,9 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -11,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CreatePlan } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import moment from 'moment';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-add-agreements',
@@ -20,7 +16,9 @@ import moment from 'moment';
 export class AddAgreementsComponent {
   merchantid: any;
   myForm4!: FormGroup;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(
+    sessionStorage.getItem('Three') || ''
+  );
   options: any;
   plans: any;
   todayDate: string = '';
@@ -31,6 +29,7 @@ export class AddAgreementsComponent {
     public service: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -40,8 +39,8 @@ export class AddAgreementsComponent {
     this.todayDate = today.toISOString().slice(0, 16);
 
     this.myForm4 = new FormGroup({
-      commercialId: new FormControl('', [Validators.required]),
-      linkdate: new FormControl('', [Validators.required]),
+      // commercialId: new FormControl('', [Validators.required]),
+      // linkdate: new FormControl('', [Validators.required]),
       merchantPosition: new FormControl('', [
         Validators.required,
         Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
@@ -52,22 +51,25 @@ export class AddAgreementsComponent {
         Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
+      stampAmount: new FormControl('', [Validators.required]),
+
+      considerationAmount: new FormControl('', [Validators.required, Validators.pattern("^(?!0+(\\.0{1,2})?$)\\d+(\\.\\d{1,2})?$")])
     });
 
-    this.service.viewactiveagreementplan().subscribe((res: any) => {
+    this.service.EstampGetActive().subscribe((res: any) => {
       if (res.flag == 1) {
         this.plans = res.response.reverse();
       }
     });
   }
 
-  get commercialId() {
-    return this.myForm4.get('commercialId');
-  }
+  // get commercialId() {
+  //   return this.myForm4.get('commercialId');
+  // }
 
-  get linkdate() {
-    return this.myForm4.get('linkdate');
-  }
+  // get linkdate() {
+  //   return this.myForm4.get('linkdate');
+  // }
 
   get merchantPosition() {
     return this.myForm4.get('merchantPosition');
@@ -77,22 +79,35 @@ export class AddAgreementsComponent {
     return this.myForm4.get('authorizedName');
   }
 
+  get stampAmount() {
+    return this.myForm4.get('stampAmount');
+  }
+
+  get considerationAmount() {
+    return this.myForm4.get('considerationAmount');
+  };
+
+  AmountChange(event: Event) {
+    const selectedStampAmount = (event.target as HTMLSelectElement).value;
+    const selectedPlan = this.plans.find((plan: { stampAmount: string; }) => plan.stampAmount === selectedStampAmount);
+    if (selectedPlan) {
+      this.myForm4.patchValue({ considerationAmount: selectedPlan.considerationAmount });
+    }
+  }
+
+
   Submit() {
-    this.Expirydate = this.linkdate?.value;
-    console.log(this.Expirydate);
-    let startdate = moment(this.Expirydate)
-      .format('yyyy-MM-DD HH:mm:ss')
-      .toString();
-
-    console.log(startdate);
-
+    // this.Expirydate = this.linkdate?.value;
+    // let startdate = moment(this.Expirydate).format('yyyy-MM-DD HH:mm:ss').toString();
     let submitModel: CreatePlan = {
       merchantId: this.merchantid,
-      commercialId: this.commercialId?.value,
-      createdBy: this.getadminname,
+      // commercialId: this.commercialId?.value,
+      createdBy: this.adminName,
       authorizedName: this.authorizedName?.value.trim(),
       merchantPosition: this.merchantPosition?.value.trim(),
-      expiryLink: startdate,
+      // expiryLink: startdate,
+      stampAmount: this.stampAmount?.value,
+      considerationAmount: this.considerationAmount?.value,
     };
 
     this.service.createplans(submitModel).subscribe((res: any) => {

@@ -8,6 +8,7 @@ import FileSaver from 'file-saver';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Location } from '@angular/common';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-alacarte-bulkresponse',
@@ -38,7 +39,7 @@ export class AlacarteBulkresponseComponent {
   valueresponse: any;
   getdashboard: any[] = [];
   actions: any;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   roleName = sessionStorage.getItem('roleName');
   searchPerformed: boolean = false;
   valueFile: any;
@@ -50,7 +51,9 @@ export class AlacarteBulkresponseComponent {
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private location:Location
+    private location:Location,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

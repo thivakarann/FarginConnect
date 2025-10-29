@@ -12,6 +12,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-viewcategory',
@@ -47,7 +48,7 @@ export class ViewcategoryComponent implements OnInit {
   valueCategorystatus: any;
   valueCategoryEdit: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   searchPerformed: boolean = false;
@@ -55,7 +56,9 @@ export class ViewcategoryComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit() {

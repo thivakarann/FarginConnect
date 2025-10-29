@@ -6,20 +6,17 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 @Component({
   selector: 'app-create-commentcampaigns',
   templateUrl: './create-commentcampaigns.component.html',
-  styleUrl: './create-commentcampaigns.component.css'
+  styleUrl: './create-commentcampaigns.component.css',
 })
 export class CreateCommentcampaignsComponent {
   emailContent: any;
-  constructor(private service: FarginServiceService, private toastr: ToastrService,
-     private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any,
+
+  constructor(
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit(): void {
-    
-    this.emailContent=this.data.value.emailContent
-  }
-
-  back(){
-    this.dialog.closeAll()
+    this.emailContent = this.data.value.emailContent;
   }
 }

@@ -8,6 +8,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { MatTableDataSource } from '@angular/material/table';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-refund-period-history',
@@ -26,7 +27,7 @@ export class RefundPeriodHistoryComponent {
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   date1: any;
   date2: any;
   responseDataListnew: any = [];
@@ -40,14 +41,15 @@ export class RefundPeriodHistoryComponent {
   constructor(
     public service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
-  ) { }
-  ngOnInit(): void {
+    private location: Location,
+    private cryptoService:EncyDecySericeService,
 
+  ) { }
+
+  ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.Id = param.Alldata;
     });
-
     this.Details();
   }
 
@@ -58,17 +60,13 @@ export class RefundPeriodHistoryComponent {
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-
       }
-
       else if (res.flag == 2) {
         this.dataSource = new MatTableDataSource([]);
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-
-
     });
   };
 
@@ -76,16 +74,11 @@ export class RefundPeriodHistoryComponent {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  };
-  close() {
-    this.location.back()
+    if (this.dataSource.paginator) { this.dataSource.paginator.firstPage(); }
   };
 
-  reload() {
-    this.Details();
+  close() {
+    this.location.back()
   };
 
   exportexcel() {
@@ -117,12 +110,9 @@ export class RefundPeriodHistoryComponent {
       'Updated By',
       'Updated At'
     ];
-
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Setupbox History');
-
-    // Blank Row
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -143,15 +133,12 @@ export class RefundPeriodHistoryComponent {
     });
 
     data.forEach((d: any) => {
-      //
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
       let qty2 = row.getCell(3);
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
-
-
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -182,16 +169,12 @@ export class RefundPeriodHistoryComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-
-
     });
     worksheet.getColumn(1).protection = { locked: true, hidden: true };
     worksheet.getColumn(2).protection = { locked: true, hidden: true };
     worksheet.getColumn(3).protection = { locked: true, hidden: true };
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      });
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });
       FileSaver.saveAs(blob, 'Refund Period History.xlsx');
     });
   }

@@ -13,6 +13,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SuccessOfftransactionsComponent } from '../success-offtransactions/success-offtransactions.component';
 import { FailureOfftransactionsComponent } from '../failure-offtransactions/failure-offtransactions.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-offline-transactions',
@@ -54,7 +55,7 @@ export class OfflineTransactionsComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   id: any;
@@ -75,7 +76,9 @@ export class OfflineTransactionsComponent {
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private cryptoService: EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {
@@ -131,9 +134,9 @@ export class OfflineTransactionsComponent {
   Getall() {
 
     this.filterAction = 0;
-        this.FromDateRange = '';
-        this.ToDateRange = '';
-        this.Daterange = '';
+    this.FromDateRange = '';
+    this.ToDateRange = '';
+    this.Daterange = '';
 
     let submitModel: OffilneTransaction = {
       merchantId: this.id,
@@ -157,7 +160,7 @@ export class OfflineTransactionsComponent {
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
         };
-        
+
       }
     });
   }
@@ -412,7 +415,7 @@ export class OfflineTransactionsComponent {
           this.length = this.Viewall.totalElements;
           this.pageIndex = this.Viewall.number;
           this.pageSize = this.Viewall.size;
-        this.filterAction = 1;
+          this.filterAction = 1;
 
           this.dataSource = new MatTableDataSource(this.filteredData);
           if (this.content.length === 0) {
@@ -439,7 +442,7 @@ export class OfflineTransactionsComponent {
           this.length = this.Viewall.totalElements;
           this.pageIndex = this.Viewall.number;
           this.pageSize = this.Viewall.size;
-        this.filterAction = 0;
+          this.filterAction = 0;
 
           this.dataSource = new MatTableDataSource(this.filteredData);
           if (this.content.length === 0) {

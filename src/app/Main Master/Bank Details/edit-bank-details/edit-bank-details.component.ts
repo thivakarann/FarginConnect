@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { UpdateBankdetails } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-edit-bank-details',
@@ -11,8 +12,9 @@ import { UpdateBankdetails } from '../../../fargin-model/fargin-model.module';
   styleUrl: './edit-bank-details.component.css'
 })
 export class EditBankDetailsComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   id: any;
   details: any;
@@ -22,44 +24,39 @@ export class EditBankDetailsComponent implements OnInit {
   constructor(
     public Bankdetailsupdate: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   ngOnInit(): void {
-
     this.details = this.data.value;
     this.id = this.data.value.bankId;
     this.banks = this.data.value.bankName;
-    
     this.myForm = new FormGroup({
-      bankName: new FormControl('',[Validators.required,Validators.maxLength(50)]),
+      bankName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     });
-    
   }
 
   get bankName() {
     return this.myForm.get('bankName')
-
   }
 
   Edit() {
     let submitModel: UpdateBankdetails = {
       bankId: this.id,
       bankName: this.bankName?.value.trim(),
-      modifiedBy: this.getadminname
+      modifiedBy: this.adminName
     }
-
-    this.Bankdetailsupdate.bankdetailsUpdate(submitModel).subscribe((res:any)=>{
+    this.Bankdetailsupdate.bankdetailsUpdate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-    
       }
       else {
         this.toastr.error(res.responseMessage);
-      } 
+      }
     })
   }
 }

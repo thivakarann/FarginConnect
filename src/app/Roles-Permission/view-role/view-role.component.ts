@@ -23,7 +23,6 @@ export class ViewRoleComponent implements OnInit {
   displayedColumns: any[] = [
     'roleid',
     'rolename',
-    // 'permissionName',
     'actionName',
     'status',
     'action',
@@ -60,6 +59,10 @@ export class ViewRoleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.Getall();
+  };
+
+  Getall() {
     this.service.viewRoles().subscribe((res: any) => {
       if (res.flag == 1) {
         this.roledata = res.response;
@@ -79,35 +82,19 @@ export class ViewRoleComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.searchPerformed = filterValue.length > 0;
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
+  };
 
-  onSubmit(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
-    let submitModel: roleactiveInactive = {
-      roleId: id,
-      status: this.isChecked ? 1 : 0,
-    };
-    this.service.rolesStatus(submitModel).subscribe((res: any) => {
-      this.toastr.success(res.responseMessage);
-      setTimeout(() => {
-        this.service.viewRoles().subscribe((res: any) => {
-          if (res.flag == 1) {
-            this.roledata = res.response;
-            this.dataSource = new MatTableDataSource(this.roledata?.reverse());
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          } else if (res.flag == 2) {
-            this.roledata = [];
-            this.dataSource = new MatTableDataSource(this.roledata?.reverse());
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          }
-        });
-      }, 500);
+  create() {
+    const dialogRef = this.dialog.open(AddRoleComponent, {
+      disableClose: true,
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+    });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.Getall();
     });
   }
 
@@ -123,19 +110,15 @@ export class ViewRoleComponent implements OnInit {
           this.roleName = this.getAction.roleName;
           this.permissionview = this.getAction.permission;
           this.subpermission = this.getAction.subPermission;
-
           for (let data of this.permissionview) {
             this.values.push(data.permissionId);
           }
-
           //Duplicate Removal start
           this.perValueObject = new Set(this.values);
           for (let value of this.perValueObject) {
             this.perValueArray.push(value);
           }
-
           //Duplicate Removal end
-
           for (let data1 of this.subpermission) {
             this.subId.push(data1.subPermissionId);
           }
@@ -152,7 +135,7 @@ export class ViewRoleComponent implements OnInit {
             exitAnimationDuration: '500ms',
           });
           dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-            this.fetchrole();
+            this.Getall();
           });
         }
         else if (res.flag == 2) {
@@ -164,49 +147,17 @@ export class ViewRoleComponent implements OnInit {
       },
     });
   }
-
-  fetchrole() {
-    this.service.viewRoles().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.roledata = res.response;
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      } else if (res.flag == 2) {
-        this.roledata = [];
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      }
+  onSubmit(event: MatSlideToggleChange, id: any) {
+    this.isChecked = event.checked;
+    let submitModel: roleactiveInactive = {
+      roleId: id,
+      status: this.isChecked ? 1 : 0,
+    };
+    this.service.rolesStatus(submitModel).subscribe((res: any) => {
+      this.toastr.success(res.responseMessage);
+      setTimeout(() => { this.Getall() }, 200);
     });
-  }
-
-  create() {
-    const dialogRef = this.dialog.open(AddRoleComponent, {
-      disableClose: true,
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '500ms',
-    });
-    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-      this.fetchrole();
-    });
-  }
-
-  reload() {
-    this.service.viewRoles().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.roledata = res.response;
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      } else if (res.flag == 2) {
-        this.roledata = [];
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      }
-    });
-  }
+  };
 
   permissionView(id: any) {
     this.dialog.open(ViewPermissionComponent, {

@@ -10,6 +10,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { ViewadditionalpaymentsComponent } from './viewadditionalpayments/viewadditionalpayments.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 interface Option { entityName: string; merchantId: number; }
 
 @Component({
@@ -61,7 +62,7 @@ export class AdditionalpaymentsComponent {
   valuepaymentexport: any;
   valuepaymentview: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valuepaymentReceipt: any;
@@ -117,7 +118,9 @@ export class AdditionalpaymentsComponent {
     private service: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

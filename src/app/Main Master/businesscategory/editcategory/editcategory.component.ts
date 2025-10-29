@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Businessedit } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-editcategory',
@@ -13,8 +14,9 @@ import { Businessedit } from '../../../fargin-model/fargin-model.module';
 export class EditcategoryComponent implements OnInit {
   editcategory: any = FormGroup;
   businessCategoryId: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   categorys: any;
   mccCodes: any;
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
@@ -25,6 +27,7 @@ export class EditcategoryComponent implements OnInit {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { this.businessCategoryId = data.value.businessCategoryId; }
@@ -66,7 +69,7 @@ export class EditcategoryComponent implements OnInit {
     let submitModel: Businessedit = {
       categoryName: this.categoryName.value.trim(),
       mccCode: this.mccCode.value.trim(),
-      modifiedBy: this.getadminname,
+      modifiedBy: this.adminName,
       autoDebitDate: this.autoDebitDate?.value,
     };
     this.service.BusinessEdit(this.businessCategoryId, submitModel).subscribe((res: any) => {

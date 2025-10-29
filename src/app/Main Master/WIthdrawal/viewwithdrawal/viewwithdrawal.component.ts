@@ -13,6 +13,7 @@ import FileSaver from 'file-saver';
 import { EditwithdrawalComponent } from '../editwithdrawal/editwithdrawal.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { StatusWithdrawal } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-viewwithdrawal',
@@ -50,7 +51,7 @@ export class ViewwithdrawalComponent {
   valuewithdrawalExport: any;
   valuewithdrawalStatus: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
 
@@ -60,6 +61,8 @@ export class ViewwithdrawalComponent {
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
   ngOnInit(): void {
     this.service.viewwithdrawals().subscribe((res: any) => {
@@ -72,11 +75,11 @@ export class ViewwithdrawalComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-          
+
           if (this.roleId == 1) {
             this.valuewithdrawalAdd = 'Withdrawal Fee-Add';
             this.valuewithdrawalEdit = 'Withdrawal Fee-Edit';
@@ -87,19 +90,19 @@ export class ViewwithdrawalComponent {
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              
+
 
               if (this.actions == 'Withdrawal Fee-Add') {
                 this.valuewithdrawalAdd = 'Withdrawal Fee-Add';
               }
-              if(this.actions=='Withdrawal Fee-Export'){
-                this.valuewithdrawalExport='Withdrawal Fee-Export'
+              if (this.actions == 'Withdrawal Fee-Export') {
+                this.valuewithdrawalExport = 'Withdrawal Fee-Export'
               }
-              if(this.actions=='Withdrawal Fee-Edit'){
-                this.valuewithdrawalEdit='Withdrawal Fee-Edit'
+              if (this.actions == 'Withdrawal Fee-Edit') {
+                this.valuewithdrawalEdit = 'Withdrawal Fee-Edit'
               }
-              if(this.actions=='Withdrawal Fee-Status'){
-                this.valuewithdrawalStatus='Withdrawal Fee-Status'
+              if (this.actions == 'Withdrawal Fee-Status') {
+                this.valuewithdrawalStatus = 'Withdrawal Fee-Status'
               }
             }
           }
@@ -126,10 +129,10 @@ export class ViewwithdrawalComponent {
     this.viewwithdrawal.forEach((element: any) => {
       let createdate = element?.createdDatetime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
       let moddate = element?.modifiedDatetime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.amountRange);
@@ -138,7 +141,7 @@ export class ViewwithdrawalComponent {
       this.response.push(element?.fees);
       this.response.push(element?.mode);
       this.response.push(element?.gstType)
- 
+
       if (element?.status == 'true') {
         this.response.push("Active");
       }
@@ -154,7 +157,7 @@ export class ViewwithdrawalComponent {
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     const title = 'Withdrawal Fee';
     const header = [
@@ -176,23 +179,23 @@ export class ViewwithdrawalComponent {
     let worksheet = workbook.addWorksheet('Facheck');
     let titleRow = worksheet.addRow([title]);
     titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
- 
+
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -226,14 +229,14 @@ export class ViewwithdrawalComponent {
       FileSaver.saveAs(blob, 'Withdrawal.xlsx');
     });
   }
- 
+
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
     let submitModel: StatusWithdrawal = {
       withrawalStatus: this.isChecked ? true : false,
     };
     this.service.statuswithdrawals(id, submitModel).subscribe((res: any) => {
-      
+
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();

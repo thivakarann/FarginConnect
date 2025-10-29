@@ -8,6 +8,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import { Location } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-plan-history',
@@ -31,7 +32,7 @@ export class EntityPlanHistoryComponent implements OnInit {
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   Merchatid: any;
   searchPerformed: boolean = false;
   responseDataListnew: any = [];
@@ -42,7 +43,9 @@ export class EntityPlanHistoryComponent implements OnInit {
   constructor(
     private location: Location,
     private service: FarginServiceService,
-    private activaterouter: ActivatedRoute
+    private activaterouter: ActivatedRoute,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
   ngOnInit(): void {
     this.activaterouter.queryParams.subscribe((param: any) => {

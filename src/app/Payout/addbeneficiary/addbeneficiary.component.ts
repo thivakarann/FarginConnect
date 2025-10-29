@@ -12,7 +12,7 @@ import { Addbeneficiary } from '../../fargin-model/fargin-model.module';
   styleUrl: './addbeneficiary.component.css'
 })
 export class AddbeneficiaryComponent {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   beneficiaryFormGroup: any = FormGroup;
   upiFormGroup: any = FormGroup;
   data: number = 1;

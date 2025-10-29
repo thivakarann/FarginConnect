@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Addfacheckkey, pgsetupadd } from '../../../fargin-model/fargin-model.module';
+import { pgsetupadd } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 
 @Component({
@@ -12,10 +13,10 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
   templateUrl: './pgsetup-create.component.html',
   styleUrl: './pgsetup-create.component.css'
 })
-export class PgsetupCreateComponent implements OnInit{
+export class PgsetupCreateComponent implements OnInit {
 
   pgsetupform: any = FormGroup;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   facheckkey: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
@@ -23,20 +24,18 @@ export class PgsetupCreateComponent implements OnInit{
     private service: FarginServiceService,
     private router: Router,
     private dialog: MatDialog,
- 
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.pgsetupform = new FormGroup({
       pgMode: new FormControl('', [Validators.required]),
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
-      createdBy:new FormControl(''),
+      createdBy: new FormControl(''),
     });
   }
-
-  
   get pgMode() {
     return this.pgsetupform.get('pgMode');
   }
@@ -46,19 +45,15 @@ export class PgsetupCreateComponent implements OnInit{
   get secretKey() {
     return this.pgsetupform.get('secretKey');
   }
-
-
   submit() {
     let submitModel: pgsetupadd = {
       pgMode: this.pgMode.value,
       secretKey: this.secretKey.value.trim(),
       apiKey: this.apiKey.value.trim(),
-      createdBy: this.createdBy
+      createdBy: this.adminName
     }
     this.service.Pgsetupcreate(submitModel).subscribe((res: any) => {
       this.facheckkey = res.response;
-
-
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
@@ -69,8 +64,4 @@ export class PgsetupCreateComponent implements OnInit{
       }
     })
   }
-  cancel() {
-    this.router.navigateByUrl('dashboard/Pgsetup-view');
-  }
-
 }

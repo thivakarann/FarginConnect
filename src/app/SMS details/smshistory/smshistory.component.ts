@@ -8,6 +8,7 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { SmscontentViewComponent } from '../smscontent-view/smscontent-view.component';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-smshistory',
@@ -53,7 +54,7 @@ export class SMSHistoryComponent {
   showcategoryData: boolean = false;
   smsResponse: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valuesmshistoryexport: any;
@@ -90,6 +91,7 @@ export class SMSHistoryComponent {
     private service: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -143,18 +145,19 @@ export class SMSHistoryComponent {
     });
     this.FromDateRange = '';
     this.ToDateRange = '';
+       this.filterAction = 0
   };
 
   checkDate() {
     this.ToDateRange = '';
   };
-  
+
   View(id: any) {
     this.router.navigate([`dashboard/smshistory-view/${id}`], {
       queryParams: { Alldata: id },
     });
   }
-  
+
   filterdate() {
     this.service.SMSHistoryFilter(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {

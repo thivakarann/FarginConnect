@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { LoaderService } from '../../Loader service/loader.service';
 import { ExportReportAddComponent } from '../export-report-add/export-report-add.component';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-export-report-viewall',
@@ -44,7 +45,7 @@ export class ExportReportViewallComponent implements OnInit {
   valuesmsstatus: any;
   valuesmsedit: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   merchantId: any = sessionStorage.getItem('merchantId')
   actions: any;
   errorMessage: any;
@@ -62,7 +63,9 @@ export class ExportReportViewallComponent implements OnInit {
     public service: FarginServiceService,
     private dialog: MatDialog,
     public loaderService: LoaderService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

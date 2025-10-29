@@ -11,6 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { BranchTerminalAddComponent } from '../branch-terminal-add/branch-terminal-add.component';
 import { BranchTerminalEditComponent } from '../branch-terminal-edit/branch-terminal-edit.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-branch-terminalview',
@@ -35,7 +36,7 @@ export class BranchTerminalviewComponent implements OnInit {
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   errorMessage: any;
   searchPerformed: boolean = false;
   id: any;
@@ -53,7 +54,9 @@ export class BranchTerminalviewComponent implements OnInit {
     private toastr: ToastrService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit() {

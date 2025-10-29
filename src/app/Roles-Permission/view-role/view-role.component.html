@@ -1,53 +1,40 @@
 <h4 style="text-align:left;color:#141E46;">Role Details</h4>
+
 <mat-card-header>
-<div class="row mt-4">
+  <div class="row mt-4">
     <div class="colRegion">
       <div class="search ">
         <form class="form">
-            <label for="search">
-                <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search"
-                    id="search" type="text">
-                <div class="icon">
-                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                            stroke-linecap="round">
-                        </path>
-                    </svg>
-                  
-                </div>
-                <button  (click)="reload()" type="reset" class="close-btn">
-                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                        <path clip-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            fill-rule="evenodd"></path>
-                    </svg>
-                </button>
-            </label>
+          <label for="search">
+            <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search" id="search"
+              type="text">
+            <div class="icon">
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                </path>
+              </svg>
+            </div>
+            <button (click)="Getall()" type="reset" class="close-btn">
+              <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </label>
         </form>
-
-    </div>
-&nbsp;&nbsp;&nbsp;
-
-
-
+      </div>
+      &nbsp;&nbsp;&nbsp;
       <button (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;font-size:12px"
         mat-raised-button>Create</button>
-      <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;" 
-        mat-raised-button>Export</button> -->
     </div>
- 
-</div>
+  </div>
 </mat-card-header>
 
 <mat-card-content>
-
-
   <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
-    <!-- <span *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span> -->
-
-    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1"
-      >
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
 
       <ng-container matColumnDef="roleid">
         <th mat-header-cell *matHeaderCellDef> S.No</th>
@@ -61,25 +48,12 @@
         </td>
       </ng-container>
 
-      <!-- <ng-container matColumnDef="permissionName">
-        <th mat-header-cell *matHeaderCellDef>Permission View</th>
-        <td mat-cell *matCellDef="let data">
-            <i  class="fa fa-eye" (click)="permissionView(data?.permission)"  ></i>
-        </td>
-    </ng-container> -->
-
-    <ng-container matColumnDef="actionName">
+      <ng-container matColumnDef="actionName">
         <th mat-header-cell *matHeaderCellDef>Action View</th>
         <td mat-cell *matCellDef="let data">
-            <i  class="fa fa-eye" (click)="subpermissionView(data?.subPermission)"  ></i>
+          <i class="fa fa-eye" (click)="subpermissionView(data?.subPermission)"></i>
         </td>
-    </ng-container>
-
-      <!-- <ng-container matColumnDef="chooseCount">
-                <th mat-header-cell *matHeaderCellDef>Choose Count</th>
-                <td mat-cell *matCellDef="let data">
-                </td>
-            </ng-container> -->
+      </ng-container>
 
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>Status</th>
@@ -93,9 +67,9 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let data">
-            <i class="fa fa-edit" (click)="edit(data.roleId)"></i>
+          <i class="fa fa-edit" (click)="edit(data.roleId)"></i>
         </td>
-    </ng-container>
+      </ng-container>
 
       <ng-container matColumnDef="CreatedBy">
         <th mat-header-cell *matHeaderCellDef>Created By</th>
@@ -135,10 +109,8 @@
     </table>
   </div>
 </mat-card-content>
+
 <mat-card-footer>
-  <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
-    aria-labels="select page of users"></mat-paginator>
-
+  <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons aria-labels="select page of users">
+  </mat-paginator>
 </mat-card-footer>
-
-

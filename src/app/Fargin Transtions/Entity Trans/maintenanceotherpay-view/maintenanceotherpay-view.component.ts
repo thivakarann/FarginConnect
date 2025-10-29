@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import moment from 'moment';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-maintenanceotherpay-view',
@@ -20,7 +21,7 @@ export class MaintenanceotherpayViewComponent {
   displayedColumns: string[] = ["Sno", "type", "otherFeeCount", "otherFeeAmount", "requestDate"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   Merchatid: any;
   searchPerformed: boolean = false;
   responseDataListnew: any = [];
@@ -28,8 +29,9 @@ export class MaintenanceotherpayViewComponent {
   date1: any;
   details: any;
   payid: any;
- 
-  constructor(private location: Location, private service: FarginServiceService, private toastr: ToastrService, private router: Router, private activaterouter: ActivatedRoute,) { }
+
+  constructor(private cryptoService: EncyDecySericeService,
+    private location: Location, private service: FarginServiceService, private toastr: ToastrService, private router: Router, private activaterouter: ActivatedRoute,) { }
 
   ngOnInit(): void {
     this.activaterouter.queryParams.subscribe((param: any) => {
@@ -79,9 +81,9 @@ export class MaintenanceotherpayViewComponent {
     })
   }
 
-  close(){
+  close() {
     this.location.back()
-   }
+  }
 
   exportexcel() {
 
@@ -102,70 +104,70 @@ export class MaintenanceotherpayViewComponent {
     this.excelexportCustomer();
   }
 
-   excelexportCustomer() {
-      // const title='Business Category';
-      const header = [
-        "SNo",
-        "Service Type",
-        "Count",
-        "Service Amount",
-        "Request Date",
-       
-      ]
-   
-   
-      const data = this.responseDataListnew;
-      let workbook = new Workbook();
-      let worksheet = workbook.addWorksheet('Other Payment Details');
-      worksheet.addRow([]);
-      let headerRow = worksheet.addRow(header);
-      headerRow.font = { bold: true };
-      // Cell Style : Fill and Border
-      headerRow.eachCell((cell, number) => {
-        cell.fill = {
-          type: 'pattern',
-          pattern: 'solid',
-          fgColor: { argb: 'FFFFFFFF' },
-          bgColor: { argb: 'FF0000FF' },
-   
-        }
-   
-        cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      });
-   
-      data.forEach((d: any) => {
-        //
-   
-        let row = worksheet.addRow(d);
-        let qty = row.getCell(1);
-        let qty1 = row.getCell(2);
-        let qty2 = row.getCell(3);
-        let qty3 = row.getCell(4);
-        let qty4 = row.getCell(5);
-     
-     
-   
-   
-   
-        qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      
-   
-   
+  excelexportCustomer() {
+    // const title='Business Category';
+    const header = [
+      "SNo",
+      "Service Type",
+      "Count",
+      "Service Amount",
+      "Request Date",
+
+    ]
+
+
+    const data = this.responseDataListnew;
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Other Payment Details');
+    worksheet.addRow([]);
+    let headerRow = worksheet.addRow(header);
+    headerRow.font = { bold: true };
+    // Cell Style : Fill and Border
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFFFFFF' },
+        bgColor: { argb: 'FF0000FF' },
+
       }
-      );
-      workbook.xlsx.writeBuffer().then((data: any) => {
-   
-        let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-   
-   
-        FileSaver.saveAs(blob, 'Other Payment Details.xlsx');
-   
-      });
+
+      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    });
+
+    data.forEach((d: any) => {
+      //
+
+      let row = worksheet.addRow(d);
+      let qty = row.getCell(1);
+      let qty1 = row.getCell(2);
+      let qty2 = row.getCell(3);
+      let qty3 = row.getCell(4);
+      let qty4 = row.getCell(5);
+
+
+
+
+
+      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
+
+
     }
+    );
+    workbook.xlsx.writeBuffer().then((data: any) => {
+
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+
+      FileSaver.saveAs(blob, 'Other Payment Details.xlsx');
+
+    });
+  }
 
 
 }

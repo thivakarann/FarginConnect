@@ -12,6 +12,7 @@ import moment from 'moment';
 import { CustomerTransViewComponent } from '../Fargin Transtions/Customer Trans/customer-trans-view/customer-trans-view.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewadditionalpaymentsComponent } from '../Fargin Transtions/additionalpayments/viewadditionalpayments/viewadditionalpayments.component';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-transaction',
@@ -73,7 +74,7 @@ export class EntityTransactionComponent {
   Viewall: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   responseDataListnew: any = [];
   response: any = [];
@@ -101,7 +102,9 @@ export class EntityTransactionComponent {
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({

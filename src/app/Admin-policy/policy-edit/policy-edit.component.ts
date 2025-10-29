@@ -4,6 +4,7 @@ import { AdminPolicyEdit } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-policy-edit',
@@ -13,8 +14,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PolicyEditComponent implements OnInit {
   editadminpolicy!: FormGroup;
   businessCategoryId: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   categorys: any;
   mccCodes: any;
   policyId: any;
@@ -33,6 +35,7 @@ export class PolicyEditComponent implements OnInit {
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private router: Router,
     private ActivateRoute: ActivatedRoute) { }
 
@@ -45,7 +48,7 @@ export class PolicyEditComponent implements OnInit {
 
     this.service.Policymerchant().subscribe((res: any) => {
       if (res.flag == 1) {
-        this.MerchantName = res.response;
+        this.MerchantName = res.response.reverse();
         this.filteredMerchantNames = this.MerchantName.map((merchant: any) => ({
           label: merchant.merchantLegalName,
           value: merchant.merchantId
@@ -108,7 +111,7 @@ export class PolicyEditComponent implements OnInit {
       disclaimer: this.disclaimer?.value.trim(),
       privacyPolicy: this.privacyPolicy?.value.trim(),
       refundPolicy: this.refundPolicy?.value.trim(),
-      modifiedBy: this.getadminname,
+      modifiedBy: this.adminName,
       merchantId: this.merchantId?.value
     }
     this.service.adminpolicyedit(this.policyId, submitModel).subscribe((res: any) => {

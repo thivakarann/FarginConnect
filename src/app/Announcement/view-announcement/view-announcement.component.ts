@@ -13,21 +13,19 @@ import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { AnnouncementviewComponent } from '../announcementview/announcementview.component';
 import { announcestatus } from '../../fargin-model/fargin-model.module';
-import { MatOption } from '@angular/material/core';
-import { MatSelect } from '@angular/material/select';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-view-announcement',
   templateUrl: './view-announcement.component.html',
-  styleUrl: './view-announcement.component.css'
+  styleUrl: './view-announcement.component.css',
 })
 export class ViewAnnouncementComponent implements OnInit {
-
   valueannouncementAdd: any;
   valueannouncementexport: any;
   valueannouncementstatus: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valueannouncementEdit: any;
@@ -35,20 +33,19 @@ export class ViewAnnouncementComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   dataSource: any;
 
-  displayedColumns: string[] =
-    [
-      "announcementId",
-      "Business",
-      "Announcement",
-      "startDate",
-      "endDate",
-      "status",
-      "Edit",
-      "createdBy",
-      "createdDateTime",
-      "modifiedBy",
-      "modifiedDateTime"
-    ]
+  displayedColumns: string[] = [
+    'announcementId',
+    'Business',
+    'Announcement',
+    'startDate',
+    'endDate',
+    'status',
+    'Edit',
+    'createdBy',
+    'createdDateTime',
+    'modifiedBy',
+    'modifiedDateTime',
+  ];
   data: any;
   responseDataListnew: any[] = [];
   response: any;
@@ -69,26 +66,20 @@ export class ViewAnnouncementComponent implements OnInit {
   totalPages: any;
   totalpage: any;
   currentpage: any;
-
-
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
   pageSize1: number = 5;
-
   filter: boolean = true;
   pageIndex1: number = 0;
   maxDate: any;
   annoucemnetserach: any;
   pageSize2: number = 5;
-
-
   pageIndex2: number = 0;
   currentfilval: any;
   totalPages2: any;
   totalpage2: any;
   currentpage2: any;
-
   filter1: boolean = false;
   filter2: boolean = false;
   filter3: boolean = false;
@@ -96,48 +87,51 @@ export class ViewAnnouncementComponent implements OnInit {
   searchPerformed: boolean = false;
   filterAction: any = 0;
 
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
+  constructor(
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
+  ) { }
 
   ngOnInit(): void {
-
     const today = new Date();
-    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == '1') {
-            this.valueannouncementAdd = 'Announcement-Add'
-            this.valueannouncementEdit = 'Announcement-Edit'
-            this.valueannouncementexport = 'Announcement-Export'
-            this.valueannouncementstatus = 'Announcement-Status'
-          }
-          else {
+            this.valueannouncementAdd = 'Announcement-Add';
+            this.valueannouncementEdit = 'Announcement-Edit';
+            this.valueannouncementexport = 'Announcement-Export';
+            this.valueannouncementstatus = 'Announcement-Status';
+          } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
               if (this.actions == 'Announcement-Add') {
-                this.valueannouncementAdd = 'Announcement-Add'
+                this.valueannouncementAdd = 'Announcement-Add';
               }
               if (this.actions == 'Announcement-Edit') {
-                this.valueannouncementEdit = 'Announcement-Edit'
+                this.valueannouncementEdit = 'Announcement-Edit';
               }
               if (this.actions == 'Announcement-Export') {
-                this.valueannouncementexport = 'Announcement-Export'
+                this.valueannouncementexport = 'Announcement-Export';
               }
               if (this.actions == 'Announcement-Status') {
-                this.valueannouncementstatus = 'Announcement-Status'
+                this.valueannouncementstatus = 'Announcement-Status';
               }
             }
           }
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
-      }
+      },
     });
     this.Getall();
-  };
+  }
 
   Getall() {
     this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
@@ -160,8 +154,7 @@ export class ViewAnnouncementComponent implements OnInit {
   }
 
   checkDate() {
-    this.toDate = ''
-    // this.FromDateRange =''
+    this.toDate = '';
   }
 
   search() {
@@ -173,8 +166,7 @@ export class ViewAnnouncementComponent implements OnInit {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.data);
-          this.filterAction = 1
-
+          this.filterAction = 1;
         } else if (res.flag == 2) {
           this.data = [];
           this.totalPages = res.pagination.totalElements;
@@ -182,15 +174,13 @@ export class ViewAnnouncementComponent implements OnInit {
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.data);
         }
-      }
-    })
+      },
+    });
   }
 
   togglePrivacyPolicy() {
     this.isFullPolicyVisible = !this.isFullPolicyVisible;
   }
-
-
 
   create() {
     const dialogRef = this.dialog.open(AddAnnouncementComponent, {
@@ -199,7 +189,7 @@ export class ViewAnnouncementComponent implements OnInit {
       disableClose: true,
       width: '80vw',
       maxWidth: '500px',
-      maxHeight: '500px'
+      maxHeight: '500px',
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.Getall();
@@ -214,40 +204,43 @@ export class ViewAnnouncementComponent implements OnInit {
       maxHeight: '500px',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '500ms',
-      disableClose: true
+      disableClose: true,
     });
 
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.Getall();
     });
-  };
+  }
 
   onSubmit(event: MatSlideToggleChange, id: any) {
-    this.announcementId = id
+    this.announcementId = id;
     this.isChecked = event.checked;
     let submitModel: announcestatus = {
       activeStatus: this.isChecked ? 1 : 0,
-      announcementId: this.announcementId
+      announcementId: this.announcementId,
     };
     this.service.announcementStatus(submitModel).subscribe((res: any) => {
-      this.toastr.success(res.responseMessage); setTimeout(() => { this.Getall(); }, 500);
+      this.toastr.success(res.responseMessage);
+      setTimeout(() => {
+        this.Getall();
+      }, 200);
     });
-  };
+  }
 
   announcement(id: any) {
     this.dialog.open(AnnouncementviewComponent, {
       data: { value: id },
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '500ms',
-      disableClose: true
+      disableClose: true,
     });
-  };
+  }
 
   annoucementsearch(filterValue: string) {
     if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;
-    };
+    }
     this.service.announcementsearch(filterValue, this.pageSize, this.pageIndex).subscribe({
       next: (res: any) => {
         if (res.response) {
@@ -268,9 +261,35 @@ export class ViewAnnouncementComponent implements OnInit {
       },
       error: (err: any) => {
         this.toastr.error('No Data Found');
-      }
+      },
     });
   };
+
+  reset() {
+    this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.data = res.response.content;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.data);
+        this.filterAction = 0;
+        this.currentfilvalShow = false;
+        this.fromDate = '';
+        this.toDate = '';
+      } else if (res.flag == 2) {
+        this.data = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.data);
+        this.filterAction = 0;
+        this.currentfilvalShow = false;
+        this.fromDate = '';
+        this.toDate = '';
+      }
+    });
+  }
 
   getData(event: any) {
     if (this.currentfilvalShow) {
@@ -282,22 +301,19 @@ export class ViewAnnouncementComponent implements OnInit {
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.annoucemnetserach);
-
           } else if (res.flag == 2) {
             this.annoucemnetserach = [];
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.annoucemnetserach);
-
           }
         },
         error: (err: any) => {
           this.toastr.error('No Data Found');
-        }
+        },
       });
-    }
-    else if (this.filterAction == 1) {
+    } else if (this.filterAction == 1) {
       this.service.announcementDate(this.fromDate, this.toDate, event.pageSize, event.pageIndex).subscribe({
         next: (res: any) => {
           if (res.flag == 1) {
@@ -306,7 +322,6 @@ export class ViewAnnouncementComponent implements OnInit {
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.data);
-
           } else if (res.flag == 2) {
             this.data = [];
             this.totalPages = res.pagination.totalElements;
@@ -314,10 +329,9 @@ export class ViewAnnouncementComponent implements OnInit {
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.data);
           }
-        }
-      })
-    }
-    else {
+        },
+      });
+    } else {
       this.service.announcementViewall(event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag == 1) {
           this.data = res.response.content;
@@ -334,44 +348,7 @@ export class ViewAnnouncementComponent implements OnInit {
         }
       });
     }
-  };
-
-  reset() {
-
-    this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.data = res.response.content;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.data);
-        this.filterAction = 0;
-        this.currentfilvalShow = false;
-        this.fromDate = '';
-        this.toDate = '';
-      }
-      else if (res.flag == 2) {
-        this.data = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.data);
-        this.filterAction = 0;
-        this.currentfilvalShow = false;
-        this.fromDate = '';
-        this.toDate = '';
-
-      }
-    });
   }
-
-
-
-
-
-
-
-
 
   exportexcel() {
     this.service.announcementViewallExport().subscribe((res: any) => {
@@ -391,13 +368,15 @@ export class ViewAnnouncementComponent implements OnInit {
           else { this.response.push('Inactive'); }
           if (element?.createdDateTime) {
             this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+          } else {
+            this.response.push('-');
           }
-          else { this.response.push('-'); }
           this.response.push(element?.updatedBy);
           if (element?.updateDateTime) {
             this.response.push(moment(element?.updateDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+          } else {
+            this.response.push('-');
           }
-          else { this.response.push('-'); }
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -408,17 +387,17 @@ export class ViewAnnouncementComponent implements OnInit {
 
   excelexportCustomer() {
     const header = [
-      "S.No",
-      "Business Category",
-      "Announcement",
-      "Start date",
-      "End date",
-      "Created By",
-      "Status",
-      "Created At",
-      "Modified By",
-      "Modified At",
-    ]
+      'S.No',
+      'Business Category',
+      'Announcement',
+      'Start date',
+      'End date',
+      'Created By',
+      'Status',
+      'Created At',
+      'Modified By',
+      'Modified At',
+    ];
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Announcement');
@@ -431,8 +410,13 @@ export class ViewAnnouncementComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-      }
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
     });
     data.forEach((d: any) => {
       let row = worksheet.addRow(d);
@@ -447,23 +431,72 @@ export class ViewAnnouncementComponent implements OnInit {
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
 
-
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-    }
-    );
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty9.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
       FileSaver.saveAs(blob, 'Announcement.xlsx');
     });
-  };
+  }
 }

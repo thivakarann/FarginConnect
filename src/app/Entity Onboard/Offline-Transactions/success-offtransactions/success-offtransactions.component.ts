@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-success-offtransactions',
@@ -25,7 +26,7 @@ export class SuccessOfftransactionsComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   id: any;
@@ -36,7 +37,9 @@ export class SuccessOfftransactionsComponent {
 
   constructor(
     private service: FarginServiceService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

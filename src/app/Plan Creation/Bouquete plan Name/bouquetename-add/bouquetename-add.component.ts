@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { BouquetNameadd } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-bouquetename-add',
@@ -11,8 +12,9 @@ import { BouquetNameadd } from '../../../fargin-model/fargin-model.module';
   styleUrl: './bouquetename-add.component.css'
 })
 export class BouquetenameAddComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   details: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
@@ -20,6 +22,8 @@ export class BouquetenameAddComponent implements OnInit {
   constructor(
     public Bouquetenameadd: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
     private dialog: MatDialog
   ) { }
 
@@ -50,7 +54,7 @@ export class BouquetenameAddComponent implements OnInit {
   submit() {
     let submitModel: BouquetNameadd = {
       bouquetName: this.bouquetName?.value.trim(),
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
       bundleChannelId: this.bundleChannelId?.value
     }
     this.Bouquetenameadd.BouquetenameAdd(submitModel).subscribe((res: any) => {

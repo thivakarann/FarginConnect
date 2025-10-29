@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Providerupdate } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-serviceprovider-edit',
@@ -13,7 +14,7 @@ import { Providerupdate } from '../../../fargin-model/fargin-model.module';
 export class ServiceproviderEditComponent implements OnInit {
   AdminForm!: FormGroup;
   showPassword: boolean = false;
-  getadmin = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   serviceId: any;
   viewdata: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
@@ -22,6 +23,7 @@ export class ServiceproviderEditComponent implements OnInit {
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toaster: ToastrService,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
   ngOnInit(): void {
@@ -58,7 +60,7 @@ export class ServiceproviderEditComponent implements OnInit {
     let submitmodel: Providerupdate = {
       serviceProviderName: this.providerName?.value.trim(),
       serviceProviderLink: this.serviceProviderLink?.value.trim(),
-      modifiedBy: this.getadmin,
+      modifiedBy: this.adminName,
       serviceId: this.serviceId,
     };
     this.service.ServiceProviderUpdate(submitmodel).subscribe((res: any) => {

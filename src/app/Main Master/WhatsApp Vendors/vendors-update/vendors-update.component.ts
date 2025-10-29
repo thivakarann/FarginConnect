@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { VendorsUpdate } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-vendors-update',
@@ -11,8 +12,9 @@ import { VendorsUpdate } from '../../../fargin-model/fargin-model.module';
   styleUrl: './vendors-update.component.css'
 })
 export class VendorsUpdateComponent {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   showPassword: boolean = false;
@@ -20,6 +22,7 @@ export class VendorsUpdateComponent {
   constructor(
     public service: FarginServiceService,
     private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toaster: ToastrService
   ) { }
@@ -110,7 +113,7 @@ export class VendorsUpdateComponent {
       userName: this.userName?.value,
       password: this.password?.value,
       token: this.token?.value,
-      modifiedBy: this.getadminname
+      modifiedBy: this.adminName
     }
     this.service.VendorsUpdate(this.data?.value?.vendorAdminId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

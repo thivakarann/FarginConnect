@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { map, startWith, pairwise, filter } from 'rxjs/operators';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-sms-create',
@@ -24,7 +25,7 @@ import { map, startWith, pairwise, filter } from 'rxjs/operators';
 export class SmsCreateComponent implements OnInit {
   merchantid: any;
   myForm4!: FormGroup;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   options: any;
   free: any;
   paid: any;
@@ -40,6 +41,7 @@ export class SmsCreateComponent implements OnInit {
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -77,7 +79,7 @@ export class SmsCreateComponent implements OnInit {
   };
 
   GetMessageTemplate(templateType: string, tempLanguage: string) {
-    this.service.NewSMSDropdown(this.data.value,templateType,tempLanguage)
+    this.service.NewSMSDropdown(this.data.value, templateType, tempLanguage)
       .subscribe((res: any) => {
         if (res.flag == 1) {
           this.freepaid = res.response;
@@ -128,7 +130,7 @@ export class SmsCreateComponent implements OnInit {
     let submitModel: CreateSMS = {
       merchantId: this.merchantid,
       type: this.smsFor?.value,
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
       smsCharge: this.smsForpaid?.value,
     };
     this.service.CreateSMS(submitModel).subscribe((res: any) => {

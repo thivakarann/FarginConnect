@@ -2,9 +2,9 @@ import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { pgsetupedit, Updatefacheckkey } from '../../../fargin-model/fargin-model.module';
+import { pgsetupedit } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-pgsetup-edit',
@@ -14,7 +14,7 @@ import { pgsetupedit, Updatefacheckkey } from '../../../fargin-model/fargin-mode
 export class PgsetupEditComponent implements OnInit {
 
   pgsetupformedit: any = FormGroup;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   facheckkey: any;
   pgModeId: any;
   apikeys: any;
@@ -25,14 +25,10 @@ export class PgsetupEditComponent implements OnInit {
 
   constructor(
     private service: FarginServiceService,
-    private router: Router,
     private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private toastr: ToastrService,
-
-  ) {
-    this.pgModeId = data.value.pgModeId;
-  }
+    private toastr: ToastrService) { this.pgModeId = data.value.pgModeId; }
 
   ngOnInit(): void {
     this.pgsetupformedit = new FormGroup({
@@ -41,30 +37,13 @@ export class PgsetupEditComponent implements OnInit {
       apiKey: new FormControl('', [Validators.required]),
       modifiedBy: new FormControl(''),
     });
-
     this.apikeys = this.data.value.apiKey
     this.pgsetupformedit.controls['apiKey'].value = this.apikeys
-
-
     this.secretKeys = this.data.value.secretKey
     this.pgsetupformedit.controls['secretKey'].value = this.secretKeys
-
     this.pgModes = this.data.value.pgMode
     this.pgsetupformedit.controls['pgMode'].value = this.pgModes
-
-    // if (this.data && this.data.value) {
-    //   this.pgsetupformedit.patchValue({
-    //     apiKey: this.data.value.apiKey,
-    //     secretKey: this.data.value.secretKey,
-    //     applicationId: this.data.value.applicationId,
-    //     mode: this.data.value.mode
-    //   });
-    // } else {
-    //   console.error('Data is not defined');
-    // }
-
   }
-
   get pgMode() {
     return this.pgsetupformedit.get('pgMode');
   }
@@ -74,23 +53,20 @@ export class PgsetupEditComponent implements OnInit {
   get apiKey() {
     return this.pgsetupformedit.get('apiKey');
   }
-
-
   submit() {
     let submitModel: pgsetupedit = {
       pgMode: this.pgMode.value,
       secretKey: this.secretKey.value.trim(),
       apiKey: this.apiKey.value.trim(),
-      modifiedBy: this.createdBy
+      modifiedBy: this.adminName
     }
-
     this.service.PgsetupUpdate(this.pgModeId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
-      
-      } else {
+      }
+      else {
         this.toastr.error(res.responseMessage)
       }
     })

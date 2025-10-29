@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Othermanualpay } from '../../../Fargin Model/fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-otherpay-manualpayment',
@@ -13,13 +14,14 @@ import { Othermanualpay } from '../../../Fargin Model/fargin-model/fargin-model.
 export class OtherpayManualpaymentComponent implements OnInit {
   manualpay!: FormGroup;
   payId: any;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -55,7 +57,7 @@ export class OtherpayManualpaymentComponent implements OnInit {
       paymentMethod: this.paymentMode?.value,
       paymentStatus: this.technicalPayStatus?.value,
       utrNumber: this.utrNumber?.value || "-",
-      updatedBy: this.createdBy
+      updatedBy: this.adminName
     }
     this.service.OtherpaymentManualpay(this.payId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

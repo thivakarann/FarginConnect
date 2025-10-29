@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { LeveloneApproval } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-level-one-approval',
@@ -11,7 +12,7 @@ import { LeveloneApproval } from '../../fargin-model/fargin-model.module';
   styleUrl: './level-one-approval.component.css',
 })
 export class LevelOneApprovalComponent implements OnInit {
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   myForm!: FormGroup;
   merchantId: any;
   approval: any;
@@ -20,6 +21,7 @@ export class LevelOneApprovalComponent implements OnInit {
   constructor(
     private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private cryptoService: EncyDecySericeService,
     private toaster: ToastrService,
     private dialog: MatDialog
   ) { }
@@ -46,7 +48,7 @@ export class LevelOneApprovalComponent implements OnInit {
     let submitModel: LeveloneApproval = {
       merchantId: this.merchantId,
       approvalStatusL1: this.approvalStatus?.value,
-      approvedByL1: this.createdBy,
+      approvedByL1: this.adminName,
       comment: this.remarks?.value.trim(),
     };
     this.service.MerchantLevelApprovalOne(submitModel).subscribe((res: any) => {
@@ -56,9 +58,12 @@ export class LevelOneApprovalComponent implements OnInit {
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else if (res.flag == 2) {
-        this.toaster.error(res.responseMessage);
+        this.toaster.warning(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
+      }
+      else {
+        this.toaster.error(res.responseMessage);
       }
     });
   }

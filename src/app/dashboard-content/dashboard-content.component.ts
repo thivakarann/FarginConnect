@@ -4,6 +4,8 @@ import { Chart, ArcElement, Tooltip, Legend, DoughnutController, registerables, 
 import { DashboardData } from '../fargin-model/fargin-model.module';
 import { FormControl, FormGroup } from '@angular/forms';
 import moment from 'moment';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { SessionValidatorService } from '../Session storage Validator/session-validator.service';
 Chart.register(ArcElement, Tooltip, Legend, DoughnutController);
 Chart.register(...registerables);
 
@@ -16,12 +18,11 @@ export class DashboardContentComponent {
   counts: any;
   valueDashboard: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   category: any;
   businessCategoryIds: any;
-  merchantId = sessionStorage.getItem('merchantId') || '';
   chart: any;
   toastr: any;
   initialCategoryId = 1;
@@ -67,10 +68,12 @@ export class DashboardContentComponent {
     otherPaymentChartCanvas: null,
   };
 
-  constructor(private service: FarginServiceService) { }
+  constructor(private service: FarginServiceService, private cryptoService: EncyDecySericeService, private sessionValidator: SessionValidatorService) { }
 
   ngOnInit(): void {
-    
+
+    this.sessionValidator.startSessionMonitor();
+
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
@@ -123,12 +126,12 @@ export class DashboardContentComponent {
         }
       }
     });
-    
+
     this.transactionform = new FormGroup({
       selectperiods: new FormControl('', []),
       selecttransaction: new FormControl('', []),
     });
-    
+
     this.createEmptyCharts();
 
     this.service.dashboardCount().subscribe((res: any) => {
@@ -230,7 +233,7 @@ export class DashboardContentComponent {
       }
     });
   }
-  
+
   onMerchantChange(event: any) {
     this.selectedmerchant = +event.target.value;
     this.service.dashboardoverallmerchantids(this.selectedmerchant).subscribe((res: any) => {
@@ -239,7 +242,7 @@ export class DashboardContentComponent {
       }
     });
   }
-  
+
   createEmptyCharts(): void {
     const emptyData = [0, 0, 0, 0]; // Representing empty data (Total, Success, Pending, Failed)
     const emptyChartData = {
@@ -575,9 +578,9 @@ export class DashboardContentComponent {
       },
     });
   }
-  
+
   // Create empty charts with zero values
-  
+
   creatememberchart(data: any): void {
     const response = data.response;
 
@@ -753,7 +756,7 @@ export class DashboardContentComponent {
       },
     });
   }
-  
+
   resetTransactionForm(): void {
     this.transactionform.reset({ selectperiods: '', selecttransaction: '' });
     this.service.dashboardcustomeroveralls().subscribe((res: any) => {

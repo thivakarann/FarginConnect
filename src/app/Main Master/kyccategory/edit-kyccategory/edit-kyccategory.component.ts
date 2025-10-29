@@ -4,6 +4,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { kycedit } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-edit-kyccategory',
@@ -13,8 +14,9 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 export class EditKyccategoryComponent {
   editcategory: any = FormGroup;
   businessCategoryId: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   categorys: any;
   mccCodes: any;
   kycCategoryId: any;
@@ -24,6 +26,7 @@ export class EditKyccategoryComponent {
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
+    private cryptoService:EncyDecySericeService,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -47,7 +50,7 @@ export class EditKyccategoryComponent {
 
   Editsubmit() {
     let submitModel: kycedit = {
-      modifiedBy: this.getadminname,
+      modifiedBy: this.adminName,
       kycCategoryName: this.kycCategoryName.value.trim(),
       kycCategoryId: this.kycCategoryId,
     };

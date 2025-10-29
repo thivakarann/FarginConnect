@@ -9,6 +9,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { OfflineDetailsComponent } from '../offline-details/offline-details.component';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-overall-individual-customerview',
@@ -56,7 +57,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   valueaddinvoice: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   totalPages: any;
   totalpage: any;
@@ -191,7 +192,8 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     private toastr: ToastrService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cryptoService:EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {

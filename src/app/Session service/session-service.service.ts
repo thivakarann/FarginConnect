@@ -67,7 +67,7 @@ export class SessionServiceService {
   private clearHistoryAndNavigateToLogin(): void {
     this.dialog.closeAll();
     sessionStorage.clear();
-    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('One');
     this.router.navigateByUrl('/login-page', { replaceUrl: true });
   }
 

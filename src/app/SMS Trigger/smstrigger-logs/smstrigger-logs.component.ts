@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { SMSContentComponent } from '../smscontent/smscontent.component';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-smstrigger-logs',
@@ -36,12 +37,13 @@ export class SMSTriggerLogsComponent {
   pageIndex: number = 0;
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   limit: number = 30;
   Visible: boolean = false;
 
 
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private router: Router, private toastr: ToastrService, private ActivateRoute: ActivatedRoute, private location: Location) { }
+  constructor(private cryptoService:EncyDecySericeService,
+private dialog: MatDialog, private service: FarginServiceService, private router: Router, private toastr: ToastrService, private ActivateRoute: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {

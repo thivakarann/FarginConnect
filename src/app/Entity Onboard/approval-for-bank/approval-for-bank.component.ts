@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ApprovalBank } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-approval-for-bank',
@@ -11,8 +12,8 @@ import { ApprovalBank } from '../../fargin-model/fargin-model.module';
   styleUrl: './approval-for-bank.component.css',
 })
 export class ApprovalForBankComponent implements OnInit {
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   id: any;
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
@@ -21,6 +22,7 @@ export class ApprovalForBankComponent implements OnInit {
     private Approval: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog
   ) { }
   ngOnInit(): void {
@@ -48,7 +50,7 @@ export class ApprovalForBankComponent implements OnInit {
     let submitModel: ApprovalBank = {
       approvalStatus: this.approvalStatus?.value,
       reMarks: this.reMarks?.value.trim(),
-      approvalBy: this.getadminname,
+      approvalBy: this.adminName,
     };
 
     this.Approval.EntityBankApprovals(this.id, submitModel).subscribe(

@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { MerchantTransaction } from '../../fargin-model/fargin-model.module';
 import { MerchantTransactionViewComponent } from '../merchant-transaction-view/merchant-transaction-view.component';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 
 @Component({
@@ -53,12 +54,12 @@ export class OverallTransactionsViewallComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
 
 
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
+  constructor(private cryptoService:EncyDecySericeService,private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
 
 
 

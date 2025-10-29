@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Editwithdrawal } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-editwithdrawal',
@@ -14,7 +15,7 @@ import { Editwithdrawal } from '../../../fargin-model/fargin-model.module';
 export class EditwithdrawalComponent {
   withdrawalFormGroup: any = FormGroup;
   amount: any;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   show: any;
   fee: any;
   infee: any;
@@ -26,16 +27,17 @@ export class EditwithdrawalComponent {
     private service: FarginServiceService,
     private router: Router,
     private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    
+
   ) {
     this.tresholdId = data.value.tresholdId;
   }
 
   ngOnInit(): void {
-   
-    
+
+
     this.withdrawalFormGroup = new FormGroup({
       amountRange: new FormControl('', [Validators.required]),
       amountRanges: new FormControl('', [Validators.required]),
@@ -43,7 +45,7 @@ export class EditwithdrawalComponent {
       mode: new FormControl('', [Validators.required]),
       gstType: new FormControl('', [Validators.required]),
       fees: new FormControl('', [Validators.required]),
-     
+
     });
     if (this.data && this.data.value) {
       this.withdrawalFormGroup.patchValue({
@@ -52,13 +54,13 @@ export class EditwithdrawalComponent {
         gstInPercentage: this.data.value.gstInPercentage,
         mode: this.data.value.mode,
         fees: this.data.value.baseAmount,
-        gstType:this.data.value.gstType,   
+        gstType: this.data.value.gstType,
       });
-      this.values=this.data.value.fees
+      this.values = this.data.value.fees
     } else {
       console.error('Data is not defined');
     }
-   
+
     this.subscribeToFormChanges()
   }
 
@@ -80,7 +82,7 @@ export class EditwithdrawalComponent {
   get fees() {
     return this.withdrawalFormGroup.get('fees');
   }
-  
+
   subscribeToFormChanges() {
     this.withdrawalFormGroup.get('gstType')?.valueChanges.subscribe(() => this.calculate());
     this.withdrawalFormGroup.get('fees')?.valueChanges.subscribe(() => this.calculate());
@@ -108,7 +110,7 @@ export class EditwithdrawalComponent {
       const gst = this.gstInPercentage?.value || 0;
       let calculatedAmount = this.fee * (1 + gst / 100);
       this.values = parseFloat(calculatedAmount.toFixed(2));
-      
+
     } else {
       // Provide a default value if calculation cannot be performed
       this.values = 0;
@@ -120,7 +122,7 @@ export class EditwithdrawalComponent {
       const gst = this.gstInPercentage?.value || 0;
       let baseAmount = this.fee / (1 + gst / 100);
       this.values = parseFloat(baseAmount.toFixed(2));
-      
+
     } else {
       // Provide a default value if calculation cannot be performed
       this.values = 0;
@@ -130,14 +132,14 @@ export class EditwithdrawalComponent {
   submit() {
     const amountRange = `${this.amountRange.value}-${this.amountRanges.value}`;
     let submitModel: Editwithdrawal = {
-      amountRange:amountRange,
+      amountRange: amountRange,
       mode: this.mode.value,
       gstType: this.gstType.value,
       fees: this.fees.value,
       gstInPercentage: this.gstInPercentage.value,
-      modifiedBy: this.createdBy,
+      modifiedBy: this.adminName,
     };
-    this.service.editwithdrawals(this.tresholdId,submitModel).subscribe((res: any) => {
+    this.service.editwithdrawals(this.tresholdId, submitModel).subscribe((res: any) => {
       this.withdrawal = res.response;
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);

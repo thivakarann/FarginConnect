@@ -2,9 +2,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AdminCreate, farginadd } from '../../../fargin-model/fargin-model.module';
+import { farginadd } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-fargin-bank-add',
@@ -14,16 +15,15 @@ import { MatDialog } from '@angular/material/dialog';
 export class FarginBankAddComponent {
   BankForm!: FormGroup;
   showPassword: boolean = false;
-  createdBy: any = JSON.parse(sessionStorage.getItem('adminname') || '');
-  activeRole: any;
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || ''); activeRole: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
+  constructor(private cryptoService: EncyDecySericeService, private dialog: MatDialog, private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
   ngOnInit(): void {
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl(null, [
         Validators.required,
-        Validators.pattern('^[A-Za-z. ]+$'), 
+        Validators.pattern('^[A-Za-z. ]+$'),
         Validators.maxLength(50)
       ]),
       accountNumber: new FormControl(null, [
@@ -48,17 +48,12 @@ export class FarginBankAddComponent {
       ]),
       ledgerId: new FormControl('', [Validators.required, Validators.pattern(/^\d{1,10}$/
       )]),
-      createdBy: new FormControl(''),
-
     })
-
-
-
     this.service.roleactiveViewall().subscribe((res: any) => {
       this.activeRole = res.response;
-
     })
   }
+
   get accountHolderName() {
     return this.BankForm.get('accountHolderName');
   }
@@ -82,6 +77,7 @@ export class FarginBankAddComponent {
   get typemode() {
     return this.BankForm.get('typemode');
   }
+
   submit() {
     let submitmodel: farginadd = {
       accountHolderName: this.accountHolderName?.value.trim(),
@@ -91,9 +87,8 @@ export class FarginBankAddComponent {
       branchName: this.branchName?.value.trim(),
       ledgerId: this.ledgerId?.value.trim(),
       typeMode: this.typemode?.value,
-      createdBy: this.createdBy
+      createdBy: this.adminName
     }
-
     this.service.FarginCreate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
@@ -102,14 +97,8 @@ export class FarginBankAddComponent {
       }
       else {
         this.toaster.error(res.responseMessage);
-
       }
     })
 
-  }
-
-  close() {
-    this.router.navigate([`/dashboard/fargin-viewall`], {
-    });
   }
 }

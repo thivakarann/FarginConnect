@@ -6,9 +6,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewticketComponent } from './Tickets/viewticket/viewticket.component';
 import { ViewcategoryComponent } from './Main Master/businesscategory/viewcategory/viewcategory.component';
 import { BusinessKycComponent } from './Main Master/businesscategory/business-kyc/business-kyc.component';
-import { PermissionComponent } from './RolesandPermission/RolePermission/permission/permission.component';
-import { SubPermissionComponent } from './RolesandPermission/RolePermission/sub-permission/sub-permission.component';
-import { RolesComponent } from './RolesandPermission/roles/roles.component';
 import { EntityViewallComponent } from './Entity Onboard/entity-viewall/entity-viewall.component';
 import { DashboardContentComponent } from './dashboard-content/dashboard-content.component';
 import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.component';
@@ -164,9 +161,6 @@ const routes: Routes = [
       { path: 'dashboard-content', component: DashboardContentComponent, canActivate: [authGuard] },
       { path: 'view-category', component: ViewcategoryComponent, canActivate: [authGuard] },
       { path: 'Business-kyc', component: BusinessKycComponent, canActivate: [authGuard] },
-      { path: 'roles', component: RolesComponent, canActivate: [authGuard] },
-      { path: 'permission', component: PermissionComponent, canActivate: [authGuard] },
-      { path: 'sub-permission', component: SubPermissionComponent, canActivate: [authGuard] },
       { path: 'dashboard-content', component: DashboardContentComponent, canActivate: [authGuard] },
       { path: 'entity-viewall', component: EntityViewallComponent, canActivate: [authGuard] },
       { path: 'entity-view/:id', component: EntityViewComponent, canActivate: [authGuard] },

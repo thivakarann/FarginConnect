@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-fargin-bank-edit',
@@ -13,8 +14,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 export class FarginBankEditComponent {
   BankFormedit!: FormGroup;
   showPassword: boolean = false;
-  createdBy: any = JSON.parse(sessionStorage.getItem('adminname') || '');
-  activeRole: any;
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || ''); activeRole: any;
   farginbank: any;
   adminBankId: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
@@ -23,6 +23,7 @@ export class FarginBankEditComponent {
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toaster: ToastrService,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { this.adminBankId = this.data.value.adminBankId; }
 
@@ -107,7 +108,7 @@ export class FarginBankEditComponent {
       ifscCode: this.ifscCode?.value.trim(),
       branchName: this.branchName?.value.trim(),
       ledgerId: this.ledgerId?.value.trim(),
-      modifiedBy: this.createdBy,
+      modifiedBy: this.adminName,
       typeMode: this.typemode?.value,
       adminBankId: this.adminBankId,
     };

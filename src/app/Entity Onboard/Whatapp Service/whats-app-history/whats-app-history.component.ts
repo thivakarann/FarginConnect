@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
 import FileSaver from 'file-saver';
 import { WhatappBulkUploadComponent } from '../whatapp-bulk-upload/whatapp-bulk-upload.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-whats-app-history',
@@ -56,7 +57,7 @@ export class WhatsAppHistoryComponent implements OnInit {
   WhatsappResponseexport: any;
   valueentitysmsexport: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   pageIndex: number = 0;
@@ -93,7 +94,9 @@ export class WhatsAppHistoryComponent implements OnInit {
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {
@@ -147,8 +150,6 @@ export class WhatsAppHistoryComponent implements OnInit {
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.Viewall);
         this.currentfilvalShow = false;
-        this.searchAction = 0;
-        this.filterAction = 0;
       } else if (res.flag == 2) {
         this.Viewall = [];
         this.totalPages = res.pagination.totalElements;
@@ -156,10 +157,10 @@ export class WhatsAppHistoryComponent implements OnInit {
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.Viewall);
         this.currentfilvalShow = false;
-        this.searchAction = 0;
-        this.filterAction = 0;
       }
     });
+    this.searchAction = 0;
+    this.filterAction = 0;
   };
 
   Search(filterValue: string) {

@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MerchantplanUpdate } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-edit-merchant-plan',
@@ -11,8 +12,9 @@ import { MerchantplanUpdate } from '../../fargin-model/fargin-model.module';
   styleUrl: './edit-merchant-plan.component.css',
 })
 export class EditMerchantPlanComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   details: any;
   id: any;
@@ -31,6 +33,7 @@ export class EditMerchantPlanComponent implements OnInit {
   constructor(
     public merchantplanedit: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog
   ) { }
@@ -68,7 +71,6 @@ export class EditMerchantPlanComponent implements OnInit {
         Validators.pattern('^[1-9][0-9]*$'),
       ]),
     });
-
     this.details = this.data.value;
     this.id = this.data.value.merchantPlanId;
     this.planame = this.data.value.planName;
@@ -79,7 +81,6 @@ export class EditMerchantPlanComponent implements OnInit {
     this.VoiceBoxAdv = this.data.value.voiceBoxAdvRent;
     this.VoiceBoxSet = this.data.value.voiceBoxSetupFee;
     this.countlimit = this.data.value.countLimit;
-    console.log(' VoiceBoxAdv' + this.VoiceBoxAdv);
   }
 
   get planName() {
@@ -123,19 +124,16 @@ export class EditMerchantPlanComponent implements OnInit {
       voiceBoxSetupFee: this.voiceBoxSetupFee?.value,
       renewalAmount: this.renewalAmount?.value,
       countLimit: this.countLimit?.value,
-      modifiedBy: this.getadminname,
+      modifiedBy: this.adminName,
     };
-
-    this.merchantplanedit
-      .merchantplanUpdate(this.id, submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          this.bankDetailsUpdated.emit();
-          this.dialog.closeAll();
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+    this.merchantplanedit.merchantplanUpdate(this.id, submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
   }
 }

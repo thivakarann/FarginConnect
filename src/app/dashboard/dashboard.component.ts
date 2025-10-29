@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { LogoutComponent } from '../logout/logout.component';
 import { FarginServiceService } from '../service/fargin-service.service';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,7 @@ export class DashboardComponent implements OnInit {
   private sidebarDropdowns: HTMLElement[] = [];
   private pageWrapper: HTMLElement | null = null;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   errorMessage: any;
   valueDashboard: any;
   valueBusinessCategory: any;
@@ -84,6 +85,7 @@ export class DashboardComponent implements OnInit {
   constructor(private elRef: ElementRef,
     private renderer: Renderer2,
     private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
     private service: FarginServiceService,) { }
 
   ngOnInit(): void {

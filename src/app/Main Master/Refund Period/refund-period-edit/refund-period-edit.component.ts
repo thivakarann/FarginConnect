@@ -4,6 +4,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { RefundPeriodUpdate } from '../../../Fargin Model/fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-refund-period-edit',
@@ -11,23 +12,23 @@ import { RefundPeriodUpdate } from '../../../Fargin Model/fargin-model/fargin-mo
   styleUrl: './refund-period-edit.component.css'
 })
 export class RefundPeriodEditComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   id: any;
   details: any;
-
   @Output() bankDetailsUpdated = new EventEmitter<void>();
-  
+
   constructor(
     public refundupdate: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
   ngOnInit(): void {
     this.details = this.data.value;
-
     this.myForm = new FormGroup({
       paymentMethod: new FormControl('', Validators.required),
       day: new FormControl(null, [
@@ -43,26 +44,23 @@ export class RefundPeriodEditComponent implements OnInit {
   }
   get day() {
     return this.myForm.get('day')
-
   }
 
-  Edit(){
-    let submitModel:RefundPeriodUpdate = {
-      paymentMethod:this.paymentMethod?.value,
-      day:this.day?.value,
-      modifiedBy:this.getadminname
+  Edit() {
+    let submitModel: RefundPeriodUpdate = {
+      paymentMethod: this.paymentMethod?.value,
+      day: this.day?.value,
+      modifiedBy: this.adminName
     }
-
-    this.refundupdate.RefundPeriodUpdate(this.details?.refundDayId,submitModel).subscribe((res:any)=>{
+    this.refundupdate.RefundPeriodUpdate(this.details?.refundDayId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-    
       }
       else {
         this.toastr.error(res.responseMessage);
-      } 
+      }
     })
   }
 }

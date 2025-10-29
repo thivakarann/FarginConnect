@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { smstrigger } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-merchat-smstrigger',
@@ -40,14 +41,15 @@ export class MerchatSMSTriggerComponent implements OnInit {
   pageIndex: number = 0;
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   errorMessage: any;
   getdashboard: any[] = [];
   actions: any;
   valuessms: any;
   valuelogs: any;
 
-  constructor(private service: FarginServiceService, private router: Router, private toastr: ToastrService, private ActivateRoute: ActivatedRoute, private location: Location) { }
+  constructor(private cryptoService:EncyDecySericeService,
+private service: FarginServiceService, private router: Router, private toastr: ToastrService, private ActivateRoute: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
 

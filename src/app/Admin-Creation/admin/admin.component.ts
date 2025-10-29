@@ -14,7 +14,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  styleUrl: './admin.component.css',
 })
 export class AdminComponent implements OnInit {
   businesscategory: any;
@@ -23,21 +23,21 @@ export class AdminComponent implements OnInit {
   responseDataListnew: any = [];
   response: any = [];
   displayedColumns: string[] = [
-    "sno",
-    "name",
+    'sno',
+    'name',
     'roleName',
-    "email",
-    "mobile",
-    "loginFailedCount",
-    "unblock",
-    "status",
-    "Edit",
-    "view",
-    "createdBy",
-    "createdDateTime",
-    "modifiedBy",
-    "modifiedDateTime",
-  ]
+    'email',
+    'mobile',
+    'loginFailedCount',
+    'unblock',
+    'status',
+    'Edit',
+    'view',
+    'createdBy',
+    'createdDateTime',
+    'modifiedBy',
+    'modifiedDateTime',
+  ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   dataSource!: MatTableDataSource<any>;
@@ -51,10 +51,14 @@ export class AdminComponent implements OnInit {
   unblockvalue: any;
   searchPerformed: boolean = false;
 
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
+  constructor(
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    this.Getall()
+    this.Getall();
   }
 
   Getall() {
@@ -64,10 +68,14 @@ export class AdminComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.data.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-
-      }
-      else {
+        this.dataSource.filterPredicate = (data: any, filter: string) => {
+          const transformedFilter = filter.trim().toLowerCase();
+          const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
+            return (currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]));
+          }, '').toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
+      } else {
         this.data = [];
         this.dataSource = new MatTableDataSource(this.data.reverse());
         this.dataSource.sort = this.sort;
@@ -86,8 +94,7 @@ export class AdminComponent implements OnInit {
   }
 
   admincreate() {
-    this.router.navigate([`/dashboard/admincreate`], {
-      // queryParams: { blockId:  this.blockId},
+    this.router.navigate([`/dashboard/admincreate`],{
     });
   }
 
@@ -113,12 +120,10 @@ export class AdminComponent implements OnInit {
         setTimeout(() => {
           this.Getall();
         }, 200);
-      }
-      else {
-        this.toastr.error(res.responseMessage)
+      } else {
+        this.toastr.error(res.responseMessage);
       }
     });
-
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: string) {
@@ -135,14 +140,11 @@ export class AdminComponent implements OnInit {
         setTimeout(() => {
           this.Getall();
         }, 200);
-      }
-      else {
+      } else {
         this.toastr.error(res.responseMessage);
       }
-
     });
-
-  };
+  }
 
   exportexcel() {
     let sno = 1;
@@ -155,7 +157,7 @@ export class AdminComponent implements OnInit {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.adminName);
-      this.response.push(element?.roleModel?.roleName)
+      this.response.push(element?.roleModel?.roleName);
       this.response.push(element?.gender);
       this.response.push(element?.emailAddress);
       this.response.push(element?.mobileNumber);
@@ -165,24 +167,23 @@ export class AdminComponent implements OnInit {
       this.response.push(element?.state);
       this.response.push(element?.pincode);
       if (element?.accountStatus == 1) {
-        this.response.push("Active");
-      }
-      else {
-        this.response.push("InActive");
+        this.response.push('Active');
+      } else {
+        this.response.push('InActive');
       }
       if (element?.loginFailedCount == 6) {
-        this.response.push("blocked");
-      }
-      else {
-        this.response.push("Unblocked");
+        this.response.push('blocked');
+      } else {
+        this.response.push('Unblocked');
       }
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
       if (element?.modifiedAt) {
-        this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
-      }
-      else {
+        this.response.push(
+          moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString()
+        );
+      } else {
         this.response.push('');
       }
       sno++;
@@ -193,24 +194,24 @@ export class AdminComponent implements OnInit {
 
   excelexportCustomer() {
     const header = [
-      "S No",
-      "Name",
-      "Role Name",
-      "Gender",
-      "Email",
-      "Mobile",
-      "Address",
-      "Country",
-      "City",
-      "State",
-      "Pincode",
-      "Status",
-      "Block/unblock Status",
-      "Created By",
-      "Created At",
-      "Modified By",
-      "Modified At"
-    ]
+      'S No',
+      'Name',
+      'Role Name',
+      'Gender',
+      'Email',
+      'Mobile',
+      'Address',
+      'Country',
+      'City',
+      'State',
+      'Pincode',
+      'Status',
+      'Block/unblock Status',
+      'Created By',
+      'Created At',
+      'Modified By',
+      'Modified At',
+    ];
 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
@@ -225,8 +226,13 @@ export class AdminComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-      }
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
     });
 
     data.forEach((d: any) => {
@@ -249,34 +255,114 @@ export class AdminComponent implements OnInit {
       let qty15 = row.getCell(16);
       let qty16 = row.getCell(17);
 
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty13.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty14.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty15.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty16.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
-    }
-    );
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty9.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty10.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty11.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty12.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty13.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty14.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty15.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty16.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
       FileSaver.saveAs(blob, 'User Creation.xlsx');
-
     });
   }
-
-
-
 }

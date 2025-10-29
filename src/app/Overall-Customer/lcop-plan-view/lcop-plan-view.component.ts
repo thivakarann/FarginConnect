@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChannelViewComponent } from '../channel-view/channel-view.component';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-lcop-plan-view',
@@ -33,7 +34,7 @@ export class LcopPlanViewComponent implements OnInit {
   valuelcopgeneral: any;
   getdashboard: any[] = [];
   actions: any;
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valuelcopfree: any;
   valuelcopplan: any;
   valuelcopPaid: any;
@@ -55,7 +56,8 @@ export class LcopPlanViewComponent implements OnInit {
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private location: Location
+    private location: Location,
+    private cryptoService:EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {

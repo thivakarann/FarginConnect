@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ticket } from '../../fargin-model/fargin-model.module';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-addticket',
@@ -13,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AddticketComponent {
   ticketFormGroup: any = FormGroup;
   description: any;
-  adminname: any = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   raiseTicketId: any;
   ticketValue: any;
   tickets: any;
@@ -26,6 +27,7 @@ export class AddticketComponent {
   constructor(
     private service: FarginServiceService,
     private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService
   ) { }
@@ -53,7 +55,7 @@ export class AddticketComponent {
 
   save() {
     let submitModel: ticket = {
-      approvalStatusUpdatedBy: this.adminname,
+      approvalStatusUpdatedBy: this.adminName,
       remarks: this.remarks?.value,
       approvalStatus: this.approvalStatus?.value,
     };

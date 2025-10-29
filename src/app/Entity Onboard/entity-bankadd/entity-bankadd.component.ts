@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { bankData } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-bankadd',
@@ -19,12 +20,13 @@ export class EntityBankaddComponent implements OnInit {
   documentback: any;
   merchantid: any;
   BankNames: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -39,7 +41,7 @@ export class EntityBankaddComponent implements OnInit {
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl('', [
         Validators.required,
-         Validators.pattern('^[A-Za-z. ]+$'),
+        Validators.pattern('^[A-Za-z. ]+$'),
         Validators.maxLength(50),
       ]),
       accountNumber: new FormControl(null, [
@@ -109,7 +111,7 @@ export class EntityBankaddComponent implements OnInit {
       typeMode: this.typemode?.value,
       merchantId: this.merchantid,
       ledgerId: this.ledgerId?.value.trim(),
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
     };
 
     this.service.EntitybankAdd(submitModel).subscribe((res: any) => {

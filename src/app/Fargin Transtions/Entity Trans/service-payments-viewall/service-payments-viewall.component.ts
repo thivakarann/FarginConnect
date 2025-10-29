@@ -10,6 +10,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { manualpay, Onetimepay } from '../../../fargin-model/fargin-model.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 interface Option { entityName: string; merchantId: number; }
 
 @Component({
@@ -59,7 +60,7 @@ export class ServicePaymentsViewallComponent {
   valueserviceexport: any;
   valueserviceView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valueserviceReceipt: any;
@@ -110,7 +111,7 @@ export class ServicePaymentsViewallComponent {
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
 
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
+  constructor(private cryptoService:EncyDecySericeService,private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
   ngOnInit(): void {
 

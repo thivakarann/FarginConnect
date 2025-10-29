@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-sms-history',
@@ -26,7 +27,7 @@ export class SmsHistoryComponent {
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   date1: any;
   date2: any;
   responseDataListnew: any = [];
@@ -40,14 +41,16 @@ export class SmsHistoryComponent {
   constructor(
     public service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
+
   ngOnInit(): void {
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.Id = param.Alldata;
     });
-
     this.Details();
   }
 
@@ -58,17 +61,13 @@ export class SmsHistoryComponent {
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-
       }
-
       else if (res.flag == 2) {
         this.dataSource = new MatTableDataSource([]);
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-
-
     });
   };
 
@@ -80,14 +79,11 @@ export class SmsHistoryComponent {
       this.dataSource.paginator.firstPage();
     }
   };
+
   close() {
     this.location.back()
   };
-
-  reload() {
-    this.Details();
-  };
-
+  
   exportexcel() {
     let sno = 1;
     this.responseDataListnew = [];

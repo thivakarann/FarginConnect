@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UpdateAlcart } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-alcart-edit',
@@ -11,8 +12,9 @@ import { UpdateAlcart } from '../../../fargin-model/fargin-model.module';
   styleUrl: './alcart-edit.component.css'
 })
 export class AlcartEditComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   id: any;
   regiondetails: any;
@@ -42,6 +44,7 @@ export class AlcartEditComponent implements OnInit {
     public EditAlcart: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private ActivateRoute: ActivatedRoute
   ) { }
 
@@ -207,7 +210,7 @@ export class AlcartEditComponent implements OnInit {
       generic: this.generic?.value.trim(),
       language: this.language?.value.trim(),
       price: prices,
-      modifiedBy: this.getadminname,
+      modifiedBy: this.adminName,
       channelNo: this.channelNo?.value,
 
     }

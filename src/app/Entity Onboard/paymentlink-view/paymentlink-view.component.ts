@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaymentlinkDesViewComponent } from './paymentlink-des-view/paymentlink-des-view.component';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-paymentlink-view',
@@ -32,7 +33,7 @@ export class PaymentlinkViewComponent implements OnInit {
   valuepaymentlink: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   searchPerformed: boolean = false;
   actions: any;
 
@@ -43,7 +44,9 @@ export class PaymentlinkViewComponent implements OnInit {
     public location: Location,
     public service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

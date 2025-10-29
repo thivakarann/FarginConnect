@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { branchterminaladd } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-branch-terminal-add',
@@ -12,14 +13,15 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 })
 export class BranchTerminalAddComponent implements OnInit {
   AddTerminal: any = FormGroup;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   branchId: any;
   merchantId: any;
-  
+
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -47,7 +49,7 @@ export class BranchTerminalAddComponent implements OnInit {
       terminalNumber: terminalArray,
       merchantId: this.merchantId,
       branchId: this.branchId,
-      createdBy: this.createdBy,
+      createdBy: this.adminName,
     };
     this.service.BranchTerminalCreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

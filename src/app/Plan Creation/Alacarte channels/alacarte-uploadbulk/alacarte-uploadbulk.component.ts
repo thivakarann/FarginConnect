@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import * as XLSX from 'xlsx';
 import { AlacarteBulkuploadinfoComponent } from '../alacarte-bulkuploadinfo/alacarte-bulkuploadinfo.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 @Component({
   selector: 'app-alacarte-uploadbulk',
   templateUrl: './alacarte-uploadbulk.component.html',
@@ -18,11 +19,12 @@ export class AlacarteUploadbulkComponent {
   uploadFiles: any;
   file: File | null = null;
   arrayExcel: any[] = [];
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private fb: FormBuilder
   ) { }
   ngOnInit(): void {
@@ -133,7 +135,7 @@ export class AlacarteUploadbulkComponent {
   submit() {
     if (this.arrayExcel.length) {
       this.service
-        .AlcartUploadbulk(this.getadminname, this.arrayExcel)
+        .AlcartUploadbulk(this.adminName, this.arrayExcel)
         .then((res: any) => {
           this.uploadFiles = res.responseMessage;
           if (res.flag == 1) {

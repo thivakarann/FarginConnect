@@ -9,6 +9,7 @@ import {
   signatureapprove,
 } from '../../fargin-model/fargin-model.module';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-kyc-approval',
@@ -16,21 +17,22 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './kyc-approval.component.css',
 })
 export class KycApprovalComponent implements OnInit {
-createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
-myForm!: FormGroup;
-id: any;
-approval: any;
-value: any;
-@Output() bankDetailsUpdated = new EventEmitter<void>();
-@Output() dataApproval = new EventEmitter<KycApproval>();
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  myForm!: FormGroup;
+  id: any;
+  approval: any;
+  value: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+  @Output() dataApproval = new EventEmitter<KycApproval>();
 
 
   constructor(
     private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private cryptoService: EncyDecySericeService,
     private toaster: ToastrService,
     private dialog: MatDialog
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.id = this.data.value.proofId;
     this.value = this.data.value1;
@@ -54,7 +56,7 @@ value: any;
         proofId: this.id,
         identityAdminComments: this.remarks?.value.trim(),
         identityAdminApprovalStatus: this.approvalStatus?.value,
-        identityAdminApprovedBy: this.createdBy,
+        identityAdminApprovedBy: this.adminName,
       };
 
       this.service.identityApproval(submitModel).subscribe((res: any) => {
@@ -75,16 +77,16 @@ value: any;
         proofId: this.id,
         addressAdminComments: this.remarks?.value,
         addressAdminApprovalStatus: this.approvalStatus?.value,
-        addressAdminApprovedBy: this.createdBy,
+        addressAdminApprovedBy: this.adminName,
       };
 
       this.service.addressApproval(submitModel).subscribe((res: any) => {
         if (res.flag === 1) {
           this.toaster.success(res.responseMessage);
           this.bankDetailsUpdated.emit();
-          this.dialog.closeAll(); 
+          this.dialog.closeAll();
         } else {
-           this.bankDetailsUpdated.emit();
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
           this.toaster.error(res.responseMessage);
         }
@@ -96,17 +98,17 @@ value: any;
         proofId: this.id,
         signatureAdminComments: this.remarks?.value,
         signatureAdminApprovalStatus: this.approvalStatus?.value,
-        signatureAdminApprovedBy: this.createdBy,
+        signatureAdminApprovedBy: this.adminName,
       };
 
       this.service.signatureApproval(submitModel).subscribe((res: any) => {
         if (res.flag === 1) {
           this.toaster.success(res.responseMessage);
           this.bankDetailsUpdated.emit();
-          this.dialog.closeAll(); 
+          this.dialog.closeAll();
         } else if (res.flag == 2) {
           this.toaster.error(res.responseMessage);
-            this.bankDetailsUpdated.emit();
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
         }
       });

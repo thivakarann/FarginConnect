@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { SmsUpdate } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-edit-sms',
@@ -18,8 +19,8 @@ import { SmsUpdate } from '../../fargin-model/fargin-model.module';
   styleUrl: './edit-sms.component.css',
 })
 export class EditSmsComponent {
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   id: any;
   myForm!: FormGroup;
   payId: any;
@@ -39,6 +40,7 @@ export class EditSmsComponent {
     private Approval: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog
   ) { }
 
@@ -51,7 +53,7 @@ export class EditSmsComponent {
       smsForpaid: new FormControl('', [Validators.required]),
       templateType: new FormControl('', [Validators.required]),
       tempLanguage: new FormControl('', [Validators.required]),
-      modifedBy: new FormControl(this.getadminname),
+      modifedBy: new FormControl(this.adminName),
     });
 
     this.myForm.patchValue({
@@ -80,9 +82,9 @@ export class EditSmsComponent {
     let submitModel: SmsUpdate = {
       smsCharge: this.smsForpaid?.value,
       smsType: this.data?.value?.type.smsTempId,
-      modifedBy: this.getadminname,
+      modifedBy: this.adminName,
     };
-    this.Approval.smsUpdate(this.data?.value?.merchantSmsId,submitModel).subscribe(
+    this.Approval.smsUpdate(this.data?.value?.merchantSmsId, submitModel).subscribe(
       (res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);

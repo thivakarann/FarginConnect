@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UpdateBouquetname } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-bouquatename-edit',
@@ -12,14 +13,16 @@ import { UpdateBouquetname } from '../../../fargin-model/fargin-model.module';
 })
 export class BouquatenameEditComponent implements OnInit {
   boutuquename: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public Boutqueedit: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog
   ) { }
@@ -44,7 +47,7 @@ export class BouquatenameEditComponent implements OnInit {
   submit() {
     let submitModel: UpdateBouquetname = {
       broardCaste: this.broardCaste?.value.trim(),
-      modifiedBy: this.getadminname,
+      modifiedBy: this.adminName,
       bundleChannelId: this.data.value,
     };
     this.Boutqueedit.BouquetnameUpdate(submitModel).subscribe((res: any) => {

@@ -9,6 +9,7 @@ import { BouquetsRegionsviewComponent } from '../bouquets-regionsview/bouquets-r
 import { AddExtraChannelsComponent } from '../add-extra-channels/add-extra-channels.component';
 import { ChanneleditComponent } from '../channeledit/channeledit.component';
 import { Location } from '@angular/common';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-bouqutes-view',
@@ -16,8 +17,9 @@ import { Location } from '@angular/common';
   styleUrl: './bouqutes-view.component.css'
 })
 export class BouqutesViewComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   id: any;
   details: any;
   channelslist: any;
@@ -58,6 +60,7 @@ export class BouqutesViewComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog, private location: Location
   ) { }
   ngOnInit(): void {

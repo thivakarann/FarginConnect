@@ -12,6 +12,7 @@ import { ViewRefundpolicyComponent } from '../view-refundpolicy/view-refundpolic
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-view-policy',
@@ -49,7 +50,7 @@ export class ViewPolicyComponent implements OnInit {
   valuetermedits: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   valuetermViews: any;
   searchPerformed: boolean = false;
@@ -59,7 +60,9 @@ export class ViewPolicyComponent implements OnInit {
   constructor(
     private service: FarginServiceService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

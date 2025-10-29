@@ -7,6 +7,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
 import { BulkUploadInfoComponent } from '../bulk-upload-info/bulk-upload-info.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { BulkUploadInfoComponent } from '../bulk-upload-info/bulk-upload-info.co
 })
 export class WhatappBulkUploadComponent {
   merchantId: any = sessionStorage.getItem('merchantId');
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   customerformGroup: any = FormGroup;
   ExcelData: any;
   parsedJson: any;
@@ -35,6 +36,7 @@ export class WhatappBulkUploadComponent {
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private fb: FormBuilder
   ) { }
 
@@ -201,7 +203,7 @@ export class WhatappBulkUploadComponent {
 
   submit() {
     if (this.arrayExcel.length) {
-      this.service.getwhatsappbulkupload(this.getadminname,this.arrayExcel).subscribe((res: any) => {
+      this.service.getwhatsappbulkupload(this.adminName, this.arrayExcel).subscribe((res: any) => {
         this.uploadFiles = res.responseMessage;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);

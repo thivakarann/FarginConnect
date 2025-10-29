@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { BroadcasterBouquetupdate, Region } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-bouqets-edit',
@@ -14,8 +15,9 @@ import { BroadcasterBouquetupdate, Region } from '../../../fargin-model/fargin-m
   styleUrl: './bouqets-edit.component.css'
 })
 export class BouqetsEditComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   details: any;
   channelslist: any;
@@ -43,37 +45,13 @@ export class BouqetsEditComponent implements OnInit {
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public activeRouter: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-
-    this.BroadcasterBouquetAdd.BoucatenamesActive().subscribe((res: any) => {
-      this.details = res.response;
-      this.details.sort((a: any, b: any) => a.broadCasterName.localeCompare(b.broadCasterName));
-    });
-
-    this.BroadcasterBouquetAdd.ActiveAlcards().subscribe((res: any) => {
-      this.channelslist = res.response;
-    });
-
-    this.BroadcasterBouquetAdd.activeprovider().subscribe((res: any) => {
-      this.ActiveMSO = res.response;
-      this.ActiveMSO.sort((a: any, b: any) => a.serviceProviderName.localeCompare(b.serviceProviderName));
-    });
-
-    this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(this.getRoleId).subscribe((res: any) => {
-      this.Plandetails = res.response;
-      this.Plandetails.sort((a: any, b: any) => a.bouquetName.localeCompare(b.bouquetName));
-
-    })
-
-    this.BroadcasterBouquetAdd.ActiveRegionsbyserviceprovider(this.getservices).subscribe((res: any) => {
-      this.ActiveRegions = res.response;
-      this.ActiveRegions.sort((a: any, b: any) => a.stateName.localeCompare(b.stateName));
-    })
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getId = param.valueid;
@@ -114,6 +92,33 @@ export class BouqetsEditComponent implements OnInit {
       this.getamount = param.amount;
       this.getamount = this.data.amount;
     });
+
+    this.BroadcasterBouquetAdd.BoucatenamesActive().subscribe((res: any) => {
+      this.details = res.response;
+      this.details.sort((a: any, b: any) => a.broadCasterName.localeCompare(b.broadCasterName));
+    });
+
+    this.BroadcasterBouquetAdd.ActiveAlcards().subscribe((res: any) => {
+      this.channelslist = res.response;
+    });
+
+    this.BroadcasterBouquetAdd.activeprovider().subscribe((res: any) => {
+      this.ActiveMSO = res.response;
+      this.ActiveMSO.sort((a: any, b: any) => a.serviceProviderName.localeCompare(b.serviceProviderName));
+    });
+
+    this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(this.getRoleId).subscribe((res: any) => {
+      this.Plandetails = res.response;
+      this.Plandetails.sort((a: any, b: any) => a.bouquetName.localeCompare(b.bouquetName));
+
+    })
+
+    this.BroadcasterBouquetAdd.ActiveRegionsbyserviceprovider(this.getservices).subscribe((res: any) => {
+      this.ActiveRegions = res.response;
+      this.ActiveRegions.sort((a: any, b: any) => a.stateName.localeCompare(b.stateName));
+    })
+
+
 
     this.myForm = new FormGroup({
       bundleChannelId: new FormControl(this.getRoleId, Validators.required),
@@ -202,7 +207,7 @@ export class BouqetsEditComponent implements OnInit {
       amount: Number(this.amount?.value),
       boqCreationId: Number(this.boqCreationId?.value),
       serviceId: Number(this.getservices),
-      modifiedBy: this.getadminname
+      modifiedBy: this.adminName
     }
     this.BroadcasterBouquetAdd.BroadcasterBoucatesEdit(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

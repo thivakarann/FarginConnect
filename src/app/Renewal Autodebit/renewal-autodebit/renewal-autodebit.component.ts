@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-renewal-autodebit',
@@ -41,7 +42,7 @@ export class RenewalAutodebitComponent {
   currentpage: any;
   viewallexport: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valueautodebitexport: any;
@@ -59,7 +60,9 @@ export class RenewalAutodebitComponent {
 
   constructor(
     public autodebitdetails: FarginServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

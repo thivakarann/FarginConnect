@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-edit-bussinessdocument',
@@ -17,7 +18,7 @@ export class EditBussinessdocumentComponent {
   errorMessage: any;
   close: any;
   documentdata: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   merchantDocumentId: any;
   docNumbers: any;
   categoryvalue: any;
@@ -29,6 +30,7 @@ export class EditBussinessdocumentComponent {
     public service: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -92,7 +94,7 @@ export class EditBussinessdocumentComponent {
     formData.append('merchantDocumentId ', this.merchantDocumentId);
     formData.append('kycCategoryId', this.kycCategoryId?.value);
     formData.append('docNumber', this.docNumber?.value.trim());
-    formData.append('modifiedBy', this.getadminname);
+    formData.append('modifiedBy', this.adminName);
     formData.append('expiryDate', this.expiryDate?.value);
 
     this.service.documentEdit(formData).subscribe((res: any) => {

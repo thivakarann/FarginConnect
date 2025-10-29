@@ -10,6 +10,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { entityterminaltransaction } from '../../../fargin-model/fargin-model.module';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-terminal-transactions',
@@ -53,7 +54,7 @@ export class TerminalTransactionsComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   accountId: any = sessionStorage.getItem('accountId');
   searchPerformed: boolean = false;
   actions: any;
@@ -75,6 +76,8 @@ export class TerminalTransactionsComponent {
     private ActivateRoute: ActivatedRoute,
     private location: Location,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

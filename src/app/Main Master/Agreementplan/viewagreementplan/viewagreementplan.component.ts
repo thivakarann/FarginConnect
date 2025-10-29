@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,6 +10,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Busineessstatus } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-viewagreementplan',
@@ -39,7 +39,6 @@ export class ViewagreementplanComponent {
   errorMsg: any;
   responseDataListnew: any = [];
   response: any = [];
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: any;
@@ -50,7 +49,7 @@ export class ViewagreementplanComponent {
   valueCategorystatus: any;
   valueCategoryEdit: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   agreementplan: any;
@@ -62,10 +61,11 @@ export class ViewagreementplanComponent {
   searchPerformed: boolean = false;
 
   constructor(
-    private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit() {
@@ -73,7 +73,6 @@ export class ViewagreementplanComponent {
       next: (res: any) => {
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
           if (this.roleId == 1) {
             this.valuebussinesscreate = 'Business Plan-Add';
             this.valuebussinessexport = 'Business Plan-Export';
@@ -105,24 +104,32 @@ export class ViewagreementplanComponent {
         }
       },
     });
-
+    this.Getall();
+  };
+  Getall() {
     this.service.viewagreementplan().subscribe((res: any) => {
       if (res.flag == 1) {
-        this.agreementplan = res.response;
-        this.agreementplan.reverse();
+        this.agreementplan = res.response.reverse();
         this.dataSource = new MatTableDataSource(this.agreementplan);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       } else {
         this.agreementplan = [];
-        this.agreementplan.reverse();
         this.dataSource = new MatTableDataSource(this.agreementplan);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
     });
-  }
+  };
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   add() {
     this.router.navigateByUrl('/addagreementplan');
   }
@@ -136,25 +143,6 @@ export class ViewagreementplanComponent {
       queryParams: { Alldata: id },
     });
   }
-
-  reload() {
-    this.service.viewagreementplan().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.agreementplan = res.response;
-        this.agreementplan.reverse();
-        this.dataSource = new MatTableDataSource(this.agreementplan);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      } else {
-        this.agreementplan = [];
-        this.agreementplan.reverse();
-        this.dataSource = new MatTableDataSource(this.agreementplan);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-    });
-  }
-
   onSubmit(event: MatSlideToggleChange, id: string) {
     this.isChecked = event.checked;
     let submitModel: Busineessstatus = {
@@ -163,61 +151,14 @@ export class ViewagreementplanComponent {
     };
     this.service.viewstatusagreementplan(submitModel).subscribe((res: any) => {
       this.toastr.success(res.responseMessage);
-      setTimeout(() => {
-        this.service.viewagreementplan().subscribe((res: any) => {
-          if (res.flag == 1) {
-            this.agreementplan = res.response;
-            this.agreementplan.reverse();
-            this.dataSource = new MatTableDataSource(this.agreementplan);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-          } else {
-            this.agreementplan = [];
-            this.agreementplan.reverse();
-            this.dataSource = new MatTableDataSource(this.agreementplan);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-          }
-        });
-      }, 500);
+      setTimeout(() => { this.Getall(); }, 200);
     });
   }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  // onSubmit(event: MatSlideToggleChange, id: any) {
-  //   this.isChecked = event.checked;
-
-  //   let submitModel: Businessstatus = {
-
-  //     activeStatus: this.isChecked ? 1 : 0,
-
-  //   };
-
-  //   this.service.Businessactive(id, submitModel).subscribe((res: any) => {
-
-  //     this.toastr.success(res.responseMessage);
-  //     setTimeout(() => {
-  //       window.location.reload();
-  //     }, 1000);
-  //   });
-  // }
 
   exportexcel() {
     let sno = 1;
     this.responseDataListnew = [];
     this.agreementplan.forEach((element: any) => {
-      // let createdate = element.createdAt;
-      // this.date1 =  moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.planName);
@@ -225,94 +166,66 @@ export class ViewagreementplanComponent {
       this.response.push(element?.serviceFee);
       this.response.push(element?.securityDepositAmount);
       this.response.push(element?.settlementCycle);
-      // this.response.push(element?.netBankingAmount);
       this.response.push(element?.netBankingPercentage);
       this.response.push(element?.netBankingFixedFee);
-      // this.response.push(element?.nbOtherBankAmount);
       this.response.push(element?.nbOtherBankPercentage);
       this.response.push(element?.nbOtherBankFixedFee);
-      // this.response.push(element?.eCollectAmount);
       this.response.push(element?.eCollectPercentage);
       this.response.push(element?.eCollectFixedFee);
-      // this.response.push(element?.disbursementApiAmount);
       this.response.push(element?.disbursementApiPercentage);
       this.response.push(element?.disbursementApiFixedFee);
-      // this.response.push(element?.internationalApiAmount);
       this.response.push(element?.internationApiPercentage);
       this.response.push(element?.internationApiFixedFee);
-      // this.response.push(element?.upiAmount);
       this.response.push(element?.upiPercentage);
       this.response.push(element?.upiFixedFee);
-      // this.response.push(element?.dynamicQrAmount);
       this.response.push(element?.dynamicQrPercentage);
       this.response.push(element?.dynamicQrFixedFee);
-      // this.response.push(element?.rupayDebitCardMaxAmount);
       this.response.push(element?.rupayDebitCardMaxPercentage);
       this.response.push(element?.rupayDebitCardMaxFixedFee);
-      // this.response.push(element?.rupayDebitCardMinAmount);
       this.response.push(element?.rupayDebitCardMinPercentage);
       this.response.push(element?.rupayDebitCardMinFixedFee);
-      // this.response.push(element?.otherDebitCardMaxAmount);
       this.response.push(element?.otherDebitCardMaxPercentage);
       this.response.push(element?.otherDebitCardMaxFixedFee);
-      // this.response.push(element?.otherDebitCardMinAmount);
       this.response.push(element?.otherDebitCardMinPercentage);
       this.response.push(element?.otherDebitCardMinFixedFee);
-      // this.response.push(element?.amexCardAmount);
       this.response.push(element?.amexCardPercentage);
       this.response.push(element?.amexCardFixedFee);
-      // this.response.push(element?.dinnersCardAmount);
       this.response.push(element?.dinnersCardPercentage);
       this.response.push(element?.dinnersCardFixedFee);
-      // this.response.push(element?.corporateOrCommercialCardAmount);
       this.response.push(element?.corporateOrCommercialCardPercentage);
       this.response.push(element?.corporateOrCommercialCardFixedFee);
-      // this.response.push(element?.prepaidCardAmount);
       this.response.push(element?.prepaidCardPercentage);
       this.response.push(element?.prepaidCardFixedFee);
-      // this.response.push(element?.creditCardAmount);
       this.response.push(element?.creditCardPercentage);
       this.response.push(element?.creditCardFixedFee);
-      // this.response.push(element?.walletPhonepeAmount);
       this.response.push(element?.walletPhonepePercentage);
       this.response.push(element?.walletPhonepeFixedFee);
-      // this.response.push(element?.walletFreeChargeAmount);
       this.response.push(element?.walletFreeChargePercentage);
       this.response.push(element?.walletFreeChargeFixedFee);
-      // this.response.push(element?.walletPayzappAmount);
       this.response.push(element?.walletPayzappPercentage);
       this.response.push(element?.walletPayzappFixedFee);
-      // this.response.push(element?.walletPaytmAmount);
       this.response.push(element?.walletPaytmPercentage);
       this.response.push(element?.walletPaytmFixedFee);
-      // this.response.push(element?.walletOlaMoneyAmount);
       this.response.push(element?.walletOlaMoneyPercentage);
       this.response.push(element?.walletOlaMoneyFixedFee);
-      // this.response.push(element?.walletMobikwikkAmount);
       this.response.push(element?.walletMobikwikkPercentage);
       this.response.push(element?.walletMobikwikkFixedFee);
-      // this.response.push(element?.walletRelianceJioMoneyAmount);
       this.response.push(element?.walletRelianceJioMoneyPercentage);
       this.response.push(element?.walletRelianceJioMoneyFixedFee);
-      // this.response.push(element?.walletAirtelMoneyAmount);
       this.response.push(element?.walletAirtelMoneyPercentage);
       this.response.push(element?.walletAirtelMoneyFixedFee);
-
       this.response.push(element?.createdBy);
       if (element.createdAt) {
-        this.response.push(
-          moment(element?.createdAt).format('DD/MM/yyyy-hh:mm a').toString()
-        );
-      } else {
+        this.response.push(moment(element?.createdAt).format('DD/MM/yyyy-hh:mm a').toString());
+      }
+      else {
         this.response.push('-');
       }
       this.response.push(element?.modifiedBy);
-
       if (element.modifiedAt) {
-        this.response.push(
-          moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString()
-        );
-      } else {
+        this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
+      }
+      else {
         this.response.push('-');
       }
       sno++;
@@ -333,8 +246,8 @@ export class ViewagreementplanComponent {
       'Net Banking Fixed Fee  (HDFC/SBI/Kotak/ICICI/Axis)',
       'Net Banking Other Bank Percentage',
       'Net Banking Other Bank Fixed Fee',
-      'e-Collect Percentage',
-      'e-Collect Fixed Fee',
+      'E-Collect Percentage',
+      'E-Collect Fixed Fee',
       'Disbursement API Percentage',
       'Disbursement API Fixed Fee',
       'International API Percentage',
@@ -382,18 +295,12 @@ export class ViewagreementplanComponent {
       'ModifiedBy',
       'Modified At',
     ];
-
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Business Plan');
-    // Blank Row
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
-    // Cell Style : Fill and Border
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
@@ -401,7 +308,6 @@ export class ViewagreementplanComponent {
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
       };
-
       cell.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -409,10 +315,7 @@ export class ViewagreementplanComponent {
         right: { style: 'thin' },
       };
     });
-
     data.forEach((d: any) => {
-      //
-
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -822,16 +725,8 @@ export class ViewagreementplanComponent {
         right: { style: 'thin' },
       };
     });
-
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
-
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      });
-
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });
       FileSaver.saveAs(blob, 'Business Plan.xlsx');
     });
   }

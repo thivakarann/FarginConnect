@@ -8,6 +8,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { MatTableDataSource } from '@angular/material/table';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-signer-history',
@@ -21,15 +22,19 @@ export class SignerHistoryComponent {
     'signAdminName',
     'signAdminEmail',
     'signAdminMobile',
-    // 'activeStatus',
     'adminPosition',
+    'adminCountry',
+    'adminState',
+    'adminCity',
+    'adminPincode',
+    'adminAddress',
     'createdBy',
     'createdAt',
   ];
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   date1: any;
   date2: any;
   responseDataListnew: any = [];
@@ -43,7 +48,9 @@ export class SignerHistoryComponent {
   constructor(
     public service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cryptoService: EncyDecySericeService,
+
   ) { }
   ngOnInit(): void {
 
@@ -100,6 +107,12 @@ export class SignerHistoryComponent {
       this.response.push(element?.signAdminName);
       this.response.push(element?.signAdminEmail);
       this.response.push(element?.signAdminMobile);
+      this.response.push(element?.adminPosition);
+      this.response.push(element?.adminCountry);
+      this.response.push(element?.adminState);
+      this.response.push(element?.adminCity);
+      this.response.push(element?.adminPincode);
+      this.response.push(element?.adminAddress);
       // if (element?.signingAdminModel?.activeStatus == 0) {
       //   this.response.push("Inactive");
       // }
@@ -126,7 +139,12 @@ export class SignerHistoryComponent {
       'Signer Name',
       'Signer Email',
       'Signer Mobile',
-      // 'Status',
+      'Signer Position',
+      'Country',
+      'State',
+      'City',
+      'Pincode',
+      'Address',
       'Updated By',
       'Updated At'
     ];
@@ -164,7 +182,12 @@ export class SignerHistoryComponent {
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
-      // let qty6 = row.getCell(7);
+      let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
+      let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
+      let qty11 = row.getCell(12);
 
       qty.border = {
         top: { style: 'thin' },
@@ -202,12 +225,42 @@ export class SignerHistoryComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-      // qty6.border = {
-      //   top: { style: 'thin' },
-      //   left: { style: 'thin' },
-      //   bottom: { style: 'thin' },
-      //   right: { style: 'thin' },
-      // };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty9.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty10.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty11.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
 
     });
     worksheet.getColumn(1).protection = { locked: true, hidden: true };

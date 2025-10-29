@@ -8,6 +8,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-whatapp-bulk-upload-view',
@@ -38,7 +39,7 @@ export class WhatappBulkUploadViewComponent implements OnInit {
   valueresponse: any;
   getdashboard: any[] = [];
   actions: any;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   roleName = sessionStorage.getItem('roleName');
   searchPerformed: boolean = false;
   date1: any;
@@ -48,7 +49,9 @@ export class WhatappBulkUploadViewComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Addbeneficiary } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-editbeneficiary',
@@ -12,10 +13,10 @@ import { Addbeneficiary } from '../../fargin-model/fargin-model.module';
   styleUrl: './editbeneficiary.component.css'
 })
 export class EditbeneficiaryComponent {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   beneficiaryFormGroup: any = FormGroup;
   upiFormGroup: any = FormGroup;
-  data:any;
+  data: any;
   viewall: any;
   show: any;
   integerRegex = /^\d+$/;
@@ -25,22 +26,23 @@ export class EditbeneficiaryComponent {
   merchantBeneficiary: any;
   confirmaccnumber: any;
   accnumber: any;
-    error: any;
-    isPasswordMatch:boolean=false;
-    passwordsMatch: boolean = true;
-    isConformPassword:boolean=false;
+  error: any;
+  isPasswordMatch: boolean = false;
+  passwordsMatch: boolean = true;
+  isConformPassword: boolean = false;
   constructor(
     private service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private activeRouter:ActivatedRoute,
-  ) {}
+    private cryptoService: EncyDecySericeService,
+    private activeRouter: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
 
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.merchantBeneficiaryId = param.Alldata;
-      
+
     })
 
 
@@ -49,37 +51,37 @@ export class EditbeneficiaryComponent {
       bankName: new FormControl('', [Validators.required]),
       merchantId: new FormControl(''),
       accountNumber: new FormControl('', [Validators.required]),
-      accountHolderName:new FormControl('',[Validators.required]),
-      confirmaccountNumber:new FormControl('',[Validators.required]),
+      accountHolderName: new FormControl('', [Validators.required]),
+      confirmaccountNumber: new FormControl('', [Validators.required]),
       emailAddress: new FormControl('', [
         Validators.required,
         Validators.pattern(this.emailRegex),
       ]),
-      ifscCode:new FormControl('',[Validators.required]),
-      accountType:new FormControl('',[Validators.required]),
-      mobileNumber:new FormControl('', [
+      ifscCode: new FormControl('', [Validators.required]),
+      accountType: new FormControl('', [Validators.required]),
+      mobileNumber: new FormControl('', [
         Validators.required,
         Validators.maxLength(10),
         Validators.minLength(10),
         Validators.pattern(this.integerRegex),
       ]),
-      branchName:new FormControl('',[Validators.required]),
-      type:new FormControl('',[Validators.required]),
-      createdBy:new FormControl(''),
+      branchName: new FormControl('', [Validators.required]),
+      type: new FormControl('', [Validators.required]),
+      createdBy: new FormControl(''),
     });
 
     this.upiFormGroup = new FormGroup({
       bankName: new FormControl(''),
       accountNumber: new FormControl(''),
-      ifscCode:new FormControl(''),
-      accountType:new FormControl(''),
-      branchName:new FormControl(''),
-       
+      ifscCode: new FormControl(''),
+      accountType: new FormControl(''),
+      branchName: new FormControl(''),
+
       upiName: new FormControl('', [Validators.required]),
       accountHolderNameUPI: new FormControl('', [Validators.required]),
-      types:new FormControl('',[Validators.required]),
+      types: new FormControl('', [Validators.required]),
       merchantIds: new FormControl('', [Validators.required]),
-      mobile:new FormControl('', [
+      mobile: new FormControl('', [
         Validators.required,
         Validators.maxLength(10),
         Validators.minLength(10),
@@ -89,40 +91,40 @@ export class EditbeneficiaryComponent {
         Validators.required,
         Validators.pattern(this.emailRegex),
       ]),
-      createdBy:new FormControl(''),
+      createdBy: new FormControl(''),
     });
     this.service.EntityViewallExport().subscribe((res: any) => {
       this.viewall = res.response;
-   
+
     });
 
-    this.service.viewbyidbeneficiarys(this.merchantBeneficiaryId).subscribe((res:any)=>{
-      if(res.flag==1){
-     this.merchantBeneficiary=res.response;
+    this.service.viewbyidbeneficiarys(this.merchantBeneficiaryId).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.merchantBeneficiary = res.response;
       }
     });
 
   }
-//BankAccount
-  get  merchantId() {
+  //BankAccount
+  get merchantId() {
     return this.beneficiaryFormGroup.get('merchantId');
   }
-  get  bankName() {
+  get bankName() {
     return this.beneficiaryFormGroup.get('bankName');
   }
-  get  accountNumber() {
+  get accountNumber() {
     return this.beneficiaryFormGroup.get('accountNumber');
   }
-  get  accountHolderName() {
+  get accountHolderName() {
     return this.beneficiaryFormGroup.get('accountHolderName');
   }
-  get  emailAddress() {
+  get emailAddress() {
     return this.beneficiaryFormGroup.get('emailAddress');
   }
-  get  ifscCode() {
+  get ifscCode() {
     return this.beneficiaryFormGroup.get('ifscCode');
   }
-  get  accountType() {
+  get accountType() {
     return this.beneficiaryFormGroup.get('accountType');
   }
   get mobileNumber() {
@@ -139,7 +141,7 @@ export class EditbeneficiaryComponent {
 
   //Upi
 
- get types() {
+  get types() {
     return this.upiFormGroup.get('types');
   }
   get accountHolderNameUPI() {
@@ -157,79 +159,78 @@ export class EditbeneficiaryComponent {
   get email() {
     return this.upiFormGroup.get('email');
   }
-  get  confirmaccountNumber() {
+  get confirmaccountNumber() {
     return this.beneficiaryFormGroup.get('confirmaccountNumber');
   }
- 
+
 
 
   close() {
     this.router.navigateByUrl('dashboard/view-admin');
   }
   getdropdown(event: any) {
-    if (event.target.value == 'Merchant' ) {
-       this.show=true;
+    if (event.target.value == 'Merchant') {
+      this.show = true;
     } else {
       this.show = false;
     }
   }
 
-  checkConform(accnumber:any,confirmaccnumber:any){
-    this.isConformPassword= true;
- 
-    if(accnumber === confirmaccnumber){
-      this.isPasswordMatch=true;
-      this.error="";
-    }else{
-      this.isPasswordMatch=true;
-      this.error="Miss Match Account Number";
+  checkConform(accnumber: any, confirmaccnumber: any) {
+    this.isConformPassword = true;
+
+    if (accnumber === confirmaccnumber) {
+      this.isPasswordMatch = true;
+      this.error = "";
+    } else {
+      this.isPasswordMatch = true;
+      this.error = "Miss Match Account Number";
     }
   }
 
-  Onsubmit()
-  {
-      let submitModel:Addbeneficiary;
-    if(this.data==1){
-      submitModel={
-        merchantId:  this.beneficiaryFormGroup.get('merchantId')?.value,
-        bankName:  this.beneficiaryFormGroup.get('bankName')?.value,
-        accountNumber:  this.beneficiaryFormGroup.get('accountNumber')?.value,
-        accountHolderName:  this.beneficiaryFormGroup.get('accountHolderName')?.value,
-        emailAddress:  this.beneficiaryFormGroup.get('emailAddress')?.value,
-        ifscCode:  this.beneficiaryFormGroup.get('ifscCode')?.value,
-        accountType:  this.beneficiaryFormGroup.get('accountType')?.value,
-        mobileNumber:  this.beneficiaryFormGroup.get('mobileNumber')?.value,
-        createdBy: this.getadminname,
-        branchName:  this.beneficiaryFormGroup.get('branchName')?.value,
-        upiName:  this.beneficiaryFormGroup.get('upiName')?.value,
-        type:  this.beneficiaryFormGroup.get('type')?.value,
+  Onsubmit() {
+    let submitModel: Addbeneficiary;
+    if (this.data == 1) {
+      submitModel = {
+        merchantId: this.beneficiaryFormGroup.get('merchantId')?.value,
+        bankName: this.beneficiaryFormGroup.get('bankName')?.value,
+        accountNumber: this.beneficiaryFormGroup.get('accountNumber')?.value,
+        accountHolderName: this.beneficiaryFormGroup.get('accountHolderName')?.value,
+        emailAddress: this.beneficiaryFormGroup.get('emailAddress')?.value,
+        ifscCode: this.beneficiaryFormGroup.get('ifscCode')?.value,
+        accountType: this.beneficiaryFormGroup.get('accountType')?.value,
+        mobileNumber: this.beneficiaryFormGroup.get('mobileNumber')?.value,
+        createdBy: this.adminName,
+        branchName: this.beneficiaryFormGroup.get('branchName')?.value,
+        upiName: this.beneficiaryFormGroup.get('upiName')?.value,
+        type: this.beneficiaryFormGroup.get('type')?.value,
       };
-    }else{
-      submitModel={
-        merchantId:  this.upiFormGroup.get('merchantIds')?.value,
-        bankName:  this.upiFormGroup.get('bankName')?.value,
-        accountNumber:  this.upiFormGroup.get('accountNumber')?.value,
-        accountHolderName:  this.upiFormGroup.get('accountHolderNameUPI')?.value,
-        emailAddress:  this.upiFormGroup.get('email')?.value,
-        ifscCode:  this.upiFormGroup.get('ifscCode')?.value,
-        accountType:  this.upiFormGroup.get('accountType')?.value,
-        mobileNumber:  this.upiFormGroup.get('mobile')?.value,
-        createdBy:  this.getadminname,
-        branchName:  this.upiFormGroup.get('branchName')?.value,
-        upiName:  this.upiFormGroup.get('upiName')?.value,
-        type:  this.upiFormGroup.get('types')?.value,
+    } else {
+      submitModel = {
+        merchantId: this.upiFormGroup.get('merchantIds')?.value,
+        bankName: this.upiFormGroup.get('bankName')?.value,
+        accountNumber: this.upiFormGroup.get('accountNumber')?.value,
+        accountHolderName: this.upiFormGroup.get('accountHolderNameUPI')?.value,
+        emailAddress: this.upiFormGroup.get('email')?.value,
+        ifscCode: this.upiFormGroup.get('ifscCode')?.value,
+        accountType: this.upiFormGroup.get('accountType')?.value,
+        mobileNumber: this.upiFormGroup.get('mobile')?.value,
+        createdBy: this.adminName,
+        branchName: this.upiFormGroup.get('branchName')?.value,
+        upiName: this.upiFormGroup.get('upiName')?.value,
+        type: this.upiFormGroup.get('types')?.value,
       }
     }
-      this.service.addbeneficiarys(submitModel).subscribe((res:any)=>{
-        this.addbeneficiary=res.response;
-        if(res.flag==1){
-          this.toastr.success(res.responseMessage)
-        }
-        else{
-          this.toastr.error(res.responseMessage)
-        }
-       
-      })
-  
-    }
+    this.service.addbeneficiarys(submitModel).subscribe((res: any) => {
+      this.addbeneficiary = res.response;
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage)
+      }
+      else {
+        this.toastr.error(res.responseMessage)
+      }
+
+    })
+
+  }
 }

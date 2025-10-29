@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { filter } from 'rxjs/operators';
 import { UpdateWhatappService } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-updatewhatsapp-service',
@@ -13,7 +14,7 @@ import { UpdateWhatappService } from '../../../fargin-model/fargin-model.module'
 })
 export class UpdatewhatsappServiceComponent implements OnInit {
   @Output() bankDetailsUpdated = new EventEmitter<void>();
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   Vendors: any;
   myForm!: FormGroup;
   TemplateDetails: any;
@@ -23,6 +24,7 @@ export class UpdatewhatsappServiceComponent implements OnInit {
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -109,25 +111,25 @@ export class UpdatewhatsappServiceComponent implements OnInit {
 
   listenToVendorChanges(): void {
 
-  this.myForm.get('vendorId')?.valueChanges
-    .pipe(filter(vendorId => !!vendorId))
-    .subscribe(vendorId => {
-      
-      const templateType = this.myForm.get('templateType')?.value;
-      const tempLanguage = this.data.value.templateLanguage;
+    this.myForm.get('vendorId')?.valueChanges
+      .pipe(filter(vendorId => !!vendorId))
+      .subscribe(vendorId => {
 
-      if (templateType && tempLanguage) {
-        this.TemplateDetails = [];
-        this.whatsappTemplateId?.reset();
-        this.GetMessageTemplate(vendorId, templateType, tempLanguage);
-      }
-    });
-}
+        const templateType = this.myForm.get('templateType')?.value;
+        const tempLanguage = this.data.value.templateLanguage;
+
+        if (templateType && tempLanguage) {
+          this.TemplateDetails = [];
+          this.whatsappTemplateId?.reset();
+          this.GetMessageTemplate(vendorId, templateType, tempLanguage);
+        }
+      });
+  }
 
 
 
   GetMessageTemplate(vendorId: any, templateType: any, tempLanguage: any): void {
-    
+
     this.service.MerchantwiseWhatappTemplates(this.data.value2, vendorId, templateType, tempLanguage)
       .subscribe((res: any) => {
         const currentId = this.myForm.get('whatsappTemplateId')?.value;
@@ -155,7 +157,7 @@ export class UpdatewhatsappServiceComponent implements OnInit {
           console.log(templates);
           console.log(this.TemplateDetails);
 
-          
+
           this.noDataFound = false;
         } else {
           // ✅ No templates returned — show only selected one if exists
@@ -213,9 +215,9 @@ export class UpdatewhatsappServiceComponent implements OnInit {
       smsCharge: this.smsCharge?.value,
       whatsappTemplateId: selectedId,
       templateCode: selectedTemplate?.templateCode,
-      templateLanguage:this.data.value.templateLanguage,
+      templateLanguage: this.data.value.templateLanguage,
       smsEnableStatus: this.data?.value?.smsEnableStatus,
-      modifedBy: this.getadminname
+      modifedBy: this.adminName
     }
 
     this.service.UpdateMerchatWhatappService(submitModel).subscribe((res: any) => {
@@ -231,7 +233,7 @@ export class UpdatewhatsappServiceComponent implements OnInit {
   }
 
 
-  getValue(){
+  getValue() {
     console.log(this.whatsappTemplateId?.value);
   }
 

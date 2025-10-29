@@ -10,6 +10,7 @@ import { DuesViewComponent } from './dues-view/dues-view.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-dues',
@@ -51,10 +52,10 @@ export class DuesComponent {
   valueduesview: any;
   valueduesreceipt: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
-valuegeneratedues: any;
+  valuegeneratedues: any;
 
   constructor(
     public service: FarginServiceService,
@@ -62,14 +63,16 @@ valuegeneratedues: any;
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
+
   ) { }
   ngOnInit(): void {
 
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -78,7 +81,7 @@ valuegeneratedues: any;
             this.valueentityexport = 'Entity Dues-Export';
             this.valueduesview = 'Entity Dues-View'
             this.valueduesreceipt = 'Entity Dues-Receipt'
-            this.valuegeneratedues='Entity Dues-Genarate'
+            this.valuegeneratedues = 'Entity Dues-Genarate'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -92,8 +95,8 @@ valuegeneratedues: any;
               if (this.actions == 'Entity Dues-Receipt') {
                 this.valueduesreceipt = 'Entity Dues-Receipt'
               }
-              if(this.actions=='Entity Dues-Genarate'){
-                this.valuegeneratedues='Entity Dues-Genarate'
+              if (this.actions == 'Entity Dues-Genarate') {
+                this.valuegeneratedues = 'Entity Dues-Genarate'
               }
             }
           }
@@ -110,24 +113,24 @@ valuegeneratedues: any;
 
     // this.service.DuesGenerate().subscribe((res: any) => {
     //   this.duesValue = res.response;
-    
+
     // })
 
 
     this.service.DuesViewAll().subscribe((res: any) => {
       this.details = res.response;
       this.details.reverse();
-      
+
       this.dataSource = new MatTableDataSource(this.details);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
-   
+
   }
 
 
 
-  reload(){
+  reload() {
     window.location.reload()
   }
 
@@ -157,12 +160,12 @@ valuegeneratedues: any;
   // generate() {
   //   this.service.DuesGenerate().subscribe((res: any) => {
   //     this.duesValue = res.response;
-    
+
   //   })
   // }
 
   exportexcel() {
-    
+
     let sno = 1;
     this.responseDataListnew = [];
     this.details.forEach((element: any) => {
@@ -276,7 +279,7 @@ valuegeneratedues: any;
 
 
   viewreciept(id: any) {
-    
+
 
     this.service.MaintenanceReciept(id).subscribe((res: any) => {
       const reader = new FileReader();

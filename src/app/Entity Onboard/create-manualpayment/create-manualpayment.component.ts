@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { createManualPayment } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-create-manualpayment',
@@ -11,8 +12,8 @@ import { createManualPayment } from '../../fargin-model/fargin-model.module';
   styleUrl: './create-manualpayment.component.css',
 })
 export class CreateManualpaymentComponent implements OnInit {
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   id: any;
   myForm!: FormGroup;
   chequedate: any;
@@ -22,6 +23,7 @@ export class CreateManualpaymentComponent implements OnInit {
     private Approval: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog
   ) { }
 
@@ -70,7 +72,7 @@ export class CreateManualpaymentComponent implements OnInit {
       paymentStatus: 'Success',
       merchantId: this.id,
       date: this.chequedate,
-      manualApprovalBy: this.getadminname,
+      manualApprovalBy: this.adminName,
     };
 
     this.Approval.CreateManualPayment(submitModel).subscribe((res: any) => {

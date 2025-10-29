@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { announceEdit, Businessadd } from '../../fargin-model/fargin-model.module';
+import { announceEdit } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-edit-announcement',
@@ -12,7 +13,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 })
 export class EditAnnouncementComponent {
   announcementform: any = FormGroup;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   categoryvalue: any;
   businessCategoryIds: any;
   announcementContentEnglishs: any;
@@ -24,6 +25,7 @@ export class EditAnnouncementComponent {
 
   constructor(private dialog: MatDialog,
     private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder,) { }
 
@@ -41,12 +43,7 @@ export class EditAnnouncementComponent {
         announcementContentEnglish: ['', Validators.required],
         startDate: ['', Validators.required],  // Empty start date
         endDate: ['', Validators.required]     // Empty end date
-      },
-      // {
-      //   validators: [this.dateRangeValidator] // Apply custom date range validator
-      // }
-    );
-
+      },);
 
     if (this.data && this.data.value) {
       this.announcementform.patchValue({
@@ -59,26 +56,12 @@ export class EditAnnouncementComponent {
       console.error('Data is not defined');
     }
 
-
-
     this.service.BusinesscategoryKycactive().subscribe((res: any) => {
       this.categoryvalue = res.response;
     })
-
-    // this.announcementform = new FormGroup({
-    //   businessCategoryId: new FormControl('', [Validators.required]),
-    //   announcementContentEnglish: new FormControl('', [Validators.required]),
-    //   startDate: new FormControl('', [Validators.required]),
-    //   endDate: new FormControl('', [Validators.required])
-    // });
-
-    // this.businessCategoryIds = this.data.value.businessCategory.categoryName
-    // this.announcementContentEnglishs = this.data.value.announcementContentEnglish
-    // this.startDates = this.data.value.startDate
-    // this.endDates = this.data.value.endDate
-
   }
-get businessCategoryId() {
+
+  get businessCategoryId() {
     return this.announcementform.get('businessCategoryId');
   }
 
@@ -101,22 +84,17 @@ get businessCategoryId() {
       announcementContentEnglish: this.announcementContentEnglish.value.trim(),
       startDate: this.startDate.value,
       endDate: this.endDate.value,
-      updatedBy: this.createdBy
+      updatedBy: this.adminName
     };
-
-
     this.service.announcementEdit(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-      
       }
       else {
         this.toastr.error(res.responseMessage);
-      
       }
-
     });
 
   }

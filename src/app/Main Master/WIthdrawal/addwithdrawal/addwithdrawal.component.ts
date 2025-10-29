@@ -5,6 +5,7 @@ import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Addwithdrawal } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-addwithdrawal',
@@ -14,7 +15,7 @@ import { Addwithdrawal } from '../../../fargin-model/fargin-model.module';
 export class AddwithdrawalComponent {
   withdrawalFormGroup: any = FormGroup;
   amount: any;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   show: any;
   fee: any;
   infee: any;
@@ -23,9 +24,10 @@ export class AddwithdrawalComponent {
   constructor(
     private service: FarginServiceService,
     private router: Router,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.withdrawalFormGroup = new FormGroup({
@@ -38,7 +40,7 @@ export class AddwithdrawalComponent {
     });
     this.subscribeToFormChanges();
   }
- 
+
   get amountRange() {
     return this.withdrawalFormGroup.get('amountRange');
   }
@@ -89,8 +91,8 @@ export class AddwithdrawalComponent {
     if (this.fee !== null) {
       let calculatedAmount =
         this.fee * (this.gstInPercentage?.value / 100) + this.fee;
-        this.amount = calculatedAmount.toFixed(2);
-      
+      this.amount = calculatedAmount.toFixed(2);
+
     }
   }
 
@@ -105,13 +107,13 @@ export class AddwithdrawalComponent {
   submit() {
     const amountRange = `${this.amountRange.value}-${this.amountRanges.value}`;
     let submitModel: Addwithdrawal = {
-      
-      amountRange:amountRange,
+
+      amountRange: amountRange,
       mode: this.mode.value,
       gstType: this.gstType.value,
       fees: this.fees.value,
       gstInPercentage: this.gstInPercentage.value,
-      createdBy: this.createdBy,
+      createdBy: this.adminName,
     };
     this.service.addwithdrawals(submitModel).subscribe((res: any) => {
       this.withdrawal = res.response;

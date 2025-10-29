@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-alcart-add',
@@ -10,8 +11,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './alcart-add.component.css',
 })
 export class AlcartAddComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   emptyBlob = new Blob([], { type: 'image/jpeg' });
   placeholderImage!: File;
   myForm!: FormGroup;
@@ -29,6 +31,7 @@ export class AlcartAddComponent implements OnInit {
   constructor(
     public AddAlcart: FarginServiceService,
     private router: Router,
+    private cryptoService:EncyDecySericeService,
     private toastr: ToastrService
   ) { }
 
@@ -170,7 +173,7 @@ export class AlcartAddComponent implements OnInit {
     formData.append('bundleChannelId', this.bundleChannelId?.value);
     formData.append('generic', this.generic?.value.trim());
     formData.append('language', this.language?.value.trim());
-    formData.append('createdBy', this.getadminname);
+    formData.append('createdBy', this.adminName);
     formData.append('type', this.type?.value);
     formData.append('channelNo', this.channelNo?.value.trim());
     formData.append('logo', this.uploadidentityfront || this.placeholderImage);

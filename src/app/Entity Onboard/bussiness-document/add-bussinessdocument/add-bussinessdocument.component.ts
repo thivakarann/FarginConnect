@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-add-bussinessdocument',
@@ -18,7 +19,7 @@ export class AddBussinessdocumentComponent implements OnInit {
   file9!: any;
   close: any;
   merchantid: any;
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   emptyBlob = new Blob([], { type: 'application/pdf' });
   uploadImage: any;
   uploadImage8: any;
@@ -32,6 +33,7 @@ export class AddBussinessdocumentComponent implements OnInit {
     public service: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -174,7 +176,7 @@ export class AddBussinessdocumentComponent implements OnInit {
     formData.append('docBackPath', this.uploaddocback || this.emptyBlob);
     formData.append('kycCategoryId', this.kycCategoryId?.value);
     formData.append('docNumber', this.docNumber?.value);
-    formData.append('createdBy', this.getadminname);
+    formData.append('createdBy', this.adminName);
     formData.append('expiryDate', this.expiryDate?.value);
 
     this.service.documentAdd(formData).subscribe((res: any) => {

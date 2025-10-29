@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { kycadd } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-add-kyccategory',
@@ -12,12 +13,13 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 })
 export class AddKyccategoryComponent {
   addkyccategory: any = FormGroup;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
+    private cryptoService:EncyDecySericeService,
     private toastr: ToastrService
   ) { }
 
@@ -37,7 +39,7 @@ export class AddKyccategoryComponent {
 
   submit() {
     let submitModel: kycadd = {
-      createdBy: this.createdBy,
+      createdBy: this.adminName,
       kycCategoryName: this.kycCategoryName.value.trim(),
     };
     this.service.addkycCategory(submitModel).subscribe((res: any) => {

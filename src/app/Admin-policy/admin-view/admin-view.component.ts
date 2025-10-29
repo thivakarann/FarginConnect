@@ -14,6 +14,7 @@ import { AdminDisclaimerComponent } from '../admin-disclaimer/admin-disclaimer.c
 import { AdminPrivacypolicyComponent } from '../admin-privacypolicy/admin-privacypolicy.component';
 import { AdminRefundpolicyComponent } from '../admin-refundpolicy/admin-refundpolicy.component';
 import { PolicyApprovalComponent } from '../policy-approval/policy-approval.component';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-admin-view',
@@ -63,7 +64,7 @@ export class AdminViewComponent implements OnInit {
   valuetermCreate: any;
   valuetermExport: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   date3: any;
@@ -78,7 +79,9 @@ export class AdminViewComponent implements OnInit {
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

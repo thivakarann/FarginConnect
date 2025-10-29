@@ -11,6 +11,7 @@ import { customizepay, Otherpayment } from '../../../fargin-model/fargin-model.m
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { OtherpayManualpaymentComponent } from '../otherpay-manualpayment/otherpay-manualpayment.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 interface Option { entityName: string; merchantId: number; }
 
 @Component({
@@ -65,7 +66,7 @@ export class OtherpaymentsViewallComponent {
   valueCustomizationReceipt: any;
   valueCustomizationView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   showcategoryData!: boolean;
@@ -118,7 +119,7 @@ export class OtherpaymentsViewallComponent {
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
 
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
+  constructor(private cryptoService: EncyDecySericeService, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
   ngOnInit(): void {
 
@@ -411,13 +412,12 @@ export class OtherpaymentsViewallComponent {
         this.dataSource = new MatTableDataSource(this.otherpay);
         this.dialog.closeAll()
       } else if (res.flag == 2) {
-        this.toastr.error(res.responseMessage);
-        this.dialog.closeAll()
         this.otherpay = [];
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.otherpay);
+        this.dialog.closeAll()
       }
     });
   }
@@ -499,10 +499,8 @@ export class OtherpaymentsViewallComponent {
     else if (this.filterValue === 'FilterbyCustomizedpay') {
       if (!this.startDate?.value && !this.endDate?.value) {
         this.flags = 1;
-        console.log('Flag set to 1:', this.flags);
       } else {
         this.flags = 2;
-        console.log('Flag set to 2:', this.flags);
       }
       let submitModel: Otherpayment = {
         paymentStatus: this.pay?.value,

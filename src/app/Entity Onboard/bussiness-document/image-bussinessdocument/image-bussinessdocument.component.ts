@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-image-bussinessdocument',
@@ -20,12 +21,13 @@ export class ImageBussinessdocumentComponent {
   file2: any;
   updatedata: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
 
   constructor(
     private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService
   ) { }
 
@@ -119,8 +121,8 @@ export class ImageBussinessdocumentComponent {
 
   Update() {
     const formData = new FormData();
-    formData.append('merchantDocumentId',this.id);
-    formData.append('modifiedBy',"");
+    formData.append('merchantDocumentId', this.id);
+    formData.append('modifiedBy', "");
 
     if (this.flag === 1 && this.file1) {
       formData.append('docFrontPath', this.file1);

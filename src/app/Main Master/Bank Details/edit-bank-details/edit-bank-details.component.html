@@ -8,7 +8,8 @@
             <div class=" mb-3">
                 <div class="form-group">
                     <label for="Entity Name">Bank Name</label>
-                    <input pattern="^(?!\s*$)[A-Za-z\s]+$" [(ngModel)]="banks" type="text" id="Entity Name" formControlName="bankName" class="form-control">
+                    <input pattern="^(?!\s*$)[A-Za-z\s]+$" [(ngModel)]="banks" type="text" id="Entity Name"
+                        formControlName="bankName" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -18,15 +19,14 @@
                   " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']">
                         Field is required
                     </div>
-
-                 <div style="
+                    <div style="
                     color: red;
                     font-size: 12px;
                     margin-top: 2px;
                     position: relative;
                     ;
                   " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']">
-               Invalid format
+                        Invalid format
                     </div>
                     <div style="
                     color: red;
@@ -35,23 +35,16 @@
                     position: relative;
                     ;
                   " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['maxlength']">
-                  Maximum length should be 50
+                        Maximum length should be 50
                     </div>
                 </div>
-              
             </div>
-         
-
-
             <div>
                 <button (click)="Edit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
                 <button type="submit" class="btn" style="background-color:#141E46;color:white"
                     matDialogClose>Cancel</button>
             </div>
-
-
-
         </form>
     </main>
 </body>

@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminPolicycreate } from '../../fargin-model/fargin-model.module';
 import { Router } from '@angular/router';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-admin-create',
@@ -12,8 +13,8 @@ import { Router } from '@angular/router';
 })
 export class AdminCreateComponent implements OnInit {
 
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
   policycreate!: FormGroup;
   MerchantName: any;
   filteredMerchantNames: any[] = [];
@@ -27,6 +28,7 @@ export class AdminCreateComponent implements OnInit {
     private service: FarginServiceService,
     private toastr: ToastrService,
     private fb: FormBuilder,
+    private cryptoService: EncyDecySericeService,
     private router: Router
   ) { }
 
@@ -80,7 +82,7 @@ export class AdminCreateComponent implements OnInit {
       disclaimer: this.disclaimer?.value.trim(),
       privacyPolicy: this.privacyPolicy?.value.trim(),
       refundPolicy: this.refundPolicy?.value.trim(),
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
       merchantId: this.merchantId?.value
     };
     this.service.adminpolicycreate(submitModel).subscribe((res: any) => {

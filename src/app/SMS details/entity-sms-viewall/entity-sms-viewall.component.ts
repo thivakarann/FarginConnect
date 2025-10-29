@@ -7,6 +7,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-sms-viewall',
@@ -51,7 +52,7 @@ export class EntitySmsViewallComponent {
   smsResponse: any;
   valueentitysmsexport: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   pageIndex: number = 0;
@@ -80,6 +81,8 @@ export class EntitySmsViewallComponent {
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

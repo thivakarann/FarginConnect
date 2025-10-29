@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { AddBankdetails } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-addbank-details',
@@ -12,8 +13,9 @@ import { AddBankdetails } from '../../../fargin-model/fargin-model.module';
 })
 export class AddbankDetailsComponent implements OnInit {
 
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
@@ -21,8 +23,10 @@ export class AddbankDetailsComponent implements OnInit {
   constructor(
     public Bankdetailsadd: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog
   ) { }
+
   ngOnInit(): void {
 
     this.myForm = new FormGroup({
@@ -38,19 +42,13 @@ export class AddbankDetailsComponent implements OnInit {
   Submit() {
     let submitModel: AddBankdetails = {
       bankName: this.bankName?.value.trim(),
-      createdBy: this.getadminname
+      createdBy: this.adminName
     }
     this.Bankdetailsadd.bankdetailsAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-
-        // Emit the event to notify parent component
         this.bankDetailsUpdated.emit();
-
-
         this.dialog.closeAll();
-
-
       }
       else {
         this.toastr.error(res.responseMessage);

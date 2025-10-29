@@ -11,6 +11,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Location } from '@angular/common';
 import { EntityTerminalAddComponent } from '../entity-terminal-add/entity-terminal-add.component';
 import { EntityTerminalEditComponent } from '../entity-terminal-edit/entity-terminal-edit.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-terminal-view',
@@ -35,7 +36,7 @@ export class EntityTerminalViewComponent implements OnInit {
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   errorMessage: any;
   actions: any;
   searchPerformed: boolean = false;
@@ -53,7 +54,9 @@ export class EntityTerminalViewComponent implements OnInit {
     private toastr: ToastrService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cryptoService: EncyDecySericeService,
+
   ) { }
 
   ngOnInit() {
@@ -94,46 +97,46 @@ export class EntityTerminalViewComponent implements OnInit {
       this.merchantId = param.Alldata;
     });
 
-   this.Getall();
+    this.Getall();
 
-  
- }
 
- transactions(id: any, id1: any) {
-  this.router.navigate([`dashboard/terminal-transactions/${id}`], {
-    queryParams: { Alldata: id, Alldata1: id1 },
-  });
-}
+  }
 
- Getall(){
-  this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
-    if (res.flag == 1) {
-      this.terminal = res.response;
-      this.dataSource = new MatTableDataSource(this.terminal.reverse());
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.filterPredicate = (data: any, filter: string) => {
-        const transformedFilter = filter.trim().toLowerCase();
-        const dataStr = Object.keys(data)
-          .reduce((currentTerm: string, key: string) => {
-            return (
-              currentTerm +
-              (typeof data[key] === 'object'
-                ? JSON.stringify(data[key])
-                : data[key])
-            );
-          }, '')
-          .toLowerCase();
-        return dataStr.indexOf(transformedFilter) !== -1;
-      };
-    } else if (res.flag == 2) {
-      this.dataSource = new MatTableDataSource([]);
-      this.dataSource = new MatTableDataSource(this.terminal.reverse());
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    }
-  });
- }
+  transactions(id: any, id1: any) {
+    this.router.navigate([`dashboard/terminal-transactions/${id}`], {
+      queryParams: { Alldata: id, Alldata1: id1 },
+    });
+  }
+
+  Getall() {
+    this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.terminal = res.response;
+        this.dataSource = new MatTableDataSource(this.terminal.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => {
+          const transformedFilter = filter.trim().toLowerCase();
+          const dataStr = Object.keys(data)
+            .reduce((currentTerm: string, key: string) => {
+              return (
+                currentTerm +
+                (typeof data[key] === 'object'
+                  ? JSON.stringify(data[key])
+                  : data[key])
+              );
+            }, '')
+            .toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
+      } else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.dataSource = new MatTableDataSource(this.terminal.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+  }
 
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;

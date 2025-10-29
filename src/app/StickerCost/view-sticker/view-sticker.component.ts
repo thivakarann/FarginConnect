@@ -9,6 +9,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { AddStickerComponent } from '../add-sticker/add-sticker.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { stickerstatus } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-view-sticker',
@@ -39,7 +40,7 @@ export class ViewStickerComponent {
   valuesmsstatus: any;
   valuesmsedit: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valuestickeradd: any;
@@ -50,7 +51,8 @@ export class ViewStickerComponent {
     public service: FarginServiceService,
     private router: Router,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {
@@ -82,8 +84,11 @@ export class ViewStickerComponent {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+    this.Getall();
+  };
 
+  Getall() {
     this.service.Sticker().subscribe((res: any) => {
       this.viewall = res.response;
       this.viewall.reverse();
@@ -91,32 +96,26 @@ export class ViewStickerComponent {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
+  };
 
-
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   AddSticker() {
     const dialogRef = this.dialog.open(AddStickerComponent, {
       enterAnimationDuration: "500ms",
-      exitAnimationDuration: "800ms",
+      exitAnimationDuration: "500ms",
       disableClose: true
-    })
-
+    });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-      this.fetchstickeradd();
+      this.Getall();
     });
   };
-
-  fetchstickeradd() {
-    this.service.Sticker().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    });
-  }
-
 
   view(id: any) {
     this.router.navigate([`dashboard/sticker-history/${id}`], {
@@ -124,58 +123,22 @@ export class ViewStickerComponent {
     });
   };
 
-
-  reload() {
-    this.service.Sticker().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-
-    });
-  }
-
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-
     this.isChecked = event.checked;
-
     let submitModel: stickerstatus = {
       activeStatus: this.isChecked ? 'Active' : 'Inactive',
-
     };
     this.service.StickerStatus(id, submitModel).subscribe((res: any) => {
-
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          this.service.Sticker().subscribe((res: any) => {
-            this.viewall = res.response;
-
-            this.viewall.reverse();
-            this.dataSource = new MatTableDataSource(this.viewall);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-          });
-
-        }, 500);
-
+          this.Getall();
+        }, 200);
       }
       else {
         this.toastr.error(res.responseMessage);
       }
-
     });
-
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 }
 

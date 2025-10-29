@@ -4,6 +4,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { updatestickerticket } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-update-sticker-ticket',
@@ -13,8 +14,7 @@ import { updatestickerticket } from '../../fargin-model/fargin-model.module';
 export class UpdateStickerTicketComponent implements OnInit {
   updatestickerticket: any = FormGroup;
   description: any;
-  adminname: any = JSON.parse(sessionStorage.getItem('adminname') || '');
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   raiseTicketId: any;
   ticketValue: any;
   tickets: any;
@@ -32,6 +32,7 @@ export class UpdateStickerTicketComponent implements OnInit {
   constructor(
     private service: FarginServiceService,
     private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService
   ) { }
@@ -53,7 +54,7 @@ export class UpdateStickerTicketComponent implements OnInit {
     });
 
     this.updatestickerticket = new FormGroup({
-      stickerCount: new FormControl('', [Validators.required,Validators.pattern('^[1-9][0-9]*$')]),
+      stickerCount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]),
     });
   }
 
@@ -78,8 +79,8 @@ export class UpdateStickerTicketComponent implements OnInit {
       subject: this.stickerreq,
       merchantId: this.merchantId,
       ticketStatus: this.details,
-      stickerUpdatedBy: this.getadminname,
-      description:this.data?.value?.description
+      stickerUpdatedBy: this.adminName,
+      description: this.data?.value?.description
     };
     this.service.UpdateStickerTickets(submitModel).subscribe((res: any) => {
       this.ticketValue = res.response;

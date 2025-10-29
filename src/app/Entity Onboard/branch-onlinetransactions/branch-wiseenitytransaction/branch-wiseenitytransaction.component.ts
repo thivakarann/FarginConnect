@@ -9,6 +9,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { BranchOnlineviewComponent } from '../branch-onlineview/branch-onlineview.component';
 import { Location } from '@angular/common';
 import { ViewadditionalpaymentsComponent } from '../../../Fargin Transtions/additionalpayments/viewadditionalpayments/viewadditionalpayments.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-branch-wiseenitytransaction',
@@ -67,7 +68,7 @@ export class BranchWiseenitytransactionComponent {
   totalpage: any;
   currentpage: any;
   actions: any;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valuechannelexport: any;
   valuechannelView: any;
   roleName = sessionStorage.getItem('roleName');
@@ -100,7 +101,9 @@ export class BranchWiseenitytransactionComponent {
     private toastr: ToastrService,
     private router: Router,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ServiceproviderEditComponent } from '../serviceprovider-edit/serviceprovider-edit.component';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Providerstatus } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-service-provider',
@@ -51,14 +52,16 @@ export class ServiceProviderComponent implements OnInit {
   valueMSOedit: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   searchPerformed: boolean = false;
 
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit() {

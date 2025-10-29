@@ -5,10 +5,9 @@
 <body class="page">
     <main class="main page__main">
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
-
             <div class=" mb-3">
                 <div class="form-group">
-                    <label class="form__label"  for="Entity Name">Cost per Sticker</label>
+                    <label class="form__label" for="Entity Name">Cost per Sticker</label>
                     <input type="text" id="Entity Name" formControlName="stickerPerAmount" class="form-control">
                     <div style="
                     color: red;
@@ -28,12 +27,10 @@
                   " *ngIf="stickerPerAmount?.invalid && stickerPerAmount?.touched && stickerPerAmount?.errors?.['pattern']">
                         Only positive numbers are allowed
                     </div>
-          
                 </div>
-
                 <div class="form-group">
-                    <label class="form__label"  for="Entity Name">Delivery Days</label>
-                    <input  type="text" id="Entity Name" formControlName="deliveryDays" class="form-control">
+                    <label class="form__label" for="Entity Name">Delivery Days</label>
+                    <input type="text" id="Entity Name" formControlName="deliveryDays" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -50,14 +47,13 @@
                     position: relative;
                     ;
                   " *ngIf="deliveryDays?.invalid && deliveryDays?.touched && deliveryDays?.errors?.['pattern']">
-                 Enter a Valid Input
+                        Enter a Valid Input
                     </div>
-          
                 </div>
-
-                  <div class="form-group">
-                    <label class="form__label"  for="effectiveDate">Effective Date</label>
-                    <input type="date"  [min]="minDate" id="effectiveDate" formControlName="effectiveDate" class="form-control">
+                <div class="form-group">
+                    <label class="form__label" for="effectiveDate">Effective Date</label>
+                    <input type="date" [min]="minDate" id="effectiveDate" formControlName="effectiveDate"
+                        class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -67,23 +63,14 @@
                   " *ngIf="effectiveDate?.invalid && effectiveDate?.touched && effectiveDate?.errors?.['required']">
                         Field is required
                     </div>
-                
-          
                 </div>
-              
             </div>
-         
-
-
             <div>
                 <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
                 <button type="submit" class="btn" style="background-color:#141E46;color:white"
                     matDialogClose>Cancel</button>
             </div>
-
-
-
         </form>
     </main>
 </body>

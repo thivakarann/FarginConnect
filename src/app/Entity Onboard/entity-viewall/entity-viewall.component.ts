@@ -11,6 +11,7 @@ import moment from 'moment';
 import { Workbook } from 'exceljs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { EntityStatus } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-viewall',
@@ -49,7 +50,7 @@ export class EntityViewallComponent {
   valueEntityStatus: any;
   valueEntityView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   actions1: any;
   errorMessage: any;
@@ -99,6 +100,8 @@ export class EntityViewallComponent {
     public EntityViewall: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {

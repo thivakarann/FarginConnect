@@ -1,10 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MerchantplanCreate } from '../../fargin-model/fargin-model.module';
 import { MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-merchant-plan-add',
@@ -12,8 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './merchant-plan-add.component.css',
 })
 export class MerchantPlanAddComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
   myForm!: FormGroup;
   numberValue: number | any = null;
   numberValues: number | any = null;
@@ -24,9 +24,12 @@ export class MerchantPlanAddComponent implements OnInit {
   constructor(
     public Merchantplanadd: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private dialog: MatDialog
   ) { }
+
   ngOnInit(): void {
+
     this.myForm = new FormGroup({
       planName: new FormControl('', [
         Validators.required,
@@ -101,9 +104,8 @@ export class MerchantPlanAddComponent implements OnInit {
       frequency: this.frequency?.value,
       renewalAmount: this.renewalAmount?.value,
       countLimit: this.countLimit?.value,
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
     };
-
     this.Merchantplanadd.merchantplanadd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);

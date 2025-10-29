@@ -1,37 +1,26 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrl: './profile.component.css',
 })
-
-
-
-
-
-
-
-
 export class ProfileComponent {
+  constructor(
+    private router: Router,
+    private location: Location,
+    private cryptoService: EncyDecySericeService
+  ) {}
 
-
-  constructor(private router: Router, private location: Location) { }
-
-  adminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  emailaddress = JSON.parse(sessionStorage.getItem('emailaddress') || '');
-  mobilenumber = JSON.parse(sessionStorage.getItem('mobilenumber') || '');
-  address = JSON.parse(sessionStorage.getItem('address') || '');
-
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  emailaddress: any = this.cryptoService.decrypt(sessionStorage.getItem('Four') || '');
+  mobilenumber: any = this.cryptoService.decrypt(sessionStorage.getItem('Six') || '');
+  address: any = this.cryptoService.decrypt(sessionStorage.getItem('Five') || '');
 
   click() {
     this.location.back();
   }
-
-
 }
-
-
-

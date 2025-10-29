@@ -1,15 +1,10 @@
 <div class="container" style="padding: 0;">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Create Facheck Key</h5>
-
     </div>
-
-
     <body class="page">
         <main class="main page__main">
             <form class="form main__form" autocomplete="off" role="form" [formGroup]="facheckkeyFormGroup">
-
-
                 <div class="form__grid">
                     <div class="form__linput">
                         <label class="form__label" for="apiKey">Api Key</label>
@@ -19,7 +14,6 @@
                             Field is required
                         </div>
                     </div>
-
                     <div class="form__linput">
                         <label class="form__label" for="secretKey">Secret Key</label>
                         <input class="form-control" id="secretKey" type="text" formControlName="secretKey" required />
@@ -28,7 +22,6 @@
                             Field is required
                         </div>
                     </div>
-
                     <div class="form__linput">
                         <label class="form__label" for="applicationId">Application Id</label>
                         <input class="form-control" id="applicationId" type="text" formControlName="applicationId"
@@ -46,20 +39,7 @@
                   " *ngIf="applicationId?.invalid && applicationId?.touched && applicationId?.errors?.['pattern']">
                             Invalid format
                         </div>
-                     
                     </div>
-
-                    <!-- <div class="form__linput">
-                    <label class="form__label" for="mode">Mode</label>
-                    <select  class="form__select" formControlName="mode">
-                        <option value="" disabled selected>Select Mode</option>
-                        <option value="Test">Test</option>
-                        <option value="Live">Live</option>
-                    </select>
-                    <div class="form__error" *ngIf="mode?.invalid && mode?.touched && mode?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div> -->
                     <div class="form-group">
                         <label class="form__label" for="message">Mode</label>
                         <select class="form-select" formControlName="mode">
@@ -72,7 +52,6 @@
                             Choose MSO*</span>
                     </div>
                 </div>
-
                 <div class="form__buttons">
                     <button [disabled]="facheckkeyFormGroup.invalid" type="submit" class="btn mx-1 "
                         style="background-color:#7db855be" (click)="submit()">Submit</button>

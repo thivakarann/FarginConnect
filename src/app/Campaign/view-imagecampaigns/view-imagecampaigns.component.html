@@ -1,29 +1,29 @@
 <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">Campaign Image
-      </h5>
+  <div class="modal-header">
+    <h5 class="modal-title">Campaign Image
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="DocView">
+      <img [src]="imageUrl" class="center responsive-image" />
     </div>
-    <div class="modal-body">
-      <div *ngIf="DocView">
-        <img [src]="imageUrl" class="center responsive-image" />
+    <div *ngIf="!DocView">
+      <div class="text-center mt-4 no-data-container">
+        <h2>No Data Found</h2>
       </div>
-      <div *ngIf="!DocView">
-        <div class="text-center mt-4 no-data-container">
-          <h2>No Data Found</h2>
-        </div>
-      </div>
-    </div>
-   
-    <div class="p-2">
-      <form [formGroup]="logoUpdate">
-          <label class="form__label">File</label>
-          <input class="form-control sm" type="file" name="logo" formControlName="fileImage" accept="image/png, image/jpeg" (change)="onFileSelected($event)">
-      
-          <div class="button-container mt-3">
-            <button [disabled]="logoUpdate.invalid" class="buttonDownload" (click)="Update()">Update</button>
-            <button type="button" class="btn btn-danger ml-2" (click)="close()">Close</button>
-          </div>
-      </form>
-    
     </div>
   </div>
+  <div class="p-2">
+    <form [formGroup]="logoUpdate">
+      <label class="form__label">File</label>
+      <input class="form-control sm" type="file" name="logo" formControlName="fileImage" accept="image/png, image/jpeg"
+        (change)="onFileSelected($event)">
+
+      <div class="button-container mt-3">
+        <button [disabled]="logoUpdate.invalid" class="buttonDownload" (click)="Update()">Update</button>
+        <button type="button" class="btn btn-danger ml-2" matDialogClose>Close</button>
+      </div>
+    </form>
+
+  </div>
+</div>

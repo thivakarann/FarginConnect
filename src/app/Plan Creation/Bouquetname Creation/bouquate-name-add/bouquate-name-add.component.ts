@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { addBouquetname } from '../../../fargin-model/fargin-model.module';
 import { MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-bouquate-name-add',
@@ -11,14 +12,16 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './bouquate-name-add.component.css',
 })
 export class BouquateNameAddComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public Broadcasternameadd: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog
   ) { }
 
@@ -39,7 +42,7 @@ export class BouquateNameAddComponent implements OnInit {
   submit() {
     let submitModel: addBouquetname = {
       broardCaste: this.broardCaste?.value.trim(),
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
     };
     this.Broadcasternameadd.BouquetAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

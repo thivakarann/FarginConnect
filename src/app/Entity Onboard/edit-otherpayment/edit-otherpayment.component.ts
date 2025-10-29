@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-edit-otherpayment',
@@ -11,8 +12,8 @@ import { FarginServiceService } from '../../service/fargin-service.service';
   styleUrl: './edit-otherpayment.component.css',
 })
 export class EditOtherpaymentComponent {
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   id: any;
   myForm!: FormGroup;
   payId: any;
@@ -28,6 +29,7 @@ export class EditOtherpaymentComponent {
     private Approval: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog
   ) { }
 
@@ -99,7 +101,7 @@ export class EditOtherpaymentComponent {
     let submitModel: updateOtherPayment = {
       serviceName: this.serviceName?.value.trim(),
       paidAmount: this.paidAmount?.value.trim(),
-      modifiedBy: this.getadminname,
+      modifiedBy: this.adminName,
     };
 
     this.Approval.OtherPaymentUpdate(this.payId, submitModel).subscribe(

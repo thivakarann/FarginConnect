@@ -5,6 +5,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { KeysUpdate } from '../../fargin-model/fargin-model.module';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-view-onboardinfo',
@@ -18,7 +19,7 @@ export class ViewOnboardinfoComponent implements OnInit {
   copySuccesss: boolean = false;
   valueonboardadd: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   details: any;
@@ -34,7 +35,8 @@ export class ViewOnboardinfoComponent implements OnInit {
   selectedOption: any;
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
-  constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private service: FarginServiceService, private toaster: ToastrService,
+  constructor(private cryptoService: EncyDecySericeService,
+    private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private service: FarginServiceService, private toaster: ToastrService,
   ) {
 
   }

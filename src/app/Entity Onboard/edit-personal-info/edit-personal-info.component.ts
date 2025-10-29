@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-edit-personal-info',
@@ -11,7 +12,7 @@ import { Location } from '@angular/common';
   styleUrl: './edit-personal-info.component.css',
 })
 export class EditPersonalInfoComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   emptyBlob = new Blob([], { type: 'application/pdf' });
   entittyplanviewall: any;
   categorydetails: any;
@@ -44,6 +45,7 @@ export class EditPersonalInfoComponent implements OnInit {
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private ActivateRoute: ActivatedRoute,
     private Location: Location
   ) { }
@@ -385,7 +387,7 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('entityName', this.entityName?.value.trim());
     formData.append('merchantLegalName', this.merchantLegalName?.value.trim());
     formData.append('accountDisplayName', this.accountDisplayName?.value.trim());
-    formData.append('planModifyBy', this.getadminname);
+    formData.append('planModifyBy', this.adminName);
     formData.append('gstIn', this.gstIn?.value || '-');
     formData.append('contactName', this.contactName?.value.trim());
     formData.append('secondaryMobile', this.secondaryMobile?.value.trim());

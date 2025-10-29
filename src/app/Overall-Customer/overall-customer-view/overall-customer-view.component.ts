@@ -5,6 +5,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 
 @Component({
@@ -46,7 +47,7 @@ export class OverallCustomerViewComponent implements OnInit {
   valueCustomerView: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   pageIndex: number = 0;
   pageSize = 5;
@@ -69,6 +70,7 @@ export class OverallCustomerViewComponent implements OnInit {
     public EntityViewall: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {

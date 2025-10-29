@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { BroadcasterBouquetadd, Region } from '../../../fargin-model/fargin-model.module';
 import { MatOption, MatSelect } from '@angular/material/select';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-bouqutes-add',
@@ -12,8 +13,9 @@ import { MatOption, MatSelect } from '@angular/material/select';
   styleUrl: './bouqutes-add.component.css'
 })
 export class BouqutesAddComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   details: any;
   channelslist: any;
@@ -33,6 +35,7 @@ export class BouqutesAddComponent implements OnInit {
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog
   ) { }
 
@@ -134,7 +137,7 @@ export class BouqutesAddComponent implements OnInit {
       boqCreationId: Number(this.boqCreationId?.value),
       serviceId: Number(this.serviceId?.value),
       regId: this.regId?.value,
-      createdBy: this.getadminname
+      createdBy: this.adminName
     };
     this.BroadcasterBouquetAdd.BroadcasterBoucateadd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

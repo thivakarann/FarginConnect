@@ -10,6 +10,7 @@ import moment from 'moment';
 import { PayoutOfflineSettlement } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-offile-settlement-payout',
@@ -46,7 +47,7 @@ export class OffileSettlementPayoutComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   id: any;
@@ -63,6 +64,8 @@ export class OffileSettlementPayoutComponent {
     private ActivateRoute: ActivatedRoute,
     private location: Location,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
+
 
 
   ) { }
@@ -209,7 +212,7 @@ export class OffileSettlementPayoutComponent {
     this.location.back();
   };
 
-  exportexcel(data:any[]) {
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
     data.forEach((element: any) => {
@@ -345,7 +348,7 @@ export class OffileSettlementPayoutComponent {
             this.exportexcel(this.filteredData);
 
           }
-         
+
         });
       }
       else {

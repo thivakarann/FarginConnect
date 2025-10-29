@@ -3,6 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-failure-offtransactions',
@@ -27,7 +28,7 @@ export class FailureOfftransactionsComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   id: any;
@@ -38,6 +39,7 @@ export class FailureOfftransactionsComponent {
 
   constructor(
     private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
   ngOnInit(): void {

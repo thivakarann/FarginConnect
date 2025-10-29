@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Businessadd } from '../../../fargin-model/fargin-model.module';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-addcategory',
@@ -13,12 +14,13 @@ import { ToastrService } from 'ngx-toastr';
 export class AddcategoryComponent implements OnInit {
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
   addcategory: any = FormGroup;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService
   ) { }
 
@@ -53,7 +55,7 @@ export class AddcategoryComponent implements OnInit {
     let submitModel: Businessadd = {
       categoryName: this.categoryName.value.trim(),
       mccCode: this.mccCode.value,
-      createdBy: this.createdBy,
+      createdBy: this.adminName,
       autoDebitDate: this.autoDebitDate?.value,
     };
     this.service.BusinessCreate(submitModel).subscribe((res: any) => {

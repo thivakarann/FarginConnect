@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AddEntityBank } from '../../fargin-model/fargin-model.module';
 import moment from 'moment';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-add',
@@ -12,8 +13,9 @@ import moment from 'moment';
   styleUrl: './entity-add.component.css',
 })
 export class EntityAddComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
   myForm2!: FormGroup;
   myForm3!: FormGroup;
@@ -91,6 +93,7 @@ export class EntityAddComponent implements OnInit {
   constructor(
     public AddEntity: FarginServiceService,
     private router: Router,
+    private cryptoService:EncyDecySericeService,
     private toastr: ToastrService,
     private _formBuilder: FormBuilder
   ) {
@@ -987,7 +990,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('contactEmail', this.contactEmail?.value.trim());
     formData.append('contactMobile', this.contactMobile?.value.trim());
     formData.append('entityName', this.entityName?.value.trim());
-    formData.append('planModifyBy', this.getadminname);
+    formData.append('planModifyBy', this.adminName);
     formData.append('merchantLegalName', this.merchantLegalName?.value.trim());
     formData.append('accountDisplayName', this.accountDisplayName?.value.trim());
     formData.append('gstIn', this.gstIn?.value.trim() || '-');
@@ -1047,7 +1050,7 @@ export class EntityAddComponent implements OnInit {
       merchantId: this.merchantid,
       ledgerId: this.ledgerId?.value.trim(),
       typeMode: this.typemode?.value,
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
     };
     this.AddEntity.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -1074,7 +1077,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('addressProofNo', this.addressProofNo?.value.trim());
     formData.append('signatureFrontPath', this.uploadsignfront);
     formData.append('signatureBackPath', this.uploadsignback);
-    formData.append('createdBy', this.getadminname);
+    formData.append('createdBy', this.adminName);
     formData.append('signatureProof', this.signatureProof?.value);
     formData.append('signatureProofNo', this.signatureProofNo?.value.trim());
     formData.append(
@@ -1108,7 +1111,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('kycCategoryId', this.kycCategoryIds?.value);
     formData.append('docNumber', this.docNumber?.value.trim());
     formData.append('expiryDate', this.expiryDate?.value);
-    formData.append('createdBy', this.getadminname);
+    formData.append('createdBy', this.adminName);
     this.AddEntity.documentAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);

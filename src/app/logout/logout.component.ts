@@ -4,34 +4,37 @@ import { ToastrService } from 'ngx-toastr';
 import { Logout } from '../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { Router } from '@angular/router';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
-  styleUrl: './logout.component.css'
+  styleUrl: './logout.component.css',
 })
 export class LogoutComponent {
-  constructor(private router: Router, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) {
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
+  ) { }
 
-  }
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
 
-  AdminId = JSON.parse(sessionStorage.getItem('adminid') || '')
+
   logout() {
-
     let submitModel: Logout = {
-      adminUserId: this.AdminId,
-      logout: '1'
-    }
+      adminUserId: this.adminId,
+      logout: '1',
+    };
     this.service.Logout(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         // this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
         sessionStorage.removeItem('token');
         this.router.navigateByUrl('/login-page');
-       
       }
-    })
-
+    });
   }
-
 }

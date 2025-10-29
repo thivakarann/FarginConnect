@@ -5,6 +5,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { QRcreationComponent } from '../qrcreation/qrcreation.component';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-qrcode',
@@ -20,7 +21,7 @@ export class EntityQrcodeComponent implements OnInit {
   valueqrgenerator: any;
   valueqrview: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valueqredit: any;
@@ -29,7 +30,9 @@ export class EntityQrcodeComponent implements OnInit {
     public MerchantView: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cryptoService:EncyDecySericeService,
+
 
   ) { }
   ngOnInit(): void {

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { DPOChanneloverallstatus } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-dpo-view',
@@ -12,8 +13,9 @@ import { DPOChanneloverallstatus } from '../../../fargin-model/fargin-model.modu
   styleUrl: './dpo-view.component.css'
 })
 export class DpoViewComponent implements OnInit {
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+ adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+ adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   id: any;
   details: any;
   channelslist: any;
@@ -28,6 +30,7 @@ export class DpoViewComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog
   ) { }
   ngOnInit(): void {

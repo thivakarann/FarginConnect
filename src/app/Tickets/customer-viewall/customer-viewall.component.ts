@@ -9,6 +9,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { CustDescriptionCommentComponent } from '../cust-description-comment/cust-description-comment.component';
 import { CustomerticketImageComponent } from '../customerticket-image/customerticket-image.component';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-customer-viewall',
@@ -48,7 +49,7 @@ export class CustomerViewallComponent implements OnInit {
   valuecustomerticketedit: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   valuedescription: any;
   valuedescriptionImage: any;
@@ -67,7 +68,8 @@ export class CustomerViewallComponent implements OnInit {
   constructor(
     private service: FarginServiceService,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {

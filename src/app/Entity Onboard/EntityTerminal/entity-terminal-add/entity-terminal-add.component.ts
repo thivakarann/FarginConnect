@@ -4,6 +4,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { entityterminaladd } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-terminal-add',
@@ -12,7 +13,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 })
 export class EntityTerminalAddComponent implements OnInit {
   Terminaladd: any = FormGroup;
-  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   branchId: any;
   merchantId: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
@@ -21,6 +22,7 @@ export class EntityTerminalAddComponent implements OnInit {
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -47,7 +49,7 @@ export class EntityTerminalAddComponent implements OnInit {
     let submitModel: entityterminaladd = {
       terminalNumber: terminalArray,
       merchantId: this.merchantId,
-      createdBy: this.createdBy,
+      createdBy: this.adminName,
     };
 
     this.service.EntityTerminalCreate(submitModel).subscribe((res: any) => {

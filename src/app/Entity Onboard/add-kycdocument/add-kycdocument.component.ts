@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-add-kycdocument',
@@ -15,8 +16,7 @@ export class AddKycdocumentComponent implements OnInit {
   imageFile1!: File;
   errorShow!: boolean;
   clearImage: any = '';
-  getadminname: any = JSON.parse(sessionStorage.getItem('adminname') || '');
-  details: any;
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || ''); details: any;
   merchantId: any;
   categorydetails: any;
   businessCategoryId: any;
@@ -66,6 +66,7 @@ export class AddKycdocumentComponent implements OnInit {
   constructor(
     private service: FarginServiceService,
     private dialog: MatDialog,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService,
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -511,7 +512,7 @@ export class AddKycdocumentComponent implements OnInit {
     formData.append('addressProof', this.addressProof?.value);
     formData.append('addressProofNo', this.addressProofNo?.value.trim());
     formData.append('signatureFrontPath', this.uploadsignfront);
-    formData.append('createdBy', this.getadminname);
+    formData.append('createdBy', this.adminName);
     formData.append('signatureBackPath', this.uploadsignback);
     formData.append('signatureProof', this.signatureProof?.value);
     formData.append('signatureProofNo', this.signatureProofNo?.value.trim());

@@ -12,6 +12,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { BusinessKycCreateComponent } from './business-kyc-create/business-kyc-create.component';
 import { Businesskycstatus } from '../../../fargin-model/fargin-model.module';
 import { BusinessKycEditComponent } from './business-kyc-edit/business-kyc-edit.component';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-business-kyc',
@@ -44,7 +45,7 @@ export class BusinessKycComponent implements OnInit {
   businesscategory: any;
   businessCategoryId: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valueKycadd: any;
@@ -56,7 +57,9 @@ export class BusinessKycComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) { }
 
   ngOnInit() {

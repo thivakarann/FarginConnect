@@ -11,6 +11,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { EntityOfflineviewComponent } from '../Entity Onboard/entity-offlineview/entity-offlineview.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-refund',
@@ -73,7 +74,7 @@ export class EntityRefundComponent {
   secretKey: any;
   getdashboard: any[] = [];
   actions: any;
-  roleId: any = sessionStorage.getItem('roleId');
+roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valuerenewexport: any;
   valuerenewview: any;
   valuerenewpay: any;
@@ -133,7 +134,9 @@ export class EntityRefundComponent {
     private ActivateRoute: ActivatedRoute,
     private Location: Location,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+
   ) {}
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({

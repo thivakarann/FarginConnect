@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-whats-app-getall',
@@ -51,7 +52,7 @@ export class EntityWhatsAppGetallComponent implements OnInit {
   WhatsappResponseexport: any;
   valueentitysmsexport: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   pageIndex: number = 0;
@@ -82,6 +83,8 @@ export class EntityWhatsAppGetallComponent implements OnInit {
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
+
   ) { }
 
   ngOnInit(): void {
@@ -218,7 +221,7 @@ export class EntityWhatsAppGetallComponent implements OnInit {
       });
     }
   };
-  
+
   exportexcel() {
     this.service.MerchatWhatsAppGetallExport().subscribe((res: any) => {
       this.WhatsappResponseexport = res.response;

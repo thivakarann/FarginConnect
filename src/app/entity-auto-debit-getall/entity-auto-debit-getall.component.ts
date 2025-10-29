@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-auto-debit-getall',
@@ -44,7 +45,7 @@ export class EntityAutoDebitGetallComponent {
   currentpage: any;
   viewallexport: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valueautodebitexport: any;
@@ -62,7 +63,9 @@ export class EntityAutoDebitGetallComponent {
 
   constructor(
     public autodebitdetails: FarginServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+    
   ) { }
 
   ngOnInit(): void {

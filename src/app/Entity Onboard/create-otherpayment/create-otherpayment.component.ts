@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { createOtherPayment } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-create-otherpayment',
@@ -12,8 +13,8 @@ import { createOtherPayment } from '../../fargin-model/fargin-model.module';
   styleUrl: './create-otherpayment.component.css',
 })
 export class CreateOtherpaymentComponent {
-  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
-  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   id: any;
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
@@ -22,6 +23,7 @@ export class CreateOtherpaymentComponent {
     private Approval: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
     private dialog: MatDialog
   ) { }
   ngOnInit(): void {
@@ -56,7 +58,7 @@ export class CreateOtherpaymentComponent {
     let submitModel: createOtherPayment = {
       serviceName: this.serviceName?.value.trim(),
       paidAmount: this.paidAmount?.value.trim(),
-      createdBy: this.getadminname,
+      createdBy: this.adminName,
       merchantId: this.id,
     };
 
