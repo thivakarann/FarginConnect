@@ -16,7 +16,7 @@ import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-dec
   styleUrl: './fargin-bank-history.component.css'
 })
 export class FarginBankHistoryComponent {
- dataSource: any;
+  dataSource: any;
   displayedColumns: string[] = [
     'S.No',
     'accountHolderName',
@@ -26,14 +26,13 @@ export class FarginBankHistoryComponent {
     'branchName',
     'ifscCode',
     'ledgerId',
-    // 'activeStatus',
     'createdBy',
     'createdAt',
   ];
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   date1: any;
   date2: any;
   responseDataListnew: any = [];
@@ -48,36 +47,37 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     public service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
-  ngOnInit(): void {
 
+  ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.Id = param.Alldata;
     });
-
     this.Details();
   }
 
   Details() {
-    this.service.FarginBankhistory(this.Id).subscribe((res: any) => {
+    const submitmodal = {
+      adminBankId: this.Id
+    }
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitmodal))
+    }
+    this.service.FarginBankhistory(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
+        this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-
       }
-
       else if (res.flag == 2) {
         this.dataSource = new MatTableDataSource([]);
-        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-
-
     });
   };
 
@@ -89,6 +89,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       this.dataSource.paginator.firstPage();
     }
   };
+
   close() {
     this.location.back()
   };
@@ -109,13 +110,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       this.response.push(element?.branchName);
       this.response.push(element?.ifscCode);
       this.response.push(element?.ledgerId);
-      // if (element?.adminBankDetailEntity?.activeStatus == 0) {
-      //   this.response.push("Inactive");
-      // }
-      // else if (element?.adminBankDetailEntity?.activeStatus == 1) {
-      //   this.response.push("Active");
-
-      // }
       this.response.push(element?.createdBy);
       if (element.createdDateTime) {
         this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
@@ -138,16 +132,12 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       'Branch Name	',
       'IFSC Code',
       'PG Ledger ID	',
-      // 'Status',
       'Updated By',
       'Updated At'
     ];
-
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Setupbox History');
-
-    // Blank Row
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -166,9 +156,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         right: { style: 'thin' },
       };
     });
-
     data.forEach((d: any) => {
-      //
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -179,7 +167,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
-      // let qty9 = row.getCell(10);
 
       qty.border = {
         top: { style: 'thin' },
@@ -235,13 +222,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-      // qty9.border = {
-      //   top: { style: 'thin' },
-      //   left: { style: 'thin' },
-      //   bottom: { style: 'thin' },
-      //   right: { style: 'thin' },
-      // };
-
     });
     worksheet.getColumn(1).protection = { locked: true, hidden: true };
     worksheet.getColumn(2).protection = { locked: true, hidden: true };

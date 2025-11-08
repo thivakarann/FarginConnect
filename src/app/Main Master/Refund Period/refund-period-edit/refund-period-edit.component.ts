@@ -28,38 +28,49 @@ export class RefundPeriodEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
   ngOnInit(): void {
-    this.details = this.data.value;
     this.myForm = new FormGroup({
       paymentMethod: new FormControl('', Validators.required),
-      day: new FormControl(null, [
+      refundPeriods: new FormControl(null, [
         Validators.required,
         Validators.pattern("^[1-9][0-9]*$")
       ]),
     });
+    this.myForm.patchValue({
+      refundPeriods: this.data?.value?.refundPeriods,
+      paymentMethod: this.data?.value?.paymentMethod,
+    })
   }
 
   get paymentMethod() {
     return this.myForm.get('paymentMethod')
 
   }
-  get day() {
-    return this.myForm.get('day')
+  get refundPeriods() {
+    return this.myForm.get('refundPeriods')
+  }
+
+  get refundPeriodId() {
+    return this.myForm.get('refundPeriodId')
   }
 
   Edit() {
     let submitModel: RefundPeriodUpdate = {
+      refundPeriodId: this.refundPeriodId?.value,
       paymentMethod: this.paymentMethod?.value,
-      day: this.day?.value,
-      modifiedBy: this.adminName
+      refundPeriods: this.refundPeriods?.value,
+      modifiedBy: this.adminName,
     }
-    this.refundupdate.RefundPeriodUpdate(this.details?.refundDayId, submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.refundupdate.RefundPeriodUpdate(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     })
   }

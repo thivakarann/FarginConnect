@@ -11,7 +11,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { PgsetupCreateComponent } from '../pgsetup-create/pgsetup-create.component';
 import { PgsetupEditComponent } from '../pgsetup-edit/pgsetup-edit.component';
-import { Pgsetup } from '../../../fargin-model/fargin-model.module';
+import { Pgsetup, Getallstatus } from '../../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -48,83 +48,98 @@ export class PgsetupViewComponent implements OnInit {
   valuepgsetupStatus: any;
   valuepgsetupEdit: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   copiedIndex: number = -1;
   copiedIndex1: number = -1;
   searchPerformed: boolean = false;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  currentfilvalShow: boolean = false;
+  currentfilval: any;
+  Roledetails: any;
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit() {
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          if (this.roleId == 1) {
-            this.valuepgsetupAdd = 'PG SetupKey-Add';
-            this.valuepgsetupEdit = 'PG SetupKey-Edit';
-            this.valuepgsetupExport = 'PG SetupKey-Export';
-            this.valuepgsetupStatus = 'PG SetupKey-Status';
-          }
-          // else {
-          //   for (let datas of this.getdashboard) {
-          //     this.actions = datas.subPermissions;
-
-          //     if (this.actions == 'PG SetupKey-Edit') {
-          //       this.valuepgsetupEdit = 'PG SetupKey-Edit';
-          //     }
-          //     if (this.actions == 'PG SetupKey-Add') {
-          //       this.valuepgsetupAdd = 'PG SetupKey-Add';
-          //     }
-          //     if (this.actions == 'PG SetupKey-Export') {
-          //       this.valuepgsetupExport = 'PPG SetupKey-Export';
-          //     }
-          //     if (this.actions == 'PG SetupKey-Status') {
-          //       this.valuepgsetupStatus = 'PG SetupKey-Status';
-          //     }
-          //   }
-          // }
-        } else {
-          this.errorMessage = res.responseMessage;
-        }
-      },
-    });
     this.Getall();
   }
 
   Getall() {
-    this.service.PGsetupget().subscribe((res: any) => {
+    let submitModel: Getallstatus = {
+      pageNumber: 0,
+      pageSize: 5,
+      fromDate: '',
+      toDate: '',
+      status: -1,
+      searchContent: ''
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.PGsetupget(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.pgsetup = res.response;
-        this.pgsetup.reverse();
-        this.dataSource = new MatTableDataSource(this.pgsetup);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.pgsetup = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.pgsetup.content);
+        this.totalPages = this.pgsetup.totalElements;
+        this.totalpage = this.pgsetup.size;
+        this.currentpage = this.pgsetup.number;
+        this.currentfilvalShow = false;
       } else {
         this.pgsetup = [];
-        this.dataSource = new MatTableDataSource(this.pgsetup);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(this.pgsetup.content);
+        this.totalPages = this.pgsetup.totalElements;
+        this.totalpage = this.pgsetup.size;
+        this.currentpage = this.pgsetup.number;
+        this.currentfilvalShow = false;
       }
     });
   };
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) {
+      this.toastr.error('Please Enter the Text');
     }
-  }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: '',
+        pageSize: 5,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: filterValue
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.PGsetupget(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.pgsetup = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.pgsetup.content);
+          this.totalPages = this.pgsetup.totalElements;
+          this.totalpage = this.pgsetup.size;
+          this.currentpage = this.pgsetup.number;
+          this.currentfilvalShow = true;
+
+        } else {
+          this.pgsetup = [];
+          this.dataSource = new MatTableDataSource(this.pgsetup.content);
+          this.totalPages = this.pgsetup.totalElements;
+          this.totalpage = this.pgsetup.size;
+          this.currentpage = this.pgsetup.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+  };
 
   create() {
     const dialogRef = this.dialog.open(PgsetupCreateComponent, {
@@ -171,24 +186,110 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     setTimeout(() => (this.copiedIndex = -1), 2000);
   }
 
-  onSubmit(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
+  onSubmit(id: any) {
     let submitModel: Pgsetup = {
-      pgOnoffStatus: this.isChecked ? 1 : 0,
+      pgKeyId: id,
     };
-    this.service.Pgsetupstatus(id, submitModel).subscribe((res: any) => {
-      this.toastr.success(res.responseMessage);
-      setTimeout(() => {
-        this.service.PGsetupget().subscribe((res: any) => {
-          this.Getall();
-        });
-      }, 200);
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.Pgsetupstatus(datamodal).subscribe((res: any) => {
+      this.toastr.success(res.messageDescription);
+      setTimeout(() => { this.Getall(); }, 200);
     });
   }
-  exportexcel() {
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.PGsetupget(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.pgsetup = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.pgsetup.content);
+          this.totalPages = this.pgsetup.totalElements;
+          this.totalpage = this.pgsetup.size;
+          this.currentpage = this.pgsetup.number;
+          this.currentfilvalShow = false;
+
+        } else {
+          this.pgsetup = [];
+          this.dataSource = new MatTableDataSource(this.pgsetup.content);
+          this.totalPages = this.pgsetup.totalElements;
+          this.totalpage = this.pgsetup.size;
+          this.currentpage = this.pgsetup.number;
+          this.currentfilvalShow = false;
+        }
+      });
+    }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: this.currentfilval
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.PGsetupget(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.pgsetup = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.pgsetup.content);
+          this.totalPages = this.pgsetup.totalElements;
+          this.totalpage = this.pgsetup.size;
+          this.currentpage = this.pgsetup.number;
+
+        } else {
+          this.pgsetup = [];
+          this.dataSource = new MatTableDataSource(this.pgsetup.content);
+          this.totalPages = this.pgsetup.totalElements;
+          this.totalpage = this.pgsetup.size;
+          this.currentpage = this.pgsetup.number;
+        }
+      });
+    }
+  }
+
+  Exportall() {
+    if (this.totalPages != 0) {
+      const payload = {
+        pageNumber: 0,
+        pageSize: this.totalPages,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.PGsetupget(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.pgsetup = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.exportexcel(this.pgsetup.content);
+        } else {
+          console.error('NO Record Found');
+        }
+      });
+    }
+  }
+
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.pgsetup.forEach((element: any) => {
+    data.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
       let moddate = element.modifiedDateTime;
@@ -198,9 +299,9 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       this.response.push(element?.pgMode);
       this.response.push(element?.apiKey);
       this.response.push(element?.secretKey);
-      if (element?.pgOnoffStatus == 1) { this.response.push('Active'); }
+      if (element?.status == 1) { this.response.push('Active'); }
       else { this.response.push('Inactive'); }
-      this.response.push(element?.createdBy);
+      this.response.push(element?.createdby);
       if (element?.createdDateTime) {
         this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
       }

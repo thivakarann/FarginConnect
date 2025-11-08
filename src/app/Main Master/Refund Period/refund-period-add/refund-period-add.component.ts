@@ -14,7 +14,6 @@ import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-dec
 export class RefundPeriodAddComponent implements OnInit {
   adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
-
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
@@ -46,17 +45,21 @@ export class RefundPeriodAddComponent implements OnInit {
   submit() {
     let submitModel: Refundperiodadd = {
       paymentMethod: this.paymentMethod?.value,
-      day: this.day?.value,
-      createdBy: this.adminName
+      refundPeriods: this.day?.value,
+      createdby: this.adminName,
+      creatorRole: this.adminName
     }
-    this.refunddetailadd.Refundperiodadd(submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.refunddetailadd.Refundperiodadd(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     })
   }

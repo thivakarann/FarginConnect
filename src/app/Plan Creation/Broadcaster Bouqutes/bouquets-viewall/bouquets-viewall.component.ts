@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { BouqutesAddComponent } from '../bouqutes-add/bouqutes-add.component';
-import { BroadcasterBouquetStatus } from '../../../fargin-model/fargin-model.module';
+import { BroadcasterBouquetStatus, Payload } from '../../../fargin-model/fargin-model.module';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { BouqetsEditComponent } from '../bouqets-edit/bouqets-edit.component';
 import { Workbook } from 'exceljs';
@@ -47,7 +47,7 @@ export class BouquetsViewallComponent implements OnInit {
   valueBroadcasterBouquetesEdit: any;
   valueBroadcasterBouquetesView: any;
   getdashboard: any[] = [];
- roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   values: any[] = [];
   actions: any;
   errorMessage: any;
@@ -79,20 +79,33 @@ export class BouquetsViewallComponent implements OnInit {
   valuebouquetesEdit: any;
   searchPerformed: boolean = false;
   ServiceProvidename: any;
+  Roledetails: any;
 
   constructor(
     public Bouquetviewall: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {
-    this.Bouquetviewall.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  };
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.Bouquetviewall.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuebouquetesadd = 'Broadcaster Bouqutes-Add';
             this.valuebouquetesEdit = 'Broadcaster Bouqutes-Edit';
@@ -102,7 +115,7 @@ export class BouquetsViewallComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Broadcaster Bouqutes-Add') {
                 this.valuebouquetesadd = 'Broadcaster Bouqutes-Add';
               }
@@ -126,8 +139,7 @@ export class BouquetsViewallComponent implements OnInit {
         }
       }
     });
-    this.Getall();
-  };
+  }
 
   Getall() {
     this.Bouquetviewall.BroadcasterBoucateviewall().subscribe((res: any) => {

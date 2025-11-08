@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
-import { AdminUpdate } from '../../fargin-model/fargin-model.module';
+import { AdminUpdate, Payload } from '../../fargin-model/fargin-model.module';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
@@ -29,13 +29,13 @@ export class AdminEditComponent implements OnInit {
     private router: Router
   ) { }
   ngOnInit(): void {
-    this.service.roleactiveViewall().subscribe((res: any) => {
-      this.activeRole = res.response;
-    });
 
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.adminuserId = param.AdminUserId;
     });
+
+    this.Details();
+    this.ActiveRoles();
 
     this.AdminForm = new FormGroup({
       adminName: new FormControl('', [
@@ -43,7 +43,7 @@ export class AdminEditComponent implements OnInit {
         Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
-      gender: new FormControl('', [Validators.required]),
+      genders: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
       country: new FormControl('', [
         Validators.required,
@@ -63,19 +63,13 @@ export class AdminEditComponent implements OnInit {
       ]),
       roleId: new FormControl('', [Validators.required]),
     });
-
-    this.service.AdminView(this.adminuserId).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.viewData = res.response;
-        this.data = this.viewData.adminName;
-      }
-    });
   }
+
   get adminName() {
     return this.AdminForm.get('adminName');
   }
-  get gender() {
-    return this.AdminForm.get('gender');
+  get genders() {
+    return this.AdminForm.get('genders');
   }
 
   get address() {
@@ -98,28 +92,72 @@ export class AdminEditComponent implements OnInit {
     return this.AdminForm.get('roleId');
   }
 
+  Details() {
+    const payload = {
+      userId: this.adminuserId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.AdminView(datamodal).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.viewData = JSON.parse(this.cryptoService.decrypt(res.data));;
+        this.AdminForm.patchValue({
+          adminName: this.viewData?.name,
+          genders: this.viewData?.gender,
+          address: this.viewData?.address,
+          country: this.viewData?.country,
+          state: this.viewData?.state,
+          city: this.viewData?.city,
+          pincode: this.viewData?.pincode,
+          roleId: this.viewData?.roleEntity?.roleId
+        });
+      }
+    });
+  }
+
+  ActiveRoles() {
+    const payload = {
+      status: 1,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.roleactiveViewall(datamodal).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.activeRole = JSON.parse(this.cryptoService.decrypt(res.data));;
+      }
+    })
+  }
+
   submit() {
     let submitmodel: AdminUpdate = {
-      adminUserId: this.adminuserId,
-      adminName: this.adminName?.value.trim(),
+      userId: this.adminuserId,
+      name: this.adminName?.value.trim(),
       address: this.address?.value.trim(),
       city: this.city?.value.trim(),
       state: this.state?.value.trim(),
       pincode: this.pincode?.value.trim(),
       country: this.country?.value.trim(),
-      gender: this.gender?.value,
+      gender: this.genders?.value,
       modifiedBy: this.adminNames,
       roleId: this.roleId?.value,
+      emailAddress: this.viewData?.emailAddress,
+      mobileNumber: this.viewData?.mobileNumber
     };
-    this.service.AdminUpdate(submitmodel).subscribe((res: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitmodel))
+    }
+    this.service.AdminUpdate(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toaster.success(res.responseMessage);
+        this.toaster.success(res.messageDescription);
         this.router.navigateByUrl(`/dashboard/admindetails`);
       } else {
-        this.toaster.error(res.responseMessage);
+        this.toaster.error(res.messageDescription);
       }
     });
   }
+
   close() {
     this.router.navigate([`/dashboard/admindetails`], {});
   }

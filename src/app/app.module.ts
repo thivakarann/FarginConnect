@@ -131,7 +131,6 @@ import { AddbeneficiaryComponent } from './Beneficiary/addbeneficiary/addbenefic
 import { ViewbeneficiaryComponent } from './Beneficiary/viewbeneficiary/viewbeneficiary.component';
 import { EditbeneficiaryComponent } from './Beneficiary/editbeneficiary/editbeneficiary.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ViewPermissionComponent } from './Roles-Permission/view-permission/view-permission.component';
 import { ViewSubpermissionComponent } from './Roles-Permission/view-subpermission/view-subpermission.component';
 import { BouquetsRegionsviewComponent } from './Plan Creation/Broadcaster Bouqutes/bouquets-regionsview/bouquets-regionsview.component';
 import { AddExtraChannelsComponent } from './Plan Creation/Broadcaster Bouqutes/add-extra-channels/add-extra-channels.component';
@@ -316,7 +315,8 @@ import { VendorsViewallComponent } from './Main Master/WhatsApp Vendors/vendors-
 import { VendorsAddComponent } from './Main Master/WhatsApp Vendors/vendors-add/vendors-add.component';
 import { VendorsUpdateComponent } from './Main Master/WhatsApp Vendors/vendors-update/vendors-update.component';
 import { LcopPlanViewComponent } from './Overall-Customer/lcop-plan-view/lcop-plan-view.component';
-
+import { SmscostUpdateComponent } from './Main Master/SMS Cost/smscost-update/smscost-update.component';
+import { EditStickerComponent } from './StickerCost/edit-sticker/edit-sticker.component';
 
 
 @NgModule({
@@ -434,7 +434,6 @@ import { LcopPlanViewComponent } from './Overall-Customer/lcop-plan-view/lcop-pl
     EditbeneficiaryComponent,
     ProfileComponent,
     BouquetsRegionsviewComponent,
-    ViewPermissionComponent,
     ViewSubpermissionComponent,
     EntityTransactionComponent,
     ChannelViewComponent,
@@ -610,7 +609,8 @@ import { LcopPlanViewComponent } from './Overall-Customer/lcop-plan-view/lcop-pl
     VendorsAddComponent,
     VendorsUpdateComponent,
     LcopPlanViewComponent,
-
+    SmscostUpdateComponent,
+ EditStickerComponent,
 
   ],
 

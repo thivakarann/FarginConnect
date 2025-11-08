@@ -30,13 +30,17 @@ export class EditBankDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.details = this.data.value;
-    this.id = this.data.value.bankId;
-    this.banks = this.data.value.bankName;
+
     this.myForm = new FormGroup({
       bankName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     });
+
+    this.myForm.patchValue({
+      bankName: this.data?.value.bankName
+
+    })
   }
+
 
   get bankName() {
     return this.myForm.get('bankName')
@@ -44,18 +48,24 @@ export class EditBankDetailsComponent implements OnInit {
 
   Edit() {
     let submitModel: UpdateBankdetails = {
-      bankId: this.id,
+      bankDetailsId: this.data?.value.bankDetailsId,
       bankName: this.bankName?.value.trim(),
-      modifiedBy: this.adminName
+      modifiedBy: this.adminName,
+      modifierRole: this.adminName
     }
-    this.Bankdetailsupdate.bankdetailsUpdate(submitModel).subscribe((res: any) => {
+
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+
+    this.Bankdetailsupdate.bankdetailsUpdate(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     })
   }

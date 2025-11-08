@@ -1,5 +1,5 @@
 <div class="card-header">
-    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Edit Entity Plan</h3>
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Update Entity Plan</h3>
 </div>
 
 <body class="page">
@@ -8,48 +8,65 @@
             <p style="color:red;font-size:small"><b>Note: Please enter the amount excluding GST.</b></p>
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Plan Name</label>
-                    <input [(ngModel)]="planame" type="text" id="Entity Name" formControlName="planName"
-                        class="form-control">
+                    <label for="Bussiness category">Business Category</label>
+                    <select formControlName="businessCategoryId" id="Bussiness category"
+                        class="form-control form-select">
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let item of details" [value]="item.businessCategoryId">
+                            {{item?.businessCategoryName}}</option>
+
+                    </select>
                     <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        position: relative;
-                        ;
-                      " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['required']">
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="businessCategoryId?.invalid && businessCategoryId?.touched && businessCategoryId?.errors?.['required']">
+                        Field is Required
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">Plan Name</label>
+                    <input type="text" id="Entity Name" formControlName="planName" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['required']">
                         Field is required
                     </div>
                     <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        position: relative;
-                        ;
-                      " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['pattern']">
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['pattern']">
                         Invalid format
                     </div>
                     <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        position: relative;
-                        ;
-                      " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['maxlength']">
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['maxlength']">
                         Maximum length should be 50
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="state">One-Time Setup Fee</label>
-                    <input [(ngModel)]="onetimeamount" type="text" formControlName="technicalAmount" id="state"
-                        class="form-control">
+                    <input type="text" formControlName="oneTimeSetupFee" id="state" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
                     margin-top: 2px;
                     position: relative;
                     ;
-                  " *ngIf="technicalAmount?.invalid && technicalAmount?.touched && technicalAmount?.errors?.['required']">
+                  " *ngIf="oneTimeSetupFee?.invalid && oneTimeSetupFee?.touched && oneTimeSetupFee?.errors?.['required']">
                         Field is required
                     </div>
                     <div style="
@@ -58,24 +75,13 @@
                     margin-top: 2px;
                     position: relative;
                     ;
-                  " *ngIf="technicalAmount?.invalid && technicalAmount?.touched && technicalAmount?.errors?.['pattern']">
+                  " *ngIf="oneTimeSetupFee?.invalid && oneTimeSetupFee?.touched && oneTimeSetupFee?.errors?.['pattern']">
                         Only positive numbers are allowed
                     </div>
                 </div>
-
                 <div class="col-sm-4 form-group">
                     <label for="zip">Cloud Fee</label>
-                    <input [(ngModel)]="MaintenanceAmount" type="text" formControlName="maintenanceAmount" id="zip"
-                        class="form-control">
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="maintenanceAmount?.invalid && maintenanceAmount?.touched && maintenanceAmount?.errors?.['required']">
-                        Field is required
-                    </div>
+                    <input type="text" formControlName="cloudFee" id="zip" class="form-control">
 
                     <div style="
                     color: red;
@@ -83,23 +89,7 @@
                     margin-top: 2px;
                     position: relative;
                     ;
-                  " *ngIf="maintenanceAmount?.invalid && maintenanceAmount?.touched && maintenanceAmount?.errors?.['pattern']">
-                        Only positive numbers are allowed
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-4 form-group">
-                    <label for="state">Voice Box Rent</label>
-                    <input type="text" [(ngModel)]="VoiceBoxAdv" formControlName="voiceBoxAdvRent" id="state"
-                        class="form-control">
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="voiceBoxAdvRent?.invalid && voiceBoxAdvRent?.touched && voiceBoxAdvRent?.errors?.['required']">
+                  " *ngIf="cloudFee?.invalid && cloudFee?.touched && cloudFee?.errors?.['required']">
                         Field is required
                     </div>
                     <div style="
@@ -108,14 +98,37 @@
                     margin-top: 2px;
                     position: relative;
                     ;
-                  " *ngIf="voiceBoxAdvRent?.invalid && voiceBoxAdvRent?.touched && voiceBoxAdvRent?.errors?.['pattern']">
+                  " *ngIf="cloudFee?.invalid && cloudFee?.touched && cloudFee?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="state">Voice Box Rent</label>
+                    <input type="text" formControlName="voiceBoxRent" id="state" class="form-control">
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="voiceBoxRent?.invalid && voiceBoxRent?.touched && voiceBoxRent?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="voiceBoxRent?.invalid && voiceBoxRent?.touched && voiceBoxRent?.errors?.['pattern']">
                         Only positive numbers are allowed
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="zip">Voice Box Setup Fee</label>
-                    <input type="text" [(ngModel)]="VoiceBoxSet" formControlName="voiceBoxSetupFee" id="zip"
-                        class="form-control">
+                    <input type="text" formControlName="voiceBoxSetupFee" id="zip" class="form-control">
+
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -125,6 +138,7 @@
                   " *ngIf="voiceBoxSetupFee?.invalid && voiceBoxSetupFee?.touched && voiceBoxSetupFee?.errors?.['required']">
                         Field is required
                     </div>
+
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -135,17 +149,19 @@
                         Only positive numbers are allowed
                     </div>
                 </div>
+            </div>
+            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Cloud Fee Frequency</label>
-                    <select [(ngModel)]="Frequency" formControlName="frequency" id="Bussiness category"
+                    <select formControlName="cloudFeeFrequency" id="Bussiness category"
                         class="form-control form-select">
                         <option value="" disabled selected>Select</option>
-                        <!-- <option value="Day">Daily</option>
-                        <option value="Week">Weekly</option> -->
-                        <option value="Month">Monthly</option>
+                        <!-- <option value="Daily">Daily</option> -->
+                        <!-- <option value="Weekly">Weekly</option> -->
+                        <option value="Monthly">Monthly</option>
                         <!-- <option value="Quarterly">Quarterly</option>
-                        <option value="Half Yearly">Half-Yearly</option>
-                        <option value="Year">Yearly</option> -->
+                        <option value="Half-Yearly">Half-Yearly</option>
+                        <option value="Yearly">Yearly</option> -->
                     </select>
                     <div style="
                     color: red;
@@ -153,23 +169,20 @@
                     margin-top: 2px;
                     position: relative;
                     ;
-                  " *ngIf="frequency?.invalid && frequency?.touched && frequency?.errors?.['required']">
-                        Field is required
+                  " *ngIf="cloudFeeFrequency?.invalid && cloudFeeFrequency?.touched && cloudFeeFrequency?.errors?.['required']">
+                        Field is Required
                     </div>
                 </div>
-            </div>
-            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="zip">Yearly Renewal Fee</label>
-                    <input [(ngModel)]="RenewelAmount" type="text" formControlName="renewalAmount" id="zip"
-                        class="form-control" placeholder="Enter amount in rupees">
+                    <input type="text" formControlName="yearlyRenewalFee" id="zip" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
                     margin-top: 2px;
                     position: relative;
                     ;
-                  " *ngIf="renewalAmount?.invalid && renewalAmount?.touched && renewalAmount?.errors?.['required']">
+                  " *ngIf="yearlyRenewalFee?.invalid && yearlyRenewalFee?.touched && yearlyRenewalFee?.errors?.['required']">
                         Field is required
                     </div>
                     <div style="
@@ -178,21 +191,20 @@
                     margin-top: 2px;
                     position: relative;
                     ;
-                  " *ngIf="renewalAmount?.invalid && renewalAmount?.touched && renewalAmount?.errors?.['pattern']">
-                        Only positive numbers are allowed
+                  " *ngIf="yearlyRenewalFee?.invalid && yearlyRenewalFee?.touched && yearlyRenewalFee?.errors?.['pattern']">
+                        *Only Positive Number are allowed
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="count">Customer Onboard Limit</label>
-                    <input type="text" formControlName="countLimit" id="count" class="form-control"
-                        [(ngModel)]="countlimit">
+                    <input type="text" formControlName="customerOnboardLimit" id="count" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
                     margin-top: 2px;
                     position: relative;
                     ;
-                  " *ngIf="countLimit?.invalid && countLimit?.touched && countLimit?.errors?.['required']">
+                  " *ngIf="customerOnboardLimit?.invalid && customerOnboardLimit?.touched && customerOnboardLimit?.errors?.['required']">
                         Field is required
                     </div>
                     <div style="
@@ -201,7 +213,7 @@
                     margin-top: 2px;
                     position: relative;
                     ;
-                  " *ngIf="countLimit?.invalid && countLimit?.touched && countLimit?.errors?.['pattern']">
+                  " *ngIf="customerOnboardLimit?.invalid && customerOnboardLimit?.touched && customerOnboardLimit?.errors?.['pattern']">
                         Enter a Valid Number
                     </div>
                 </div>

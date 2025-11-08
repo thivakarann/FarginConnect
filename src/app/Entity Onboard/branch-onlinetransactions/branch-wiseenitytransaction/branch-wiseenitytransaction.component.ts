@@ -10,6 +10,7 @@ import { BranchOnlineviewComponent } from '../branch-onlineview/branch-onlinevie
 import { Location } from '@angular/common';
 import { ViewadditionalpaymentsComponent } from '../../../Fargin Transtions/additionalpayments/viewadditionalpayments/viewadditionalpayments.component';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-branch-wiseenitytransaction',
@@ -68,7 +69,7 @@ export class BranchWiseenitytransactionComponent {
   totalpage: any;
   currentpage: any;
   actions: any;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valuechannelexport: any;
   valuechannelView: any;
   roleName = sessionStorage.getItem('roleName');
@@ -95,6 +96,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   additionalValue: any;
   Viewsearchall: any;
   currentfilvals: any;
+  Roledetails: any;
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
@@ -102,7 +104,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     private router: Router,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
@@ -111,19 +113,31 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       this.id = param.Alldata;
       this.merchantId = param.All;
     });
+    this.Role();
+    this.Getall();
+  }
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
 
           if (this.roleId == 1) {
             this.valueexport = 'Entity View Branch-online View-Export';
             this.valueView = 'Entity View-Branch-Transactions-View';
             this.valueReceipt = 'Entity View-Branch-Transactions-Receipt';
-          } else {
+          }
+          else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Entity View Branch-online View-Export') {
                 this.valueexport = 'Entity View Branch-online View-Export';
@@ -143,8 +157,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-
-    this.Getall();
   }
 
   Getall() {

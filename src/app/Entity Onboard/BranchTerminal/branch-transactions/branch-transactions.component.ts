@@ -53,7 +53,7 @@ export class BranchTransactionsComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   accountId: any = sessionStorage.getItem('accountId');
   searchPerformed: boolean = false;
   actions: any;
@@ -74,7 +74,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     private ActivateRoute: ActivatedRoute,
     private location: Location,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
@@ -236,7 +236,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   }
 
 
-  exportexcel(data:any[]) {
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
     data.forEach((element: any) => {
@@ -445,7 +445,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         });
       }
     }
-    else{
+    else {
       this.toastr.error('No record found');
     }
 

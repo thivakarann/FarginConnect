@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Addfacheckkey } from '../../../fargin-model/fargin-model.module';
@@ -20,7 +19,6 @@ export class AddfacheckkeyComponent {
 
   constructor(
     private service: FarginServiceService,
-    private router: Router,
     private cryptoService: EncyDecySericeService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -28,6 +26,7 @@ export class AddfacheckkeyComponent {
   ) { }
 
   ngOnInit(): void {
+
     this.facheckkeyFormGroup = new FormGroup({
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
@@ -51,22 +50,28 @@ export class AddfacheckkeyComponent {
   get applicationId() {
     return this.facheckkeyFormGroup.get('applicationId');
   }
+
+
   submit() {
     let submitModel: Addfacheckkey = {
       apiKey: this.apiKey.value.trim(),
       secretKey: this.secretKey?.value.trim(),
       applicationId: this.applicationId?.value,
       mode: this.mode?.value,
-      createdBy: this.adminName,
+      createdby: this.adminName,
+      creatorRole: this.adminName
     };
-    this.service.addfacheck(submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.addfacheck(datamodal).subscribe((res: any) => {
       this.facheckkey = res.response;
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }

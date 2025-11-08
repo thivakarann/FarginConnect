@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 
 @Component({
@@ -65,20 +66,32 @@ export class OverallCustomerViewComponent implements OnInit {
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
   QRimage: any;
+  Roledetails: any;
 
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {
+    this.Role();
+    this.Getall();
+  }
 
-    this.EntityViewall.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.EntityViewall.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueCustomerView = 'Customers-View';
             this.valueCustomerExport = 'Customers-Export';
@@ -86,7 +99,7 @@ export class OverallCustomerViewComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Customers-View') {
                 this.valueCustomerView = 'Customers-View';
@@ -105,8 +118,6 @@ export class OverallCustomerViewComponent implements OnInit {
         }
       }
     });
-
-    this.Getall();
   }
 
   Getall() {

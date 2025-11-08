@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Location } from '@angular/common';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-alacarte-bulkresponse',
@@ -39,31 +40,55 @@ export class AlacarteBulkresponseComponent {
   valueresponse: any;
   getdashboard: any[] = [];
   actions: any;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   roleName = sessionStorage.getItem('roleName');
   searchPerformed: boolean = false;
   valueFile: any;
   UploaddFile: any;
   Response: any;
   errorMessage: any;
+  Roledetails: any;
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private location:Location,
-    private cryptoService:EncyDecySericeService,
+    private location: Location,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
 
-    this.service.rolegetById(this.roleId).subscribe({
+    this.Role();
+
+    this.service.Alcartbulkresponse().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.viewBulk = res.response;
+        this.dataSource = new MatTableDataSource(this.viewBulk?.reverse());
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      } else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.dataSource = new MatTableDataSource(this.viewBulk?.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
 
           if (this.roleId == 1) {
             this.UploaddFile = 'A-LA-CARTE Uploded-File';
@@ -71,7 +96,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
 
               if (this.actions == 'A-LA-CARTE Uploded-File') {
@@ -87,21 +112,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         else {
           this.errorMessage = res.responseMessage;
         }
-      }
-    });
-
-
-    this.service.Alcartbulkresponse().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.viewBulk = res.response;
-        this.dataSource = new MatTableDataSource(this.viewBulk?.reverse());
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      } else if (res.flag == 2) {
-        this.dataSource = new MatTableDataSource([]);
-        this.dataSource = new MatTableDataSource(this.viewBulk?.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
       }
     });
   }
@@ -121,7 +131,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     });
   }
 
-    close() {
+  close() {
     this.location.back()
   }
   applyFilter(event: Event) {

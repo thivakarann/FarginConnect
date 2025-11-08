@@ -1,129 +1,144 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-*{
-    padding:0;
-    margin:0;
-    box-sizing:border-box;
+
+* {
+    padding: 0;
+    margin: 0px;
+    box-sizing: border-box;
 }
-:root{
-    --ligthgreen:#bbe06c;
-    --darkgreen:#7db855be;
+
+:root {
+    --ligthgreen: #bbe06c;
+    --darkgreen: #7db855be;
 }
-body{
-   font-family: "Montserrat", sans-serif;
-   font-optical-sizing: auto;
-   font-weight: 300px;
-   font-style: normal;
-   background-color:#E7F0DC;
-   display:flex;
-   justify-content:center;
-   align-items:center;
-   flex-direction:column;
-   height:100vh;
+
+body {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300px;
+    font-style: normal;
+    background-color: #E7F0DC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
 }
-.container{
-    background-color:#bbe06c;
-    border-radius:20px;
-    position:relative;
-    overflow:hidden;
-    width:690px;
-    height:450px;
+
+.container {
+    background-color: #bbe06c;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    width: 690px;
+    height: 450px;
     /* max-width:100%; */
     box-shadow: 5px 5px 10px 0px grey;
-    padding:50px 0px;
-    text-align:center;
+    padding: 50px 0px;
+    text-align: center;
 }
-.container p{
+
+.container p {
     font-size: 12px;
-    line-height: 20px;
+    line-height: 114px;
     letter-spacing: 0.3px;
 }
+
 .forgetpass {
-    position: relative;
-    margin-top: 62px; /* Adjust as needed */
-    display: block;
     text-align: center;
+    width: 250px;
+    font-size: 13px;
+    color: #141E46;
     cursor: pointer;
 }
 
-a{
-   color:black;
-   text-decoration:none;
-   font-size:20px;
+a {
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
 }
-button{
-    font-size:12px;
-    padding:10px;
-    width:95px;
-    height:40px;
-    border-radius:5px;
-    background:#141E46;
+
+button {
+    font-size: 12px;
+    padding: 10px;
+    width: 95px;
+    height: 40px;
+    border-radius: 5px;
+    background: #141E46;
     color: white;
-    margin:20px 0px;
-    border:none;
+    border: none;
+    margin: 20px 0px;
 }
-h1{
-  font-size:24px;
+
+h1 {
+    font-size: 24px;
 }
+
 /* .container button.hidden{
     background-color:transparent;
     background-color:black;
 } */
-.icons i{
-    margin:10px 3px 20px 3px;
+.icons i {
+    margin: 10px 3px 20px 3px;
 }
-.container form{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    height:100%;
-    padding:0 10px;
+
+.container form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 10px;
 }
- 
+
 input {
     width: 250px;
-    height: 38px; /* Fixed height */
+    height: 38px;
+    /* Fixed height */
     padding: 12px;
     border-radius: 15px;
     font-size: 14px;
     margin: 10px 0;
     outline: none;
     border: 2px solid white;
-    box-sizing: border-box; /* Ensures padding and border are included in the height */
+    box-sizing: border-box;
+    /* Ensures padding and border are included in the height */
 }
- 
+
 /* Remove or override focus styles that might alter the height */
 input:focus {
-    border-color: #fff; /* Ensure border color does not change */
-    box-shadow: none; /* Remove any shadow that might affect layout */
+    border-color: #fff;
+    /* Ensure border color does not change */
+    box-shadow: none;
+    /* Remove any shadow that might affect layout */
 }
- 
+
 /* Add this rule if needed to override browser-specific styles */
 input:focus::-webkit-input-placeholder {
-    color: transparent; /* Ensure placeholder color does not affect layout */
+    color: transparent;
+    /* Ensure placeholder color does not affect layout */
 }
- 
- 
-.form_container{
+
+
+.form_container {
     position: absolute;
     top: 0;
     height: 100%;
 }
-.sign_in{
+
+.sign_in {
     left: 0;
     width: 50%;
     z-index: 2;
 }
- 
+
 /* .container.active .sign_in{
     transform: translateX(100%);
     opacity:0;
 } */
- 
- 
- 
-.toggle_container{
+
+
+
+.toggle_container {
     position: absolute;
     top: 0;
     left: 50%;
@@ -134,14 +149,14 @@ input:focus::-webkit-input-placeholder {
     border-radius: 130px 0 0 130px;
     z-index: 1000;
 }
- 
+
 /* .container.active .toggle_container{
     transform: translateX(-100%);
     border-radius: 0 130px 130px 0;
 } */
- 
-.toggle{
-    background-color:#7db855be;
+
+.toggle {
+    background-color: #7db855be;
     height: 100%;
     color: #fff;
     position: relative;
@@ -150,15 +165,16 @@ input:focus::-webkit-input-placeholder {
     transform: translateX(0);
     transition: all 0.6s ease-in-out;
 }
-.toggle p{
-    padding-top:20px;
+
+.toggle p {
+    padding-top: 20px;
 }
- 
+
 /* .container.active .toggle{
     transform: translateX(50%);
 } */
- 
-.toggle_panel{
+
+.toggle_panel {
     position: absolute;
     width: 50%;
     height: 100%;
@@ -172,56 +188,63 @@ input:focus::-webkit-input-placeholder {
     transform: translateX(0);
     transition: all 0.6s ease-in-out;
 }
- 
- 
- 
-.toggle_right{
+
+
+
+.toggle_right {
     right: 0;
     /* transform: translateX(0); */
 }
- 
+
 /* .container.active .toggle_right{
     transform: translateX(200%);
 }  */
- 
 
 
-@media (max-width:868px){
-  .container{
-    width:80%;
-    height:370px;
+
+@media (max-width:868px) {
+    .container {
+        width: 80%;
+        height: 370px;
+    }
+
+    input {
+        width: 120px;
+        height: 20px;
+        /* Fixed height */
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 12px;
+        margin: 8px 0;
+        outline: none;
+        /* border: 2px solid white; */
+        box-sizing: border-box;
+        /* Ensures padding and border are included in the height */
+    }
+
 }
-input {
-    width: 120px;
-    height: 20px; /* Fixed height */
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 12px;
-    margin: 8px 0;
-    outline: none;
-    /* border: 2px solid white; */
-    box-sizing: border-box; /* Ensures padding and border are included in the height */
-}
- 
-}
- 
+
 .error {
     position: absolute;
-    bottom: -8px; /* Keeps error messages in place without affecting layout */
+    bottom: -8px;
+    /* Keeps error messages in place without affecting layout */
     left: 0;
     font-size: 13px;
     color: red;
 }
+
 /* captcha */
- 
- 
+
+
 .form-group {
     position: relative;
-    height: 70px; /* Ensures enough space for error message */
+    height: 70px;
+    /* Ensures enough space for error message */
 }
 
 .pass1 {
-    padding-right: 40px; /* Space for the eye icon */
+    padding-right: 40px;
+    /* Space for the eye icon */
 }
 
 #eye {
@@ -232,9 +255,10 @@ input {
     cursor: pointer;
     color: #666;
     bottom: 35px;
-    left:211px;
+    left: 211px;
 }
-.fa-eye-slash{
+
+.fa-eye-slash {
     position: absolute;
     left: 215px;
     bottom: 59%;
@@ -242,15 +266,11 @@ input {
     cursor: pointer;
     color: #666;
 }
-.captcha-container {
-    position: relative;
-}
 
-.captcha-input {
-    padding-right: 40px; /* Space for refresh icon */
-}
 
-#refresh {
+
+
+/* #refresh {
     position: absolute;
     right: 52px;
     top: 23%;
@@ -258,10 +278,10 @@ input {
     cursor: pointer;
     font-size: 18px;
     color: white;
-}
+} */
 
 
-select{
+select {
     width: 250px;
     height: 40px;
     padding: 9px;
@@ -270,5 +290,106 @@ select{
     margin: 10px 0;
     outline: none;
     border: 2px solid white;
-    box-sizing: border-box; /* Ensures padding and border are included in the height */
+    box-sizing: border-box;
+    /* Ensures padding and border are included in the height */
+}
+
+.captcha-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    /* space between elements */
+    width: 250px;
+    /* same width as other inputs */
+    margin-top: -10px;
+    position: relative;
+}
+
+/* Captcha display (readonly generated text) */
+.captcha-display {
+    flex: 1;
+    background-color: #141E46;
+    color: white;
+    font-style: italic;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 8px;
+    border: none;
+    height: 40px;
+    width: 20px;
+    letter-spacing: 2px;
+}
+
+/* Refresh icon alignment */
+#refresh {
+    font-size: 16px;
+    color: #141E46;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#refresh:hover {
+    transform: rotate(90deg);
+}
+
+/* User input for captcha */
+.captcha-input {
+    flex: 1;
+    border-radius: 8px;
+    border: 2px solid white;
+    padding: 0 10px;
+    text-align: center;
+    font-size: 11px;
+    height: 40px;
+    width: 20px;
+}
+
+/* Error message under the line (not breaking alignment) */
+.captcha-container .error {
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: red;
+}
+
+
+/* ✅ Improved responsive captcha design */
+@media (max-width: 768px) {
+    .captcha-container {
+        flex-direction: column;
+        /* stack elements vertically */
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        margin-top: -26px;
+    }
+
+    .captcha-display,
+    .captcha-input {
+        width: 50%;
+        /* take most of the width */
+        min-width: 120px;
+        height: 38px;
+        font-size: 13px;
+        padding: 5px;
+    }
+
+    #refresh {
+        font-size: 18px;
+        align-self: center;
+        margin: -11px 0;
+    }
+
+    .captcha-container .error {
+        position: relative;
+        bottom: auto;
+        font-size: 12px;
+        text-align: center;
+        margin-top: 4px;
+    }
 }

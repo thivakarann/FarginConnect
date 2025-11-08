@@ -6,28 +6,36 @@
   box-sizing: border-box;
 }
  
+ 
 button {
   font: inherit;
 }
  
 .page {
-
+ 
   background-color: #fff;
   display: grid;
   grid-template-areas: "main";
   height: auto;
+ 
   font-family: var(--font-sans);
 }
  
 .page__main {
   grid-area: main;
+ 
 }
  
 .main {
-  display: grid;
   justify-items: center;
   align-items: center;
+  width: 590px;
 }
+.form .main__form{
+  width: 500px;
+ 
+}
+ 
  
 .main__form {
   width: 100%;
@@ -39,9 +47,9 @@ button {
 
   background-color: #fff;
   display: grid;
-  width: 100%;
+  width: 140%;
   max-width: 100%;
-
+ 
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -53,7 +61,6 @@ button {
  
 .form__label {
   margin-bottom: 10px;
-
 }
  
 .form__input,
@@ -89,7 +96,7 @@ button {
 .submit,
 .cancel {
   border: none;
-
+ 
   padding: 0.5em 1em;
   font-size: 1rem;
   cursor: pointer;
@@ -117,12 +124,10 @@ button {
 @media (max-width: 600px) {
   .main__form {
     padding: 10px;
-  
   }
  
   .form {
     padding: 10px;
-  
   }
  
   .submit,
@@ -142,4 +147,7 @@ button {
   background-color: #bcdf72;
   color: #141E46;
   font-family: "Roboto";
+}
+mat-select{
+  width:550px
 }

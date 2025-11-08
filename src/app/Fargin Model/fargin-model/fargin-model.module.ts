@@ -180,14 +180,16 @@ export interface Manuvelduesforcloudfee {
 
 export interface Refundperiodadd {
   readonly paymentMethod: any;
-  readonly day: any;
-  readonly createdBy: any;
+  readonly refundPeriods: any;
+  readonly createdby: any;
+  readonly creatorRole: any;
 }
 
 
 export interface RefundPeriodUpdate {
+  readonly refundPeriodId: any;
   readonly paymentMethod: any;
-  readonly day: any;
+  readonly refundPeriods: any;
   readonly modifiedBy: any;
 }
 
@@ -209,5 +211,8 @@ export interface Othermanualpay {
   readonly utrNumber: any,
 }
 
+export interface Refundstatus {
+  readonly refundPeriodId: any;
+}
 
 

@@ -6,18 +6,31 @@ import * as CryptoJS from 'crypto-js';
 })
 export class EncyDecySericeService {
 
-  private secretKey = 'jP7Y4P97oe3RA90vey0qs9KAvdklv0sh';
+  private secretKey = 'pYRxwwoe9IjA4ka0378A4S7nghopzxsh';
 
   encrypt(value: string): string {
-    return CryptoJS.AES.encrypt(value, this.secretKey).toString();
+    const key = CryptoJS.enc.Utf8.parse(this.secretKey);
+    const encrypted = CryptoJS.AES.encrypt(value, key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    });
+    return encrypted.toString();
   }
 
-  decrypt(cipherText: string): string {
-    const bytes = CryptoJS.AES.decrypt(cipherText, this.secretKey);
-    return bytes.toString(CryptoJS.enc.Utf8);
+
+
+  decrypt(value: string): string {
+    const key = CryptoJS.enc.Utf8.parse(this.secretKey);
+    const decryptedBytes = CryptoJS.AES.decrypt(value, key, {
+      mode: CryptoJS.mode.ECB,
+      paddin: CryptoJS.pad.Pkcs7
+    });
+    return decryptedBytes.toString(CryptoJS.enc.Utf8);
   }
+
 
   hash(value: string): string {
     return CryptoJS.SHA256(value).toString(CryptoJS.enc.Hex);
   }
+
 }

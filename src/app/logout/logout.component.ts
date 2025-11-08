@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { Logout } from '../fargin-model/fargin-model.module';
+import { Logout,Payload } from '../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
@@ -25,12 +25,14 @@ export class LogoutComponent {
 
   logout() {
     let submitModel: Logout = {
-      adminUserId: this.adminId,
-      logout: '1',
+      userId: this.adminId,
+      // logout: '1',
     };
-    this.service.Logout(submitModel).subscribe((res: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.Logout(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        // this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
         sessionStorage.removeItem('token');
         this.router.navigateByUrl('/login-page');

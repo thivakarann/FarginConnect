@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Location } from '@angular/common';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 @Component({
   selector: 'app-view-recordcampaigns',
   templateUrl: './view-recordcampaigns.component.html',
@@ -34,20 +35,21 @@ export class ViewRecordcampaignsComponent {
   valueresponse: any;
   getdashboard: any[] = [];
   actions: any;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   roleName = sessionStorage.getItem('roleName');
   valueRouteStatusresponse: any;
   searchPerformed: boolean = false;
   id: any;
   errorMessage: any;
   valueEmails: any;
+  Roledetails: any;
 
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
     private activated: ActivatedRoute,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
 
   ) { }
@@ -56,18 +58,27 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     this.activated.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
-
-    this.service.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  }
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueEmails = 'Campaign-EmailsList';
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Campaign-EmailsList') {
                 this.valueEmails = 'Campaign-EmailsList'
               }
@@ -80,7 +91,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       }
     });
-    this.Getall();
   }
   Getall() {
     this.service.viewrecordcampaigns(this.id).subscribe((res: any) => {

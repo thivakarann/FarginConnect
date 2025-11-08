@@ -6,6 +6,7 @@ import { SessionServiceService } from '../Session service/session-service.servic
 import { ToastrService } from 'ngx-toastr';
 import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 import { SessionValidatorService } from '../Session storage Validator/session-validator.service';
+import { Payload } from '../fargin-model/fargin-model.module';
 
 @Injectable({ providedIn: 'root', })
 
@@ -14,6 +15,8 @@ export class FarginServiceService {
   AdminId: any;
   Tokens: any;
   Client: HttpClient;
+  details: any;
+  user: any;
 
   constructor(
     private http: HttpClient,
@@ -27,39 +30,45 @@ export class FarginServiceService {
 
   // private readonly basePath = 'https://staging-api.farginconnect.com/';    //Staging server
 
-  // private readonly basePath = 'https://dev-api.farginconnect.com/cableconnect/'; //  Dev Server
+  private readonly basePath = 'https://dev-api.farginconnect.com/admin/'; //  Dev Server
 
-  private readonly basePath = 'https://api.fargin.in/';       //  Production server
+  // private readonly basePath = 'https://api.fargin.in/';       //  Production server
 
 
 
 
   // login
-
-  private readonly adminlogin = 'adminUser/adminlogin';
-  private readonly forgotpassword = 'adminUser/verifyEmail';
-  private readonly verifyotp = 'adminUser/verifyOtp';
-  private readonly resendotp = 'adminUser/resendOtp';
-  private readonly resetpassword = 'adminUser/reset';
+  private readonly LoginCaptcha = 'user/generateCaptcha';
+  private readonly adminlogin = 'user/login';
+  private readonly forgotpassword = 'user/forgotPasswordOtpSend';
+  private readonly verifyotp = 'user/forgotPasswordOtpVerify';
+  private readonly resendotp = 'user/forgotPasswordOtpSend';
+  private readonly resetpassword = 'user/forgotPassword';
 
   //change password
 
-  private readonly changepassword = 'adminUser/changePassword/';
+  private readonly changepassword = 'user/changePassword';
 
   //business category
 
-  private readonly businesscategoryget = 'businesscategory/getall';
-  private readonly businesscategoryAdd = 'businesscategory/create';
-  private readonly businesscategoryEdit = 'businesscategory/update/';
-  private readonly businesscategorystatus = 'businesscategory/updateactive/';
+  private readonly businesscategoryget = 'businesscategory/withPagination/getAll';
+  private readonly businesscategoryAdd = 'businesscategory/add';
+  private readonly businesscategoryEdit = 'businesscategory/update';
+  private readonly businesscategorystatus = 'businesscategory/updateStatus';
+  private readonly ActiveBussinesscate = 'businesscategory/getByStatus'
 
   //Business KYC
 
-  private readonly businesscategorykycget = 'businesskyc/getall';
-  private readonly businesscategorykycactive = 'businesskyc/updateactive/';
-  private readonly businesskycAdd = 'businesskyc/create';
+  private readonly businesscategorykycget = 'businessCategoryDocument/withPagination/getAll ';
+  private readonly businesscategorykycactive = 'businessCategoryDocument/updateStatus';
+  private readonly businesskycAdd = 'businessCategoryDocument/add';
+  // activestatus old
   private readonly businesskycdocactive = 'businesscategory/getallactive';
-  private readonly businesskycupdate = 'businesskyc/update/';
+  // activestatus new
+  private readonly buskycactivestatus = 'businesscategory/getByStatus';
+  private readonly activedocuments = 'businessDocumentType/getByStatus'
+
+  private readonly businesskycupdate = 'businessCategoryDocument/update';
 
   //Ticket
 
@@ -70,14 +79,15 @@ export class FarginServiceService {
 
   //Roles & Permission
 
-  private readonly permissiongetall = 'permission/activepermission';
-  private readonly getsubPermission = 'subpermission/getpermissionlist';
-  private readonly addRole = 'role/create';
-  private readonly roleStatus = 'role/updatestatus';
-  private readonly viewallRoles = 'role/viewall';
+  private readonly permissiongetall = 'permission/getAllPermission';
+  private readonly getsubPermission = 'permission/getAllSubPermission';
+  private readonly addRole = 'role/add';
+  private readonly roleStatus = 'role/updateStatus';
+  private readonly viewallRoles = 'role/withPagination/getAll';
   private readonly viewPermissionSubpermission = 'role/viewpermission/';
-  private readonly updateRole = 'role/updaterole/';
-  private readonly rolegetByid = 'role/viewbyid/';
+  private readonly updateRole = 'role/update';
+  private readonly rolegetByid = 'role/getAuthorization';
+  private readonly RolegetByidnew = 'role/getRoleAuthorization'
 
   //Admin Policy
 
@@ -88,12 +98,12 @@ export class FarginServiceService {
   private readonly policymerchant = 'policy/getMerchant';
   private readonly policiesbyid = 'policy/getpolicy/';
   private readonly policyapproval = 'policy/updateStatus/';
-  private readonly admingetall = 'adminUser/viewall';
-  private readonly adminstatus = 'adminUser/updateStatus';
-  private readonly admincreate = 'adminUser/addUser';
-  private readonly adminupdate = 'adminUser/update';
-  private readonly adminview = 'adminUser/viewById/';
-  private readonly roleactiveviewall = 'role/viewactive';
+  private readonly admingetall = 'user/withPagination/getAll';
+  private readonly adminstatus = 'user/updateStatus';
+  private readonly admincreate = 'user/add';
+  private readonly adminupdate = 'user/update';
+  private readonly adminview = 'user/getById';
+  private readonly roleactiveviewall = 'role/getByStatus';
 
   // Entity Details
 
@@ -240,10 +250,10 @@ export class FarginServiceService {
 
   //Facheckkey
 
-  private readonly addfacheckkey = 'facheckkey/create';
-  private readonly viewfacheckkey = 'facheckkey/getall';
-  private readonly updatefacheckkey = 'facheckkey/update/';
-  private readonly statusfacheckkey = 'facheckkey/updatestatus/';
+  private readonly addfacheckkey = 'facheckKey/add';
+  private readonly viewfacheckkey = 'facheckKey/withPagination/getAll';
+  private readonly updatefacheckkey = 'facheckKey/update ';
+  private readonly statusfacheckkey = 'facheckKey/updateStatus';
   private readonly Estamp = 'Estamp/getActive';
 
   // Alcarte Creation
@@ -312,18 +322,18 @@ export class FarginServiceService {
 
   // Merchant Plan Creation
 
-  private readonly Merchantplanviewall = 'merchantplan/getall';
-  private readonly MerchantplanAdd = 'merchantplan/create';
-  private readonly MerchantplanUpdate = 'merchantplan/update/';
-  private readonly MerchantplanStatus = 'merchantplan/updateactive/';
+  private readonly Merchantplanviewall = 'entityPlan/withPagination/getAll';
+  private readonly MerchantplanAdd = 'entityPlan/add';
+  private readonly MerchantplanUpdate = 'entityPlan/update';
+  private readonly MerchantplanStatus = 'entityPlan/updateStatus';
   private readonly MerchantActivePlans = 'merchantplan/getallactive';
 
   //PGsetup
 
-  private readonly pgsetupget = 'pgmode/getall';
-  private readonly pgsetupstatus = 'pgmode/updatestatus/';
-  private readonly pgsetupadd = 'pgmode/add';
-  private readonly pgsetupedit = 'pgmode/update/';
+  private readonly pgsetupget = 'pgKeys/withPagination/getAll';
+  private readonly pgsetupstatus = 'pgKeys/updateStatus';
+  private readonly pgsetupadd = 'pgKeys/add';
+  private readonly pgsetupedit = 'pgKeys/update ';
 
   //Withdrawal
 
@@ -355,7 +365,7 @@ export class FarginServiceService {
 
   //unblock account
 
-  private readonly unblockaccount = 'adminUser/unBlockAccount/';
+  private readonly unblockaccount = 'user/unblock';
 
   //unblock entity account
 
@@ -398,8 +408,8 @@ export class FarginServiceService {
 
   // Bank Details Main Master
 
-  private readonly BankdetailsViewall = 'bankDetails/viewAllBank';
-  private readonly AddBankDetails = 'bankDetails/addBank';
+  private readonly BankdetailsViewall = 'bankDetails/withOutPagination/getAll';
+  private readonly AddBankDetails = 'bankDetails/add';
   private readonly EditBankdetails = 'bankDetails/update';
   private readonly Bankdetailsviewbyid = 'bankDetails/viewById/';
   private readonly ActiveBankDetails = 'bankDetails/viewOnlyActive';
@@ -448,10 +458,10 @@ export class FarginServiceService {
 
   // KYC category
 
-  private readonly viewallkyccategory = 'kycCategory/getall';
-  private readonly addkyccategory = 'kycCategory/addCategory';
-  private readonly editkyccategory = 'kycCategory/update';
-  private readonly statuskyccategory = 'kycCategory/statusUpdate';
+  private readonly viewallkyccategory = 'businessDocumentType/withPagination/getAll';
+  private readonly addkyccategory = 'businessDocumentType/add';
+  private readonly editkyccategory = 'businessDocumentType/update';
+  private readonly statuskyccategory = 'businessDocumentType/updateStatus';
   private readonly activeviewall = 'kycCategory/viewOnlyActive';
   private readonly kycviewall = 'entityDocument/viewAll';
   private readonly identityfront = 'entityDocument/identityFront';
@@ -494,12 +504,12 @@ export class FarginServiceService {
 
   //farginbank
 
-  private readonly farginview = 'adminBankDetails/getBankDetails';
+  private readonly farginview = 'adminBankDetails/withPagination/getBankDetails';
   private readonly fargincreate = 'adminBankDetails/createbankdetails';
   private readonly farginupdate = 'adminBankDetails/updatebank';
-  private readonly farginstatus = 'adminBankDetails/updateStatus/';
+  private readonly farginstatus = 'adminBankDetails/updateStatus';
   private readonly farginEdit = 'adminBankDetails/createbankdetails';
-  private readonly Farginbankhistory = 'adminBankDetails/getHistory/';
+  private readonly Farginbankhistory = 'adminBankDetails/getHistory';
 
   //sms settings
 
@@ -522,7 +532,7 @@ export class FarginServiceService {
   private readonly smshistoryview = 'smshistory/viewbymerchant/';
   private readonly smshistoryfilter = 'smshistory/viewallfilter/';
   private readonly smshistorymerchantfilter = 'smshistory/viewmerchantfilter/';
-  private readonly logout = 'adminUser/logout';
+  private readonly logout = 'user/logOut';
 
   // Overall trans Receipt
 
@@ -540,10 +550,11 @@ export class FarginServiceService {
 
   // SMS Cost Setup
 
-  private readonly SMSCostviewall = 'smsConfig/getAmountDetails';
-  private readonly SMSCostadd = 'smsConfig/addAndUpdateAmount';
-  private readonly SMSCostStatus = 'smsConfig/updateStatus/';
-  private readonly SMSHistory = 'smsConfig/getSmsConfigHistoryDetails/';
+  private readonly SMSCostviewall = 'smsCost/withPagination/getAll';
+  private readonly SMSCostadd = 'smsCost/add';
+  private readonly SMSUpdate = 'smsCost/update';
+  private readonly SMSCostStatus = 'smsCost/updateStatus';
+  private readonly SMSHistory = 'smsCost/getBySmsHistory';
 
   // Auto Debit
 
@@ -607,14 +618,14 @@ export class FarginServiceService {
 
   // Fargin Signer Details
 
-  private readonly Signerdetailsgetall = 'signingAdmin/getallData';
+  private readonly Signerdetailsgetall = 'signingAdmin/withPagination/getallData';
   private readonly SignerdetailsWithoutToken = '/signingAdmin/getall';
   private readonly SignerdetailsAdd = 'signingAdmin/add';
   private readonly SignerdetailsUpdate = 'signingAdmin/update';
   private readonly SignerdetailsbyId = 'signingAdmin/viewById/';
   private readonly SignerdetaisStatus = 'signingAdmin/updateStatus';
   private readonly SignerdetailsActiveGetall = 'signingAdmin/viewOnlyActive';
-  private readonly SignerHistory = 'signingAdmin/getSigningHistory/';
+  private readonly SignerHistory = 'signingAdmin/getSigningHistory';
 
   //Agreementplan
 
@@ -675,10 +686,8 @@ export class FarginServiceService {
   // Find Location Details
 
   private geoApiUrl = 'https://ipinfo.io/json';
-  private abstarctipaddress = 'https://ipgeolocation.abstractapi.com/v1/?api_key=26ab1ae7d8a54b859bba4c93ce54ab54';
-  // private geoApiUrl = 'https://ipwhois.app/json/';
-  // private geoApiUrl = 'http://ip-api.com/json/'
-  // private geoApiUrl = 'https://data.handyapi.com/geoip/'
+  private abstarctipaddress = 'https://ipgeolocation.abstractapi.com/v1/?api_key=f620ad1cab2f4577ae761b40b0ff73b7';
+
 
   //Additional Payment
 
@@ -721,9 +730,15 @@ export class FarginServiceService {
   //sticker
 
   private readonly stickerget = 'stickerconfig/getall';
-  private readonly stickerAdd = 'stickerconfig/create';
-  private readonly stickerstatus = 'stickerconfig/updatestatus/';
-  private readonly StickerHistory = 'stickerconfig/getStickerHistory/';
+
+  // sticker getall
+  private readonly sticketgetall = 'stickercost/withPagination/getAll'
+  // Add
+  private readonly stickerAdd = 'stickercost/add';
+  // Edit
+  private readonly stickeredit = 'stickercost/update'
+  private readonly stickerstatus = 'stickercost/updateStatus';
+  private readonly StickerHistory = 'stickerconfig/getStickerHistory';
 
   //Campagin
   private addcampagins = 'emailbroadcaster/sendemail';
@@ -794,11 +809,12 @@ export class FarginServiceService {
 
   // Refund Period
 
-  private readonly refundperiodviewall = 'refundDayLimit/getAll';
-  private readonly refundperiodadd = 'refundDayLimit/createRefundDays';
-  private readonly refundperiodupdate = 'refundDayLimit/updateRefundDays/';
+  private readonly refundperiodviewall = 'refundPeriod/withPagination/getAll';
+  private readonly refundperiodadd = 'refundPeriod/add';
+  private readonly refundperiodupdate = 'refundPeriod/update';
   private readonly refundperiodbyid = 'refundDayLimit/getDays/';
-  private readonly refundperiodhistory = 'refundDayLimit/viewHistory/';
+  private readonly refundperiodhistory = 'refundPeriod/getHistory';
+  private readonly refundperiostatus = 'refundPeriod/updateStatus'
 
   //campaign
 
@@ -908,10 +924,10 @@ export class FarginServiceService {
 
   // WhatsappVendors
 
-  private readonly WhatsAppVendorsViewall = 'vendor/getAll';
-  private readonly WhatsAppVendorsAdd = 'vendor/createVendor';
-  private readonly WhatsAppVendorsUpdate = 'vendor/updateVendor/';
-  private readonly WhatsAppVendorsStatus = 'vendor/updateStatus/';
+  private readonly WhatsAppVendorsViewall = 'whatsapp/vendor/withPagination/getAll ';
+  private readonly WhatsAppVendorsAdd = 'whatsapp/vendor/add';
+  private readonly WhatsAppVendorsUpdate = 'whatsapp/vendor/update';
+  private readonly WhatsAppVendorsStatus = 'whatsapp/vendor/updateStatus ';
 
   loginError = new Subject();
   // token = sessionStorage.getItem('token') || null;
@@ -954,73 +970,35 @@ export class FarginServiceService {
     return encrypted ? this.cryptoService.decrypt(encrypted) : null;
   }
 
+  Captcha(model: any) {
+    return this.Client.post(`${this.basePath}${this.LoginCaptcha}`, model)
+  }
 
-  getLogin(email: string, password: string, categoryFlag: string) {
+  getLogin(email: string, password: string, captcha: string) {
     const credentialBody = {
       emailAddress: email,
-      userPassword: password,
-      categoryFlag: categoryFlag,
+      password: password,
+      captcha: captcha,
     };
-    return this.http.post(`${this.basePath}${this.adminlogin}`, credentialBody).subscribe((res: any) => {
+    let submitmodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(credentialBody))
+    }
+    return this.http.post(`${this.basePath}${this.adminlogin}`, submitmodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        const user = res.response.login_history.adminUser;
-        sessionStorage.setItem('One', this.cryptoService.encrypt(user.jwtResponse.X_ACCESS_TOKEN));
-        sessionStorage.setItem('Two', this.cryptoService.encrypt(user.adminUserId.toString()));
-        sessionStorage.setItem('Three', this.cryptoService.encrypt(user.adminName));
-        sessionStorage.setItem('Four', this.cryptoService.encrypt(user.emailAddress));
-        sessionStorage.setItem('Five', this.cryptoService.encrypt(user.address));
-        sessionStorage.setItem('Six', this.cryptoService.encrypt(user.mobileNumber));
-        sessionStorage.setItem('Seven', this.cryptoService.encrypt(user.lastLogin));
-        sessionStorage.setItem('Eight', this.cryptoService.encrypt(user.createdBy));
-        sessionStorage.setItem('Nine', this.cryptoService.encrypt(user.roleModel?.roleId.toString()));
-        sessionStorage.setItem('flag', this.cryptoService.encrypt(user.categoryFlag.toString()));
-
-        // 🧠 Fingerprint based on decrypted values
-        const token = user.jwtResponse.X_ACCESS_TOKEN;
-        const adminId = user.adminUserId.toString();
-        const adminName = user.adminName;
-        const email = user.emailAddress;
-        const address = user.address;
-        const mobileNumber = user.mobileNumber;
-        const lastLogin = user.lastLogin;
-        const createdBy = user.createdBy;
-        const roleId = user.roleModel?.roleId.toString();
-        const flag = user.categoryFlag.toString();
-
-        const fingerprint = this.cryptoService.hash(
-          token + adminId + adminName + email + address + mobileNumber + lastLogin + createdBy + roleId + flag
-        );
-        sessionStorage.setItem('sessionFingerprint', fingerprint);
-        sessionStorage.setItem('sessionReady', 'true');
-
-        // 🛡️ Optional: Encrypted fingerprint for deeper tamper detection
-        const encryptedConcat = [
-          'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'flag'
-        ].map(k => sessionStorage.getItem(k)).join('');
-        const encryptedFingerprint = this.cryptoService.hash(encryptedConcat);
-        sessionStorage.setItem('encryptedFingerprint', encryptedFingerprint);
-
-        // 🕵️ Start session monitor immediately
-        this.SessionValidatorService.startSessionMonitor();
-
-        // ✅ Finalize session and redirect
-          if (flag === '1') {
-            this.router.navigateByUrl('/dashboard/dashboard-content', { replaceUrl: true });
-            this.timerService.restartTimer();
-            setTimeout(() => window.location.reload(),200);
-          }
-          // External redirect with token/email/adminId
-
-          // else if (flag === '2') {
-          //   window.location.href = `https://dev-adminpg.farginconnect.com/data-component/${token}/${email}/${adminId}`;
-          // }
-
-          // Replace history before redirect
-          // window.location.href = (`http://localhost:51296/data-component/${token}/${email}/${adminId}`);
-    
-      }
-      else {
-        this.toastr.error(res.responseMessage);
+        this.details = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.user = this.details.admin;
+        sessionStorage.setItem('One', this.cryptoService.encrypt(this.details.X_ACCESS_TOKEN));
+        sessionStorage.setItem('Two', this.cryptoService.encrypt(this.user.userId.toString()));
+        sessionStorage.setItem('Three', this.cryptoService.encrypt(this.user.name));
+        sessionStorage.setItem('Four', this.cryptoService.encrypt(this.user.emailAddress));
+        sessionStorage.setItem('Five', this.cryptoService.encrypt(this.user.address));
+        sessionStorage.setItem('Six', this.cryptoService.encrypt(this.user.mobileNumber));
+        sessionStorage.setItem('Eight', this.cryptoService.encrypt(this.user.createdBy));
+        sessionStorage.setItem('Nine', this.cryptoService.encrypt(this.user.roleEntity?.roleId.toString()));
+        this.router.navigateByUrl('/dashboard/dashboard-content', { replaceUrl: true });
+        this.timerService.restartTimer();
+      } else {
+        this.toastr.error(res.messageDescription);
       }
     });
   }
@@ -1054,30 +1032,34 @@ export class FarginServiceService {
 
   //business category
 
-  Businesscategory() {
-    return this.http.get(`${this.basePath}${this.businesscategoryget}`, this.options);
+  Businesscategory(model: any) {
+    return this.http.post(`${this.basePath}${this.businesscategoryget}`, model, this.options);
   }
 
   BusinessCreate(model: any) {
     return this.http.post(`${this.basePath}${this.businesscategoryAdd}`, model, this.options);
   }
 
-  BusinessEdit(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.businesscategoryEdit}${id}`, model, this.options);
+  BusinessEdit(model: any) {
+    return this.http.put(`${this.basePath}${this.businesscategoryEdit}`, model, this.options);
   }
 
-  Businessactive(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.businesscategorystatus}${id}`, model, this.options);
+  Businessactive(model: any) {
+    return this.http.put(`${this.basePath}${this.businesscategorystatus}`, model, this.options);
+  }
+
+  ActiveBus(modal: any) {
+    return this.http.post(`${this.basePath}${this.ActiveBussinesscate}`, modal, this.options)
   }
 
   //business category kyc
 
-  BusinesscategoryKyc() {
-    return this.http.get(`${this.basePath}${this.businesscategorykycget}`, this.options);
+  BusinesscategoryKyc(model: any) {
+    return this.http.post(`${this.basePath}${this.businesscategorykycget}`, model, this.options);
   }
 
-  BusinesskycActive(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.businesscategorykycactive}${id}`, model, this.options);
+  BusinesskycActive(model: any) {
+    return this.http.put(`${this.basePath}${this.businesscategorykycactive}`, model, this.options);
   }
 
   BusinesskycCreate(model: any) {
@@ -1088,13 +1070,24 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.businesskycdocactive}`, this.options);
   }
 
-  Businesskycupdate(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.businesskycupdate}${id}`, model, this.options
+  // 123
+
+  Businessactivestatus(model: any) {
+    return this.http.post(`${this.basePath}${this.buskycactivestatus}`, model, this.options)
+  }
+
+  // 
+  Businessactivedocument(model: any) {
+    return this.http.post(`${this.basePath}${this.activedocuments}`, model, this.options)
+  }
+
+  Businesskycupdate(model: any) {
+    return this.http.put(`${this.basePath}${this.businesskycupdate}`, model, this.options
     );
   }
 
-  getForgotPassword(data: any) {
-    return this.http.post(`${this.basePath}${this.forgotpassword}`, data, this.options);
+  getForgotPassword(model: any) {
+    return this.http.post(`${this.basePath}${this.forgotpassword}`, model, this.options);
   }
 
   VerifyOtp(data: any) {
@@ -1109,13 +1102,12 @@ export class FarginServiceService {
     return this.http.post(`${this.basePath}${this.resetpassword}`, data, this.options);
   }
 
-  ChangePassword(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.changepassword}${id}`, data, this.options
-    );
+  ChangePassword(data: any) {
+    return this.http.post(`${this.basePath}${this.changepassword}`, data, this.options);
   }
 
-  GetAdminDetails() {
-    return this.http.get(`${this.basePath}${this.admingetall}`, this.options);
+  GetAdminDetails(modal: any) {
+    return this.http.post(`${this.basePath}${this.admingetall}`, modal, this.options);
   }
 
   UpdateAdminStatus(data: any) {
@@ -1144,8 +1136,8 @@ export class FarginServiceService {
 
   //Roles and permission
 
-  permissionget() {
-    return this.http.get(`${this.basePath}${this.permissiongetall}`, this.options);
+  permissionget(modal: any) {
+    return this.http.post(`${this.basePath}${this.permissiongetall}`, modal, this.options);
   }
 
   subPermission(model: any) {
@@ -1160,20 +1152,24 @@ export class FarginServiceService {
     return this.http.put(`${this.basePath}${this.roleStatus}`, model, this.options);
   }
 
-  viewRoles() {
-    return this.http.get(`${this.basePath}${this.viewallRoles}`, this.options);
+  viewRoles(modal: any) {
+    return this.http.post(`${this.basePath}${this.viewallRoles}`, modal, this.options);
   }
 
   viewPermissionSubPermission(id: any) {
     return this.http.get(`${this.basePath}${this.viewPermissionSubpermission}${id}`, this.options);
   }
 
-  editRole(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.updateRole}${id}`, model, this.options);
+  editRole(model: any) {
+    return this.http.put(`${this.basePath}${this.updateRole}`, model, this.options);
   }
 
-  rolegetById(id: any) {
-    return this.http.get(`${this.basePath}${this.rolegetByid}${id}`, this.options);
+  rolegetById(modal: any) {
+    return this.http.post(`${this.basePath}${this.rolegetByid}`, modal, this.options);
+  }
+
+  RolebyIDnew(modal: any) {
+    return this.http.post(`${this.basePath}${this.RolegetByidnew}`, modal, this.options)
   }
 
   //privacy policy
@@ -1218,12 +1214,12 @@ export class FarginServiceService {
     return this.http.put(`${this.basePath}${this.adminupdate}`, data, this.options);
   }
 
-  AdminView(id: any) {
-    return this.http.get(`${this.basePath}${this.adminview}${id}`, this.options);
+  AdminView(modal: any) {
+    return this.http.post(`${this.basePath}${this.adminview}`, modal, this.options);
   }
 
-  roleactiveViewall() {
-    return this.http.get(`${this.basePath}${this.roleactiveviewall}`, this.options);
+  roleactiveViewall(modal: any) {
+    return this.http.post(`${this.basePath}${this.roleactiveviewall}`, modal, this.options);
   }
 
   Bussinesscategoryactivelist() {
@@ -1297,16 +1293,16 @@ export class FarginServiceService {
     return this.http.post(`${this.basePath}${this.addfacheckkey}`, model, this.options);
   }
 
-  viewfacheck() {
-    return this.http.get(`${this.basePath}${this.viewfacheckkey}`, this.options);
+  viewfacheck(model: any) {
+    return this.http.post(`${this.basePath}${this.viewfacheckkey}`, model, this.options);
   }
 
-  statusfacheck(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.statusfacheckkey}${id}`, model, this.options);
+  statusfacheck(model: any) {
+    return this.http.put(`${this.basePath}${this.statusfacheckkey}`, model, this.options);
   }
 
-  updatefacheck(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.updatefacheckkey}${id}`, model, this.options);
+  updatefacheck(model: any) {
+    return this.http.put(`${this.basePath}${this.updatefacheckkey}`, model, this.options);
   }
 
   EntityViewall(id: any, id1: any) {
@@ -1862,20 +1858,20 @@ export class FarginServiceService {
 
   //Merchant plan creation
 
-  merchantplanviewall() {
-    return this.http.get(`${this.basePath}${this.Merchantplanviewall}`, this.options);
+  merchantplanviewall(modal: any) {
+    return this.http.post(`${this.basePath}${this.Merchantplanviewall}`, modal, this.options);
   }
 
   merchantplanadd(model: any) {
     return this.http.post(`${this.basePath}${this.MerchantplanAdd}`, model, this.options);
   }
 
-  merchantplanUpdate(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.MerchantplanUpdate}${id}`, model, this.options);
+  merchantplanUpdate(model: any) {
+    return this.http.put(`${this.basePath}${this.MerchantplanUpdate}`, model, this.options);
   }
 
-  merchantplanstatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.MerchantplanStatus}${id}`, model, this.options);
+  merchantplanstatus(model: any) {
+    return this.http.put(`${this.basePath}${this.MerchantplanStatus}`, model, this.options);
   }
 
   merchantplanactive() {
@@ -1884,20 +1880,20 @@ export class FarginServiceService {
 
   //PG Setup
 
-  PGsetupget() {
-    return this.http.get(`${this.basePath}${this.pgsetupget}`, this.options);
+  PGsetupget(model: any) {
+    return this.http.post(`${this.basePath}${this.pgsetupget}`, model, this.options);
   }
 
-  Pgsetupstatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.pgsetupstatus}${id}`, model, this.options);
+  Pgsetupstatus(model: any) {
+    return this.http.put(`${this.basePath}${this.pgsetupstatus}`, model, this.options);
   }
 
   Pgsetupcreate(model: any) {
     return this.http.post(`${this.basePath}${this.pgsetupadd}`, model, this.options);
   }
 
-  PgsetupUpdate(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.pgsetupedit}${id}`, model, this.options);
+  PgsetupUpdate(model: any) {
+    return this.http.put(`${this.basePath}${this.pgsetupedit}`, model, this.options);
   }
 
   //overall customer
@@ -1956,8 +1952,8 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.maintenance}${id}`, { ...this.options, ...{ responseType: 'blob' }, });
   }
 
-  unblockAccount(id: any) {
-    return this.http.get(`${this.basePath}${this.unblockaccount}${id}`, this.options);
+  unblockAccount(modal: any) {
+    return this.http.post(`${this.basePath}${this.unblockaccount}`, modal, this.options);
   }
 
   unblockentityAccount(id: any) {
@@ -2056,8 +2052,8 @@ export class FarginServiceService {
 
   // Bank Details Main Master
 
-  bankdetailsViewall() {
-    return this.http.get(`${this.basePath}${this.BankdetailsViewall}`, this.options);
+  bankdetailsViewall(model: any) {
+    return this.http.post(`${this.basePath}${this.BankdetailsViewall}`, model, this.options);
   }
 
   bankdetailsAdd(model: any) {
@@ -2322,20 +2318,20 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.facheckresponse}${id}`, this.options);
   }
 
-  viewallkycCategory() {
-    return this.http.get(`${this.basePath}${this.viewallkyccategory}`, this.options);
+  viewallkycCategory(model: any) {
+    return this.http.post(`${this.basePath}${this.viewallkyccategory}`, model, this.options);
   }
 
-  addkycCategory(data: any) {
-    return this.http.post(`${this.basePath}${this.addkyccategory}`, data, this.options);
+  addkycCategory(model: any) {
+    return this.http.post(`${this.basePath}${this.addkyccategory}`, model, this.options);
   }
 
-  editkycCategory(data: any) {
-    return this.http.put(`${this.basePath}${this.editkyccategory}`, data, this.options);
+  editkycCategory(model: any) {
+    return this.http.put(`${this.basePath}${this.editkyccategory}`, model, this.options);
   }
 
-  statuskycCategory(data: any) {
-    return this.http.put(`${this.basePath}${this.statuskyccategory}`, data, this.options);
+  statuskycCategory(model: any) {
+    return this.http.put(`${this.basePath}${this.statuskyccategory}`, model, this.options);
   }
 
   activeViewall() {
@@ -2344,8 +2340,8 @@ export class FarginServiceService {
 
   //Fargin banks
 
-  Farginview() {
-    return this.http.get(`${this.basePath}${this.farginview}`, this.options);
+  Farginview(model: any) {
+    return this.http.post(`${this.basePath}${this.farginview}`, model, this.options);
   }
 
   FarginCreate(model: any) {
@@ -2356,16 +2352,16 @@ export class FarginServiceService {
     return this, this.http.put(`${this.basePath}${this.farginupdate}`, model, this.options)
   }
 
-  Farginstatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.farginstatus}${id}`, model, this.options);
+  Farginstatus(model: any) {
+    return this.http.put(`${this.basePath}${this.farginstatus}`, model, this.options);
   }
 
   Farginedit(model: any) {
     return this.http.put(`${this.basePath}${this.farginEdit}`, model, this.options);
   }
 
-  FarginBankhistory(id: any) {
-    return this.http.get(`${this.basePath}${this.Farginbankhistory}${id}`, this.options);
+  FarginBankhistory(model: any) {
+    return this.http.post(`${this.basePath}${this.Farginbankhistory}`, model, this.options);
   }
 
   //smscreate
@@ -2419,7 +2415,7 @@ export class FarginServiceService {
   }
 
   Logout(model: any) {
-    return this.http.put(`${this.basePath}${this.logout}`, model, this.options);
+    return this.http.post(`${this.basePath}${this.logout}`, model, this.options);
   }
 
   CustomerReceipt(id: any) {
@@ -2468,12 +2464,16 @@ export class FarginServiceService {
     return this.http.post(`${this.basePath}${this.SMSCostadd}`, model, this.options);
   }
 
-  smscoststatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.SMSCostStatus}${id}`, model, this.options);
+  smsupdate(modal: any) {
+    return this.http.put(`${this.basePath}${this.SMSUpdate}`, modal, this.options)
   }
 
-  SMShistory(id: any) {
-    return this.http.get(`${this.basePath}${this.SMSHistory}${id}`, this.options);
+  smscoststatus(model: any) {
+    return this.http.put(`${this.basePath}${this.SMSCostStatus}`, model, this.options);
+  }
+
+  SMShistory(modal: any) {
+    return this.http.post(`${this.basePath}${this.SMSHistory}`, modal, this.options);
   }
 
   // AUTO Debit
@@ -2682,8 +2682,8 @@ export class FarginServiceService {
 
   // Signer Details
 
-  signergetall() {
-    return this.http.get(`${this.basePath}${this.Signerdetailsgetall}`, this.options);
+  signergetall(model: any) {
+    return this.http.post(`${this.basePath}${this.Signerdetailsgetall}`, model, this.options);
   }
 
   signerwithouttoken() {
@@ -2710,8 +2710,8 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.SignerdetailsActiveGetall}`, this.options);
   }
 
-  Signerhistory(id: any) {
-    return this.http.get(`${this.basePath}${this.SignerHistory}${id}`, this.options);
+  Signerhistory(model: any) {
+    return this.http.post(`${this.basePath}${this.SignerHistory}`, model, this.options);
   }
 
   //Agreement
@@ -3003,16 +3003,24 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.stickerget}`, this.options);
   }
 
+  Sticketget() {
+    return this.http.get(`${this.basePath}${this.sticketgetall}`, this.options)
+  }
+
   StickerCreate(model: any) {
     return this.http.post(`${this.basePath}${this.stickerAdd}`, model, this.options);
   }
 
-  StickerStatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.stickerstatus}${id}`, model, this.options);
+  Stickeredit(model: any) {
+    return this.http.put(`${this.basePath}${this.stickeredit}`, model, this.options)
   }
 
-  Stickerhistory(id: any) {
-    return this.http.get(`${this.basePath}${this.StickerHistory}${id}`, this.options);
+  StickerStatus(model: any) {
+    return this.http.put(`${this.basePath}${this.stickerstatus}`, model, this.options);
+  }
+
+  Stickerhistory(modal: any) {
+    return this.http.post(`${this.basePath}${this.StickerHistory}`, modal, this.options);
   }
 
   //Campagin
@@ -3253,24 +3261,28 @@ export class FarginServiceService {
 
   // Refund period
 
-  RefundperiodGetall() {
-    return this.http.get(`${this.basePath}${this.refundperiodviewall}`, this.options);
+  RefundperiodGetall(model: any) {
+    return this.http.post(`${this.basePath}${this.refundperiodviewall}`, model, this.options);
   }
 
   Refundperiodadd(model: any) {
     return this.http.post(`${this.basePath}${this.refundperiodadd}`, model, this.options);
   }
 
-  RefundPeriodUpdate(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.refundperiodupdate}${id}`, model, this.options);
+  RefundPeriodUpdate(model: any) {
+    return this.http.put(`${this.basePath}${this.refundperiodupdate}`, model, this.options);
   }
 
   RefundPeriodbyid(id: any) {
     return this.http.get(`${this.basePath}${this.refundperiodbyid}${id}`, this.options);
   }
 
-  RefundPeriodHistory(id: any) {
-    return this.http.get(`${this.basePath}${this.refundperiodhistory}${id}`, this.options);
+  RefundPeriodHistory(model: any) {
+    return this.http.post(`${this.basePath}${this.refundperiodhistory}`, model, this.options);
+  }
+
+  Refunsupdatestatus(model: any) {
+    return this.http.put(`${this.basePath}${this.refundperiostatus}`, model, this.options)
   }
 
   //Campaign
@@ -3569,20 +3581,20 @@ export class FarginServiceService {
 
   // WhatsAppVendors
 
-  VendorsViewall() {
-    return this.http.get(`${this.basePath}${this.WhatsAppVendorsViewall}`, this.options)
+  VendorsViewall(model: any) {
+    return this.http.post(`${this.basePath}${this.WhatsAppVendorsViewall}`, model, this.options)
   }
 
   VendorsAdd(model: any) {
     return this.http.post(`${this.basePath}${this.WhatsAppVendorsAdd}`, model, this.options)
   }
 
-  VendorsUpdate(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.WhatsAppVendorsUpdate}${id}`, model, this.options)
+  VendorsUpdate(model: any) {
+    return this.http.put(`${this.basePath}${this.WhatsAppVendorsUpdate}`, model, this.options)
   }
 
-  VendorsStatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.WhatsAppVendorsStatus}${id}`, model, this.options)
+  VendorsStatus(model: any) {
+    return this.http.put(`${this.basePath}${this.WhatsAppVendorsStatus}`, model, this.options)
   }
 
 

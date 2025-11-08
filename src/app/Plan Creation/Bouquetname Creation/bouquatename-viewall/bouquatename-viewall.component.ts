@@ -10,7 +10,7 @@ import { BouquatenameEditComponent } from '../bouquatename-edit/bouquatename-edi
 import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
-import { broadcasterstatus } from '../../../fargin-model/fargin-model.module';
+import { broadcasterstatus, Payload } from '../../../fargin-model/fargin-model.module';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
@@ -49,20 +49,34 @@ export class BouquatenameViewallComponent implements OnInit {
   actions: any;
   errorMessage: any;
   searchPerformed: boolean = false;
+  Roledetails: any;
 
   constructor(
     public boardcasternameviewall: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {
 
-    this.boardcasternameviewall.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.boardcasternameviewall.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuebroadcastAdd = 'Broadcaster Creation-Add';
             this.valuebroadcastEdit = 'Broadcaster Creation-Edit'
@@ -71,7 +85,7 @@ export class BouquatenameViewallComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Broadcaster Creation-Add') {
                 this.valuebroadcastAdd = 'Broadcaster Creation-Add';
@@ -93,7 +107,6 @@ export class BouquatenameViewallComponent implements OnInit {
         }
       }
     });
-    this.Getall();
   }
 
   Getall() {

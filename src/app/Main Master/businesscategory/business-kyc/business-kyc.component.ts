@@ -10,9 +10,10 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { BusinessKycCreateComponent } from './business-kyc-create/business-kyc-create.component';
-import { Businesskycstatus } from '../../../fargin-model/fargin-model.module';
+import { Payload, kycstatus } from '../../../fargin-model/fargin-model.module';
 import { BusinessKycEditComponent } from './business-kyc-edit/business-kyc-edit.component';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-business-kyc',
@@ -45,7 +46,8 @@ export class BusinessKycComponent implements OnInit {
   businesscategory: any;
   businessCategoryId: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   actions: any;
   errorMessage: any;
   valueKycadd: any;
@@ -53,20 +55,39 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valueKycstatus: any;
   valueKycedit: any;
   searchPerformed: boolean = false;
+  categoryList: any;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  currentfilvalShow: boolean = false;
+  currentfilval: any;
+  Roledetails: any;
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit() {
-    this.service.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == '1') {
             this.valueKycexport = 'Business Category Doc-Export';
             this.valueKycadd = 'Business Category Doc-Add';
@@ -75,7 +96,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Business Category Doc-Export') {
                 this.valueKycexport = 'Business Category Doc-Export';
@@ -96,39 +117,152 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-    this.Getall();
   }
 
   Getall() {
-    this.service.BusinesscategoryKyc().subscribe((res: any) => {
+    const payload = {
+      pageNumber: 0,
+      pageSize: 5,
+      fromDate: '',
+      toDate: '',
+      status: -1,
+      searchContent: '',
+      businessCategoryIds: []
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.BusinesscategoryKyc(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.businesscategorykyc = res.response.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => {
-          const transformedFilter = filter.trim().toLowerCase();
-          const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
-            return (currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]));
-          }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1;
-        };
+        this.businesscategorykyc = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.businesscategorykyc?.content);
+        this.categoryList = this.businesscategorykyc.content;
+        this.totalPages = this.businesscategorykyc.totalElements;
+        this.totalpage = this.businesscategorykyc.size;
+        this.currentpage = this.businesscategorykyc.number;
+        this.currentfilvalShow = false;
       }
       else if (res.flag == 2) {
         this.businesscategorykyc = [];
-        this.businesscategorykyc.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(this.businesscategorykyc.content);
+        this.categoryList = this.businesscategorykyc.content;
+        this.totalPages = this.businesscategorykyc.totalElements;
+        this.totalpage = this.businesscategorykyc.size;
+        this.currentpage = this.businesscategorykyc.number;
+        this.currentfilvalShow = false;
       }
     });
   };
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) {
+      this.toastr.error('Please Enter the Text');
+    }
+    else {
+      const payload = {
+        pageNumber: '',
+        pageSize: 5,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: filterValue,
+        businessCategoryIds: []
+
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.BusinesscategoryKyc(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategorykyc = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.businesscategorykyc?.content);
+          this.categoryList = this.businesscategorykyc.content;
+          this.totalPages = this.businesscategorykyc.totalElements;
+          this.totalpage = this.businesscategorykyc.size;
+          this.currentpage = this.businesscategorykyc.number;
+          this.currentfilvalShow = true;
+
+        } else {
+          this.businesscategorykyc = [];
+          this.businesscategorykyc = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.businesscategorykyc?.content);
+          this.categoryList = this.businesscategorykyc.content;
+          this.totalPages = this.businesscategorykyc.totalElements;
+          this.totalpage = this.businesscategorykyc.size;
+          this.currentpage = this.businesscategorykyc.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+  };
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      const payload = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: '',
+        businessCategoryIds: []
+
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.BusinesscategoryKyc(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategorykyc = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.businesscategorykyc?.content);
+          this.categoryList = this.businesscategorykyc.content;
+          this.totalPages = this.businesscategorykyc.totalElements;
+          this.totalpage = this.businesscategorykyc.size;
+          this.currentpage = this.businesscategorykyc.number;
+          this.currentfilvalShow = true;
+
+        } else {
+          this.businesscategorykyc = [];
+          this.businesscategorykyc = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.businesscategorykyc?.content);
+          this.categoryList = this.businesscategorykyc.content;
+          this.totalPages = this.businesscategorykyc.totalElements;
+          this.totalpage = this.businesscategorykyc.size;
+          this.currentpage = this.businesscategorykyc.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+    else {
+      const payload = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: '',
+        businessCategoryIds: []
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.BusinesscategoryKyc(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategorykyc = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.businesscategorykyc?.content);
+          this.categoryList = this.businesscategorykyc.content;
+          this.totalPages = this.businesscategorykyc.totalElements;
+          this.totalpage = this.businesscategorykyc.size;
+          this.currentpage = this.businesscategorykyc.number;
+        } else {
+          this.businesscategorykyc = [];
+          this.dataSource = new MatTableDataSource(this.businesscategorykyc?.content);
+          this.categoryList = this.businesscategorykyc.content;
+          this.totalPages = this.businesscategorykyc.totalElements;
+          this.totalpage = this.businesscategorykyc.size;
+          this.currentpage = this.businesscategorykyc.number;
+        }
+      });
     }
   }
 
@@ -155,33 +289,63 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     });
   }
 
-  onSubmit(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
-    let submitModel: Businesskycstatus = {
-      activeStatus: this.isChecked ? 1 : 0,
+  onSubmit(id: any) {
+    let submitModel: kycstatus = {
+      businessCategoryDocumentId: id,
+      modifiedBy: this.adminName,
+      modifierRole: this.adminName
     };
-    this.service.BusinesskycActive(id, submitModel).subscribe((res: any) => {
-      this.toastr.success(res.responseMessage);
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.BusinesskycActive(datamodal).subscribe((res: any) => {
+      this.toastr.success(res.messageDescription);
       setTimeout(() => { this.Getall() }, 200);
     });
   };
 
-  exportexcel() {
+
+  Exportall() {
+    if (this.totalPages != 0) {
+      const payload = {
+        pageNumber: 0,
+        pageSize: this.totalPages,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: '',
+        businessCategoryIds: []
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.BusinesscategoryKyc(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategorykyc = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.exportexcel(this.businesscategorykyc.content);
+        }
+      });
+    } else {
+      this.toastr.error('No record found');
+    }
+  }
+
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.businesscategorykyc.forEach((element: any) => {
+    data.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.businessCategoryId?.categoryName);
-      this.response.push(element?.entityKycCategory?.kycCategoryName);
-      if (element?.activeStatus == 1) { this.response.push('Active'); }
+      this.response.push(element?.businessCategoryEntity?.businessCategoryName);
+      this.response.push(element.businessDocumentTypeEntities.map((doc: any) => doc.documentType).join(', '));
+      if (element?.status == 1) { this.response.push('Active'); }
       else { this.response.push('InActive'); }
-      this.response.push(element?.createdBy);
+      this.response.push(element?.createdby);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-      if (element?.modifiedDateAndTime) { this.response.push(element?.modifiedDateAndTime); }
+      if (element?.modifiedDateTime) { this.response.push(element?.modifiedDateTime); }
       else {
         this.response.push('');
       }
@@ -286,4 +450,25 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       FileSaver.saveAs(blob, 'Business KYC.xlsx');
     });
   }
+
+
+  documenttype(data: any) {
+    if (data?.businessDocumentTypeEntities?.length > 0) {
+      const documentTypes = data.businessDocumentTypeEntities.map(
+        (doc: any) => doc.documentType
+      );
+
+      Swal.fire({
+        html: documentTypes.join('<br>'),
+        width: '400px'
+      });
+    } else {
+      Swal.fire({
+        text: 'No document types found for this category.',
+      });
+    }
+  }
+
+
+
 }

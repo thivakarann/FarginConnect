@@ -32,7 +32,7 @@ export class EntityPlanHistoryComponent implements OnInit {
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   Merchatid: any;
   searchPerformed: boolean = false;
   responseDataListnew: any = [];
@@ -44,7 +44,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     private location: Location,
     private service: FarginServiceService,
     private activaterouter: ActivatedRoute,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
   ngOnInit(): void {

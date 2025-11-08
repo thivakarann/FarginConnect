@@ -35,7 +35,7 @@ export class WhatsEditlogComponent {
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   whatsappid: any;
   searchPerformed: boolean = false;
   responseDataListnew: any = [];
@@ -48,7 +48,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     private service: FarginServiceService,
     private activaterouter: ActivatedRoute,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
@@ -118,18 +118,18 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       this.response.push(sno);
       this.response.push(element?.actionType);
       this.response.push(element?.vendorName);
-      if(element?.templateLanguage == 'en'){
-      this.response.push('English');
+      if (element?.templateLanguage == 'en') {
+        this.response.push('English');
       }
-      else{
-      this.response.push('Tamil');
+      else {
+        this.response.push('Tamil');
       }
 
-      if(element?.smsEnableStatus == 'ACTIVE'){
-      this.response.push('Active');
+      if (element?.smsEnableStatus == 'ACTIVE') {
+        this.response.push('Active');
       }
-      else{
-      this.response.push('InActive');
+      else {
+        this.response.push('InActive');
       }
       this.response.push(element?.templateType);
       this.response.push(element?.smsCharge);
@@ -137,7 +137,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       this.response.push(element?.templateTitle);
       this.response.push(element?.templateDescription);
       this.response.push(element?.createdBy || '');
-      this.response.push(element?.createdDateTime ? moment(element?.modifiedDateTime).format('DD/MM/yyyy hh:mm a').toString():'');
+      this.response.push(element?.createdDateTime ? moment(element?.modifiedDateTime).format('DD/MM/yyyy hh:mm a').toString() : '');
 
       sno++;
       this.responseDataListnew.push(this.response);
@@ -267,7 +267,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-       qty11.border = {
+      qty11.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
         bottom: { style: 'thin' },

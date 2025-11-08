@@ -10,6 +10,7 @@ import moment from 'moment';
 import FileSaver from 'file-saver';
 import { WhatappBulkUploadComponent } from '../whatapp-bulk-upload/whatapp-bulk-upload.component';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-whats-app-history',
@@ -86,7 +87,8 @@ export class WhatsAppHistoryComponent implements OnInit {
   Visible: boolean = false;
   maxDate: any;
   filterAction: any = 0;
-  searchAction: any = 0;;
+  searchAction: any = 0;Roledetails: any;
+;
   valueDownload: any;
   valueUpload: any;
 
@@ -103,11 +105,23 @@ export class WhatsAppHistoryComponent implements OnInit {
 
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
+    this.Role();
+    this.Getall();
+  };
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
+
 
           if (this.roleId == 1) {
             this.valueDownload = 'Download WhatsApp Bulk Upload Template';
@@ -116,7 +130,7 @@ export class WhatsAppHistoryComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Download WhatsApp Bulk Upload Template') {
                 this.valueDownload = 'Download WhatsApp Bulk Upload Template'
               }
@@ -132,9 +146,7 @@ export class WhatsAppHistoryComponent implements OnInit {
         }
       }
     });
-
-    this.Getall();
-  };
+  }
 
   Getall() {
     const formData = new FormData();

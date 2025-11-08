@@ -26,7 +26,7 @@ export class SuccessOfftransactionsComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   id: any;
@@ -38,7 +38,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   constructor(
     private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 

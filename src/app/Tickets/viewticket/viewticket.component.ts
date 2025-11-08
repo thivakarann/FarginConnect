@@ -10,6 +10,7 @@ import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { TicketImageComponent } from '../ticket-image/ticket-image.component';
 import { UpdateStickerTicketComponent } from '../update-sticker-ticket/update-sticker-ticket.component';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-viewticket',
@@ -51,15 +52,28 @@ export class ViewticketComponent implements OnInit {
   errorMessage: any;
   valuestickeredit: any;
   searchPerformed: any;
+  Roledetails: any;
 
-  constructor(private service: FarginServiceService, private dialog: MatDialog,private cryptoService:EncyDecySericeService,
-) { }
+  constructor(private service: FarginServiceService, private dialog: MatDialog, private cryptoService: EncyDecySericeService,
+  ) { }
 
   ngOnInit(): void {
-    this.service.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueDescriptionView = 'Entity Request-View';
             this.valueTicketEdit = 'Entity Request-Edit';
@@ -69,7 +83,7 @@ export class ViewticketComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Entity Request-Export') {
                 this.valueTicketExport = 'Entity Request-Export';
               }
@@ -93,7 +107,6 @@ export class ViewticketComponent implements OnInit {
         }
       }
     });
-    this.Getall();
   }
 
   Getall() {

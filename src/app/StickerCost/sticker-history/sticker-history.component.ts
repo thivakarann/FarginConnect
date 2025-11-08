@@ -9,6 +9,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-sticker-history',
@@ -28,7 +29,7 @@ export class StickerHistoryComponent implements OnInit {
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   date1: any;
   date2: any;
   responseDataListnew: any = [];
@@ -43,22 +44,27 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     public service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
   ngOnInit(): void {
-
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.Id = param.Alldata;
     });
-
     this.Details();
   }
 
   Details() {
-    this.service.Stickerhistory(this.Id).subscribe((res: any) => {
+    const payload = {
+      stickerId: this.Id,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.Stickerhistory(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response.reverse();
+        this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));;
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

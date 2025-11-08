@@ -61,7 +61,7 @@ export class ViewbeneficiaryComponent {
     private service: FarginServiceService,
     private toastr: ToastrService,
     private router: Router,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
   ngOnInit(): void {
@@ -69,11 +69,8 @@ export class ViewbeneficiaryComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
           if (this.roleId == 1) {
             this.valuepayoutCreate = 'Payout-Add';
             this.valuepayoutExport = 'Payout-Export';
@@ -82,10 +79,7 @@ export class ViewbeneficiaryComponent {
           }
           else {
             for (let datas of this.getdashboard) {
-
               this.actions = datas.subPermissions;
-
-
               if (this.actions == 'Payout-Add') {
                 this.valuepayoutCreate = 'Payout-Add';
               }
@@ -144,9 +138,6 @@ export class ViewbeneficiaryComponent {
     let sno = 1;
     this.responseDataListnew = [];
     this.viewbeneficiary.forEach((element: any) => {
-
-
-
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.accountHolderName);

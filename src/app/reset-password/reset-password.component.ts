@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResetPassword } from '../fargin-model/fargin-model.module';
+import { Payload, ResetPassword } from '../fargin-model/fargin-model.module';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -24,9 +25,11 @@ export class ResetPasswordComponent {
     private service: FarginServiceService,
     private router: Router,
     private activeRouter: ActivatedRoute,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private cryptoService: EncyDecySericeService,
   ) { }
   ngOnInit(): void {
+
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.emailAddress = param.emailAddress;
     });
@@ -78,10 +81,7 @@ export class ResetPasswordComponent {
   }
 
   resetpassword() {
-    if (
-      this.resetForm.get('newPassword')?.value == '' ||
-      this.resetForm.get('confirmpassword')?.value == ''
-    ) {
+    if (this.resetForm.get('newPassword')?.value == '' || this.resetForm.get('confirmpassword')?.value == '') {
       this.toaster.error('Kindly Fill All Required Fields');
     }
     else {
@@ -93,12 +93,15 @@ export class ResetPasswordComponent {
           emailAddress: this.emailAddress,
           newPassword: this.newPassword?.value,
         };
-        this.service.ResetPassword(submitmodel).subscribe((res: any) => {
+        let datamodal: Payload = {
+          data: this.cryptoService.encrypt(JSON.stringify(submitmodel))
+        }
+        this.service.ResetPassword(datamodal).subscribe((res: any) => {
           if (res.flag == 1) {
-            this.toaster.success(res.responseMessage);
+            this.toaster.success(res.messageDescription);
             this.router.navigate([`/login-page`], {});
           } else {
-            this.toaster.error(res.responseMessage);
+            this.toaster.error(res.messageDescription);
           }
         });
       }

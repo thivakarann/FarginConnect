@@ -57,7 +57,7 @@ export class LcopPlanViewComponent implements OnInit {
     private ActivateRoute: ActivatedRoute,
     private dialog: MatDialog,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {

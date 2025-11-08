@@ -9,7 +9,7 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { Cloudfee, subscriptionpay } from '../../../fargin-model/fargin-model.module';
+import { Cloudfee, Payload, subscriptionpay } from '../../../fargin-model/fargin-model.module';
 import { TransManualPayComponent } from '../trans-manual-pay/trans-manual-pay.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Manuvelduesforcloudfee } from '../../../Fargin Model/fargin-model/fargin-model.module';
@@ -72,7 +72,7 @@ export class MaintenanceTransViewallComponent {
   valuemaintainexport: any;
   valuemaintainview: any;
   getdashboard: any[] = [];
- roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valuemaintainInvoicet: any;
@@ -129,17 +129,66 @@ export class MaintenanceTransViewallComponent {
   currentfilvalShow: boolean = false;
   currentfilval: any;
   searchPerformed: boolean = false;
+  Roledetails: any;
 
-  constructor(private cryptoService:EncyDecySericeService,private router: Router, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
+  constructor(private cryptoService: EncyDecySericeService, private router: Router, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString()
 
-    this.service.rolegetById(this.roleId).subscribe({
+
+
+    this.cloudfeesearch = this.fb.group({
+      pay: ['', [Validators.required]],
+      startDate: ['',],
+      endDate: ['',],
+      selectedOption: [null, [Validators.required]],
+      search1: ['']
+
+    });
+
+    this.Datefiltercloudfee = this.fb.group({
+      FromDateRange: ['', Validators.required],
+      ToDateRange: ['', Validators.required]
+    });
+
+    this.Duegenerate = this.fb.group({
+      searches: ['', Validators.required],
+      search2: ['']
+    });
+    this.Role();
+    this.Getall();
+  }
+
+  get pay() {
+    return this.cloudfeesearch.get('pay');
+  }
+  get startDate() {
+    return this.cloudfeesearch.get('startDate');
+  }
+  get endDate() {
+    return this.cloudfeesearch.get('endDate');
+  }
+
+  OtherpaymentsView(id: any) {
+    this.router.navigate([`dashboard/maintenanceotherpay-view/${id}`], {
+      queryParams: { alldata: id }
+    })
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuemaintainexport = 'Cloud Fee Payments-Export'
             this.valuemaintainview = 'Cloud Fee Payments-View'
@@ -149,7 +198,7 @@ export class MaintenanceTransViewallComponent {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Cloud Fee Payments-Export') {
                 this.valuemaintainexport = 'Cloud Fee Payments-Export'
               }
@@ -174,43 +223,6 @@ export class MaintenanceTransViewallComponent {
         }
       }
     });
-
-    this.cloudfeesearch = this.fb.group({
-      pay: ['', [Validators.required]],
-      startDate: ['',],
-      endDate: ['',],
-      selectedOption: [null, [Validators.required]],
-      search1: ['']
-
-    });
-
-    this.Datefiltercloudfee = this.fb.group({
-      FromDateRange: ['', Validators.required],
-      ToDateRange: ['', Validators.required]
-    });
-
-    this.Duegenerate = this.fb.group({
-      searches: ['', Validators.required],
-      search2: ['']
-    });
-
-    this.Getall();
-  }
-
-  get pay() {
-    return this.cloudfeesearch.get('pay');
-  }
-  get startDate() {
-    return this.cloudfeesearch.get('startDate');
-  }
-  get endDate() {
-    return this.cloudfeesearch.get('endDate');
-  }
-
-  OtherpaymentsView(id: any) {
-    this.router.navigate([`dashboard/maintenanceotherpay-view/${id}`], {
-      queryParams: { alldata: id }
-    })
   }
 
   Getall() {

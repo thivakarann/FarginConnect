@@ -43,13 +43,13 @@
       <ng-container matColumnDef="permission">
         <th mat-header-cell *matHeaderCellDef>Enabled Permission</th>
         <td mat-cell *matCellDef="let data">
-          {{ data?.permission?.permission }}
+          {{ data?.permission?.permissionName }}
         </td>
       </ng-container>
       <ng-container matColumnDef="sub">
         <th mat-header-cell *matHeaderCellDef>Enabled Actions</th>
         <td mat-cell *matCellDef="let data">
-          {{ data?.subPermissions }}
+          {{ data?.subPermissionName }}
         </td>
       </ng-container>
 

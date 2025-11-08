@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Location } from '@angular/common';
-import { branchstatus } from '../../../fargin-model/fargin-model.module';
+import { branchstatus, Payload } from '../../../fargin-model/fargin-model.module';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -36,7 +36,7 @@ export class BranchTerminalviewComponent implements OnInit {
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   errorMessage: any;
   searchPerformed: boolean = false;
   id: any;
@@ -47,6 +47,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valuebranchTerminalStatus: any;
   valuebranchTerminalEdit: any;
   valuebranchTerminalView: any;
+  Roledetails: any;
 
   constructor(
     public service: FarginServiceService,
@@ -55,43 +56,54 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit() {
-    this.service.rolegetById(this.roleId).subscribe({
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+      this.merchantId = param.All;
+    });
+    this.Role();
+    this.Getall();
+
+
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuebranchTerminalAdd = 'Entity View Terminal branch-Add';
-            this.valuebranchTerminalStatus =
-              'Entity View Terminal branch-Status';
+            this.valuebranchTerminalStatus = 'Entity View Terminal branch-Status';
             this.valuebranchTerminalEdit = 'Entity View Terminal branch-Edit';
-            this.valuebranchTerminalView =
-              'Entity View Terminal branch Transaction-View';
-          } else {
+            this.valuebranchTerminalView = 'Entity View Terminal branch Transaction-View';
+          }
+          else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Entity View Terminal branch-Add') {
                 this.valuebranchTerminalAdd = 'Entity View Terminal branch-Add';
               }
               if (this.actions == 'Entity View Terminal branch-Status') {
-                this.valuebranchTerminalStatus =
-                  'Entity View Terminal branch-Status';
+                this.valuebranchTerminalStatus = 'Entity View Terminal branch-Status';
               }
               if (this.actions == 'Entity View Terminal branch-Edit') {
-                this.valuebranchTerminalEdit =
-                  'Entity View Terminal branch-Edit';
+                this.valuebranchTerminalEdit = 'Entity View Terminal branch-Edit';
               }
-              if (
-                this.actions == 'Entity View Terminal branch Transaction-View'
-              ) {
-                this.valuebranchTerminalView =
-                  'Entity View Terminal branch Transaction-View';
+              if (this.actions == 'Entity View Terminal branch Transaction-View') {
+                this.valuebranchTerminalView = 'Entity View Terminal branch Transaction-View';
               }
             }
           }
@@ -100,15 +112,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-      this.merchantId = param.All;
-    });
-
-    this.Getall();
-
-
   }
 
   Getall() {
@@ -145,7 +148,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       data: { value: id, value2: id1 },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-    this.Getall();
+      this.Getall();
     });
   }
 
@@ -182,11 +185,11 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     this.service.BranchTerminalStatus(id, submitModel).subscribe((res: any) => {
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-     this.Getall();
+        this.Getall();
       }, 500);
     });
   }
-  
+
   close() {
     this.location.back();
   }

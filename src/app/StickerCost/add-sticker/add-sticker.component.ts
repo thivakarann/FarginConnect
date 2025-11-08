@@ -12,9 +12,8 @@ import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-s
   styleUrl: './add-sticker.component.css'
 })
 export class AddStickerComponent {
- adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
- adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
-
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   minDate: string;
@@ -23,7 +22,7 @@ export class AddStickerComponent {
     public service: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) {
     const now = new Date();
     this.minDate = now.toISOString().split('T')[0];
@@ -31,10 +30,15 @@ export class AddStickerComponent {
 
   ngOnInit(): void {
     this.myForm = new FormGroup({
+      businessCategoryId: new FormControl(''),
       stickerPerAmount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\\.[0-9]{1,2})?$|^[0]\\.[0-9]{1,2}$')]),
       deliveryDays: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]),
       effectiveDate: new FormControl('', [Validators.required])
     });
+  }
+
+  get businessCategoryId() {
+    return this.myForm.get('businessCategoryId')
   }
 
   get stickerPerAmount() {
@@ -51,19 +55,24 @@ export class AddStickerComponent {
 
   submit() {
     let submitModel: stickeradd = {
-      stickerPerAmount: this.stickerPerAmount?.value,
-      deliveryDays: this.deliveryDays?.value,
+      businessCategoryId: 1,
+      costPerSticker: this.stickerPerAmount?.value,
       createdBy: this.adminName,
-      effectiveDate: this.effectiveDate?.value
+      deliveryDays: this.deliveryDays?.value,
+      creatorRole: this.adminName,
+      effectiveFrom: this.effectiveDate?.value
     }
-    this.service.StickerCreate(submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.StickerCreate(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     })
   }

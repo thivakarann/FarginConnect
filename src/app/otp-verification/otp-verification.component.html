@@ -5,8 +5,9 @@
         <div class="card bg-white mb-5 mt-5 border-0" style="box-shadow: 0 12px 15px rgba(0, 0, 0, 0.02);">
           <div class="card-body p-5 text-center">
             <h3 class="mb-3" style="color:#141E46"> OTP Verification</h3>
-            <p>Please enter your 6-digit OTP code</p>
- 
+            <p>Please enter the 6-digit OTP sent to your registered</p>
+            <span>Email Address : <span style="color: blue;">{{maskEmail(emailAddress)}}</span></span>
+
             <div class="otp-field mb-4 mt-3">
               <input type="text" style="width: 60px;height:50px;" name="otpCode1" [(ngModel)]="otpCode1"
                 (keyup)="move($event,'',first,second)" #first class="form-control me-1 d-inline" maxlength="1" />
@@ -23,16 +24,16 @@
             </div>
             <button type="submit" [disabled]="!isOtpComplete()" (click)="verifyotp()"> Verify</button>
             <p *ngIf="timeLeft"> OTP Will be Expired Within:<span style="color:red;">{{timeLeft}}</span> Seconds</p>
- 
+
             <p class="resend text-muted mb-0" *ngIf="timeLeft == 0">
               Didn't receive code? &nbsp;&nbsp;&nbsp;&nbsp;
               <a style="cursor: pointer;font-size: 15px;color:#9184ed ;" (click)="getresendOtp()">Request again</a>
             </p>
- 
+
           </div>
         </div>
       </div>
     </div>
- 
+
   </div>
 </div>

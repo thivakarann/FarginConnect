@@ -4,6 +4,7 @@ import { ChangePasswordComponent } from '../change-password/change-password.comp
 import { LogoutComponent } from '../logout/logout.component';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-dashboard',
@@ -45,7 +46,7 @@ export class DashboardComponent implements OnInit {
   valuefarginpolicy: any;
   valueMerchantpolicy: any;
   counts: any;
-  totalOpenTickets:any;
+  totalOpenTickets: any;
   valuecustomerticket: any;
   valuecustomerpayment: any;
   valuecustomersubscription: any;
@@ -80,36 +81,45 @@ export class DashboardComponent implements OnInit {
   valuewhatsApphistory: any;
   valuewhatsAppBulkUploadResponse: any;
   valueehatsapp: any;
+  Roledetails: any;
 
 
   constructor(private elRef: ElementRef,
     private renderer: Renderer2,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
     private service: FarginServiceService,) { }
 
   ngOnInit(): void {
 
     this.getpermissionValue();
+    this.Role();
+    this.service.dashboardCount().subscribe((res: any) => {
+      this.counts = res.response.totalTicketMemberOpenCount;
+      const open = res.response.totalTicketMemberOpenCount || 0;
+      const reopen = res.response.totalTicketMemberReOpenCount || 0;
+      this.totalOpenTickets = open + reopen;
+    });
+  }
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.permission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails?.PermissionsAccess;
           this.getpermissionValue();
         }
         else {
           this.errorMessage = res.responseMessage;
         }
       }
-    });
-
-
-    this.service.dashboardCount().subscribe((res: any) => {
-      this.counts = res.response.totalTicketMemberOpenCount;
-      const open = res.response.totalTicketMemberOpenCount || 0;
-      const reopen = res.response.totalTicketMemberReOpenCount || 0;
-      this.totalOpenTickets = open + reopen;
     });
   }
 
@@ -174,7 +184,7 @@ export class DashboardComponent implements OnInit {
     }
     else {
       for (let data of this.getdashboard) {
-        this.roles = data.permission;
+        this.roles = data.subPermissionName;
         if (this.roles == 'Admin Dashboard') {
           this.valueDashboard = 'Admin Dashboard';
         }

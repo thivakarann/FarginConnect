@@ -10,21 +10,21 @@ import { SessionValidatorService } from './Session storage Validator/session-val
 //     return true;
 //   }
 //   return router.parseUrl('/login-page');
-
-
 // }
 
 export const authGuard: CanActivateFn = () => {
   const sessionValidator = inject(SessionValidatorService);
   const router = inject(Router);
-
-  const sessionReady = sessionStorage.getItem('sessionReady') === 'true';
+  // const sessionReady = sessionStorage.getItem('sessionReady') === 'true';
   const token = sessionStorage.getItem('One');
+  
+  // if (sessionReady && token) {
+  //   return true;
+  // }
 
-  if (sessionReady && token) {
+  if (token) {
     return true;
   }
-
   sessionStorage.clear();
   return router.parseUrl('/login-page');
 };

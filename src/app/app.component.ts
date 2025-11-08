@@ -16,7 +16,7 @@ export class AppComponent {
     private sessionTimerService: SessionServiceService,
     private consoleToggle: ConsoleServiceService,
     private sessionValidator: SessionValidatorService
-  ) { this.timeout = this.sessionTimerService.getTimeoutInMinutes(); this.consoleToggle.disable(); }
+  ) { this.timeout = this.sessionTimerService.getTimeoutInMinutes(); this.consoleToggle.enable(); }
 
   ngOnInit(): void {
     //  this.sessionValidator.auditSession();

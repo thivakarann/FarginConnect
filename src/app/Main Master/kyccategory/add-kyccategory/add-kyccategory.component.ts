@@ -13,13 +13,13 @@ import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-dec
 })
 export class AddKyccategoryComponent {
   addkyccategory: any = FormGroup;
- adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService
   ) { }
 
@@ -39,16 +39,20 @@ export class AddKyccategoryComponent {
 
   submit() {
     let submitModel: kycadd = {
-      createdBy: this.adminName,
-      kycCategoryName: this.kycCategoryName.value.trim(),
+      createdby: this.adminName,
+      documentType: this.kycCategoryName.value.trim(),
+      creatorRole: this.adminName
     };
-    this.service.addkycCategory(submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.addkycCategory(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }

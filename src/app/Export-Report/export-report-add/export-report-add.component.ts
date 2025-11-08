@@ -19,14 +19,14 @@ interface Option {
   styleUrl: './export-report-add.component.css',
 })
 export class ExportReportAddComponent implements OnInit {
- adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   myForm!: FormGroup;
   merchantId: any = sessionStorage.getItem('merchantId');
   Daterange!: string;
   exportTypes: any;
   paymentstatus: any;
   roleName = sessionStorage.getItem('roleName');
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   getdashboard: any[] = [];
   actions: any;
   valueDownload: any;
@@ -53,7 +53,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     public service: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 

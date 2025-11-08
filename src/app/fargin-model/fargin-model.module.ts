@@ -1,10 +1,18 @@
-import { Interaction } from "chart.js";
-import { read } from "fs";
-
-export interface VerifyOtp {
-  readonly emailAddress: any;
-  readonly otpCode: any;
+export interface Captcha {
+  readonly data: any;
 }
+
+export interface Payload {
+  readonly data: any;
+}
+
+export interface VerifyOTP {
+  readonly emailAddress: any;
+  readonly emailOtpCode: any;
+}
+
+
+
 export interface ResetPassword {
   readonly emailAddress: any;
   readonly newPassword: any;
@@ -14,34 +22,33 @@ export interface ResendOtp {
   readonly emailAddress: any;
 
 }
-export interface ChangePassword {
-  readonly userPassword: any;
-  readonly newPassword: any;
-}
+
 export interface Adminstatus {
-  readonly adminUserId: any;
-  readonly accountStatus: any;
+  readonly userId: any;
+  readonly modifiedBy: any;
+  readonly modifierRole: any;
 }
 
 export interface AdminCreate {
   readonly roleId: any;
   readonly emailAddress: any;
-  // readonly userPassword: any;
   readonly mobileNumber: any;
-  readonly adminName: any;
+  readonly name: any;
   readonly address: any;
   readonly city: any;
   readonly state: any;
   readonly pincode: any;
   readonly country: any;
   readonly gender: any;
-  readonly createdBy: any;
+  readonly createdby: any;
 }
 
 
 export interface AdminUpdate {
-  readonly adminUserId: any;
-  readonly adminName: any;
+  readonly userId: any;
+  readonly emailAddress:any;
+  readonly mobileNumber:any;
+  readonly name: any;
   readonly address: any;
   readonly city: any;
   readonly state: any;
@@ -57,22 +64,27 @@ export interface AdminUpdate {
 
 
 export interface Businessadd {
-  readonly categoryName: any;
+  readonly businessCategoryName: any;
   readonly mccCode: any;
-  readonly createdBy: any;
+  readonly createdby: any;
   readonly autoDebitDate: any;
+  readonly creatorRole: any;
 }
 
 
 export interface Businessedit {
-  readonly categoryName: any;
+  readonly businessCategoryName: any;
+  readonly businessCategoryId: any;
   readonly mccCode: any;
   readonly modifiedBy: any;
   readonly autoDebitDate: any;
+  readonly modifierRole: any;
 }
 
 export interface Businessstatus {
-  readonly activeStatus: any;
+  readonly businessCategoryId: any;
+  readonly modifiedBy: any;
+  readonly modifierRole: any
 
 }
 
@@ -83,15 +95,18 @@ export interface Businesskycstatus {
 
 export interface Businesskycadd {
   readonly businessCategoryId: any;
-  readonly createdBy: any;
-  readonly kycCategoryId: any;
+  readonly createdby: any;
+  readonly documentTypeIds: any;
+  readonly creatorRole: any;
 }
 
 
 export interface Businesskycedit {
-  readonly categoryKycId: any;
-  readonly businessCreationId: any;
+  readonly businessCategoryDocumentId: any;
+  readonly businessCategoryId: any;
+  readonly documentTypeIds: any;
   readonly modifiedBy: any;
+  readonly modifierRole: any;
 }
 export interface addentity {
 
@@ -354,7 +369,8 @@ export interface ResendOtp {
 
 }
 export interface ChangePassword {
-  readonly userPassword: any;
+  readonly emailAddress: any;
+  readonly oldPassword: any;
   readonly newPassword: any;
 }
 
@@ -393,24 +409,25 @@ export interface updatestickerticket {
   readonly merchantId: any;
   readonly ticketStatus: any;
   readonly stickerUpdatedBy: any;
-  readonly description:any;
+  readonly description: any;
 
 }
 
 export interface subpermission {
-  readonly permissionsId: any
+  readonly permissionIds: any;
+  readonly status: any;
 }
 
 export interface role {
   readonly roleName: any;
-  readonly createdBy: any;
-  readonly permission: any;
-  readonly subPermission: any;
+  readonly createdby: any;
+  readonly permissionIds: any;
+  readonly subPermissionIds: any;
+  readonly businessCategoryIds: any;
 }
 
 export interface roleactiveInactive {
   readonly roleId: any;
-  readonly status: any;
 }
 
 
@@ -471,17 +488,20 @@ export interface Addfacheckkey {
   readonly secretKey: any;
   readonly applicationId: any;
   readonly mode: any;
-  readonly createdBy: any;
+  readonly createdby: any;
+  readonly creatorRole: any;
 }
 export interface Updatefacheckkey {
+  readonly facheckKeyId: any;
   readonly apiKey: any;
   readonly secretKey: any;
   readonly applicationId: any;
   readonly mode: any;
   readonly modifiedBy: any;
+  readonly modifierRole: any;
 }
 export interface Statusfacheckkey {
-  readonly activeStatus: any
+  readonly facheckKeyId: any
 }
 
 export interface UpdateAlcart {
@@ -626,51 +646,57 @@ export interface BouquetenameUpdate {
 
 
 export interface MerchantplanCreate {
+  readonly businessCategoryId: any;
   readonly planName: any;
-  readonly technicalAmount: any;
-  readonly maintenanceAmount: any;
-  readonly frequency: any;
-  readonly createdBy: any;
-  readonly renewalAmount: any;
-  readonly countLimit: any;
-  readonly voiceBoxAdvRent: any;
+  readonly oneTimeSetupFee: any;
+  readonly cloudFee: any;
+  readonly cloudFeeFrequency: any;
+  readonly createdby: any;
+  readonly yearlyRenewalFee: any;
+  readonly customerOnboardLimit: any;
+  readonly voiceBoxRent: any;
   readonly voiceBoxSetupFee: any;
 }
 
 export interface MerchantplanUpdate {
+  readonly entityPlanId: any;
+  readonly businessCategoryId: any;
   readonly planName: any;
-  readonly technicalAmount: any;
-  readonly maintenanceAmount: any;
-  readonly frequency: any;
+  readonly oneTimeSetupFee: any;
+  readonly cloudFee: any;
+  readonly cloudFeeFrequency: any;
   readonly modifiedBy: any;
-  readonly renewalAmount: any;
-  readonly voiceBoxAdvRent: any;
+  readonly yearlyRenewalFee: any;
+  readonly customerOnboardLimit: any;
+  readonly voiceBoxRent: any;
   readonly voiceBoxSetupFee: any;
-  readonly countLimit: any;
 }
 
 export interface MerchantPlanStatus {
-  readonly activeStatus: any;
+  readonly entityPlanId: any;
 }
 
 
 
 export interface Pgsetup {
-  readonly pgOnoffStatus: any;
+  readonly pgKeyId: any;
 }
 
 export interface pgsetupadd {
   readonly pgMode: any;
   readonly secretKey: any;
   readonly apiKey: any;
-  readonly createdBy: any;
+  readonly createdby: any;
+  readonly creatorRole: any;
 }
 
 export interface pgsetupedit {
+  readonly pgKeyId: any;
   readonly pgMode: any;
   readonly secretKey: any;
   readonly apiKey: any;
   readonly modifiedBy: any;
+  readonly modifierRole: any;
 }
 
 //entity settlement Online
@@ -726,10 +752,12 @@ export interface PgOnboard {
 }
 
 export interface editroles {
+  readonly businessCategoryIds: any;
   readonly roleName: any;
+  readonly roleId:any;
   readonly modifiedBy: any;
-  readonly permission: any;
-  readonly subPermission: any;
+  readonly permissionIds: any;
+  readonly subPermissionIds: any;
 }
 
 
@@ -801,19 +829,20 @@ export interface custticketraise {
 
 export interface AddBankdetails {
   readonly bankName: any,
-  readonly createdBy: any
+  readonly createdby: any;
+  readonly creatorRole: any;
 
 }
 
 export interface UpdateBankdetails {
-  readonly bankId: any;
+  readonly bankDetailsId: any;
   readonly bankName: any;
-  readonly modifiedBy: any
+  readonly modifiedBy: any;
+  readonly modifierRole: any;
 }
 
 export interface UpdateBankdetailStatus {
-  readonly bankId: any,
-  readonly activeStatus: any
+  readonly bankDetailsId: any;
 }
 
 
@@ -930,20 +959,22 @@ export interface signatureapprove {
 }
 
 export interface kyccateforysts {
-  readonly kycCategoryId: any;
-  readonly activeStatus: any;
+  readonly documentTypeId: any;
 }
 
 export interface kycadd {
-  readonly createdBy: any
-  readonly kycCategoryName: any
+  readonly createdby: any
+  readonly creatorRole: any
+  readonly documentType: any;
+
 }
 
 
 export interface kycedit {
+  readonly documentTypeId: any;
+  readonly documentType: any
   readonly modifiedBy: any
-  readonly kycCategoryName: any
-  readonly kycCategoryId: any
+  readonly modifierRole: any
 }
 
 
@@ -984,8 +1015,8 @@ export interface CreateSMS {
 }
 
 export interface Logout {
-  readonly adminUserId: any;
-  readonly logout: any;
+  readonly userId: any;
+  // readonly logout: any;
 }
 
 export interface SmsStatus {
@@ -1016,13 +1047,13 @@ export interface documentapproval {
 }
 
 export interface SMSCostAdd {
-  readonly amount: any;
-  readonly createdBy: any;
-  readonly effectiveDate: any;
+  readonly costPerSms: any;
+  readonly createdby: any;
+  readonly effectiveFrom: any;
 }
 
 export interface smscoststatus {
-  readonly smsStatus: any;
+  readonly smsCostId: any;
 }
 
 
@@ -1092,25 +1123,30 @@ export interface Addsigner {
   readonly createdBy: any
   readonly adminPosition: any,
   readonly adminCountry:any,
-  readonly adminState:any,
-  readonly adminPincode:any,
   readonly adminAddress:any,
-  readonly adminCity:any
+  readonly adminPincode:any,
+  readonly adminCity:any,
+  readonly adminState:any
 
 }
 
 export interface Updatesigner {
-  readonly signAdminEmail: any,
-  readonly signAdminMobile: any,
-  readonly signAdminName: any,
-  readonly modifiedBy: any,
-  readonly signId: any,
+  readonly signAdminEmail: any;
+  readonly signAdminMobile: any;
+  readonly signAdminName: any;
+  readonly adminPosition: any;
+  readonly adminCountry: any;
+  readonly adminAddress: any;
+  readonly adminPincode: any;
+  readonly adminCity: any;
+  readonly modifiedBy: any;
+  readonly adminState: any;
+  readonly signId: any;
   
 }
 
 export interface UpdatesignerStatus {
   readonly signId: any,
-  readonly activeStatus: any
 }
 
 export interface AgreementCommerical {
@@ -1285,8 +1321,8 @@ export interface CreatePlan {
   readonly merchantPosition: any;
   // readonly expiryLink: any;
   readonly authorizedName: any
-  readonly stampAmount:any;
-  readonly considerationAmount:any;
+  readonly stampAmount: any;
+  readonly considerationAmount: any;
 }
 
 export interface AdminsignerOtp {
@@ -1412,14 +1448,27 @@ export interface subsmanualpay {
 }
 
 export interface stickeradd {
-  readonly stickerPerAmount: any;
-  readonly deliveryDays: any;
+  readonly businessCategoryId: any;
+  readonly costPerSticker: any;
   readonly createdBy: any;
-  readonly effectiveDate: any;
+  readonly deliveryDays: any;
+  readonly creatorRole: any;
+  readonly effectiveFrom: any;
+}
+
+export interface stickeredit {
+  readonly businessCategoryId : any;
+  readonly costPerSticker: any;
+  readonly modifiedBy: any;
+  readonly deliveryDays: any;
+  readonly modifierRole: any;
+  readonly effectiveFrom: any;
+  readonly stickerId: any;
 }
 
 export interface stickerstatus {
-  readonly activeStatus: any;
+  readonly stickerId: any;
+
 }
 
 
@@ -1678,19 +1727,21 @@ export interface whatappserviceApproval {
 
 export interface VendorsAdd {
   readonly vendorName:any;
-  readonly vendorMobile:any;
+  readonly vendorMobileNumber:any;
   readonly vendorAddress:any;
   readonly vendorGst:any;
   readonly smsAmount:any;
   readonly userName:any;
   readonly password:any;
   readonly token:any;
-  readonly createdBy:any;
+  readonly createdby:any;
+  readonly creatorRole: any;
 }
 
 export interface VendorsUpdate {
+  readonly whatsappVendorId: any;
   readonly vendorName:any;
-  readonly vendorMobile:any;
+  readonly vendorMobileNumber:any;
   readonly vendorAddress:any;
   readonly vendorGst:any;
   readonly smsAmount:any;
@@ -1698,8 +1749,44 @@ export interface VendorsUpdate {
   readonly password:any;
   readonly token:any;
   readonly modifiedBy:any;
+  readonly modifierRole: any;
 }
 
 export interface VendorStatus {
-  readonly enabled:any;
+  readonly whatsappVendorId:any;
 }
+
+// //business category 
+
+export interface Getallstatus {
+  readonly pageNumber? : any;
+  readonly pageSize?: any;
+  readonly fromDate?: any;
+  readonly toDate?: any;
+  readonly status?: any;
+  readonly searchContent?: any;
+}
+
+export interface kycactivestatus {
+  readonly status: any;
+}
+
+export interface kycstatus {
+  readonly businessCategoryDocumentId: any;
+  readonly modifiedBy: any;
+  readonly modifierRole: any;
+}
+
+
+export interface farginbankstatus {
+  readonly adminBankId: any;
+
+}
+
+// Sticker
+
+
+
+
+
+

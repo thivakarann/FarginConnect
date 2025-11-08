@@ -31,6 +31,7 @@ export class EditfacheckkeyComponent {
   ) { this.facheckKeyId = data.value.facheckKeyId; }
 
   ngOnInit(): void {
+
     this.facheckkeyFormGroup = new FormGroup({
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
@@ -47,6 +48,7 @@ export class EditfacheckkeyComponent {
         secretKey: this.data.value.secretKey,
         applicationId: this.data.value.applicationId,
         mode: this.data.value.mode,
+        facheckKeyId: this.data.value.facheckKeyId
       });
     } else {
       console.error('Data is not defined');
@@ -68,19 +70,24 @@ export class EditfacheckkeyComponent {
 
   submit() {
     let submitModel: Updatefacheckkey = {
+      facheckKeyId: this.data?.value.facheckKeyId,
       apiKey: this.apiKey.value.trim(),
       secretKey: this.secretKey?.value.trim(),
       applicationId: this.applicationId?.value,
       mode: this.mode?.value,
       modifiedBy: this.adminName,
+      modifierRole: this.adminName
     };
-    this.service.updatefacheck(this.facheckKeyId, submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.updatefacheck(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }

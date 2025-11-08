@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-renewal-autodebit',
@@ -42,7 +43,7 @@ export class RenewalAutodebitComponent {
   currentpage: any;
   viewallexport: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valueautodebitexport: any;
@@ -57,24 +58,38 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   currentFilterValue: string = '';
   searchPerformed: boolean = false;
   currentfilvalShow: boolean = false;
+  Roledetails: any;
 
   constructor(
     public autodebitdetails: FarginServiceService,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
-    this.autodebitdetails.rolegetById(this.roleId).subscribe({
+
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.autodebitdetails.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueautodebitexport = 'Cloud Fee AutoDebit-Export';
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Cloud Fee AutoDebit-Export') {
                 this.valueautodebitexport = 'Cloud Fee AutoDebit-Export';
               }
@@ -85,7 +100,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-    this.Getall();
   }
 
   Getall() {

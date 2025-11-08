@@ -1,10 +1,10 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild, } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { role, subpermission } from '../../fargin-model/fargin-model.module';
+import { Payload, role, subpermission } from '../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -19,13 +19,18 @@ export class AddRoleComponent implements OnInit {
   permissionValue: any;
   @ViewChild('select') select: any = MatSelect;
   @ViewChild('selects') selects: any = MatSelect;
+  @ViewChild('selectssss') selectssss: any = MatSelect;
   allSelected = false;
   allSelected1 = false;
+  allSelected3 = false;
   subpermissionValue: any;
   roleValue: any;
   roleformGroup: any = FormGroup;
   getpermission: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
+  details: any;
+  permissiondata: any;
+  subpermissiondata: any;
 
   constructor(
     private dialog: MatDialog,
@@ -37,19 +42,20 @@ export class AddRoleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.service.permissionget().subscribe((res: any) => {
-      this.permissionValue = (res.response || []).sort((a: any, b: any) => {
-        const permA = (a.permission || '').toLowerCase();
-        const permB = (b.permission || '').toLowerCase();
-        return permA.localeCompare(permB);
-      });
-    });
-
     this.roleformGroup = this.fb.group({
+      businessCategoryId: new FormControl('', [
+        Validators.required,
+      ]),
       roleName: ['', [Validators.required, Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50),],],
       permission: ['', [Validators.required]],
       subPermission: ['', [Validators.required]],
     });
+
+    this.Businnescat();
+  }
+
+  get businessCategoryId() {
+    return this.roleformGroup.get('businessCategoryId');
   }
 
   get roleName() {
@@ -64,12 +70,50 @@ export class AddRoleComponent implements OnInit {
     return this.roleformGroup.get('subPermission');
   }
 
+  Businnescat() {
+    const payload = {
+      status: 1,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.ActiveBus(datamodal).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.details = JSON.parse(this.cryptoService.decrypt(res.data));;
+      }
+    })
+  }
+
+  Permission(id: any[]) {
+    const payload = {
+      businessCategoryIds: id,
+      status: 1,
+      needAdminData: true
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.permissionget(datamodal).subscribe((res: any) => {
+      this.permissiondata = JSON.parse(this.cryptoService.decrypt(res.data))
+      this.permissionValue = (this.permissiondata || []).sort((a: any, b: any) => {
+        const permA = (a.permission || '').toLowerCase();
+        const permB = (b.permission || '').toLowerCase();
+        return permA.localeCompare(permB);
+      });
+    });
+  };
+
   sendPermissionId(id: any[]) {
     let submitModel: subpermission = {
-      permissionsId: id,
+      permissionIds: id,
+      status: 1
     };
-    this.service.subPermission(submitModel).subscribe((res: any) => {
-      this.subpermissionValue = (res.response || []).sort((a: any, b: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.subPermission(datamodal).subscribe((res: any) => {
+      this.subpermissiondata = JSON.parse(this.cryptoService.decrypt(res.data))
+      this.subpermissionValue = (this.subpermissiondata || []).sort((a: any, b: any) => {
         const subA = (a.subPermissions || '').toLowerCase();
         const subB = (b.subPermissions || '').toLowerCase();
         return subA.localeCompare(subB);
@@ -82,6 +126,14 @@ export class AddRoleComponent implements OnInit {
       this.selects.options.forEach((item: MatOption) => item.select());
     } else {
       this.selects.options.forEach((item: MatOption) => item.deselect());
+    }
+  };
+
+  toggleAllSelection3() {
+    if (this.allSelected3) {
+      this.selectssss.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.selectssss.options.forEach((item: MatOption) => item.deselect());
     }
   };
 
@@ -99,18 +151,22 @@ export class AddRoleComponent implements OnInit {
   submit() {
     let submitModel: role = {
       roleName: this.roleName.value.trim(),
-      createdBy: this.adminName,
-      permission: this.permission?.value,
-      subPermission: this.subPermission?.value,
+      createdby: this.adminName,
+      permissionIds: this.permission?.value,
+      subPermissionIds: this.subPermission?.value,
+      businessCategoryIds: this.businessCategoryId?.value
     };
-    this.service.addRoles(submitModel).subscribe((res: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.addRoles(datamodal).subscribe((res: any) => {
       this.roleValue = res.response;
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }

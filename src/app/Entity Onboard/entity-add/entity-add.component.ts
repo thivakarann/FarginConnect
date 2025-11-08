@@ -13,8 +13,8 @@ import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-s
   styleUrl: './entity-add.component.css',
 })
 export class EntityAddComponent implements OnInit {
- adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
- adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
 
   myForm!: FormGroup;
   myForm2!: FormGroup;
@@ -93,7 +93,7 @@ export class EntityAddComponent implements OnInit {
   constructor(
     public AddEntity: FarginServiceService,
     private router: Router,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService,
     private _formBuilder: FormBuilder
   ) {

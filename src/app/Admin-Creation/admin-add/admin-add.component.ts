@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AdminCreate } from '../../fargin-model/fargin-model.module';
+import { AdminCreate, Payload } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -16,6 +16,7 @@ export class AdminAddComponent implements OnInit {
   showPassword: boolean = false;
   adminNames: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   activeRole: any;
+  details: any;
 
   constructor(
     private service: FarginServiceService,
@@ -26,12 +27,14 @@ export class AdminAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.AdminForm = new FormGroup({
+
       adminName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       gender: new FormControl('', [Validators.required]),
+
       emailAddress: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
@@ -59,11 +62,9 @@ export class AdminAddComponent implements OnInit {
       ]),
       roleId: new FormControl('', [Validators.required]),
     });
-
-    this.service.roleactiveViewall().subscribe((res: any) => {
-      this.activeRole = res.response;
-    });
+    this.ActiveRoles();
   }
+
   get adminName() {
     return this.AdminForm.get('adminName');
   }
@@ -98,14 +99,22 @@ export class AdminAddComponent implements OnInit {
   }
 
   onMobileNumberInput(event: any): void {
-    // Restrict non-numeric input
     const value = event.target.value.replace(/[^0-9]/g, '');
     event.target.value = value;
   }
 
-  togglePasswordVisibility(passwordInput: { type: string }) {
-    this.showPassword = !this.showPassword;
-    passwordInput.type = this.showPassword ? 'text' : 'password';
+  ActiveRoles() {
+    const payload = {
+      status: 1,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.roleactiveViewall(datamodal).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.activeRole = JSON.parse(this.cryptoService.decrypt(res.data));;
+      }
+    })
   }
 
   submit() {
@@ -113,21 +122,24 @@ export class AdminAddComponent implements OnInit {
       roleId: this.roleId?.value,
       emailAddress: this.emailAddress?.value.trim(),
       mobileNumber: this.mobileNumber?.value.trim(),
-      adminName: this.adminName?.value.trim(),
+      name: this.adminName?.value.trim(),
       address: this.address?.value.trim(),
       city: this.city?.value.trim(),
       state: this.state?.value.trim(),
       pincode: this.pincode?.value.trim(),
       country: this.country?.value.trim(),
       gender: this.gender?.value,
-      createdBy: this.adminNames,
+      createdby: this.adminNames,
     };
-    this.service.AdminCreate(submitmodel).subscribe((res: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitmodel))
+    }
+    this.service.AdminCreate(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toaster.success(res.responseMessage);
+        this.toaster.success(res.messageDescription);
         this.router.navigateByUrl(`/dashboard/admindetails`);
       } else {
-        this.toaster.error(res.responseMessage);
+        this.toaster.error(res.messageDescription);
       }
     });
   }

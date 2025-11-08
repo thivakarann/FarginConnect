@@ -53,18 +53,22 @@ export class AddcategoryComponent implements OnInit {
 
   submit() {
     let submitModel: Businessadd = {
-      categoryName: this.categoryName.value.trim(),
+      businessCategoryName: this.categoryName.value.trim(),
       mccCode: this.mccCode.value,
-      createdBy: this.adminName,
+      createdby: this.adminName,
       autoDebitDate: this.autoDebitDate?.value,
+      creatorRole: ''
     };
-    this.service.BusinessCreate(submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.BusinessCreate(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }

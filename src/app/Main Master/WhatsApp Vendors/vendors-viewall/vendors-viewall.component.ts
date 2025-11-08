@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { VendorsAddComponent } from '../vendors-add/vendors-add.component';
 import { VendorsUpdateComponent } from '../vendors-update/vendors-update.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { VendorStatus } from '../../../fargin-model/fargin-model.module';
+import { Getallstatus, VendorStatus } from '../../../fargin-model/fargin-model.module';
 import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
@@ -58,42 +58,96 @@ export class VendorsViewallComponent implements OnInit {
   valuetermViews: any;
   searchPerformed: boolean = false;
   copiedIndex2: number = -1;
+  categoryList: any;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  currentfilvalShow: boolean = false;
+  currentfilval: any;
 
   constructor(
     public Vendordetails: FarginServiceService,
     private dialog: MatDialog,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) { }
+
   ngOnInit(): void {
     this.Getall();
   }
 
   Getall() {
-    this.Vendordetails.VendorsViewall().subscribe((res: any) => {
+    let submitModel: Getallstatus = {
+      pageNumber: 0,
+      pageSize: 5,
+      fromDate: '',
+      toDate: '',
+      status: -1,
+      searchContent: ''
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.Vendordetails.VendorsViewall(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.viewall.content);
+        this.categoryList = this.viewall.content;
+        this.totalPages = this.viewall.totalElements;
+        this.totalpage = this.viewall.size;
+        this.currentpage = this.viewall.number;
+        this.currentfilvalShow = false;
       }
       else if (res.flag == 2) {
         this.viewall = [];
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.viewall.content);
+        this.categoryList = this.viewall.content;
+        this.totalPages = this.viewall.totalElements;
+        this.totalpage = this.viewall.size;
+        this.currentpage = this.viewall.number;
+        this.currentfilvalShow = false;
       }
     });
   };
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) {
+      this.toastr.error('Please Enter the Text');
     }
-  }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: '',
+        pageSize: 5,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: filterValue
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.Vendordetails.VendorsViewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+  };
 
   AddVendor() {
     const dialogRef = this.dialog.open(VendorsAddComponent, {
@@ -105,6 +159,7 @@ export class VendorsViewallComponent implements OnInit {
       this.Getall();
     });
   };
+
 
   Edit(id: any) {
     const dialogRef = this.dialog.open(VendorsUpdateComponent, {
@@ -118,17 +173,19 @@ export class VendorsViewallComponent implements OnInit {
     });
   };
 
-  ActiveStatus(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
+  ActiveStatus(id: any) {
     let submitModel: VendorStatus = {
-      enabled: this.isChecked ? 'ACTIVE' : 'INACTIVE'
+      whatsappVendorId: id
     };
-    this.Vendordetails.VendorsStatus(id, submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.Vendordetails.VendorsStatus(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         setTimeout(() => { this.Getall(); }, 200);
       }
-      else { this.toastr.error(res.responseMessage); }
+      else { this.toastr.error(res.messageDescription); }
     });
   };
 
@@ -142,32 +199,123 @@ export class VendorsViewallComponent implements OnInit {
     this.copiedIndex2 = index;
     setTimeout(() => this.copiedIndex2 = -1, 2000);
   }
-  exportexcel() {
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.Vendordetails.VendorsViewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = false;
+
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = false;
+        }
+      });
+    }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: this.currentfilval
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.Vendordetails.VendorsViewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+        }
+      });
+    }
+
+  }
+
+  Exportall() {
+    if (this.totalPages != 0) {
+      const payload = {
+        pageNumber: 0,
+        pageSize: this.totalPages,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.Vendordetails.VendorsViewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.exportexcel(this.viewall.content);
+        } else {
+          console.error('No Data Found');
+        }
+      });
+    }
+  }
+
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.viewall.forEach((element: any) => {
+    data.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.vendorName);
-      this.response.push(element?.vendorMobile);
+      this.response.push(element?.vendorMobileNumber);
       this.response.push(element?.smsAmount);
-      this.response.push(element?.enabled);
+      if (element?.status == 1) { this.response.push("Active"); }
+      else { this.response.push("InActive"); }
       this.response.push(element?.token);
       this.response.push(element?.vendorGst);
       this.response.push(element?.vendorAddress);
       this.response.push(element?.userName);
       this.response.push(element?.password);
-      this.response.push(element?.createdBy);
-      if (element?.createdAt) { this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a')); }
+      this.response.push(element?.createdby);
+      if (element?.createdDateTime) { this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a')); }
       else { this.response.push(''); }
       this.response.push(element?.modifiedBy);
-      if (element?.modifiedAt) { this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy hh:mm a')); }
+      if (element?.modifiedDateTime) { this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy hh:mm a')); }
       else { this.response.push(''); }
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
+
   excelexportCustomer() {
     const header = [
       'SNo',

@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Entitystatus } from '../../../fargin-model/fargin-model.module';
+import { Entitystatus, Payload } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Location } from '@angular/common';
 import { EntityTerminalAddComponent } from '../entity-terminal-add/entity-terminal-add.component';
@@ -47,6 +47,7 @@ export class EntityTerminalViewComponent implements OnInit {
   valueTerminalStatus: any;
   valueTerminalEdit: any;
   valueTerminalview: any;
+  Roledetails: any;
 
   constructor(
     public service: FarginServiceService,
@@ -60,10 +61,30 @@ export class EntityTerminalViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.service.rolegetById(this.roleId).subscribe({
+
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.merchantId = param.Alldata;
+    });
+    this.Role();
+    this.Getall();
+
+
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
+
           if (this.roleId == 1) {
             this.valueTerminalAdd = 'Terminal Entity-Add';
             this.valueTerminalStatus = 'Terminal Entity-Status';
@@ -71,7 +92,7 @@ export class EntityTerminalViewComponent implements OnInit {
             this.valueTerminalview = 'Terminal Entity Transaction-View';
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Terminal Entity-Add') {
                 this.valueTerminalAdd = 'Terminal Entity-Add';
@@ -92,14 +113,6 @@ export class EntityTerminalViewComponent implements OnInit {
         }
       },
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.merchantId = param.Alldata;
-    });
-
-    this.Getall();
-
-
   }
 
   transactions(id: any, id1: any) {

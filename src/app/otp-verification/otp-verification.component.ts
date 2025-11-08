@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FarginServiceService } from '../service/fargin-service.service';
-import { ResendOtp, VerifyOtp } from '../fargin-model/fargin-model.module';
+import { Payload, ResendOtp, VerifyOTP } from '../fargin-model/fargin-model.module';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-otp-verification',
@@ -32,7 +33,8 @@ export class OtpVerificationComponent implements OnInit {
     private service: FarginServiceService,
     private activeRouter: ActivatedRoute,
     private toaster: ToastrService,
-    private router: Router
+    private router: Router,
+    private cryptoService: EncyDecySericeService,
   ) {
     this.initTimer();
   }
@@ -57,16 +59,6 @@ export class OtpVerificationComponent implements OnInit {
     }
   }
 
-  // timer() {
-  //   this.startTime = Date.now(); // Save the start timestamp
-  //   this.timerInterval = setInterval(() => {
-  //     const elapsedSeconds = Math.floor((Date.now() - this.startTime) / 1000);
-  //     this.timeLeft = Math.max(180 - elapsedSeconds, 0);
-  //     if (this.timeLeft === 0) {
-  //       clearInterval(this.timerInterval);
-  //     }
-  //   }, 1000);
-  // };
 
   initTimer() {
     const storedStart = sessionStorage.getItem('otpStartTime');
@@ -92,47 +84,48 @@ export class OtpVerificationComponent implements OnInit {
         localStorage.removeItem('otpStartTime'); // Optional: clear when expired
       }
     }, 1000);
+  };
+
+  maskEmail(email: string): string {
+    if (!email || !email.includes('@')) return '';
+    const [local, domain] = email.split('@');
+    const visible = local.slice(0, 3);
+    const masked = '*'.repeat(Math.max(local.length - 3, 3));
+    return `${visible}${masked}@${domain}`;
   }
 
   verifyotp() {
-    let submitmodel: VerifyOtp = {
+    let submitmodel: VerifyOTP = {
       emailAddress: this.emailAddress,
-      otpCode:
-        this.otpCode1 +
-        this.otpCode2 +
-        this.otpCode3 +
-        this.otpCode4 +
-        this.otpCode5 +
-        this.otpCode6,
+      emailOtpCode: this.otpCode1 + this.otpCode2 + this.otpCode3 + this.otpCode4 + this.otpCode5 + this.otpCode6,
     };
-
-    this.service.VerifyOtp(submitmodel).subscribe((res: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitmodel))
+    }
+    this.service.VerifyOtp(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.email = res.response;
-
-        this.toaster.success(res.responseMessage);
+        this.toaster.success(res.messageDescription);
         this.router.navigate([`/reset`], {
-          queryParams: { emailAddress: this.email },
+          queryParams: { emailAddress: this.emailAddress },
         });
       } else {
-        this.toaster.error(res.responseMessage);
+        this.toaster.error(res.messageDescription);
       }
     });
   }
 
   getresendOtp() {
-    this.otpCode1 = '';
-    this.otpCode2 = '';
-    this.otpCode3 = '';
-    this.otpCode4 = '';
-    this.otpCode5 = '';
-    this.otpCode6 = '';
+    this.otpCode1 = ''; this.otpCode2 = ''; this.otpCode3 = '';
+    this.otpCode4 = ''; this.otpCode5 = ''; this.otpCode6 = '';
     let submitmodel: ResendOtp = {
       emailAddress: this.emailAddress,
     };
-    this.service.ResendOtp(submitmodel).subscribe((res: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitmodel))
+    }
+    this.service.ResendOtp(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toaster.success(res.responseMessage);
+        this.toaster.success(res.messageDescription);
         // Reset timer
         clearInterval(this.timerInterval);
         this.startTime = Date.now();
@@ -141,19 +134,12 @@ export class OtpVerificationComponent implements OnInit {
         this.resendOtp = false; // Hide the resend link after requesting OTP
         this.displayTimer = true; // Show the timer
       } else {
-        this.toaster.error(res.responseMessage);
+        this.toaster.error(res.messageDescription);
       }
     });
   }
 
   isOtpComplete(): boolean {
-    return (
-      this.otpCode1 &&
-      this.otpCode2 &&
-      this.otpCode3 &&
-      this.otpCode4 &&
-      this.otpCode5 &&
-      this.otpCode6
-    );
+    return (this.otpCode1 && this.otpCode2 && this.otpCode3 && this.otpCode4 && this.otpCode5 && this.otpCode6);
   }
 }

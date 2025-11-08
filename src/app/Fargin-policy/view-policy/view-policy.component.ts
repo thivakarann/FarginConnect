@@ -13,6 +13,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-view-policy',
@@ -50,27 +51,40 @@ export class ViewPolicyComponent implements OnInit {
   valuetermedits: any;
   errorMessage: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   valuetermViews: any;
   searchPerformed: boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  Roledetails: any;
 
   constructor(
     private service: FarginServiceService,
     private router: Router,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
+    this.Role();
+    this.Getall();
+  }
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuefarginpolicyadd = 'Fargin Policy-Add';
             this.valuefarginpolicyexport = 'Fargin Policy-Export';
@@ -79,7 +93,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Fargin Policy-Add') {
                 this.valuefarginpolicyadd = 'Fargin Policy-Add';
               }
@@ -99,7 +113,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-    this.Getall();
   }
 
   Getall() {

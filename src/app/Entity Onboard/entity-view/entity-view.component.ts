@@ -12,6 +12,7 @@ import {
   Drivingverification,
   EmailTrigger,
   Pasportverify,
+  Payload,
   PgOnboard,
   settopStatus,
   SmsStatus,
@@ -264,6 +265,7 @@ export class EntityViewComponent implements OnInit {
   valuesms: any;
   valueCustomizedmanual: any;
   branchtrans: any;
+  Roledetails: any;
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -285,11 +287,69 @@ export class EntityViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.MerchantView.rolegetById(this.roleId).subscribe({
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+    this.Role();
+    this.agrrmentview();
+    this.Getall();
+
+    this.MerchantView.GetManualPay(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.manualDetails = res.response;
+        this.manualDetails.forEach((item: any) => {
+          this.paymentStatus = item.paymentStatus;
+          this.paymentMethod = item.paymentMethod;
+        });
+        this.manualDetails.reverse();
+      }
+    });
+
+    this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.otherDetails = res.response;
+        this.otherDetails.reverse();
+      }
+    });
+
+    this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.branchget = res.response.reverse();
+      }
+    });
+
+    this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.smsDetails = res.response.reverse();
+      }
+    });
+
+    this.MerchantView.Merchatwhatappgetall(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.WhatsappDetails = res.response.reverse();
+      }
+    });
+
+    // this.MerchantView.smscostViewall().subscribe((res: any) => {
+    //   this.chargepersms = res.response[0]?.amount;
+    // });
+
+  }
+
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.MerchantView.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          this.entitypermission = res.response?.permission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
+          this.entitypermission = this.Roledetails?.PermissionsAccess;
           this.getpermissionValue();
           if (this.roleId == 1) {
             this.valueplatform = 'Entity View Platform Payment';
@@ -367,7 +427,7 @@ export class EntityViewComponent implements OnInit {
             this.RenewelFee = 'Entity View Renewal Fee AutoDebit';
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Entity View KYC Document-add') {
                 this.valuekycadd = 'Entity View KYC Document-add';
@@ -608,54 +668,6 @@ export class EntityViewComponent implements OnInit {
         }
       },
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    this.agrrmentview();
-    this.Getall();
-
-    this.MerchantView.GetManualPay(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.manualDetails = res.response;
-        this.manualDetails.forEach((item: any) => {
-          this.paymentStatus = item.paymentStatus;
-          this.paymentMethod = item.paymentMethod;
-        });
-        this.manualDetails.reverse();
-      }
-    });
-
-    this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.otherDetails = res.response;
-        this.otherDetails.reverse();
-      }
-    });
-
-    this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.branchget = res.response.reverse();
-      }
-    });
-
-    this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.smsDetails = res.response.reverse();
-      }
-    });
-
-    this.MerchantView.Merchatwhatappgetall(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.WhatsappDetails = res.response.reverse();
-      }
-    });
-
-    this.MerchantView.smscostViewall().subscribe((res: any) => {
-      this.chargepersms = res.response[0]?.amount;
-    });
-
   }
 
   getpermissionValue() {
@@ -688,7 +700,7 @@ export class EntityViewComponent implements OnInit {
     }
     else {
       for (let data of this.entitypermission) {
-        this.roles = data.permission;
+        this.roles = data.permissionName;
 
         if (this.roles == 'Entity View Due Transactions') {
           this.valueentitytransaction = 'Entity View Due Transactions';

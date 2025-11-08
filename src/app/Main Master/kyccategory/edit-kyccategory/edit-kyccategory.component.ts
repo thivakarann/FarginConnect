@@ -16,7 +16,6 @@ export class EditKyccategoryComponent {
   businessCategoryId: any;
   adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
-
   categorys: any;
   mccCodes: any;
   kycCategoryId: any;
@@ -26,7 +25,7 @@ export class EditKyccategoryComponent {
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -39,8 +38,8 @@ export class EditKyccategoryComponent {
         Validators.maxLength(50),
       ]),
     });
-    this.kycCategoryId = this.data.value.kycCategoryId;
-    this.kycCategoryNames = this.data.value.kycCategoryName;
+    this.kycCategoryId = this.data.value.businessDocumentTypeId;
+    this.kycCategoryNames = this.data.value.documentType;
     this.editcategory.controls['kycCategoryName'].value = this.kycCategoryNames;
   }
 
@@ -51,16 +50,20 @@ export class EditKyccategoryComponent {
   Editsubmit() {
     let submitModel: kycedit = {
       modifiedBy: this.adminName,
-      kycCategoryName: this.kycCategoryName.value.trim(),
-      kycCategoryId: this.kycCategoryId,
+      documentType: this.kycCategoryName.value.trim(),
+      documentTypeId: this.kycCategoryId,
+      modifierRole: this.adminName,
     };
-    this.service.editkycCategory(submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.editkycCategory(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }

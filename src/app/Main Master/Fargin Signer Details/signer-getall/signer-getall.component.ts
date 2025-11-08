@@ -9,7 +9,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { SignerAddComponent } from '../signer-add/signer-add.component';
 import { SignerUpdateComponent } from '../signer-update/signer-update.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { UpdatesignerStatus } from '../../../fargin-model/fargin-model.module';
+import { Payload, UpdatesignerStatus, Getallstatus } from '../../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -25,6 +25,7 @@ export class SignerGetallComponent implements OnInit {
     'signAdminEmail',
     'signAdminMobile',
     'status',
+    'Edit',
     'adminCountry',
     'adminState',
     'adminCity',
@@ -51,6 +52,13 @@ export class SignerGetallComponent implements OnInit {
   valueSignerDetailscreate: any;
   getdashboard: any;
   valueSignerDetailsHistory: any;
+  totalPages: any;
+  totalpage: any;
+  currentfilvalShow: boolean = false;
+  currentpage: any;
+  currentfilval: any;
+  Roledetails: any;
+  valueSignerDetailsupdate: any;
 
   constructor(
     public service: FarginServiceService,
@@ -59,20 +67,35 @@ export class SignerGetallComponent implements OnInit {
     private dialog: MatDialog,
     private cryptoService: EncyDecySericeService,
   ) { }
-  ngOnInit(): void {
 
-    this.service.rolegetById(this.roleId).subscribe({
+  ngOnInit(): void {
+    this.Role();
+    this.Getall();
+  };
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
-            this.valueSignerDetailscreate = 'Signer Details-Update';
+            this.valueSignerDetailscreate = 'Signer Details-Create';
+            this.valueSignerDetailsupdate = 'Signer Details-Update';
             this.valueSignerDetailsStatus = 'Signer Details-Status';
             this.valueSignerDetailsHistory = 'Signer Details-History';
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Signer Details-Update') {
                 this.valueSignerDetailscreate = 'Signer Details-Update'
               }
@@ -84,6 +107,10 @@ export class SignerGetallComponent implements OnInit {
                 this.valueSignerDetailsHistory = 'Signer Details-History'
               }
 
+              if (this.actions == 'Signer Details-Update') {
+                this.valueSignerDetailsupdate = 'Signer Details-Update'
+              }
+
             }
           }
         }
@@ -92,16 +119,23 @@ export class SignerGetallComponent implements OnInit {
         }
       }
     });
-    this.Getall();
   };
 
   Getall() {
-    this.service.signergetall().subscribe((res: any) => {
-      this.data = res.response;
-      this.data.reverse();
-      this.dataSource = new MatTableDataSource(this.data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+    let submitModel: Getallstatus = {
+      pageNumber: 0,
+      pageSize: 5,
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.signergetall(datamodal).subscribe((res: any) => {
+      this.data = JSON.parse(this.cryptoService.decrypt(res.data));
+      this.dataSource = new MatTableDataSource(this.data.content);
+      this.totalPages = this.data.totalElements;
+      this.totalpage = this.data.size;
+      this.currentpage = this.data.number;
+      this.currentfilvalShow = false;
     });
   }
 
@@ -123,31 +157,63 @@ export class SignerGetallComponent implements OnInit {
   }
 
   Edit(id: any) {
-    this.dialog.open(SignerUpdateComponent, {
-      enterAnimationDuration: "500ms",
-      exitAnimationDuration: "500ms",
+    const dialogRef = this.dialog.open(SignerUpdateComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
       disableClose: true,
       data: { value: id },
-    })
+    });
+    dialogRef.componentInstance.singerDetailsUpdated.subscribe(() => {
+      this.Getall();
+    });
   }
 
-  ActiveStatus(event: MatSlideToggleChange, id: string) {
-    this.isChecked = event.checked;
+  ActiveStatus(id: string) {
     let submitModel: UpdatesignerStatus = {
-      activeStatus: this.isChecked ? 1 : 0,
       signId: id
     };
-    this.service.signerstatus(submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.signerstatus(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
         this.data = res.response;
-        this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          this.Getall()
-        }, 200);
+        this.toastr.success(res.messageDescription);
+        setTimeout(() => { this.Getall() }, 200);
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }
+
+
+
+  getData(event: any) {
+    let submitModel: Getallstatus = {
+      pageNumber: event.pageIndex,
+      pageSize: event.pageSize,
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.signergetall(datamodal).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.data = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.data.content);
+        this.totalPages = this.data.totalElements;
+        this.totalpage = this.data.size;
+        this.currentpage = this.data.number;
+
+      } else {
+        this.data = [];
+        this.dataSource = new MatTableDataSource(this.data.content);
+        this.totalPages = this.data.totalElements;
+        this.totalpage = this.data.size;
+        this.currentpage = this.data.number;
+      }
+    });
+  }
+
 }
+

@@ -3,9 +3,9 @@
 <mat-card-header>
     <div class="row mt-4">
         <div class="col">
-            <button [hidden]="valueSignerDetailscreate!=='Signer Details-Update'"
+            <button [hidden]="valueSignerDetailscreate!='Signer Details-Create'|| data.length!=0"
                 style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
-                (click)="AddsignerDetails()">Update</button>
+                (click)="AddsignerDetails()">Create</button>
         </div>
     </div>
 </mat-card-header>
@@ -38,12 +38,23 @@
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <th [hidden]="valueSignerDetailsStatus!=='Signer Details-Status'" mat-header-cell *matHeaderCellDef
+                <th [hidden]="valueSignerDetailsStatus!='Signer Details-Status'" mat-header-cell *matHeaderCellDef
                     mat-sort-header>Status</th>
-                <td [hidden]="valueSignerDetailsStatus!=='Signer Details-Status'" mat-cell *matCellDef="let data">
+                <td [hidden]="valueSignerDetailsStatus!='Signer Details-Status'" mat-cell *matCellDef="let data">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="data.activeStatus==1"
-                        (change)="ActiveStatus($event,data.signId)" style="transform: scale(0.9)">
+                        (change)="ActiveStatus(data.signId)" style="transform: scale(0.9)">
                     </mat-slide-toggle>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Edit">
+                <th [hidden]="valueSignerDetailsupdate!='Signer Details-Update'" mat-header-cell *matHeaderCellDef
+                    mat-sort-header>
+                    Action
+                </th>
+                <td [hidden]="valueSignerDetailsupdate!='Signer Details-Update'" mat-cell *matCellDef="let data">
+                    <i style="cursor: pointer; font-size: 15px; color: #545497" class="fas fa-edit"
+                        (click)="Edit(data)"></i>
                 </td>
             </ng-container>
 
@@ -84,11 +95,10 @@
 
 
             <ng-container matColumnDef="View">
-                <th [hidden]="valueSignerDetailsHistory!=='Signer Details-History'" mat-header-cell *matHeaderCellDef
-                    mat-sort-header>History</th>
-                <td [hidden]="valueSignerDetailsHistory!=='Signer Details-History'" style="text-wrap: wrap;" mat-cell
-                    *matCellDef="let data">
-                    <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye" (click)="view(data.signId)"></i>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>History</th>
+                <td style="text-wrap: wrap;" mat-cell *matCellDef="let data">
+                    <i style="cursor: pointer;font-size: 17px;color: #545497" class="fa fa-eye"
+                        (click)="view(data.signId)"></i>
                 </td>
             </ng-container>
 
@@ -117,6 +127,6 @@
 </mat-card-content>
 
 <mat-card-footer>
-    <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
-        aria-labels="select page of users"></mat-paginator>
+    <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
+        [pageSizeOptions]="[5, 50, 100, 500, 1000]" aria-label="Select page"></mat-paginator>
 </mat-card-footer>

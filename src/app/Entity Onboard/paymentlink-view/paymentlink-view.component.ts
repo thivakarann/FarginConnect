@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaymentlinkDesViewComponent } from './paymentlink-des-view/paymentlink-des-view.component';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-paymentlink-view',
@@ -33,11 +34,12 @@ export class PaymentlinkViewComponent implements OnInit {
   valuepaymentlink: any;
   errorMessage: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   searchPerformed: boolean = false;
   actions: any;
 
   isFullPolicyVisible: boolean = false;
+  Roledetails: any;
 
 
   constructor(
@@ -45,22 +47,39 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     public service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
 
-    this.service.rolegetById(this.roleId).subscribe({
+
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueresendlink = 'Entity View Payment Link-Add';
             this.valuepaymentlink = 'Entity View Payment Link-Link';
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Entity View Payment Link-Add') {
                 this.valueresendlink = 'Entity View Payment Link-Add';
               }
@@ -74,16 +93,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    this.Getall();
-
-
-
-
   }
 
   Getall() {
@@ -133,13 +142,13 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
 
 
   ViewDescription(id: any) {
-      this.dialog.open(PaymentlinkDesViewComponent, {
-        data: { value: id },
-        enterAnimationDuration: '1000ms',
-        exitAnimationDuration: '1000ms',
-        disableClose: true
-      });
-    }
+    this.dialog.open(PaymentlinkDesViewComponent, {
+      data: { value: id },
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true
+    });
+  }
 
 
 }

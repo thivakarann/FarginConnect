@@ -9,6 +9,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-sms-history',
@@ -27,7 +28,7 @@ export class SmsHistoryComponent {
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   date1: any;
   date2: any;
   responseDataListnew: any = [];
@@ -42,12 +43,11 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     public service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
-
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.Id = param.Alldata;
     });
@@ -55,16 +55,22 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   }
 
   Details() {
-    this.service.SMShistory(this.Id).subscribe((res: any) => {
+    const payload = {
+      smsCostId: this.Id,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.SMShistory(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
+        this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));;
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
       else if (res.flag == 2) {
         this.dataSource = new MatTableDataSource([]);
-        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
@@ -83,21 +89,21 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   close() {
     this.location.back()
   };
-  
+
   exportexcel() {
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.amount.toFixed(2));
-      if (element.effectiveDate) {
-        this.response.push(moment(element?.effectiveDate).format('DD/MM/yyyy hh:mm a').toString());
+      this.response.push(element?.costPerSms.toFixed(2));
+      if (element.effectiveFrom) {
+        this.response.push(moment(element?.effectiveFrom).format('DD/MM/yyyy hh:mm a').toString());
       }
       else {
         this.response.push('');
       }
-      this.response.push(element?.createdBy);
+      this.response.push(element?.createdby);
       if (element.createdDateTime) {
         this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
       }
@@ -118,12 +124,9 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       'Updated By',
       'Updated At'
     ];
-
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Setupbox History');
-
-    // Blank Row
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -142,9 +145,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         right: { style: 'thin' },
       };
     });
-
     data.forEach((d: any) => {
-      //
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);

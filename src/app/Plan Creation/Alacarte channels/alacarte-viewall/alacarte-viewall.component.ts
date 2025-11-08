@@ -6,7 +6,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { Alcartstatus } from '../../../fargin-model/fargin-model.module';
+import { Alcartstatus, Payload } from '../../../fargin-model/fargin-model.module';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
@@ -76,19 +76,49 @@ export class AlacarteViewallComponent implements OnInit {
   valueDownload: any;
   valueUpload: any;
   Uploadstatus: any;
+  Roledetails: any;
 
   constructor(
     public AllcartViewall: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) { }
   ngOnInit(): void {
-    this.AllcartViewall.rolegetById(this.roleId).subscribe({
+
+    this.Role();
+
+    this.AllcartViewall.Alcartviewall(this.pageSize, this.pageIndex).subscribe(
+      (res: any) => {
+        if (res.flag == 1) {
+          this.viewall = res.response.content;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.currentfilvalShow = false
+        } else if (res.flag == 2) {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.currentfilvalShow = false
+        }
+      }
+    );
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.AllcartViewall.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuealcartAdd = 'Channel Creation-Add';
             this.valuealcartEdit = 'Channel Creation-Edit';
@@ -102,7 +132,7 @@ export class AlacarteViewallComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
 
               if (this.actions == 'Channel Creation-Add') {
@@ -140,22 +170,6 @@ export class AlacarteViewallComponent implements OnInit {
         }
       }
     });
-    this.AllcartViewall.Alcartviewall(this.pageSize, this.pageIndex).subscribe(
-      (res: any) => {
-        if (res.flag == 1) {
-          this.viewall = res.response.content;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.currentfilvalShow = false
-        } else if (res.flag == 2) {
-          this.viewall = [];
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.currentfilvalShow = false
-        }
-      }
-    );
   }
 
 

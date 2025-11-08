@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { manualpay, Onetimepay } from '../../../fargin-model/fargin-model.module';
+import { manualpay, Onetimepay, Payload } from '../../../fargin-model/fargin-model.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
@@ -110,50 +110,17 @@ export class ServicePaymentsViewallComponent {
   maxDate: any;
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
+  Roledetails: any;
 
-  constructor(private cryptoService:EncyDecySericeService,private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
+  constructor(private cryptoService: EncyDecySericeService, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
   ngOnInit(): void {
 
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString()
 
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
 
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          if (this.roleId == 1) {
-            this.valueserviceView = 'one Time Payments-View'
-            this.valueserviceexport = 'one Time Payments-Export'
-            this.valueserviceReceipt = 'one Time Payments-Invoice'
-            this.valueservicecheck = 'one Time Payments-Check Status'
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              if (this.actions == 'one Time Payments-View') {
-                this.valueserviceView = 'one Time Payments-View'
-              }
-              if (this.actions == 'one Time Payments-Export') {
-                this.valueserviceexport = 'one Time Payments-Export'
-              }
-              if (this.actions == 'one Time Payments-Invoice') {
-                this.valueserviceReceipt = 'one Time Payments-Invoice'
-              }
-              if (this.actions == 'one Time Payments-Check Status') {
-                this.valueservicecheck = 'one Time Payments-Check Status'
-              }
-
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    });
-
+    this.Role();
     this.Getall()
 
     this.Onetimepay = this.fb.group({
@@ -181,6 +148,53 @@ export class ServicePaymentsViewallComponent {
   }
   get endDate() {
     return this.Onetimepay.get('endDate');
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+
+    this.service.rolegetById(datamodal).subscribe({
+      next: (res: any) => {
+
+        if (res.flag == 1) {
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;;
+          if (this.roleId == 1) {
+            this.valueserviceView = 'one Time Payments-View'
+            this.valueserviceexport = 'one Time Payments-Export'
+            this.valueserviceReceipt = 'one Time Payments-Invoice'
+            this.valueservicecheck = 'one Time Payments-Check Status'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissionName;
+              if (this.actions == 'one Time Payments-View') {
+                this.valueserviceView = 'one Time Payments-View'
+              }
+              if (this.actions == 'one Time Payments-Export') {
+                this.valueserviceexport = 'one Time Payments-Export'
+              }
+              if (this.actions == 'one Time Payments-Invoice') {
+                this.valueserviceReceipt = 'one Time Payments-Invoice'
+              }
+              if (this.actions == 'one Time Payments-Check Status') {
+                this.valueservicecheck = 'one Time Payments-Check Status'
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
   }
 
 

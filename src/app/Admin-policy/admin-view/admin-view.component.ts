@@ -15,6 +15,7 @@ import { AdminPrivacypolicyComponent } from '../admin-privacypolicy/admin-privac
 import { AdminRefundpolicyComponent } from '../admin-refundpolicy/admin-refundpolicy.component';
 import { PolicyApprovalComponent } from '../policy-approval/policy-approval.component';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-admin-view',
@@ -64,7 +65,7 @@ export class AdminViewComponent implements OnInit {
   valuetermCreate: any;
   valuetermExport: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   date3: any;
@@ -74,22 +75,34 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   transactionValue: any;
   currentfilvalShow: boolean = false;
   currentfilval: any;
+  Roledetails: any;
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
     private router: Router,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
+    this.Role();
+    this.Getall();
+  }
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuetermCreate = 'Merchant Policy-Add';
             this.valuetermExport = 'Merchant Policy-Export';
@@ -99,7 +112,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Merchant Policy-Add') {
                 this.valuetermCreate = 'Merchant Policy-Add';
@@ -124,7 +137,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       }
     });
-    this.Getall();
   }
 
   Getall() {

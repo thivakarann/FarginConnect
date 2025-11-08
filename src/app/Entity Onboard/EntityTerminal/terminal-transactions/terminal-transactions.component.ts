@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DatePipe, Location } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -20,7 +20,7 @@ import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-dec
 export class TerminalTransactionsComponent {
   dataSource!: MatTableDataSource<any>;
   merchantId: any = sessionStorage.getItem('merchantId');
- 
+
   displayedColumns: string[] = [
     'sno',
     'accountId',
@@ -54,7 +54,7 @@ export class TerminalTransactionsComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   accountId: any = sessionStorage.getItem('accountId');
   searchPerformed: boolean = false;
   actions: any;
@@ -70,25 +70,25 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   pageIndex: any;
   pageSize: any;
   length: any;
-    filterAction:any = 0;
+  filterAction: any = 0;
   constructor(
     private service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
-   const today = new Date();
+    const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
- 
+
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.merchantId = param.Alldata1;
       this.terminalId = param.Alldata;
     });
- 
+
     let submitModel: entityterminaltransaction = {
       pageNo: '0',
       query: '',
@@ -99,26 +99,26 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
       entityTerminalId: this.terminalId,
     };
     this.service
-    .EntityTerminalTransactions(submitModel)
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content || [];
-        console.log(this.content);
-        this.filteredData = this.content;
-        this.length = this.Viewall.totalElements;
-        this.pageIndex = this.Viewall.number;
-        this.pageSize = this.Viewall.size;
-        this.dataSource = new MatTableDataSource(this.filteredData);
- 
-this.filterAction = 0;
-        if (this.content.length === 0) {
-          this.dataSource = new MatTableDataSource();
+      .EntityTerminalTransactions(submitModel)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.content || [];
+          console.log(this.content);
+          this.filteredData = this.content;
+          this.length = this.Viewall.totalElements;
+          this.pageIndex = this.Viewall.number;
+          this.pageSize = this.Viewall.size;
+          this.dataSource = new MatTableDataSource(this.filteredData);
+
+          this.filterAction = 0;
+          if (this.content.length === 0) {
+            this.dataSource = new MatTableDataSource();
+          }
         }
-      }
-    });
+      });
   }
- 
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -161,7 +161,7 @@ this.filterAction = 0;
         }
       });
   }
- 
+
   renderPage(event: any) {
     this.currentPage = event;
     this.ngOnInit();
@@ -173,21 +173,21 @@ this.filterAction = 0;
     this.currentPage = 1;
     this.ngOnInit();
   }
- 
+
   filterdate() {
     const datepipe: DatePipe = new DatePipe('en-US');
     let formattedstartDate = datepipe.transform(
       this.FromDateRange,
-        'dd/MM/YYYY HH:mm'
+      'dd/MM/YYYY HH:mm'
     );
     let formattedendDate = datepipe.transform(
       this.ToDateRange,
-        'dd/MM/yyyy HH:mm'
+      'dd/MM/yyyy HH:mm'
     );
     this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
- 
+
     this.currentPage = 0;
- 
+
     let submitModel: entityterminaltransaction = {
       pageNo: this.currentPage,
       query: '',
@@ -253,7 +253,7 @@ this.filterAction = 0;
       });
   }
 
-  exportexcel(data:any[]) {
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
     data.forEach((element: any) => {
@@ -262,12 +262,12 @@ this.filterAction = 0;
       this.response.push(element?.accountId);
       this.response.push(element?.id);
       this.response.push(element?.terminalId);
- 
+
       this.response.push(element?.customer);
       this.response.push(element?.vpa);
       this.response.push(element?.merchantOrderNo);
       this.response.push(element?.amount);
- 
+
       if (element?.completed == 'ATTEMPTED') {
         this.response.push(element?.completed);
       } else if (element?.completed == 'SUCCESS') {
@@ -282,13 +282,13 @@ this.filterAction = 0;
       } else {
         this.response.push('');
       }
- 
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -303,14 +303,14 @@ this.filterAction = 0;
       'Payment Status',
       'Paid At',
     ];
- 
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Transactions');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -322,7 +322,7 @@ this.filterAction = 0;
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
       };
- 
+
       cell.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -330,10 +330,10 @@ this.filterAction = 0;
         right: { style: 'thin' },
       };
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -345,7 +345,7 @@ this.filterAction = 0;
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
- 
+
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -417,11 +417,11 @@ this.filterAction = 0;
       FileSaver.saveAs(blob, 'Transaction.xlsx');
     });
   }
- 
-  viewsuccess(id: any, id1: any) {}
- 
-  viewFailure(id: any, id1: any) {}
- 
+
+  viewsuccess(id: any, id1: any) { }
+
+  viewFailure(id: any, id1: any) { }
+
   close() {
     this.location.back();
   }
@@ -429,9 +429,9 @@ this.filterAction = 0;
     this.ToDateRange = '';
     // this.FromDateRange =''
   }
- 
+
   getData(event: any) {
-    if (this.filterAction==1) {
+    if (this.filterAction == 1) {
       const datepipe: DatePipe = new DatePipe('en-US');
       let formattedstartDate = datepipe.transform(
         this.FromDateRange,
@@ -442,8 +442,8 @@ this.filterAction = 0;
         'dd/MM/yyyy HH:mm'
       );
       this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
- 
- 
+
+
       let submitModel: entityterminaltransaction = {
         pageNo: event.pageIndex + 1,
         query: '',
@@ -512,66 +512,66 @@ this.filterAction = 0;
 
   exportData() {
 
-    if(this.length != 0){
+    if (this.length != 0) {
       if (this.filterAction == 1) {
-      const datepipe: DatePipe = new DatePipe('en-US');
-      let formattedstartDate = datepipe.transform(
-        this.FromDateRange,
-        'dd/MM/YYYY HH:mm'
-      );
-      let formattedendDate = datepipe.transform(
-        this.ToDateRange,
-        'dd/MM/yyyy HH:mm'
-      );
-      this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+        const datepipe: DatePipe = new DatePipe('en-US');
+        let formattedstartDate = datepipe.transform(
+          this.FromDateRange,
+          'dd/MM/YYYY HH:mm'
+        );
+        let formattedendDate = datepipe.transform(
+          this.ToDateRange,
+          'dd/MM/yyyy HH:mm'
+        );
+        this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
 
 
-      let submitModel: entityterminaltransaction = {
-        pageNo: 1,
-        query: '',
-        size: this.length,
-        dateRange: this.Daterange,
-        status: '',
-        merchantId: this.merchantId,
-        entityTerminalId: this.terminalId,
-      };
-      this.service
-        .EntityTerminalTransactions(submitModel)
-        .subscribe((res: any) => {
-          if (res.flag == 1) {
-            this.Viewall = JSON.parse(res.response);
-            this.content = this.Viewall?.content || [];
-            this.filteredData = this.content;
-            this.exportexcel(this.filteredData)
-          }
-        });
-    } else {
-      let submitModel: entityterminaltransaction = {
-        pageNo: 1,
-        query: '',
-        size: this.length,
-        dateRange: this.Daterange,
-        status: '',
-        merchantId: this.merchantId,
-        entityTerminalId: this.terminalId,
-      };
-      this.service
-        .EntityTerminalTransactions(submitModel)
-        .subscribe((res: any) => {
-          if (res.flag == 1) {
-            this.Viewall = JSON.parse(res.response);
-            this.content = this.Viewall?.content || [];
-            this.filteredData = this.content;
-            this.exportexcel(this.filteredData)
-          }
-        });
+        let submitModel: entityterminaltransaction = {
+          pageNo: 1,
+          query: '',
+          size: this.length,
+          dateRange: this.Daterange,
+          status: '',
+          merchantId: this.merchantId,
+          entityTerminalId: this.terminalId,
+        };
+        this.service
+          .EntityTerminalTransactions(submitModel)
+          .subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.Viewall = JSON.parse(res.response);
+              this.content = this.Viewall?.content || [];
+              this.filteredData = this.content;
+              this.exportexcel(this.filteredData)
+            }
+          });
+      } else {
+        let submitModel: entityterminaltransaction = {
+          pageNo: 1,
+          query: '',
+          size: this.length,
+          dateRange: this.Daterange,
+          status: '',
+          merchantId: this.merchantId,
+          entityTerminalId: this.terminalId,
+        };
+        this.service
+          .EntityTerminalTransactions(submitModel)
+          .subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.Viewall = JSON.parse(res.response);
+              this.content = this.Viewall?.content || [];
+              this.filteredData = this.content;
+              this.exportexcel(this.filteredData)
+            }
+          });
+      }
     }
-    }
-    else{
+    else {
       this.toastr.error('No record found');
     }
 
-    
+
   }
 
 }

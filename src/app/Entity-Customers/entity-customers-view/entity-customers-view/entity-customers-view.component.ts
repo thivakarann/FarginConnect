@@ -6,7 +6,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Location } from '@angular/common';
 import { ChannelViewComponent } from '../../../Overall-Customer/channel-view/channel-view.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { settopStatus } from '../../../fargin-model/fargin-model.module';
+import { Payload, settopStatus } from '../../../fargin-model/fargin-model.module';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { OfflineDetailsComponent } from '../../../Overall-Customer/offline-details/offline-details.component';
 import { MatTableDataSource } from '@angular/material/table';
@@ -57,7 +57,7 @@ export class EntityCustomersViewComponent {
   valuetransreceipt: any;
   valueadditionalinvoice: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   totalPages: any;
@@ -185,6 +185,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   selectedTransactionType: string = 'Due Transaction';
   currentfilvals: any;
   refundadditional: any;
+  Roledetails: any;
 
 
   constructor(
@@ -194,15 +195,46 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
-    this.service.rolegetById(this.roleId).subscribe({
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.value;
+    });
+
+    this.service.CustomerTotalPlanAmount(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.totalamount = res.response.totalAmount;
+      }
+    });
+
+    this.service.ViewCustomerBasicInfo(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.viewcustomer = res.response;
+      } else {
+        this.viewData = false;
+      }
+    });
+
+    this.Role();
+
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
 
           if (this.roleId == 1) {
             this.valuecustomerinfo = 'Customer Info';
@@ -217,7 +249,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
             this.vaaluedetails = 'Refunds-View';
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Customer Info') {
                 this.valuecustomerinfo = 'Customer Info';
@@ -256,25 +288,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.value;
-    });
-
-    this.service.CustomerTotalPlanAmount(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.totalamount = res.response.totalAmount;
-      }
-    });
-
-    this.service.ViewCustomerBasicInfo(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.viewcustomer = res.response;
-      } else {
-        this.viewData = false;
-      }
-    });
-
   }
 
   //Active tabe method

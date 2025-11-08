@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { SMSCostAdd } from '../../../fargin-model/fargin-model.module';
+import { Payload, SMSCostAdd } from '../../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -14,10 +14,10 @@ import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-dec
 export class SMScostAddComponent {
   adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
-
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   minDate: string;
+  details: any;
 
   constructor(
     public addsms: FarginServiceService,
@@ -39,6 +39,7 @@ export class SMScostAddComponent {
     });
   }
 
+
   get amount() {
     return this.myForm.get('amount')
   }
@@ -47,22 +48,25 @@ export class SMScostAddComponent {
     return this.myForm.get('effectiveDate')
   }
 
+
+
   submit() {
     let submitModel: SMSCostAdd = {
-      amount: this.amount?.value.trim(),
-      createdBy: this.adminName,
-      effectiveDate: this.effectiveDate?.value
+      costPerSms: this.amount?.value.trim(),
+      createdby: this.adminName,
+      effectiveFrom: this.effectiveDate?.value
     }
-
-    this.addsms.smscostadd(submitModel).subscribe((res: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.addsms.smscostadd(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     })
   }

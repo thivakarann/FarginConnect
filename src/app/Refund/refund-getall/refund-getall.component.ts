@@ -7,7 +7,7 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { additionalCumulativeRefunds, dueCumulativeRefunds } from '../../fargin-model/fargin-model.module';
+import { additionalCumulativeRefunds, dueCumulativeRefunds, Payload } from '../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -74,7 +74,7 @@ export class RefundGetallComponent {
   secretKey: any;
   getdashboard: any[] = [];
   actions: any;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valuerenewexport: any;
   valuerenewview: any;
   valuerenewpay: any;
@@ -136,13 +136,14 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   selectedPayIds: any[] = [];
   selectAllAdditional = false;
   selectedPayIdsAdditional: any[] = [];
+  Roledetails: any;
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
     private fb: FormBuilder,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
@@ -150,26 +151,8 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
 
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          if (this.roleId == 1) {
-            this.valuerefundexport = 'Online Refunds-Check Status';
-          } else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              if (this.actions == 'Online Refunds-Check Status') {
-                this.valuerefundexport = 'Online Refunds-Check Status';
-              }
-            }
-          }
-        } else {
-          this.errorMessage = res.responseMessage;
-        }
-      },
-    });
 
+    this.Role();
     this.GetAll();
 
     this.dueform = this.fb.group({
@@ -179,6 +162,35 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     this.additionalform = this.fb.group({
       fromdateadditional: ['', [Validators.required]],
       todateadditional: ['', [Validators.required]],
+    });
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
+          if (this.roleId == 1) {
+            this.valuerefundexport = 'Online Refunds-Check Status';
+          } else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissionName;
+              if (this.actions == 'Online Refunds-Check Status') {
+                this.valuerefundexport = 'Online Refunds-Check Status';
+              }
+            }
+          }
+        } else {
+          this.errorMessage = res.responseMessage;
+        }
+      },
     });
   }
 

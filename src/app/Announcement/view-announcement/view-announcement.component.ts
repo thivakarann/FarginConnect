@@ -12,7 +12,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { AnnouncementviewComponent } from '../announcementview/announcementview.component';
-import { announcestatus } from '../../fargin-model/fargin-model.module';
+import { announcestatus, Payload } from '../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class ViewAnnouncementComponent implements OnInit {
   valueannouncementexport: any;
   valueannouncementstatus: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valueannouncementEdit: any;
@@ -86,23 +86,35 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
   filterAction: any = 0;
+  Roledetails: any;
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
+    this.Role();
+    this.Getall();
+  }
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;;
           if (this.roleId == '1') {
             this.valueannouncementAdd = 'Announcement-Add';
             this.valueannouncementEdit = 'Announcement-Edit';
@@ -110,7 +122,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
             this.valueannouncementstatus = 'Announcement-Status';
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Announcement-Add') {
                 this.valueannouncementAdd = 'Announcement-Add';
               }
@@ -130,7 +142,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-    this.Getall();
   }
 
   Getall() {

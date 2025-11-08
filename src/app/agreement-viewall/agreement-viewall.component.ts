@@ -9,6 +9,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-agreement-viewall',
@@ -26,10 +27,6 @@ export class AgreementViewallComponent {
   displayedColumns: string[] = [
     'sno',
     'entityname',
-    // 'planname',
-    // 'agreementLink',
-    // 'servicefee',
-    // 'planoverview',
     'merchantName',
     'merchantDesignation',
     'stampAmount',
@@ -61,6 +58,7 @@ export class AgreementViewallComponent {
   valueagreeSignedCopy: any;
   valueagreementlink: any;
   search: boolean = false;
+  Roledetails: any;
 
   constructor(
     private service: FarginServiceService,
@@ -70,10 +68,23 @@ export class AgreementViewallComponent {
   ) { }
 
   ngOnInit(): void {
-    this.service.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAcces
           if (this.roleId == '1') {
             this.valueagreeExport = 'Entity Agreement-Export';
             this.valueagreeView = 'Entity Agreement-Plan Overview';
@@ -83,7 +94,7 @@ export class AgreementViewallComponent {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Entity Agreement-Export') {
                 this.valueagreeExport = 'Entity Agreement-Export';
               }
@@ -107,7 +118,6 @@ export class AgreementViewallComponent {
         }
       },
     });
-    this.Getall();
   }
 
   Getall() {

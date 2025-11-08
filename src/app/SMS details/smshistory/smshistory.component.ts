@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { SmscontentViewComponent } from '../smscontent-view/smscontent-view.component';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-smshistory',
@@ -86,6 +87,7 @@ export class SMSHistoryComponent {
   transactionValue: any;
   searchPerformed: boolean = false;
   filterAction: any = 0;
+  Roledetails: any;
 
   constructor(
     private service: FarginServiceService,
@@ -98,18 +100,29 @@ export class SMSHistoryComponent {
 
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+    this.Role();
+    this.Getall();
+  }
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
 
           if (this.roleId == 1) {
             this.valuesmshistoryexport = 'SMS History-Export';
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'SMS History-Export') {
                 this.valuesmshistoryexport = 'SMS History-Export';
               }
@@ -121,7 +134,6 @@ export class SMSHistoryComponent {
         }
       }
     });
-    this.Getall();
   }
 
   Getall() {
@@ -145,7 +157,7 @@ export class SMSHistoryComponent {
     });
     this.FromDateRange = '';
     this.ToDateRange = '';
-       this.filterAction = 0
+    this.filterAction = 0
   };
 
   checkDate() {

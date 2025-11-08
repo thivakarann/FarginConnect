@@ -12,7 +12,7 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import { EditwithdrawalComponent } from '../editwithdrawal/editwithdrawal.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { StatusWithdrawal } from '../../../fargin-model/fargin-model.module';
+import { Payload, StatusWithdrawal } from '../../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -54,6 +54,7 @@ export class ViewwithdrawalComponent {
   roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
+  Roledetails: any;
 
 
   constructor(
@@ -61,10 +62,12 @@ export class ViewwithdrawalComponent {
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
   ngOnInit(): void {
+    this.Role();
+
     this.service.viewwithdrawals().subscribe((res: any) => {
       this.viewwithdrawal = res.response;
       this.viewwithdrawal.reverse();
@@ -72,13 +75,20 @@ export class ViewwithdrawalComponent {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
+  }
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
 
           if (this.roleId == 1) {
             this.valuewithdrawalAdd = 'Withdrawal Fee-Add';
@@ -89,7 +99,7 @@ export class ViewwithdrawalComponent {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
 
               if (this.actions == 'Withdrawal Fee-Add') {
@@ -112,7 +122,6 @@ export class ViewwithdrawalComponent {
         }
       }
     })
-
   }
 
   applyFilter(event: Event) {

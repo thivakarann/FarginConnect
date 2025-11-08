@@ -9,6 +9,7 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-whatapp-bulk-upload-view',
@@ -39,18 +40,19 @@ export class WhatappBulkUploadViewComponent implements OnInit {
   valueresponse: any;
   getdashboard: any[] = [];
   actions: any;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   roleName = sessionStorage.getItem('roleName');
   searchPerformed: boolean = false;
   date1: any;
   ValueDownload: any;
   errorMessage: any;
+  Roledetails: any;
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
@@ -69,18 +71,28 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         this.dataSource.paginator = this.paginator;
       }
     });
+    this.Role();
+  }
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueresponse = 'WhatsApp Status-Response';
             this.ValueDownload = 'WhatsApp Status-UploadFile';
-          } else {
+          }
+          else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'WhatsApp Status-Response') {
                 this.valueresponse = 'WhatsApp Status-Response';
               }

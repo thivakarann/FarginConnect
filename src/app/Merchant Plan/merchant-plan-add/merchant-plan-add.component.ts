@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MerchantplanCreate } from '../../fargin-model/fargin-model.module';
+import { MerchantplanCreate, Payload } from '../../fargin-model/fargin-model.module';
 import { MatDialog } from '@angular/material/dialog';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
@@ -12,14 +12,13 @@ import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-s
   styleUrl: './merchant-plan-add.component.css',
 })
 export class MerchantPlanAddComponent implements OnInit {
+
   adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
   myForm!: FormGroup;
-  numberValue: number | any = null;
-  numberValues: number | any = null;
-  numberValue2: number | any = null;
-  numberValues2: number | any = null;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
+  details: any;
+
 
   constructor(
     public Merchantplanadd: FarginServiceService,
@@ -31,25 +30,28 @@ export class MerchantPlanAddComponent implements OnInit {
   ngOnInit(): void {
 
     this.myForm = new FormGroup({
+      businessCategoryId: new FormControl('', [
+        Validators.required,
+      ]),
       planName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
-      technicalAmount: new FormControl('', [
+      oneTimeSetupFee: new FormControl('', [
         Validators.required,
         Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$'),
       ]),
-      maintenanceAmount: new FormControl('', [
+      cloudFee: new FormControl('', [
         Validators.required,
         Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$'),
       ]),
-      frequency: new FormControl('', Validators.required),
-      renewalAmount: new FormControl('', [
+      cloudFeeFrequency: new FormControl('', Validators.required),
+      yearlyRenewalFee: new FormControl('', [
         Validators.required,
         Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$'),
       ]),
-      voiceBoxAdvRent: new FormControl('', [
+      voiceBoxRent: new FormControl('', [
         Validators.required,
         Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$'),
       ]),
@@ -57,62 +59,85 @@ export class MerchantPlanAddComponent implements OnInit {
         Validators.required,
         Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$'),
       ]),
-      countLimit: new FormControl('', [
+      customerOnboardLimit: new FormControl('', [
         Validators.required,
         Validators.pattern('^[1-9][0-9]*$'),
       ]),
     });
+    this.Businnescat();
+  }
+
+  Businnescat() {
+    const payload = {
+      status: 1,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.Merchantplanadd.ActiveBus(datamodal).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.details = JSON.parse(this.cryptoService.decrypt(res.data));;
+      }
+    })
+  }
+
+  get businessCategoryId() {
+    return this.myForm.get('businessCategoryId');
   }
 
   get planName() {
     return this.myForm.get('planName');
   }
 
-  get technicalAmount() {
-    return this.myForm.get('technicalAmount');
+  get oneTimeSetupFee() {
+    return this.myForm.get('oneTimeSetupFee');
   }
 
-  get maintenanceAmount() {
-    return this.myForm.get('maintenanceAmount');
+  get cloudFee() {
+    return this.myForm.get('cloudFee');
   }
 
-  get frequency() {
-    return this.myForm.get('frequency');
+  get cloudFeeFrequency() {
+    return this.myForm.get('cloudFeeFrequency');
   }
 
-  get renewalAmount() {
-    return this.myForm.get('renewalAmount');
+  get yearlyRenewalFee() {
+    return this.myForm.get('yearlyRenewalFee');
   }
 
-  get voiceBoxAdvRent() {
-    return this.myForm.get('voiceBoxAdvRent');
+  get voiceBoxRent() {
+    return this.myForm.get('voiceBoxRent');
   }
 
   get voiceBoxSetupFee() {
     return this.myForm.get('voiceBoxSetupFee');
   }
-  get countLimit() {
-    return this.myForm.get('countLimit');
+  get customerOnboardLimit() {
+    return this.myForm.get('customerOnboardLimit');
   }
   submit() {
     let submitModel: MerchantplanCreate = {
+      businessCategoryId: this.businessCategoryId?.value,
       planName: this.planName?.value.trim(),
-      technicalAmount: this.technicalAmount?.value,
-      maintenanceAmount: this.maintenanceAmount?.value,
-      voiceBoxAdvRent: this.voiceBoxAdvRent?.value,
+      oneTimeSetupFee: this.oneTimeSetupFee?.value,
+      cloudFee: this.cloudFee?.value,
+      voiceBoxRent: this.voiceBoxRent?.value,
       voiceBoxSetupFee: this.voiceBoxSetupFee?.value,
-      frequency: this.frequency?.value,
-      renewalAmount: this.renewalAmount?.value,
-      countLimit: this.countLimit?.value,
-      createdBy: this.adminName,
+      cloudFeeFrequency: this.cloudFeeFrequency?.value,
+      yearlyRenewalFee: this.yearlyRenewalFee?.value,
+      customerOnboardLimit: this.customerOnboardLimit?.value,
+      createdby: this.adminName,
     };
-    this.Merchantplanadd.merchantplanadd(submitModel).subscribe((res: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.Merchantplanadd.merchantplanadd(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }

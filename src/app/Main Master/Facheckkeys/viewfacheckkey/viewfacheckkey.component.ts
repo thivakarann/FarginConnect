@@ -5,13 +5,12 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { AddfacheckkeyComponent } from '../addfacheckkey/addfacheckkey.component';
 import { EditfacheckkeyComponent } from '../editfacheckkey/editfacheckkey.component';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
-import { Statusfacheckkey } from '../../../fargin-model/fargin-model.module';
+import { Statusfacheckkey, Getallstatus } from '../../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -57,6 +56,12 @@ export class ViewfacheckkeyComponent {
   copiedIndex: number = -1;
   copiedIndex2: number = -1;
   searchPerformed: boolean = false;
+  totalPages: any;
+  currentpage: any;
+  totalpage: any;
+  currentfilval: any;
+  currentfilvalShow: boolean = false;
+  Roledetails: any;
 
   constructor(
     private dialog: MatDialog,
@@ -67,69 +72,77 @@ export class ViewfacheckkeyComponent {
   ) { }
 
   ngOnInit() {
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          if (this.roleId == 1) {
-            this.valuefacheckAdd = 'FaCheck Key-Add';
-            this.valuefacheckexport = 'FaCheck Key-Export';
-            this.valuefacheckedit = 'FaCheck Key-Edit';
-            this.valuefacheckstatus = 'FaCheck Key-Status';
-          }
-          // else {
-          //   for (let datas of this.getdashboard) {
-
-          //     this.actions = datas.subPermissions;
-
-          //     if (this.actions == 'FaCheck Key-Add') {
-          //       this.valuefacheckAdd = 'FaCheck Key-Add';
-          //     }
-
-          //     if (this.actions == 'FaCheck Key-Export') {
-          //       this.valuefacheckexport = 'FaCheck Key-Export';
-          //     }
-
-          //     if (this.actions == 'FaCheck Key-Edit') {
-          //       this.valuefacheckedit = 'FaCheck Key-Edit';
-          //     }
-
-          //     if (this.actions == 'FaCheck Key-Status') {
-          //       this.valuefacheckstatus = 'FaCheck Key-Status';
-          //     }
-          //   }
-          // }
-        } else {
-          this.errorMessage = res.responseMessage;
-        }
-      },
-    });
     this.Getall();
   }
 
   Getall() {
-    this.service.viewfacheck().subscribe((res: any) => {
+    let submitModel: Getallstatus = {
+      pageNumber: 0,
+      pageSize: 5,
+      fromDate: '',
+      toDate: '',
+      status: -1,
+      searchContent: ''
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.viewfacheck(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.facheck = res.response.reverse();
-        this.dataSource = new MatTableDataSource(this.facheck);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.facheck = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.facheck.content);
+        this.totalPages = this.facheck.totalElements;
+        console.log(this.totalPages)
+        this.totalpage = this.facheck.size;
+        this.currentpage = this.facheck.number;
+        this.currentfilvalShow = false;
       }
       else {
         this.facheck = [];
-        this.dataSource = new MatTableDataSource(this.facheck);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(this.facheck.content);
+        this.totalPages = this.facheck.totalElements;
+        console.log(this.totalPages)
+        this.totalpage = this.facheck.size;
+        this.currentpage = this.facheck.number;
+        this.currentfilvalShow = false;
       }
     });
   };
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) {
+      this.toastr.error('Please Enter the Text');
+    }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: '',
+        pageSize: 5,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: filterValue
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.viewfacheck(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.facheck = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.facheck.content);
+          this.totalPages = this.facheck.totalElements;
+          this.totalpage = this.facheck.size;
+          this.currentpage = this.facheck.number;
+          this.currentfilvalShow = true;
+
+        } else {
+          this.facheck = [];
+          this.dataSource = new MatTableDataSource(this.facheck.content);
+          this.totalPages = this.facheck.totalElements;
+          this.totalpage = this.facheck.size;
+          this.currentpage = this.facheck.number;
+          this.currentfilvalShow = true;
+        }
+      });
     }
   };
 
@@ -166,6 +179,7 @@ export class ViewfacheckkeyComponent {
     this.copiedIndex = index;
     setTimeout(() => (this.copiedIndex = -1), 2000);
   }
+
   copyText1(text: string, index: number) {
     const el = document.createElement('textarea');
     el.value = text;
@@ -177,22 +191,112 @@ export class ViewfacheckkeyComponent {
     setTimeout(() => (this.copiedIndex2 = -1), 2000);
   }
 
-  onSubmit(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
+  onSubmit(id: any) {
     let submitModel: Statusfacheckkey = {
-      activeStatus: this.isChecked ? 1 : 0,
+      facheckKeyId: id,
     };
-    this.service.statusfacheck(id, submitModel).subscribe((res: any) => {
-      this.toastr.success(res.responseMessage);
-      setTimeout(() => {
-        this.Getall()
-      }, 200);
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.statusfacheck(datamodal).subscribe((res: any) => {
+      this.toastr.success(res.messageDescription);
+      setTimeout(() => { this.Getall() }, 200);
     });
   }
-  exportexcel() {
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.viewfacheck(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.facheck = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.facheck.content);
+          this.totalPages = this.facheck.totalElements;
+          this.totalpage = this.facheck.size;
+          this.currentpage = this.facheck.number;
+          this.currentfilvalShow = false;
+
+        } else {
+          this.facheck = [];
+          this.dataSource = new MatTableDataSource(this.facheck.content);
+          this.totalPages = this.facheck.totalElements;
+          this.totalpage = this.facheck.size;
+          this.currentpage = this.facheck.number;
+          this.currentfilvalShow = false;
+        }
+      });
+    }
+
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: this.currentfilval
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.viewfacheck(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.facheck = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.facheck.content);
+          this.totalPages = this.facheck.totalElements;
+          this.totalpage = this.facheck.size;
+          this.currentpage = this.facheck.number;
+
+        } else {
+          this.facheck = [];
+          this.dataSource = new MatTableDataSource(this.facheck.content);
+          this.totalPages = this.facheck.totalElements;
+          this.totalpage = this.facheck.size;
+          this.currentpage = this.facheck.number;
+        }
+      });
+    }
+
+  }
+
+  Exportall() {
+    if (this.totalPages != 0) {
+      const payload = {
+        pageNumber: 0,
+        pageSize: this.totalPages,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.viewfacheck(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.facheck = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.exportexcel(this.facheck.content);
+        } else {
+          console.error('NO Record Found');
+        }
+      });
+    }
+  }
+
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.facheck.forEach((element: any) => {
+    data.forEach((element: any) => {
       let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
@@ -201,18 +305,18 @@ export class ViewfacheckkeyComponent {
       this.response.push(element?.secretKey);
       this.response.push(element?.applicationId);
       this.response.push(element?.mode);
-      if (element?.activeStatus == '1') { this.response.push('Active'); }
+      if (element?.status == '1') { this.response.push('Active'); }
       else { this.response.push('Inactive'); }
-      this.response.push(element?.createdBy);
-      if (element?.createdAt) {
-        this.response.push(moment(element?.createdAt).format('DD/MM/yyyy-hh:mm a').toString());
+      this.response.push(element?.createdby);
+      if (element?.createdDateTime) {
+        this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
       }
       else {
         this.response.push('');
       }
-      this.response.push(element?.modifiedBy);
-      if (element?.modifiedAt) {
-        this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
+      this.response.push(element?.modifiedDateTime);
+      if (element?.modifiedDateTime) {
+        this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy-hh:mm a').toString());
       }
       else {
         this.response.push('');

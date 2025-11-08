@@ -10,6 +10,7 @@ import { OfflineDetailsComponent } from '../offline-details/offline-details.comp
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-overall-individual-customerview',
@@ -185,6 +186,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   selectedTransactionType: string = 'Due Transaction';
   currentfilvals: any;
   refundadditional: any;
+  Roledetails: any;
 
   constructor(
     public service: FarginServiceService,
@@ -193,15 +195,46 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {
 
-    this.service.rolegetById(this.roleId).subscribe({
+    this.Role();
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+
+    this.service.CustomerTotalPlanAmount(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.totalamount = res.response.totalAmount;
+      }
+    });
+
+    this.service.ViewCustomerBasicInfo(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.viewcustomer = res.response;
+      } else {
+        this.viewData = false;
+      }
+    });
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;;
           if (this.roleId == 1) {
             this.valuecustomerinfo = 'Customers-Customer Info';
             this.valueSetupBox = 'Customers-Set-Topbox';
@@ -216,7 +249,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Customers-Additional Payments Receipt') {
                 this.valueaddinvoice = 'Customers-Additional Payments Receipt'
@@ -255,24 +288,6 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
         else {
           this.errorMessage = res.responseMessage;
         }
-      }
-    });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    this.service.CustomerTotalPlanAmount(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.totalamount = res.response.totalAmount;
-      }
-    });
-
-    this.service.ViewCustomerBasicInfo(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.viewcustomer = res.response;
-      } else {
-        this.viewData = false;
       }
     });
   }

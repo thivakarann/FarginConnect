@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { RegionAddComponent } from './region-add/region-add.component';
 import { RegionEditComponent } from './region-edit/region-edit.component';
-import { RegionStatus } from '../../fargin-model/fargin-model.module';
+import { Payload, RegionStatus } from '../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -53,6 +53,7 @@ export class RegionComponent implements OnInit {
   actions: any;
   errorMessage: any;
   searchPerformed: boolean = false;
+  Roledetails: any;
 
   constructor(
     private dialog: MatDialog,
@@ -63,11 +64,22 @@ export class RegionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.Role();
+    this.Getall();
+  };
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.regionAdd = 'Region-Add';
             this.regionexport = 'Region-Export';
@@ -76,7 +88,7 @@ export class RegionComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Region-Add') {
                 this.regionAdd = 'Region-Add';
               }
@@ -96,8 +108,7 @@ export class RegionComponent implements OnInit {
         }
       },
     });
-    this.Getall();
-  };
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -7,8 +7,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { EditcategoryComponent } from '../editcategory/editcategory.component';
 import { ToastrService } from 'ngx-toastr';
-import { Businessstatus } from '../../../fargin-model/fargin-model.module';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { Businessstatus, Payload, Getallstatus } from '../../../fargin-model/fargin-model.module';
 import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
@@ -48,24 +47,44 @@ export class ViewcategoryComponent implements OnInit {
   valueCategorystatus: any;
   valueCategoryEdit: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   actions: any;
   errorMessage: any;
   searchPerformed: boolean = false;
+  details: any;
+  currentpage: any;
+  totalpage: any;
+  totalPages: any;
+  currentfilvalShow: boolean = false;
+  currentfilval: any;
+  categoryList: any;
+  Roledetails: any;
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
-  ) { }
+  ) { this.Getall(); }
 
   ngOnInit() {
-    this.service.rolegetById(this.roleId).subscribe({
+    this.Role();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueCategoryAdd = 'Bussiness Category-Add';
             this.valueCategoryEdit = 'Bussiness Category-Edit';
@@ -74,7 +93,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Bussiness Category-Add') {
                 this.valueCategoryAdd = 'Bussiness Category-Add';
@@ -99,30 +118,74 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   }
 
   Getall() {
-    this.service.Businesscategory().subscribe((res: any) => {
+    let submitModel: Getallstatus = {
+      pageNumber: 0,
+      pageSize: 5,
+      fromDate: '',
+      toDate: '',
+      status: -1,
+      searchContent: ''
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.Businesscategory(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.businesscategory = res.response;
-        this.businesscategory.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategory);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.businesscategory = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.businesscategory.content);
+        this.categoryList = this.businesscategory.content;
+        this.totalPages = this.businesscategory.totalElements;
+        this.totalpage = this.businesscategory.size;
+        this.currentpage = this.businesscategory.number;
+        this.currentfilvalShow = false;
       } else {
         this.businesscategory = [];
-        this.dataSource = new MatTableDataSource(this.businesscategory);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(this.businesscategory.content);
+        this.categoryList = this.businesscategory.content;
+        this.totalPages = this.businesscategory.totalElements;
+        this.totalpage = this.businesscategory.size;
+        this.currentpage = this.businesscategory.number;
+        this.currentfilvalShow = false;
       }
     });
   };
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) {
+      this.toastr.error('Please Enter the Text');
     }
-  }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: '',
+        pageSize: 5,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: filterValue
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.Businesscategory(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategory = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.businesscategory.content);
+          this.totalPages = this.businesscategory.totalElements;
+          this.totalpage = this.businesscategory.size;
+          this.currentpage = this.businesscategory.number;
+          this.currentfilvalShow = true;
+
+        } else {
+          this.businesscategory = [];
+          this.dataSource = new MatTableDataSource(this.businesscategory.content);
+          this.totalPages = this.businesscategory.totalElements;
+          this.totalpage = this.businesscategory.size;
+          this.currentpage = this.businesscategory.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+  };
 
   create() {
     const dialogRef = this.dialog.open(AddcategoryComponent, {
@@ -147,31 +210,121 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     });
   }
 
-  onSubmit(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
+  onSubmit(id: any) {
     let submitModel: Businessstatus = {
-      activeStatus: this.isChecked ? 1 : 0,
+      businessCategoryId: id,
+      modifiedBy: this.adminName,
+      modifierRole: this.adminName,
     };
-    this.service.Businessactive(id, submitModel).subscribe((res: any) => {
-      this.toastr.success(res.responseMessage);
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.Businessactive(datamodal).subscribe((res: any) => {
+      this.toastr.success(res.messageDescription);
       setTimeout(() => { this.Getall() }, 200);
     });
   }
 
-  exportexcel() {
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.Businesscategory(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategory = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.businesscategory.content);
+          this.totalPages = this.businesscategory.totalElements;
+          this.totalpage = this.businesscategory.size;
+          this.currentpage = this.businesscategory.number;
+          this.currentfilvalShow = false;
+        } else {
+          this.businesscategory = [];
+          this.dataSource = new MatTableDataSource(this.businesscategory.content);
+          this.totalPages = this.businesscategory.totalElements;
+          this.totalpage = this.businesscategory.size;
+          this.currentpage = this.businesscategory.number;
+          this.currentfilvalShow = false;
+        }
+      });
+    }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: this.currentfilval
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.Businesscategory(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategory = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.businesscategory.content);
+          this.totalPages = this.businesscategory.totalElements;
+          this.totalpage = this.businesscategory.size;
+          this.currentpage = this.businesscategory.number;
+        } else {
+          this.businesscategory = [];
+          this.dataSource = new MatTableDataSource(this.businesscategory.content);
+          this.totalPages = this.businesscategory.totalElements;
+          this.totalpage = this.businesscategory.size;
+          this.currentpage = this.businesscategory.number;
+        }
+      });
+    }
+  }
+
+  Exportall() {
+    if (this.totalPages != 0) {
+      const payload = {
+        pageNumber: 0,
+        pageSize: this.totalPages,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.Businesscategory(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategory = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.exportexcel(this.businesscategory.content);
+        }
+        else {
+          this.toastr.error('No record found');
+        }
+      });
+    }
+  }
+
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.businesscategory.forEach((element: any) => {
+    data.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.categoryName);
+      this.response.push(element?.businessCategoryName);
       this.response.push(element?.mccCode);
       this.response.push(element?.autoDebitDate);
-      if (element.activeStatus == 1) { this.response.push('Active'); }
+      if (element.status == 1) { this.response.push('Active'); }
       else { this.response.push('InActive'); }
-      this.response.push(element?.createdBy);
+      this.response.push(element?.createdby);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
       if (element.modifiedDateTime) {

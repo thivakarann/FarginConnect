@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { customizepay, Otherpayment } from '../../../fargin-model/fargin-model.module';
+import { customizepay, Otherpayment, Payload } from '../../../fargin-model/fargin-model.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { OtherpayManualpaymentComponent } from '../otherpay-manualpayment/otherpay-manualpayment.component';
@@ -118,6 +118,7 @@ export class OtherpaymentsViewallComponent {
   valueCustomizationpay: any;
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
+  Roledetails: any;
 
   constructor(private cryptoService: EncyDecySericeService, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
@@ -126,48 +127,8 @@ export class OtherpaymentsViewallComponent {
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString()
 
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
 
-          if (this.roleId == 1) {
-            this.valueCustomizationexport = 'Customized Payment-Export'
-            this.valueCustomizationView = 'Customized Payment-View'
-            this.valueCustomizationReceipt = 'Customized Payment-Invoice'
-            this.valueCustomizationcheck = 'Customized Payment-Check Status'
-            this.valueCustomizationpay = 'Customized Payment-Manual Payment'
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              if (this.actions == 'Customized Payment-Export') {
-                this.valueCustomizationexport = 'Customized Payment-Export'
-              }
-              if (this.actions == 'Customized Payment-View') {
-                this.valueCustomizationView = 'Customized Payment-View'
-              }
-              if (this.actions == 'Customized Payment-Invoice') {
-                this.valueCustomizationReceipt = 'Customized Payment-Invoice'
-              }
-
-              if (this.actions == 'Customized Payment-Check Status') {
-                this.valueCustomizationcheck = 'Customized Payment-Check Status'
-              }
-
-              if (this.actions == 'Customized Payment-Manual Payment') {
-                this.valueCustomizationpay = 'Customized Payment-Manual Payment'
-              }
-
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    });
-
+    this.Role();
     this.Getall();
 
     this.Otherpayment = this.fb.group({
@@ -195,6 +156,57 @@ export class OtherpaymentsViewallComponent {
   get endDate() {
     return this.Otherpayment.get('endDate');
   };
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
+
+          if (this.roleId == 1) {
+            this.valueCustomizationexport = 'Customized Payment-Export'
+            this.valueCustomizationView = 'Customized Payment-View'
+            this.valueCustomizationReceipt = 'Customized Payment-Invoice'
+            this.valueCustomizationcheck = 'Customized Payment-Check Status'
+            this.valueCustomizationpay = 'Customized Payment-Manual Payment'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissionName;
+              if (this.actions == 'Customized Payment-Export') {
+                this.valueCustomizationexport = 'Customized Payment-Export'
+              }
+              if (this.actions == 'Customized Payment-View') {
+                this.valueCustomizationView = 'Customized Payment-View'
+              }
+              if (this.actions == 'Customized Payment-Invoice') {
+                this.valueCustomizationReceipt = 'Customized Payment-Invoice'
+              }
+
+              if (this.actions == 'Customized Payment-Check Status') {
+                this.valueCustomizationcheck = 'Customized Payment-Check Status'
+              }
+
+              if (this.actions == 'Customized Payment-Manual Payment') {
+                this.valueCustomizationpay = 'Customized Payment-Manual Payment'
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
+  }
 
   Getall() {
     this.service.OtherPay(this.pageSize, this.pageIndex).subscribe((res: any) => {

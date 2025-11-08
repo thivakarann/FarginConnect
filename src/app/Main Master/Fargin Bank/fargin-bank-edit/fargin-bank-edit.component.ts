@@ -58,10 +58,6 @@ export class FarginBankEditComponent {
       ]),
     });
 
-    this.service.roleactiveViewall().subscribe((res: any) => {
-      this.activeRole = res.response;
-    });
-
     if (this.data && this.data.value) {
       this.BankFormedit.patchValue({
         accountHolderName: this.data.value.accountHolderName,
@@ -72,8 +68,6 @@ export class FarginBankEditComponent {
         ledgerId: this.data.value.ledgerId,
         typemode: this.data.value.typeMode,
       });
-    } else {
-      console.error('Data is not defined');
     }
   }
   get accountHolderName() {
@@ -112,14 +106,16 @@ export class FarginBankEditComponent {
       typeMode: this.typemode?.value,
       adminBankId: this.adminBankId,
     };
-
-    this.service.FarginUpdate(submitmodel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitmodel))
+    }
+    this.service.FarginUpdate(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toaster.success(res.responseMessage);
+        this.toaster.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {
-        this.toaster.error(res.responseMessage);
+        this.toaster.error(res.messageDescription);
       }
     });
   }

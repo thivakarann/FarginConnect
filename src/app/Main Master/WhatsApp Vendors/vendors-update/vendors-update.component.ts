@@ -12,8 +12,8 @@ import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-dec
   styleUrl: './vendors-update.component.css'
 })
 export class VendorsUpdateComponent {
- adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
- adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
 
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
@@ -22,7 +22,7 @@ export class VendorsUpdateComponent {
   constructor(
     public service: FarginServiceService,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toaster: ToastrService
   ) { }
@@ -63,15 +63,21 @@ export class VendorsUpdateComponent {
 
     this.myForm.patchValue({
       vendorName: this.data?.value?.vendorName,
-      vendorMobile: this.data?.value?.vendorMobile,
+      vendorMobile: this.data?.value?.vendorMobileNumber,
       vendorAddress: this.data?.value?.vendorAddress,
       vendorGst: this.data?.value?.vendorGst,
       smsAmount: this.data?.value?.smsAmount.toFixed(2),
       userName: this.data?.value?.userName,
       password: this.data?.value?.password,
-      token: this.data?.value?.token
+      token: this.data?.value?.token,
+      whatsappVendorId: this.data?.value?.whatsappVendorId
     })
+
   };
+
+  get whatsappVendorId() {
+    return this.myForm.get('whatsappVendorId');
+  }
 
   get vendorName() {
     return this.myForm.get('vendorName');
@@ -105,26 +111,33 @@ export class VendorsUpdateComponent {
 
   Update() {
     let submitModel: VendorsUpdate = {
+      whatsappVendorId: this.data?.value?.whatsappVendorId,
       vendorName: this.vendorName?.value,
-      vendorMobile: this.vendorMobile?.value,
+      vendorMobileNumber: this.vendorMobile?.value,
       vendorAddress: this.vendorAddress?.value,
       vendorGst: this.vendorGst?.value,
       smsAmount: this.smsAmount?.value,
       userName: this.userName?.value,
       password: this.password?.value,
       token: this.token?.value,
-      modifiedBy: this.adminName
+      modifiedBy: this.adminName,
+      modifierRole: this.adminName
     }
-    this.service.VendorsUpdate(this.data?.value?.vendorAdminId, submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.VendorsUpdate(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toaster.success(res.responseMessage);
+        this.toaster.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       }
       else {
-        this.toaster.error(res.responseMessage);
+        this.toaster.error(res.messageDescription);
       }
     })
   }
+
+
 
 }

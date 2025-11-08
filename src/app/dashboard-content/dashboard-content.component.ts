@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { Chart, ArcElement, Tooltip, Legend, DoughnutController, registerables, ChartData, } from 'chart.js';
-import { DashboardData } from '../fargin-model/fargin-model.module';
+import { DashboardData, Payload } from '../fargin-model/fargin-model.module';
 import { FormControl, FormGroup } from '@angular/forms';
 import moment from 'moment';
 import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
@@ -67,73 +67,19 @@ export class DashboardContentComponent {
     oneTimeChartCanvas: null,
     otherPaymentChartCanvas: null,
   };
+  Roledetails: any;
 
   constructor(private service: FarginServiceService, private cryptoService: EncyDecySericeService, private sessionValidator: SessionValidatorService) { }
 
   ngOnInit(): void {
 
     this.sessionValidator.startSessionMonitor();
-
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          if (this.roleId == 1) {
-            this.valueDashboard = 'Overall-View';
-            this.valueDashboardTransactionOverview = 'Today Transaction Overview'
-            this.valuetotalmerchants = 'Total Merchants'
-            this.valuetransactionoverview = 'Transaction Overview'
-            this.valueTransactionDetails = 'Transaction Details'
-            this.valuetoppay = 'Top Payment Methods'
-            this.valueTotalcount = 'Total Count'
-            this.valuetoppaymentmethod = 'Seven Days Payment Method'
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-
-
-              if (this.actions == 'Overall-View') {
-                this.valueDashboard = 'Overall-View';
-              }
-              if (this.actions == 'Today Transaction Overview') {
-                this.valueDashboardTransactionOverview = 'Today Transaction Overview'
-              }
-              if (this.actions == 'Total Merchants') {
-                this.valuetotalmerchants = 'Total Merchants'
-              }
-              if (this.actions == 'Transaction Overview') {
-                this.valuetransactionoverview = 'Transaction Overview'
-              }
-              if (this.actions == 'Transaction Details') {
-                this.valueTransactionDetails = 'Transaction Details'
-              }
-              if (this.actions == 'Top Payment Methods') {
-                this.valuetoppay = 'Top Payment Methods'
-              }
-              if (this.actions == 'Total Count') {
-                this.valueTotalcount = 'Total Count'
-              }
-              if (this.actions == 'Seven Days Payment Method') {
-                this.valuetoppaymentmethod = 'Seven Days Payment Method'
-
-              }
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    });
-
     this.transactionform = new FormGroup({
       selectperiods: new FormControl('', []),
       selecttransaction: new FormControl('', []),
     });
-
+    this.Role();
     this.createEmptyCharts();
-
     this.service.dashboardCount().subscribe((res: any) => {
       this.counts = res.response;
     });
@@ -187,6 +133,66 @@ export class DashboardContentComponent {
 
   get selecttransaction() {
     return this.transactionform.get('selecttransaction');
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
+          if (this.roleId == 1) {
+            this.valueDashboard = 'Overall-View';
+            this.valueDashboardTransactionOverview = 'Today Transaction Overview'
+            this.valuetotalmerchants = 'Total Merchants'
+            this.valuetransactionoverview = 'Transaction Overview'
+            this.valueTransactionDetails = 'Transaction Details'
+            this.valuetoppay = 'Top Payment Methods'
+            this.valueTotalcount = 'Total Count'
+            this.valuetoppaymentmethod = 'Seven Days Payment Method'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissionName;
+              if (this.actions == 'Overall-View') {
+                this.valueDashboard = 'Overall-View';
+              }
+              if (this.actions == 'Today Transaction Overview') {
+                this.valueDashboardTransactionOverview = 'Today Transaction Overview'
+              }
+              if (this.actions == 'Total Merchants') {
+                this.valuetotalmerchants = 'Total Merchants'
+              }
+              if (this.actions == 'Transaction Overview') {
+                this.valuetransactionoverview = 'Transaction Overview'
+              }
+              if (this.actions == 'Transaction Details') {
+                this.valueTransactionDetails = 'Transaction Details'
+              }
+              if (this.actions == 'Top Payment Methods') {
+                this.valuetoppay = 'Top Payment Methods'
+              }
+              if (this.actions == 'Total Count') {
+                this.valueTotalcount = 'Total Count'
+              }
+              if (this.actions == 'Seven Days Payment Method') {
+                this.valuetoppaymentmethod = 'Seven Days Payment Method'
+
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
   }
 
 

@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
-import { OffilneTransaction } from '../../../fargin-model/fargin-model.module';
+import { OffilneTransaction, Payload } from '../../../fargin-model/fargin-model.module';
 import { MerchantTransactionViewComponent } from '../../../Overall-Transactions/merchant-transaction-view/merchant-transaction-view.component';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -71,6 +71,7 @@ export class OfflineTransactionsComponent {
   pageIndex: any;
   pageSize: any;
   filterAction: any = 0;
+  Roledetails: any;
   constructor(
     private service: FarginServiceService,
     private dialog: MatDialog,
@@ -86,17 +87,33 @@ export class OfflineTransactionsComponent {
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
 
-    this.service.rolegetById(this.roleId).subscribe({
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+      this.accountId = param.Alldata1;
+    });
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuestaticexport = 'Entity View Offline-Export';
             this.valuestaticsettlement = 'Entity View Offline-Settlement';
             this.valuestaticview = 'Entity View Offline-View';
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Entity View Offline-Export') {
                 this.valuestaticexport = 'Entity View Offline-Export';
               }
@@ -113,13 +130,6 @@ export class OfflineTransactionsComponent {
         }
       },
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-      this.accountId = param.Alldata1;
-    });
-
-    this.Getall();
   }
 
   applyFilter(event: Event) {

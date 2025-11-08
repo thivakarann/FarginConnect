@@ -7,9 +7,10 @@ import { Workbook } from 'exceljs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Adminstatus } from '../../fargin-model/fargin-model.module';
+import { Adminstatus, Payload } from '../../fargin-model/fargin-model.module';
 import { Router } from '@angular/router';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-admin',
@@ -50,10 +51,16 @@ export class AdminComponent implements OnInit {
   adminUserId: any;
   unblockvalue: any;
   searchPerformed: boolean = false;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  currentfilvalShow: boolean = false;
+  currentfilval: any;
 
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
     private router: Router
   ) { }
 
@@ -62,39 +69,74 @@ export class AdminComponent implements OnInit {
   }
 
   Getall() {
-    this.service.GetAdminDetails().subscribe((res: any) => {
+    const payload = {
+      pageNumber: 0,
+      pageSize: 5,
+      fromDate: '',
+      toDate: '',
+      status: -1,
+      searchContent: ''
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.GetAdminDetails(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.data = res.response;
-        this.dataSource = new MatTableDataSource(this.data.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => {
-          const transformedFilter = filter.trim().toLowerCase();
-          const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
-            return (currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]));
-          }, '').toLowerCase();
-          return dataStr.indexOf(transformedFilter) !== -1;
-        };
+        this.data = JSON.parse(this.cryptoService.decrypt(res.data));;
+        this.dataSource = new MatTableDataSource(this.data.content);
+        this.totalPages = this.data.totalElements;
+        this.totalpage = this.data.size;
+        this.currentpage = this.data.number;
+        this.currentfilvalShow = false;
       } else {
         this.data = [];
-        this.dataSource = new MatTableDataSource(this.data.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(this.data.content);
+        this.totalPages = this.data.totalElements;
+        this.totalpage = this.data.size;
+        this.currentpage = this.data.number;
+        this.currentfilvalShow = false;
       }
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) {
+      this.toastr.error('Please Enter the Text');
     }
-  }
+    else {
+      const payload = {
+        pageNumber: 0,
+        pageSize: 5,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: filterValue
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.GetAdminDetails(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.data = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.dataSource = new MatTableDataSource(this.data.content);
+          this.totalPages = this.data.totalElements;
+          this.totalpage = this.data.size;
+          this.currentpage = this.data.number;
+          this.currentfilvalShow = true;
+        } else {
+          this.data = [];
+          this.dataSource = new MatTableDataSource(this.data.content);
+          this.totalPages = this.data.totalElements;
+          this.totalpage = this.data.size;
+          this.currentpage = this.data.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+  };
 
   admincreate() {
-    this.router.navigate([`/dashboard/admincreate`],{
+    this.router.navigate([`/dashboard/admincreate`], {
     });
   }
 
@@ -113,51 +155,141 @@ export class AdminComponent implements OnInit {
   }
 
   unblock(id: any) {
-    this.service.unblockAccount(id).subscribe((res: any) => {
+    const payload = {
+      userId: id,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.unblockAccount(datamodal).subscribe((res: any) => {
       this.unblockvalue = res.response;
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          this.Getall();
-        }, 200);
+        this.toastr.success(res.messageDescription);
+        setTimeout(() => { this.Getall(); }, 200);
       } else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: string) {
-    this.adminUserId = id;
     this.isChecked = event.checked;
     let submitModel: Adminstatus = {
-      adminUserId: this.adminUserId,
-      accountStatus: this.isChecked ? 1 : 0,
+      userId: id,
+      modifiedBy: '',
+      modifierRole: ''
     };
-    this.service.UpdateAdminStatus(submitModel).subscribe((res: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.UpdateAdminStatus(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
         this.data = res.response;
-        this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          this.Getall();
-        }, 200);
+        this.toastr.success(res.messageDescription);
+        setTimeout(() => { this.Getall(); }, 200);
       } else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }
 
-  exportexcel() {
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      const payload = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal: Payload = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.GetAdminDetails(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.data = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.dataSource = new MatTableDataSource(this.data.content);
+          this.totalPages = this.data.totalElements;
+          this.totalpage = this.data.size;
+          this.currentpage = this.data.number;
+          this.currentfilvalShow = false;
+        } else {
+          this.data = [];
+          this.dataSource = new MatTableDataSource(this.data.content);
+          this.totalPages = this.data.totalElements;
+          this.totalpage = this.data.size;
+          this.currentpage = this.data.number;
+          this.currentfilvalShow = false;
+        }
+      });
+    } else {
+      const payload = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: this.currentfilval
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.GetAdminDetails(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.data = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.dataSource = new MatTableDataSource(this.data.content);
+          this.totalPages = this.data.totalElements;
+          this.totalpage = this.data.size;
+          this.currentpage = this.data.number;
+          this.currentfilvalShow = true;
+        } else {
+          this.data = [];
+          this.dataSource = new MatTableDataSource(this.data.content);
+          this.totalPages = this.data.totalElements;
+          this.totalpage = this.data.size;
+          this.currentpage = this.data.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+
+  }
+
+  Exportall() {
+    if (this.totalPages != 0) {
+      const payload = {
+        pageNumber: 0,
+        pageSize: this.totalPages,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.GetAdminDetails(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.data = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.exportexcel(this.data.content);
+        }
+      });
+    } else {
+      this.toastr.error('No record found');
+    }
+  }
+
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.data.forEach((element: any) => {
-      let createdate = element.createdAt;
+    data.forEach((element: any) => {
+      let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-      let moddate = element.modifiedAt;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.adminName);
-      this.response.push(element?.roleModel?.roleName);
+      this.response.push(element?.name);
+      this.response.push(element?.roleEntity?.roleName);
       this.response.push(element?.gender);
       this.response.push(element?.emailAddress);
       this.response.push(element?.mobileNumber);
@@ -166,22 +298,21 @@ export class AdminComponent implements OnInit {
       this.response.push(element?.city);
       this.response.push(element?.state);
       this.response.push(element?.pincode);
-      if (element?.accountStatus == 1) {
+      if (element?.status == 1) {
         this.response.push('Active');
       } else {
         this.response.push('InActive');
       }
-      if (element?.loginFailedCount == 6) {
+      if (element?.failedLoginCount == 6) {
         this.response.push('blocked');
       } else {
         this.response.push('Unblocked');
       }
-      this.response.push(element?.createdBy);
+      this.response.push(element?.createdby);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-      if (element?.modifiedAt) {
-        this.response.push(
-          moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString()
+      if (element?.modifiedDateTime) {
+        this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy-hh:mm a').toString()
         );
       } else {
         this.response.push('');

@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { Busineessstatus } from '../../../fargin-model/fargin-model.module';
+import { Busineessstatus, Payload } from '../../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -49,7 +49,7 @@ export class ViewagreementplanComponent {
   valueCategorystatus: any;
   valueCategoryEdit: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   agreementplan: any;
@@ -59,20 +59,33 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valuebussinessview: any;
   valuebussinessstatus: any;
   searchPerformed: boolean = false;
+  Roledetails: any;
 
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
     private router: Router,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit() {
-    this.service.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  };
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuebussinesscreate = 'Business Plan-Add';
             this.valuebussinessexport = 'Business Plan-Export';
@@ -81,7 +94,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
             this.valuebussinessstatus = 'Business Plan-Status';
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Business Plan-Add') {
                 this.valuebussinesscreate = 'Business Plan-Add';
               }
@@ -104,8 +117,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-    this.Getall();
-  };
+  }
   Getall() {
     this.service.viewagreementplan().subscribe((res: any) => {
       if (res.flag == 1) {

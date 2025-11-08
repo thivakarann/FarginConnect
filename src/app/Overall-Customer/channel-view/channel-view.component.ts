@@ -24,7 +24,7 @@ export class ChannelViewComponent {
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   merchantId = sessionStorage.getItem('merchantId') || '';
   Merchatid: any;
   searchPerformed: boolean = false;
@@ -37,7 +37,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   constructor(
     public LCOPChannelList: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
 
   ) { }

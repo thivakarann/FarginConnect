@@ -12,6 +12,10 @@ import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload, Getallstatus } from '../../../fargin-model/fargin-model.module';
+import { ToastrService } from 'ngx-toastr';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { Refundstatus } from '../../../Fargin Model/fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-refund-period-viewall',
@@ -24,6 +28,7 @@ export class RefundPeriodViewallComponent implements OnInit {
     'refundDayId',
     'paymentMethod',
     'day',
+    'status',
     'Edit',
     'View',
     'createdBy',
@@ -40,7 +45,8 @@ export class RefundPeriodViewallComponent implements OnInit {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   getdashboard: any[] = [];
   valueexport: any;
   errorMessage: any;
@@ -49,20 +55,41 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valueedit: any;
   searchPerformed: boolean = false;
   History: any;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  currentfilvalShow: boolean = false;
+  currentfilval: any;
+  Roledetails: any;
 
   constructor(
     public refunddetails: FarginServiceService,
     private router: Router,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
-    this.refunddetails.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  };
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+
+    this.refunddetails.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueexport = 'Refund Period-Export'
             this.valueadd = 'Refund Period-Add'
@@ -71,7 +98,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Refund Period-Export') {
                 this.valueexport = 'Refund Period-Export'
               }
@@ -98,31 +125,79 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   };
 
   Getall() {
-    this.refunddetails.RefundperiodGetall().subscribe((res: any) => {
+    let submitModel: Getallstatus = {
+      pageNumber: 0,
+      pageSize: 5,
+      fromDate: '',
+      toDate: '',
+      status: -1,
+      searchContent: ''
+    };
+
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+
+    this.refunddetails.RefundperiodGetall(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.viewall.content);
+        this.totalPages = this.viewall.totalElements;
+        console.log(this.totalPages)
+        this.totalpage = this.viewall.size;
+        this.currentpage = this.viewall.number;
+        this.currentfilvalShow = false;
+
       }
       else if (res.flag == 2) {
         this.viewall = [];
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(this.viewall.content);
+        this.totalPages = this.viewall.totalElements;
+        console.log(this.totalPages)
+        this.totalpage = this.viewall.size;
+        this.currentpage = this.viewall.number;
+        this.currentfilvalShow = false;
       }
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) {
+      this.toastr.error('Please Enter the Text');
     }
-  }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: '',
+        pageSize: 5,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: filterValue
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.refunddetails.RefundperiodGetall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+  };
+
   Addrefund() {
     const dialogRef = this.dialog.open(RefundPeriodAddComponent, {
       enterAnimationDuration: "500ms",
@@ -152,18 +227,119 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     });
   };
 
-  exportexcel() {
+  onSubmit(id: any) {
+    const submitModel: Refundstatus = {
+      refundPeriodId: id,
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.refunddetails.Refunsupdatestatus(datamodal).subscribe((res: any) => {
+      this.toastr.success(res.messageDescription);
+      setTimeout(() => { this.Getall() }, 200);
+    });
+  }
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.refunddetails.RefundperiodGetall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = false;
+
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = false;
+        }
+      });
+    }
+
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: this.currentfilval
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.refunddetails.RefundperiodGetall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+        }
+      });
+    }
+  }
+
+  Exportall() {
+    if (this.totalPages != 0) {
+      const payload = {
+        pageNumber: 0,
+        pageSize: this.totalPages,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.refunddetails.RefundperiodGetall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.exportexcel(this.viewall.content);
+        } else {
+          console.error('NO Record Found');
+        }
+      });
+    }
+  }
+
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.viewall.forEach((element: any) => {
+    data.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
       if (element?.paymentMethod == 'UPI') { this.response.push("UPI/QR"); }
       else { this.response.push(element?.paymentMethod); }
-      this.response.push(element?.day);
-      this.response.push(element?.createdBy);
+      this.response.push(element?.refundPeriods);
+      this.response.push(element?.createdby);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
       if (element?.modifiedDateTime != null) {

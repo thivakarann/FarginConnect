@@ -3,7 +3,7 @@ import { KeysUpdateComponent } from '../keys-update/keys-update.component';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { KeysUpdate } from '../../fargin-model/fargin-model.module';
+import { KeysUpdate, Payload } from '../../fargin-model/fargin-model.module';
 import { ToastrService } from 'ngx-toastr';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
@@ -35,6 +35,7 @@ export class ViewOnboardinfoComponent implements OnInit {
   selectedOption: any;
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
+  Roledetails: any;
   constructor(private cryptoService: EncyDecySericeService,
     private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private service: FarginServiceService, private toaster: ToastrService,
   ) {
@@ -60,20 +61,31 @@ export class ViewOnboardinfoComponent implements OnInit {
 
     this.service.EntityViewbyid(this.merchantId).subscribe((res: any) => {
       this.detaislone = res.response.merchantpersonal;
-    })
-    this.service.rolegetById(this.roleId).subscribe({
+    });
+
+    this.Role();
+
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueonboardadd = 'Entity View-Onboard Information-Add'
           }
           else {
             for (let datas of this.getdashboard) {
 
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Entity View-Onboard Information-Add') {
                 this.valueonboardadd = 'Entity View-Onboard Information-Add'
               }

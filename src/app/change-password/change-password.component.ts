@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ChangePassword } from '../fargin-model/fargin-model.module';
+import { ChangePassword, Payload } from '../fargin-model/fargin-model.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
@@ -23,6 +23,7 @@ export class ChangePasswordComponent implements OnInit {
   isPasswordMatch: boolean = false;
   changeForm!: FormGroup;
   adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+  email: any = this.cryptoService.decrypt(sessionStorage.getItem('Four') || '');
   constructor(
     private router: Router,
     private service: FarginServiceService,
@@ -82,16 +83,20 @@ export class ChangePasswordComponent implements OnInit {
 
   Onsubmit() {
     let submitModel: ChangePassword = {
-      userPassword: this.oldpassword?.value,
+      oldPassword: this.oldpassword?.value,
       newPassword: this.newpassword?.value,
+      emailAddress: this.email
     };
-    this.service.ChangePassword(this.adminId, submitModel).subscribe((res: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.ChangePassword(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.dialog.closeAll();
         this.router.navigateByUrl('/login-page');
       } else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }

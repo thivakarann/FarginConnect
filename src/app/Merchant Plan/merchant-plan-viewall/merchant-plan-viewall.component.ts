@@ -6,8 +6,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MerchantPlanAddComponent } from '../merchant-plan-add/merchant-plan-add.component';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MerchantPlanStatus } from '../../fargin-model/fargin-model.module';
+import { MerchantPlanStatus, Payload } from '../../fargin-model/fargin-model.module';
 import { EditMerchantPlanComponent } from '../edit-merchant-plan/edit-merchant-plan.component';
 import * as FileSaver from 'file-saver';
 import moment from 'moment';
@@ -23,6 +22,7 @@ export class MerchantPlanViewallComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'merchantPlanId',
+    'businessCategoryName',
     'planName',
     'countLimit',
     'activeStatus',
@@ -47,6 +47,7 @@ export class MerchantPlanViewallComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
+  Emptylist: any = [];
   valueMerchantAdd: any;
   valueMerchantExport: any;
   valueMerchantStatus: any;
@@ -56,22 +57,37 @@ export class MerchantPlanViewallComponent {
   actions: any;
   errorMessage: any;
   searchPerformed: boolean = false;
+  currentfilvalShow: boolean = false;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  currentfilval: any;
+  Roledetails: any;
 
   constructor(
     public Merchantplanviewall: FarginServiceService,
     private dialog: MatDialog,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
-
+    private cryptoService: EncyDecySericeService,
   ) { }
 
-
   ngOnInit(): void {
+    this.Role();
+    this.Getall()
+  };
 
-    this.Merchantplanviewall.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.Merchantplanviewall.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueMerchantAdd = 'Entity Plan-Add';
             this.valueMerchantEdit = 'Entity Plan-Edit'
@@ -80,7 +96,7 @@ export class MerchantPlanViewallComponent {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Entity Plan-Add') {
                 this.valueMerchantAdd = 'Entity Plan-Add';
               }
@@ -101,37 +117,78 @@ export class MerchantPlanViewallComponent {
         }
       }
     });
-    this.Getall()
   };
 
   Getall() {
-    this.Merchantplanviewall.merchantplanviewall().subscribe((res: any) => {
+    const payload = {
+      pageNumber: 0,
+      pageSize: 5,
+      fromDate: '',
+      toDate: '',
+      status: -1,
+      searchContent: '',
+      businessCategoryIds: this.Emptylist
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.Merchantplanviewall.merchantplanviewall(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));;
+        this.dataSource = new MatTableDataSource(this.viewall.content);
+        this.totalPages = this.viewall.totalElements;
+        this.totalpage = this.viewall.size;
+        this.currentpage = this.viewall.number;
+        this.currentfilvalShow = false;
       }
       else if (res.flag == 2) {
         this.viewall = [];
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(this.viewall.content);
+        this.totalPages = this.viewall.totalElements;
+        this.totalpage = this.viewall.size;
+        this.currentpage = this.viewall.number;
+        this.currentfilvalShow = false;
       }
     });
   };
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) {
+      this.toastr.error('Please Enter the Text');
     }
-  }
+    else {
+      const payload = {
+        pageNumber: 0,
+        pageSize: 5,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: filterValue,
+        businessCategoryIds: this.Emptylist
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.Merchantplanviewall.merchantplanviewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+        }
+        else if (res.flag == 2) {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+  };
 
   Add() {
     const dialogRef = this.dialog.open(MerchantPlanAddComponent, {
@@ -156,46 +213,133 @@ export class MerchantPlanViewallComponent {
     });
   }
 
-  ActiveStatus(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
+  ActiveStatus(id: any) {
     let submitModel: MerchantPlanStatus = {
-      activeStatus: this.isChecked ? 1 : 0,
+      entityPlanId: id
     };
-    this.Merchantplanviewall.merchantplanstatus(id, submitModel).subscribe((res: any) => {
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.Merchantplanviewall.merchantplanstatus(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         setTimeout(() => { this.Getall() }, 200);
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }
 
-  exportexcel() {
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      const payload = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: '',
+        businessCategoryIds: this.Emptylist
+      };
+      let datamodal: Payload = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.Merchantplanviewall.merchantplanviewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = false;
+        }
+        else if (res.flag == 2) {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = false;
+        }
+      });
+    } else {
+      const payload = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: this.currentfilval,
+        businessCategoryIds: this.Emptylist
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.Merchantplanviewall.merchantplanviewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+        }
+        else if (res.flag == 2) {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+  }
+
+  Exportall() {
+    if (this.totalPages != 0) {
+      const payload = {
+        pageNumber: 0,
+        pageSize: this.totalPages,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: '',
+        businessCategoryIds: this.Emptylist
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.Merchantplanviewall.merchantplanviewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.exportexcel(this.viewall.content);
+        }
+      });
+    } else {
+      this.toastr.error('No record found');
+    }
+  }
+
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.viewall.forEach((element: any) => {
-      let createdate = element.createdDateTime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+    data.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
+      this.response.push(element?.businessCategoryEntity?.businessCategoryName);
       this.response.push(element?.planName);
-      this.response.push(element?.countLimit);
-      if (element?.activeStatus == 1) { this.response.push("Active"); }
+      this.response.push(element?.customerOnboardLimit);
+      if (element?.status == 1) { this.response.push("Active"); }
       else { this.response.push("InActive"); }
-      this.response.push(element?.technicalAmount.toFixed(2));
-      this.response.push(element?.renewalAmount.toFixed(2));
-      this.response.push(element?.maintenanceAmount.toFixed(2));
-      this.response.push(element?.voiceBoxSetupFee.toFixed(2));
-      this.response.push(element?.voiceBoxAdvRent.toFixed(2));
-      if (element?.frequency == 'Day') { this.response.push("Daily"); }
-      else if (element?.frequency == 'Week') { this.response.push("Weekly"); }
-      else if (element?.frequency == 'Month') { this.response.push("Monthly"); }
-      else if (element?.frequency == 'Quarterly') { this.response.push("Quarterly"); }
-      else if (element?.frequency == 'Half Yearly') { this.response.push("Half-Yearly"); }
-      else if (element?.frequency == 'Year') { this.response.push("Yearly"); }
-      this.response.push(element?.createdBy);
+      this.response.push(element?.oneTimeSetupFee);
+      this.response.push(element?.yearlyRenewalFee);
+      this.response.push(element?.cloudFee);
+      this.response.push(element?.voiceBoxSetupFee);
+      this.response.push(element?.voiceBoxRent);
+      this.response.push(element?.cloudFeeFrequency);
+      this.response.push(element?.createdby);
       if (element?.createdDateTime) {
         this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
       }
@@ -215,10 +359,10 @@ export class MerchantPlanViewallComponent {
     this.excelexportCustomer();
   }
 
-
   excelexportCustomer() {
     const header = [
       "S.No",
+      'Business Category',
       "PlanName",
       "Customer Onboard Limit",
       "Plan Status",
@@ -265,6 +409,7 @@ export class MerchantPlanViewallComponent {
       let qty11 = row.getCell(12);
       let qty12 = row.getCell(13);
       let qty13 = row.getCell(14);
+      let qty14 = row.getCell(15);
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -279,6 +424,7 @@ export class MerchantPlanViewallComponent {
       qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty13.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty14.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     }
     );
     workbook.xlsx.writeBuffer().then((data: any) => {

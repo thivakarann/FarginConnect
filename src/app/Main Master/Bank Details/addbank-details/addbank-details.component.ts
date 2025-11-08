@@ -42,16 +42,22 @@ export class AddbankDetailsComponent implements OnInit {
   Submit() {
     let submitModel: AddBankdetails = {
       bankName: this.bankName?.value.trim(),
-      createdBy: this.adminName
+      createdby: this.adminName,
+      creatorRole: this.adminName
     }
-    this.Bankdetailsadd.bankdetailsAdd(submitModel).subscribe((res: any) => {
+
+      let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+
+    this.Bankdetailsadd.bankdetailsAdd(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     })
   }

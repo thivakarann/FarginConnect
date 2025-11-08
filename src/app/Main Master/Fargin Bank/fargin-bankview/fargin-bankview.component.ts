@@ -3,17 +3,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Workbook } from 'exceljs';
-import FileSaver from 'file-saver';
-import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FarginBankAddComponent } from '../fargin-bank-add/fargin-bank-add.component';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { farginstatus } from '../../../fargin-model/fargin-model.module';
+import { farginbankstatus, Getallstatus } from '../../../fargin-model/fargin-model.module';
 import { FarginBankEditComponent } from '../fargin-bank-edit/fargin-bank-edit.component';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+
 
 @Component({
   selector: 'app-fargin-bankview',
@@ -36,6 +33,8 @@ export class FarginBankviewComponent {
     'View',
     'createdBy',
     'createdDateTime',
+    'modifiedBy',
+    'modifiedDateTime'
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -52,6 +51,7 @@ export class FarginBankviewComponent {
   valueEntityView: any;
   getdashboard: any[] = [];
   roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || ''); activeRole: any;
   actions: any;
   errorMessage: any;
   unblockvalue: any;
@@ -62,13 +62,18 @@ export class FarginBankviewComponent {
   valuefarginexport: any;
   valuefarginstatus: any;
   valuefarginedit: any;
+  totalPages: any;
+  currentfilvalShow: boolean = false;
+  currentpage: any;
+  totalpage: any;
+  currentfilval: any;
 
   constructor(
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {
@@ -76,21 +81,110 @@ export class FarginBankviewComponent {
   };
 
   fetchfarginbankview() {
-    this.service.Farginview().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-
+    let submitModel: Getallstatus = {
+      pageNumber: 0,
+      pageSize: 5,
+      searchContent: ''
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.Farginview(datamodal).subscribe((res: any) => {
+      this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+      this.dataSource = new MatTableDataSource(this.viewall.content);
+      this.totalPages = this.viewall.totalElements;
+      console.log(this.totalPages)
+      this.totalpage = this.viewall.size;
+      this.currentpage = this.viewall.number;
+      this.currentfilvalShow = false;
     });
   };
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) {
+      this.toastr.error('Please Enter the Text');
+    }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: 0,
+        pageSize: 5,
+        searchContent: filterValue
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.Farginview(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+  };
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.Farginview(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = false;
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = false;
+        }
+      });
+    }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        searchContent: this.currentfilval
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.Farginview(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+        }
+      });
     }
   }
 
@@ -123,21 +217,22 @@ export class FarginBankviewComponent {
     });
   };
 
-  ActiveStatus(event: MatSlideToggleChange, id: string) {
-    this.isChecked = event.checked;
-    let submitModel: farginstatus = {
-      activeStatus: this.isChecked ? 1 : 0,
+  ActiveStatus(id: string) {
+    let submitModel: farginbankstatus = {
+      adminBankId: id,
     };
-    this.service.Farginstatus(id, submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.Farginstatus(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
         this.data = res.response;
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         setTimeout(() => { this.fetchfarginbankview(); }, 200);
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
-
     });
 
   }

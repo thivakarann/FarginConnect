@@ -19,12 +19,12 @@
                                     <div class="d-flex mb-2">
                                         <div class="w-50 font-weight-bold">
                                             Name</div>
-                                        <div class="w-50">{{this.viewData?.adminName}}</div>
+                                        <div class="w-50">{{this.viewData?.name}}</div>
                                     </div>
                                     <div class="d-flex mb-2">
                                         <div class="w-50 font-weight-bold">
                                             Role</div>
-                                        <div class="w-50">{{this.viewData?.roleModel?.roleName}}</div>
+                                        <div class="w-50">{{this.viewData?.roleEntity?.roleName}}</div>
                                     </div>
                                     <div class="d-flex mb-2">
                                         <div class="w-50 font-weight-bold">
@@ -69,19 +69,19 @@
                                     <div class="d-flex mb-2">
                                         <div class="w-50 font-weight-bold">Account Status</div>
                                         <div class="w-50">
-                                            <span *ngIf="this.viewData.accountStatus==1"
+                                            <span *ngIf="this.viewData.status==1"
                                                 style="color:green;">Active</span>
-                                            <span *ngIf="this.viewData.accountStatus==0"
+                                            <span *ngIf="this.viewData.status==0"
                                                 style="color:red;">InActive</span>
                                         </div>
                                     </div>
                                     <div class="d-flex mb-2">
                                         <div class="w-50 font-weight-bold">Created By</div>
-                                        <div class="w-50">{{this.viewData.createdBy}}</div>
+                                        <div class="w-50">{{this.viewData.createdby}}</div>
                                     </div>
                                     <div class="d-flex mb-2">
                                         <div class="w-50 font-weight-bold">Created At</div>
-                                        <div class="w-50">{{this.viewData.createdAt|date:'dd/MM/yyyy hh:mm a'}}</div>
+                                        <div class="w-50">{{this.viewData.createdDateTime|date:'dd/MM/yyyy hh:mm a'}}</div>
                                     </div>
 
                                     <div class="d-flex mb-2">
@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="d-flex mb-2">
                                         <div class="w-50 font-weight-bold">Modified At</div>
-                                        <div class="w-50">{{this.viewData.modifiedAt|date:'dd/MM/yyyy hh:mm a'}}</div>
+                                        <div class="w-50">{{this.viewData.modifiedDateTime|date:'dd/MM/yyyy hh:mm a'}}</div>
                                     </div>
                                 </div>
                             </div>

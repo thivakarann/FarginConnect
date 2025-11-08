@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-dues',
@@ -56,6 +57,7 @@ export class DuesComponent {
   actions: any;
   errorMessage: any;
   valuegeneratedues: any;
+  Roledetails: any;
 
   constructor(
     public service: FarginServiceService,
@@ -68,15 +70,39 @@ export class DuesComponent {
 
   ) { }
   ngOnInit(): void {
+    this.Role();
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+
+    // this.service.DuesGenerate().subscribe((res: any) => {
+    //   this.duesValue = res.response;
+
+    // })
 
 
-    this.service.rolegetById(this.roleId).subscribe({
+    this.service.DuesViewAll().subscribe((res: any) => {
+      this.details = res.response;
+      this.details.reverse();
+      this.dataSource = new MatTableDataSource(this.details);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    })
+
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueentityexport = 'Entity Dues-Export';
             this.valueduesview = 'Entity Dues-View'
@@ -85,7 +111,7 @@ export class DuesComponent {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Entity Dues-Export') {
                 this.valueentityexport = 'Entity Dues-Export'
               }
@@ -106,26 +132,6 @@ export class DuesComponent {
         }
       }
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    // this.service.DuesGenerate().subscribe((res: any) => {
-    //   this.duesValue = res.response;
-
-    // })
-
-
-    this.service.DuesViewAll().subscribe((res: any) => {
-      this.details = res.response;
-      this.details.reverse();
-
-      this.dataSource = new MatTableDataSource(this.details);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    })
-
   }
 
 

@@ -14,7 +14,6 @@ import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-dec
 export class VendorsAddComponent implements OnInit {
   adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
-
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   showPassword: boolean = false;
@@ -94,23 +93,27 @@ export class VendorsAddComponent implements OnInit {
   Submit() {
     let submitModel: VendorsAdd = {
       vendorName: this.vendorName?.value,
-      vendorMobile: this.vendorMobile?.value,
+      vendorMobileNumber: this.vendorMobile?.value,
       vendorAddress: this.vendorAddress?.value,
       vendorGst: this.vendorGst?.value,
       smsAmount: this.smsAmount?.value,
       userName: this.userName?.value,
       password: this.password?.value,
       token: this.token?.value,
-      createdBy: this.adminName
+      createdby: this.adminName,
+      creatorRole: this.adminName
     }
-    this.service.VendorsAdd(submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.VendorsAdd(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toaster.success(res.responseMessage);
+        this.toaster.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       }
       else {
-        this.toaster.error(res.responseMessage);
+        this.toaster.error(res.messageDescription);
       }
     })
   }

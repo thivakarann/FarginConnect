@@ -5,7 +5,7 @@ import { FarginServiceService } from '../../../../service/fargin-service.service
 import { ToastrService } from 'ngx-toastr';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Businesskycedit } from '../../../../fargin-model/fargin-model.module';
+import { Businesskycedit, kycactivestatus } from '../../../../fargin-model/fargin-model.module';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { EncyDecySericeService } from '../../../../Encrypt-Decrypt Service/ency-decy-serice.service';
@@ -36,7 +36,12 @@ export class BusinessKycEditComponent implements OnInit {
   businessCategoryIds: any;
   kycValue: any;
   kycCategoryIds: any;
+  businessCategorydocumentId: any
   @Output() bankDetailsUpdated = new EventEmitter<void>();
+
+  businesscat: any;
+  businessType: any[] = [];
+  businesscatId: any;
 
   constructor(
     private fb: FormBuilder,
@@ -44,33 +49,80 @@ export class BusinessKycEditComponent implements OnInit {
     private cryptoService: EncyDecySericeService,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+
+
+    for (let index = 0; index < this.data.value.businessDocumentTypeEntities.length; index++) {
+      const element = this.data.value.businessDocumentTypeEntities[index];
+      this.businessType.push(element.businessDocumentTypeId);
+    }
+
+    this.businesscatId = this.data.value.businessCategoryDocumentId;
+
+    console.log(this.businesscatId)
+    console.log(this.businessType)
+  }
 
 
 
   ngOnInit(): void {
 
-    this.service.activeViewall().subscribe((res: any) => {
-      this.kycValue = res.response;
-    });
-
-    this.service.BusinesscategoryKycactive().subscribe((res: any) => {
-      this.categoryName = res.response.reverse();
-    });
 
     this.editbusinesskyc = this.fb.group({
-      kycCategoryId: new FormControl('', [Validators.required]),
-      modifiedBy: new FormControl(''),
-      businessCategoryId: new FormControl('', [Validators.required])
+      businessCategoryId: new FormControl('', [Validators.required]),
+      kycCategoryId: new FormControl([], [Validators.required]),
     });
 
-    this.businessCreationId = this.data.value.businessCreationId
-    this.businessCategoryIds = this.data.value.businessCategoryId.businessCategoryId
-    this.editbusinesskyc.controls['businessCategoryId'].value = this.businessCategoryIds
-    this.kycCategoryIds = this.data.value.entityKycCategory.kycCategoryId
-    this.editbusinesskyc.controls['kycCategoryId'].value = this.kycCategoryIds
+    this.statusactive();
+    this.onchangebussine();
 
   }
+
+  // get active business category
+  statusactive() {
+    this.businesscat = this.data.value.businessCategoryEntity.businessCategoryId;
+    this.editbusinesskyc.controls['businessCategoryId'].value = this.businesscat
+
+    let submitmodal: kycactivestatus = {
+      status: 1
+    }
+
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitmodal))
+    }
+    this.service.Businessactivestatus(datamodal).subscribe((res: any) => {
+      this.categoryName = JSON.parse(this.cryptoService.decrypt(res.data));
+
+
+      this.categoryName.find((items: any) => {
+
+        if (items?.businessCategoryId == this.editbusinesskyc.controls['businessCategoryId'].value) {
+          this.editbusinesskyc.controls['businessCategoryId'].value = items?.businessCategoryId;
+          // get active documents
+          let submitmodal: kycactivestatus = {
+            status: this.editbusinesskyc.controls['businessCategoryId'].value
+          }
+
+          let datamodal = {
+            data: this.cryptoService.encrypt(JSON.stringify(submitmodal))
+          }
+          this.service.Businessactivedocument(datamodal).subscribe((res: any) => {
+            this.kycValue = JSON.parse(this.cryptoService.decrypt(res.data));
+            // this.kycValue.find((docitems: any) => {
+            //   if (docitems?.businessDocumentTypeId == this.editbusinesskyc.controls['kycCategoryId'].value) {
+            //     this.editbusinesskyc.controls['kycCategoryId'].value = docitems?.businessDocumentTypeId;
+            //   }
+            // })
+            // console.log(this.kycValue);
+            this.editbusinesskyc.controls['kycCategoryId'].value = this.businessType;
+          })
+
+        }
+      })
+    });
+  }
+
+
 
   get kycCategoryId() {
     return this.editbusinesskyc.get('kycCategoryId');
@@ -90,19 +142,47 @@ export class BusinessKycEditComponent implements OnInit {
 
   Editsubmit() {
     let submitModel: Businesskycedit = {
-      categoryKycId: this.kycCategoryId.value,
-      businessCreationId: this.businessCategoryId.value,
-      modifiedBy: this.adminName
+      businessCategoryDocumentId: this.businesscatId,
+      businessCategoryId: this.businessCategoryId.value,
+      documentTypeIds: this.kycCategoryId.value,
+      modifiedBy: this.adminName,
+      modifierRole: this.adminName
     }
-    this.service.Businesskycupdate(this.businessCreationId, submitModel).subscribe((res: any) => {
+
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+
+
+    this.service.Businesskycupdate(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage)
+        this.toastr.success(res.messageDescription)
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
 
       } else {
-        this.toastr.error(res.responseMessage)
+        this.toastr.error(res.messageDescription)
       }
+    })
+  }
+
+
+
+
+  onchangebussine() {
+    this.kycCategoryId.value = '';
+    this.kycValue = [];
+
+    let submitmodal: kycactivestatus = {
+      status: 1
+    }
+
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitmodal))
+    }
+    this.service.Businessactivedocument(datamodal).subscribe((res: any) => {
+      this.kycValue = JSON.parse(this.cryptoService.decrypt(res.data));
+      console.log(this.kycValue)
     })
   }
 

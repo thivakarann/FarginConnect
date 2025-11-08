@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { QRcreationComponent } from '../qrcreation/qrcreation.component';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-qrcode',
@@ -25,22 +26,37 @@ export class EntityQrcodeComponent implements OnInit {
   actions: any;
   errorMessage: any;
   valueqredit: any;
+  Roledetails: any;
 
   constructor(
     public MerchantView: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
 
   ) { }
   ngOnInit(): void {
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+    this.Role();
+    this.Getall();
+  };
 
-    this.MerchantView.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.MerchantView.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueqrgenerator = 'Entity View QR-Generate';
             this.valueqrview = 'Entity View QR-View';
@@ -49,7 +65,7 @@ export class EntityQrcodeComponent implements OnInit {
           else {
             for (let datas of this.getdashboard) {
 
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Entity View QR-Generate') {
                 this.valueqrgenerator = 'Entity View QR-Generate'
@@ -69,14 +85,7 @@ export class EntityQrcodeComponent implements OnInit {
         }
       }
     })
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    this.Getall();
-
-  };
+  }
 
 
   Getall() {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-admincreation-view',
@@ -14,6 +16,7 @@ export class AdmincreationViewComponent implements OnInit {
   constructor(
     private service: FarginServiceService,
     private activeRouter: ActivatedRoute,
+    private cryptoService: EncyDecySericeService,
     private router: Router
   ) { }
 
@@ -21,9 +24,21 @@ export class AdmincreationViewComponent implements OnInit {
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.adminuserId = param.AdminUserId;
     });
-    this.service.AdminView(this.adminuserId).subscribe((res: any) => {
+
+    this.Details();
+
+  }
+
+  Details() {
+    const payload = {
+      userId: this.adminuserId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.AdminView(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewData = res.response;
+        this.viewData = JSON.parse(this.cryptoService.decrypt(res.data));;
       }
     });
   }

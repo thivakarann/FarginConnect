@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { additionalcustomerpay, additionapayfilter, } from '../../fargin-model/fargin-model.module';
+import { additionalcustomerpay, additionapayfilter, Payload, } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ViewadditionalpaymentsComponent } from './viewadditionalpayments/viewadditionalpayments.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -62,7 +62,7 @@ export class AdditionalpaymentsComponent {
   valuepaymentexport: any;
   valuepaymentview: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
   valuepaymentReceipt: any;
@@ -113,54 +113,21 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   maxDate: any;
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
+  Roledetails: any;
 
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
-
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          if (this.roleId == 1) {
-            this.valuepaymentexport = 'Additional Payments-Export';
-            this.valuepaymentview = 'Additional Payments-View';
-            this.valuepaymentReceipt = 'Additional Payments-Receipt';
-            this.valuepaymentCheckStatus = 'Additional Payments-Check Status';
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              if (this.actions == 'Additional Payments-Export') {
-                this.valuepaymentexport = 'Additional Payments-Export';
-              }
-              if (this.actions == 'Additional Payments-View') {
-                this.valuepaymentview = 'Additional Payments-View';
-              }
-              if (this.actions == 'Additional Payments-Receipt') {
-                this.valuepaymentReceipt = 'Additional Payments-Receipt';
-              }
-              if (this.actions == 'Additional Payments-Check Status') {
-                this.valuepaymentCheckStatus =
-                  'Additional Payments-Check Status';
-              }
-            }
-          }
-        } else {
-          this.errorMessage = res.responseMessage;
-        }
-      },
-    });
-
+    this.Role();
     this.Getall();
 
     this.additionalpay = this.fb.group({
@@ -186,6 +153,49 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   }
   get endDate() {
     return this.additionalpay.get('endDate');
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess
+          if (this.roleId == 1) {
+            this.valuepaymentexport = 'Additional Payments-Export';
+            this.valuepaymentview = 'Additional Payments-View';
+            this.valuepaymentReceipt = 'Additional Payments-Receipt';
+            this.valuepaymentCheckStatus = 'Additional Payments-Check Status';
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissionName;
+              if (this.actions == 'Additional Payments-Export') {
+                this.valuepaymentexport = 'Additional Payments-Export';
+              }
+              if (this.actions == 'Additional Payments-View') {
+                this.valuepaymentview = 'Additional Payments-View';
+              }
+              if (this.actions == 'Additional Payments-Receipt') {
+                this.valuepaymentReceipt = 'Additional Payments-Receipt';
+              }
+              if (this.actions == 'Additional Payments-Check Status') {
+                this.valuepaymentCheckStatus =
+                  'Additional Payments-Check Status';
+              }
+            }
+          }
+        } else {
+          this.errorMessage = res.responseMessage;
+        }
+      },
+    });
   }
 
   Getall() {

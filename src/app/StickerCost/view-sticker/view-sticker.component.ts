@@ -8,8 +8,9 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { AddStickerComponent } from '../add-sticker/add-sticker.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { stickerstatus } from '../../fargin-model/fargin-model.module';
+import { Payload, stickerstatus } from '../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { EditStickerComponent } from '../edit-sticker/edit-sticker.component';
 
 @Component({
   selector: 'app-view-sticker',
@@ -23,8 +24,10 @@ export class ViewStickerComponent {
     'stickerPerAmount',
     'deliveryDays',
     'date',
+    'activeStatus',
+    'Edit',
     'createdBy',
-    'createdDateTime',
+    'createdAt',
     "View"
   ];
   viewall: any;
@@ -36,15 +39,24 @@ export class ViewStickerComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-  valuesmsadd: any;
+  valuestickerUpdate: any;
   valuesmsstatus: any;
   valuesmsedit: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   actions: any;
   errorMessage: any;
   valuestickeradd: any;
   valuestickerstatus: any;
+  currentfilval: any;
+  totalPages: any;
+  totalpage: any;
+  currentfilvalShow: boolean = false;
+  currentpage: any;
+  Roledetails: any;
+  valueadd: any;
+  valuestickerhistory: any;
 
 
   constructor(
@@ -52,29 +64,48 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     private router: Router,
     private dialog: MatDialog,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {
+    this.Role();
+    this.Getall();
+  };
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
 
           if (this.roleId == 1) {
-            this.valuestickeradd = 'Sticker-Update';
-            this.valuestickerstatus = 'Sticker-History';
+            this.valueadd = 'Sticker-Create';
+            this.valuestickerUpdate = 'Sticker-Update';
+            this.valuestickerstatus = 'Sticker-Status';
+            this.valuestickerhistory = 'Sticker-History';
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
+              if (this.actions == 'Sticker-Create') {
+                this.valueadd = 'Sticker-Create';
+              }
               if (this.actions == 'Sticker-Update') {
-                this.valuestickeradd = 'Sticker-Update';
+                this.valuestickerUpdate = 'Sticker-Update';
+              }
+              if (this.actions == 'Sticker-Status') {
+                this.valuestickerstatus = 'Sticker-Status';
               }
               if (this.actions == 'Sticker-History') {
-                this.valuestickerstatus = 'Sticker-History';
+                this.valuestickerhistory = 'Sticker-History';
               }
 
             }
@@ -89,22 +120,14 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   };
 
   Getall() {
-    this.service.Sticker().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
+    this.service.Sticketget().subscribe((res: any) => {
+      this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));;
+      this.dataSource = new MatTableDataSource(this.viewall.reverse());
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
   };
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
 
   AddSticker() {
     const dialogRef = this.dialog.open(AddStickerComponent, {
@@ -123,21 +146,33 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     });
   };
 
-  ActiveStatus(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
+  ActiveStatus(id: any) {
     let submitModel: stickerstatus = {
-      activeStatus: this.isChecked ? 'Active' : 'Inactive',
+      stickerId: id
     };
-    this.service.StickerStatus(id, submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.StickerStatus(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          this.Getall();
-        }, 200);
+        this.toastr.success(res.messageDescription);
+        setTimeout(() => { this.Getall(); }, 200);
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
+    });
+  }
+
+  Edit(id: any) {
+    const dialogRef = this.dialog.open(EditStickerComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: "500ms",
+      data: { value: id },
+      disableClose: true
+    })
+    dialogRef.componentInstance.stickerDetailsUpdated.subscribe(() => {
+      this.Getall();
     });
   }
 }

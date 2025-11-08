@@ -10,6 +10,7 @@ import { CustDescriptionCommentComponent } from '../cust-description-comment/cus
 import { CustomerticketImageComponent } from '../customerticket-image/customerticket-image.component';
 import { ToastrService } from 'ngx-toastr';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-customer-viewall',
@@ -64,20 +65,32 @@ export class CustomerViewallComponent implements OnInit {
   currentfilval: any;
   searchPerformed: boolean = false
   searchValue: any;
+  Roledetails: any;
 
   constructor(
     private service: FarginServiceService,
     private dialog: MatDialog,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {
+    this.Role();
+    this.Getall();
+  }
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuecustomerticketedit = 'Customer Request-Edit'
             this.valuecustomerticketexport = 'Customer Request-Export'
@@ -86,7 +99,7 @@ export class CustomerViewallComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Customer Request-Edit') {
                 this.valuecustomerticketedit = 'Customer Request-Edit'
               }
@@ -108,7 +121,6 @@ export class CustomerViewallComponent implements OnInit {
         }
       }
     });
-    this.Getall();
   }
   Getall() {
     this.service.Ticketscustomer(this.pageSize, this.pageIndex).subscribe((res: any) => {

@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 import moment from 'moment';
 import { ViewadditionalpaymentsComponent } from '../../Fargin Transtions/additionalpayments/viewadditionalpayments/viewadditionalpayments.component';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 @Component({
   selector: 'app-branch-onlinetransactions',
   templateUrl: './branch-onlinetransactions.component.html',
@@ -51,7 +52,7 @@ export class BranchOnlinetransactionsComponent {
   totalpage: any;
   currentpage: any;
   actions: any;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valuechannelexport: any;
   valuechannelView: any;
   roleName = sessionStorage.getItem('roleName');
@@ -93,6 +94,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   ];
   Viewadditionalall: any;
   currentfilvals: any;
+  Roledetails: any;
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
@@ -100,21 +102,39 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     private router: Router,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
-    this.service.rolegetById(this.roleId).subscribe({
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+      this.merchantId = param.All;
+    });
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
 
           if (this.roleId == 1) {
             this.valueexport = 'Entity View Branch-Due View-Export';
-          } else {
+          }
+          else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Entity View Branch-Due View-Export') {
                 this.valueexport = 'Entity View Branch-Due View-Export';
@@ -126,54 +146,42 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-      this.merchantId = param.All;
-    });
-
-    this.Getall();
   }
-
   Getall() {
-    this.service
-      .NewOnlineBranch(this.id, this.pageSize, this.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag === 1) {
-          this.transactionValue = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.transactionValue);
-          this.currentfilvalShow = false;
-        } else if (res.flag === 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.currentfilvalShow = false;
-        }
-      });
+    this.service.NewOnlineBranch(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag === 1) {
+        this.transactionValue = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transactionValue);
+        this.currentfilvalShow = false;
+      } else if (res.flag === 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.currentfilvalShow = false;
+      }
+    });
   }
   getAdditionalAll() {
-    this.service
-      .additionalBranchwiseTransaction(this.id, this.pageSize, this.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag === 1) {
-          this.additionalValue = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSources = new MatTableDataSource(this.additionalValue);
-          this.currentfilvalShow = false;
-        } else if (res.flag === 2) {
-          this.dataSources = new MatTableDataSource([]);
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.currentfilvalShow = false;
-        }
-      });
+    this.service.additionalBranchwiseTransaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag === 1) {
+        this.additionalValue = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSources = new MatTableDataSource(this.additionalValue);
+        this.currentfilvalShow = false;
+      } else if (res.flag === 2) {
+        this.dataSources = new MatTableDataSource([]);
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.currentfilvalShow = false;
+      }
+    });
   }
 
   view(id: any) {
@@ -184,37 +192,29 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
 
   channelsearch(filterValue: string) {
     if (filterValue) {
-      this.service
-        .NewOnlineBranchsearch(
-          this.id,
-          filterValue,
-          this.pageSize,
-          this.pageIndex,
-          1
-        )
-        .subscribe({
-          next: (res: any) => {
-            if (res.response) {
-              this.Viewall = res.response;
-              // this.Viewall.reverse();
-              this.dataSource = new MatTableDataSource(this.Viewall);
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.currentfilvalShow = true;
-            } else if (res.flag === 2) {
-              this.Viewall = [];
-              this.dataSource = new MatTableDataSource(this.Viewall);
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.currentfilvalShow = true;
-            }
-          },
-          error: (err: any) => {
-            this.toastr.error('No Data Found');
-          },
-        });
+      this.service.NewOnlineBranchsearch(this.id, filterValue, this.pageSize, this.pageIndex, 1).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.Viewall = res.response;
+            // this.Viewall.reverse();
+            this.dataSource = new MatTableDataSource(this.Viewall);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          } else if (res.flag === 2) {
+            this.Viewall = [];
+            this.dataSource = new MatTableDataSource(this.Viewall);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
     } else if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;

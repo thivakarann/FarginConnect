@@ -8,6 +8,7 @@ import { FarginServiceService } from '../service/fargin-service.service';
 import { BranchIndividualviewComponent } from '../branch-individualview/branch-individualview.component';
 import { ToastrService } from 'ngx-toastr';
 import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-branch-viewall',
@@ -54,21 +55,34 @@ export class BranchViewallComponent {
   currentfilvalShow: boolean = false;
   transactionValue: any;
   setupboxhistory: any;
+  Roledetails: any;
 
   constructor(
     private service: FarginServiceService,
     private dialog: MatDialog,
     private router: Router,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
-    this.service.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuebranchexport = 'Branch-Export';
             this.valuebranchView = 'Branch-View';
@@ -76,7 +90,7 @@ export class BranchViewallComponent {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Branch-Export') {
                 this.valuebranchexport = 'Branch-Export';
               }
@@ -93,7 +107,6 @@ export class BranchViewallComponent {
         }
       },
     });
-    this.Getall();
   }
 
   Getall() {

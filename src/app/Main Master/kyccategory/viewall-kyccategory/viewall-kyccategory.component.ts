@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,7 +10,7 @@ import { EditKyccategoryComponent } from '../edit-kyccategory/edit-kyccategory.c
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
-import { kyccateforysts } from '../../../fargin-model/fargin-model.module';
+import { kyccateforysts, Payload, Getallstatus } from '../../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -45,23 +44,43 @@ export class ViewallKyccategoryComponent implements OnInit {
   valuekycedit: any;
   getdashboard: any[] = [];
   roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   actions: any;
   errorMessage: any;
   searchPerformed: boolean = false;
+  currentfilvalShow: boolean = false;
+  currentpage: any;
+  totalpage: any;
+  totalPages: any;
+  currentfilval: any;
+  categoryList: any;
+  Roledetails: any;
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
-    this.service.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuekycadd = 'Business Document Type-Add';
             this.valuekycexport = 'Business Document Type-Export';
@@ -70,7 +89,7 @@ export class ViewallKyccategoryComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Business Document Type-Add') {
                 this.valuekycadd = 'Business Document Type-Add';
               }
@@ -90,34 +109,78 @@ export class ViewallKyccategoryComponent implements OnInit {
         }
       },
     });
-    this.Getall();
   }
 
   Getall() {
-    this.service.viewallkycCategory().subscribe((res: any) => {
+    let submitModel: Getallstatus = {
+      pageNumber: 0,
+      pageSize: 5,
+      fromDate: '',
+      toDate: '',
+      status: -1,
+      searchContent: ''
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.viewallkycCategory(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.categoryview = res.response;
-        this.categoryview.reverse();
-        this.dataSource = new MatTableDataSource(this.categoryview);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.categoryview = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.categoryview.content);
+        this.categoryList = this.categoryview.content;
+        this.totalPages = this.categoryview.totalElements;
+        this.totalpage = this.categoryview.size;
+        this.currentpage = this.categoryview.number;
+        this.currentfilvalShow = false;
       } else {
         this.categoryview = [];
-        this.dataSource = new MatTableDataSource(this.categoryview);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(this.categoryview.content);
+        this.categoryList = this.categoryview.content;
+        this.totalPages = this.categoryview.totalElements;
+        this.totalpage = this.categoryview.size;
+        this.currentpage = this.categoryview.number;
+        this.currentfilvalShow = false;
       }
     });
   };
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) {
+      this.toastr.error('Please Enter the Text');
     }
-  }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: '',
+        pageSize: 5,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: filterValue
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.viewallkycCategory(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.categoryview = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.categoryview.content);
+          this.totalPages = this.categoryview.totalElements;
+          this.totalpage = this.categoryview.size;
+          this.currentpage = this.categoryview.number;
+          this.currentfilvalShow = true;
+
+        } else {
+          this.categoryview = [];
+          this.categoryview = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.categoryview.content);
+          this.totalPages = this.categoryview.totalElements;
+          this.totalpage = this.categoryview.size;
+          this.currentpage = this.categoryview.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+  };
 
   create() {
     const dialogRef = this.dialog.open(AddKyccategoryComponent, {
@@ -142,34 +205,123 @@ export class ViewallKyccategoryComponent implements OnInit {
     });
   }
 
-  onSubmit(event: MatSlideToggleChange, id: string) {
-    this.isChecked = event.checked;
+  onSubmit(id: string) {
     let submitModel: kyccateforysts = {
-      kycCategoryId: id,
-      activeStatus: this.isChecked ? 1 : 0,
+      documentTypeId: id,
     };
-    this.service.statuskycCategory(submitModel).subscribe((res: any) => {
-      this.toastr.success(res.responseMessage);
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.statuskycCategory(datamodal).subscribe((res: any) => {
+      this.toastr.success(res.messageDescription);
       setTimeout(() => { this.Getall(); }, 200);
     });
   }
 
-  exportexcel() {
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.viewallkycCategory(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.categoryview = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.categoryview.content);
+          this.totalPages = this.categoryview.totalElements;
+          this.totalpage = this.categoryview.size;
+          this.currentpage = this.categoryview.number;
+          this.currentfilvalShow = false;
+
+        } else {
+          this.categoryview = [];
+          this.categoryview = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.categoryview.content);
+          this.totalPages = this.categoryview.totalElements;
+          this.totalpage = this.categoryview.size;
+          this.currentpage = this.categoryview.number;
+          this.currentfilvalShow = false;
+        }
+      });
+    }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: this.currentfilval
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.service.viewallkycCategory(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.categoryview = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.categoryview.content);
+          this.totalPages = this.categoryview.totalElements;
+          this.totalpage = this.categoryview.size;
+          this.currentpage = this.categoryview.number;
+
+        } else {
+          this.categoryview = [];
+          this.dataSource = new MatTableDataSource(this.categoryview.content);
+          this.totalPages = this.categoryview.totalElements;
+          this.totalpage = this.categoryview.size;
+          this.currentpage = this.categoryview.number;
+        }
+      });
+    }
+  }
+
+  Exportall() {
+    if (this.totalPages != 0) {
+      const payload = {
+        pageNumber: 0,
+        pageSize: this.totalPages,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.viewallkycCategory(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.categoryview = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.exportexcel(this.categoryview.content);
+        }
+      });
+    } else {
+      this.toastr.error('No record found');
+    }
+  }
+
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.categoryview.forEach((element: any) => {
-      let createdate = element.createdAt;
+    data.forEach((element: any) => {
+      let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.kycCategoryName);
-      if (element?.activeStatus == 1) { this.response.push('Active'); }
+      this.response.push(element?.documentType);
+      if (element?.status == 1) { this.response.push('Active'); }
       else { this.response.push('InActive'); }
-      this.response.push(element?.createdBy);
+      this.response.push(element?.createdby);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-      if (element?.modifiedAt) {
-        this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
+      if (element?.modifiedDateTime) {
+        this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy-hh:mm a').toString());
       }
       else {
         this.response.push('');

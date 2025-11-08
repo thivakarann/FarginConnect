@@ -13,6 +13,7 @@ import {
   branchDrivingverification,
   branchPasportverify,
   branchverify,
+  Payload,
 } from '../../../fargin-model/fargin-model.module';
 import { BranchkycExtraComponent } from '../branchkyc-extra/branchkyc-extra.component';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
@@ -37,6 +38,7 @@ export class BranchKycComponent {
   valuebranchkycverification: any;
   valuebranchkycApproval: any;
   valuebranchkycComments: any;
+  Roledetails: any;
 
   constructor(
     public service: FarginServiceService,
@@ -44,16 +46,33 @@ export class BranchKycComponent {
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    
+
     private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
-    this.service.rolegetById(this.roleId).subscribe({
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+      this.merchantId = param.All;
+    });
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuebranchkycadd = 'Entity View BranchKYC-Add';
             this.valuebranchkycdocimage = 'Entity View BranchKYC-DocumentImage';
@@ -64,7 +83,7 @@ export class BranchKycComponent {
             this.valuebranchkycComments = 'Entity View BranchKYC-Comments';
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Entity View BranchKYC-Add') {
                 this.valuebranchkycadd = 'Entity View BranchKYC-Add';
@@ -93,13 +112,6 @@ export class BranchKycComponent {
         }
       },
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-      this.merchantId = param.All;
-    });
-
-    this.Getall();
   }
 
   Getall() {

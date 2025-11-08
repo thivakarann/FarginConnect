@@ -9,7 +9,7 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { CustomerTransViewComponent } from '../customer-trans-view/customer-trans-view.component';
-import { customerpay, customerpayfilter } from '../../../fargin-model/fargin-model.module';
+import { customerpay, customerpayfilter, Payload } from '../../../fargin-model/fargin-model.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
@@ -120,48 +120,15 @@ export class CustomerTransViewallComponent {
   maxDate: any;
   currentfilvalShow: boolean = true;
   searchPerformed: boolean = false;
+  Roledetails: any;
 
   constructor(private cryptoService: EncyDecySericeService, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
   ngOnInit(): void {
 
     const today = new Date();
-    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
-
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          if (this.roleId == 1) {
-            this.valuepaymentexport = 'Customer Payment-Export'
-            this.valuepaymentview = 'Customer Payment-View'
-            this.valuepaymentReceipt = 'Customer Payment-Receipt'
-            this.valuepaymentCheckStatus = 'Customer Payment-Check Status'
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              if (this.actions == 'Customer Payment-Export') {
-                this.valuepaymentexport = 'Customer Payment-Export'
-              }
-              if (this.actions == 'Customer Payment-View') {
-                this.valuepaymentview = 'Customer Payment-View'
-              }
-              if (this.actions == 'Customer Payment-Receipt') {
-                this.valuepaymentReceipt = 'Customer Payment-Receipt'
-              }
-              if (this.actions == 'Customer Payment-Check Status') {
-                this.valuepaymentCheckStatus = 'Customer Payment-Check Status'
-              }
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    });
-
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
+    this.Role();
     this.Getall();
 
     this.customerPay = this.fb.group({
@@ -188,6 +155,49 @@ export class CustomerTransViewallComponent {
   }
   get endDate() {
     return this.customerPay.get('endDate');
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
+          if (this.roleId == 1) {
+            this.valuepaymentexport = 'Customer Payment-Export'
+            this.valuepaymentview = 'Customer Payment-View'
+            this.valuepaymentReceipt = 'Customer Payment-Receipt'
+            this.valuepaymentCheckStatus = 'Customer Payment-Check Status'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissionName;
+              if (this.actions == 'Customer Payment-Export') {
+                this.valuepaymentexport = 'Customer Payment-Export'
+              }
+              if (this.actions == 'Customer Payment-View') {
+                this.valuepaymentview = 'Customer Payment-View'
+              }
+              if (this.actions == 'Customer Payment-Receipt') {
+                this.valuepaymentReceipt = 'Customer Payment-Receipt'
+              }
+              if (this.actions == 'Customer Payment-Check Status') {
+                this.valuepaymentCheckStatus = 'Customer Payment-Check Status'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
   }
 
   Getall() {

@@ -57,28 +57,29 @@ export class SignerHistoryComponent {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.Id = param.Alldata;
     });
-
     this.Details();
   }
 
   Details() {
-    this.service.Signerhistory(this.Id).subscribe((res: any) => {
+    const submitModel = {
+      signId: this.Id,
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.Signerhistory(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
+        this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-
       }
-
       else if (res.flag == 2) {
         this.dataSource = new MatTableDataSource([]);
-        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-
-
     });
   };
 
@@ -90,6 +91,7 @@ export class SignerHistoryComponent {
       this.dataSource.paginator.firstPage();
     }
   };
+
   close() {
     this.location.back()
   };
@@ -113,13 +115,6 @@ export class SignerHistoryComponent {
       this.response.push(element?.adminCity);
       this.response.push(element?.adminPincode);
       this.response.push(element?.adminAddress);
-      // if (element?.signingAdminModel?.activeStatus == 0) {
-      //   this.response.push("Inactive");
-      // }
-      // else if (element?.signingAdminModel?.activeStatus == 1) {
-      //   this.response.push("Active");
-
-      // }
       this.response.push(element?.createdBy);
       if (element.createdAt) {
         this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a').toString());
@@ -148,12 +143,9 @@ export class SignerHistoryComponent {
       'Updated By',
       'Updated At'
     ];
-
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Setupbox History');
-
-    // Blank Row
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -172,9 +164,7 @@ export class SignerHistoryComponent {
         right: { style: 'thin' },
       };
     });
-
     data.forEach((d: any) => {
-      //
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);

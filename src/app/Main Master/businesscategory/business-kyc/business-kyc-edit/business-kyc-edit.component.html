@@ -11,7 +11,7 @@
                     <option style="text-align: center;" selected disabled>Select
                     </option>
                     <option style="text-align: center;" *ngFor="let item of categoryName;"
-                        [value]="item.businessCategoryId">{{item.categoryName}}
+                        [value]="item.businessCategoryId">{{item.businessCategoryName}}
                     </option>
                 </select>
                 <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
@@ -21,12 +21,23 @@
             </div>
             <div class="form__linput">
                 <label class="form__label" for="fname">Document</label>
-                <select class="form-select" formControlName="kycCategoryId">
+                <!-- <select class="form-select" formControlName="kycCategoryId">
                     <option style="text-align: center;" selected disabled>Select</option>
-                    <option style="text-align: center;" *ngFor="let item of kycValue;" [value]="item.kycCategoryId">
-                        {{item.kycCategoryName}}
+                    <option style="text-align: center;" *ngFor="let item of kycValue;" [value]="item.businessDocumentTypeId">
+                        {{item.documentType}}
                     </option>
-                </select>
+                </select> -->
+                 <mat-select [ngModel]="businessType" #select class="form-select" multiple formControlName="kycCategoryId">
+                    <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                            (change)="toggleAllSelection()">Select All</mat-checkbox>
+                    </div>
+                    <mat-option *ngFor="let item of kycValue"
+                        [value]="item.businessDocumentTypeId">{{item.documentType}}</mat-option>
+                </mat-select>
+
+
+                
                 <div style="color: red; font-size : 12px;margin-top: 2px;"
                     *ngIf="kycCategoryId?.invalid && kycCategoryId?.touched && kycCategoryId?.errors?.['required']">
                     Field is required

@@ -13,6 +13,7 @@ import { CustomerTransViewComponent } from '../Fargin Transtions/Customer Trans/
 import { MatDialog } from '@angular/material/dialog';
 import { ViewadditionalpaymentsComponent } from '../Fargin Transtions/additionalpayments/viewadditionalpayments/viewadditionalpayments.component';
 import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-transaction',
@@ -74,7 +75,7 @@ export class EntityTransactionComponent {
   Viewall: any;
   errorMessage: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   responseDataListnew: any = [];
   response: any = [];
@@ -97,28 +98,44 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   additionalTransactionData: unknown[] | undefined;
   additionalsearchdetails: any;
   currentfilvals: any;
+  Roledetails: any;
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
   ngOnInit(): void {
-    this.service.rolegetById(this.roleId).subscribe({
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuetransactionExport = 'Entity View Due Transactions-Export';
             this.valuetransactionview = 'Entity View Due Transactions-View';
             this.valueinvoice = 'Entity View Due Transactions-Receipt';
-          } else {
+          }
+          else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Entity View Due Transactions-Export') {
                 this.valuetransactionExport =
                   'Entity View Due Transactions-Export';
@@ -136,11 +153,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-    this.Getall();
   }
 
   Getall() {

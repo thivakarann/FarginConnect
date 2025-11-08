@@ -22,19 +22,34 @@
                     Maximum length should be 50
                 </div>
             </div>
+            <div class="form__linput">
+                <label class="form__label" for="fname">Select Business Category</label>
+                <mat-select #selectssss class="form-select" multiple formControlName="businessCategoryId"
+                    (ngModelChange)="Permission($event)" [ngModel]="getbusValue">
+                    <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allSelected3" [ngModelOptions]="{standalone: true}"
+                            (change)="toggleAllSelection3()">Select All</mat-checkbox>
+                    </div>
+                    <mat-option *ngFor="let item of details"
+                        [value]="item.businessCategoryId">{{item.businessCategoryName}}</mat-option>
+                </mat-select>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="permission?.invalid && permission?.touched && permission?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+
 
             <div class="form__linput">
                 <label class="form__label" for="fname">Select Permission</label>
-                <mat-select #select style="font-size: 14px;width: 550px;" class="form-select" multiple
-                    (ngModelChange)="sendPermissionId($event)" formControlName="permission" [ngModel]="getPerValue">
-
-                    <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
-                        (change)="toggleAllSelection()">Select All</mat-checkbox>
-
-                    <mat-option *ngFor="let data of values2" [value]="data.value">
-                        {{data.viewValue}}
-                    </mat-option>
-
+                <mat-select #select class="form-select" multiple formControlName="permission"
+                    (ngModelChange)="sendPermissionId($event)" [ngModel]="getPerValue">
+                    <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                            (change)="toggleAllSelection()">Select All</mat-checkbox>
+                    </div>
+                    <mat-option *ngFor="let item of permissionValue"
+                        [value]="item.permissionId">{{item.permissionName}}</mat-option>
                 </mat-select>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="permission?.invalid && permission?.touched && permission?.errors?.['required']">
@@ -50,8 +65,7 @@
                     <mat-checkbox [(ngModel)]="allSelected1" [ngModelOptions]="{standalone: true}"
                         (change)="toggleAllSelection1()">Select All</mat-checkbox>
 
-                    <mat-option *ngFor="let datas of values" [value]="datas.value">
-                        <!-- {{datas.viewValues}}- -->
+                    <mat-option *ngFor="let datas of values2" [value]="datas.value">
                         {{datas.viewValue}}
                     </mat-option>
                 </mat-select>
@@ -60,8 +74,6 @@
                     Field is required
                 </div>
             </div>
-
-            <!-- <button class="primary-btn form__btn" type="submit">Submit</button> -->
             <div class="mt-2">
                 <button [disabled]="editRole.invalid" type="submit" class="btn " style="background-color:#7db855be"
                     (click)="submit()">Submit</button>

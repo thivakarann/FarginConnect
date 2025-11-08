@@ -27,7 +27,7 @@ export class RefundPeriodHistoryComponent {
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   date1: any;
   date2: any;
   responseDataListnew: any = [];
@@ -42,7 +42,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     public service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
@@ -54,16 +54,24 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   }
 
   Details() {
-    this.service.RefundPeriodHistory(this.Id).subscribe((res: any) => {
+    const submitModel = {
+      refundPeriodId: this.Id
+    };
+
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+
+    this.service.RefundPeriodHistory(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
+        this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
       else if (res.flag == 2) {
         this.dataSource = new MatTableDataSource([]);
-        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
@@ -87,7 +95,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     this.viewall.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.paymentMethod);
+      this.response.push(element?.typeMode);
       this.response.push(element?.day);
       this.response.push(element?.createdBy);
       if (element.createdDateTime) {

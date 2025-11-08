@@ -1,16 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { AddRoleComponent } from '../add-role/add-role.component';
-import { roleactiveInactive } from '../../fargin-model/fargin-model.module';
+import { Payload, roleactiveInactive } from '../../fargin-model/fargin-model.module';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EditRoleComponent } from '../edit-role/edit-role.component';
-import { ViewPermissionComponent } from '../view-permission/view-permission.component';
 import { ViewSubpermissionComponent } from '../view-subpermission/view-subpermission.component';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-view-role',
@@ -42,6 +41,7 @@ export class ViewRoleComponent implements OnInit {
   errorMessage: any;
   getAction: any;
   values: any[] = [];
+  businessvalues: any[] = [];
   values2: any[] = [];
   subId: any[] = [];
   perValueArray: any[] = [];
@@ -51,11 +51,20 @@ export class ViewRoleComponent implements OnInit {
   subpermission: any;
   perValueObject: any;
   searchPerformed: boolean = false;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  currentfilvalShow: boolean = false;
+  currentfilval: any;
+  getdashboard: any;
+  viewall: any;
+  businessid: any;
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {
@@ -63,30 +72,71 @@ export class ViewRoleComponent implements OnInit {
   };
 
   Getall() {
-    this.service.viewRoles().subscribe((res: any) => {
+    const payload = {
+      pageNumber: 0,
+      pageSize: 5,
+      fromDate: '',
+      toDate: '',
+      status: -1,
+      searchContent: ''
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.viewRoles(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.roledata = res.response;
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.roledata = JSON.parse(this.cryptoService.decrypt(res.data));;
+        this.dataSource = new MatTableDataSource(this.roledata.content);
+        this.totalPages = this.roledata.totalElements;
+        this.totalpage = this.roledata.size;
+        this.currentpage = this.roledata.number;
+        this.currentfilvalShow = false;
       } else if (res.flag == 2) {
         this.roledata = [];
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.dataSource = new MatTableDataSource(this.roledata.content);
+        this.totalPages = this.roledata.totalElements;
+        this.totalpage = this.roledata.size;
+        this.currentpage = this.roledata.number;
+        this.currentfilvalShow = false;
       }
     });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   };
 
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) {
+      this.toastr.error('Please Enter the Text');
+    }
+    else {
+      const payload = {
+        pageNumber: 0,
+        pageSize: 5,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: filterValue
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.viewRoles(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.roledata = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.dataSource = new MatTableDataSource(this.roledata.content);
+          this.totalPages = this.roledata.totalElements;
+          this.totalpage = this.roledata.size;
+          this.currentpage = this.roledata.number;
+          this.currentfilvalShow = true;
+        } else {
+          this.roledata = [];
+          this.dataSource = new MatTableDataSource(this.roledata.content);
+          this.totalPages = this.roledata.totalElements;
+          this.totalpage = this.roledata.size;
+          this.currentpage = this.roledata.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+  };
   create() {
     const dialogRef = this.dialog.open(AddRoleComponent, {
       disableClose: true,
@@ -98,26 +148,41 @@ export class ViewRoleComponent implements OnInit {
     });
   }
 
-  edit(id: string) {
+  edit(id: string, rolename: any) {
     this.values = [];
     this.subId = [];
     this.perValueArray = [];
+    this.businessvalues = [];
     this.moduleName = [];
-    this.service.rolegetById(id).subscribe({
+
+    const payload = {
+      roleId: id,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.RolebyIDnew(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getAction = res.response;
-          this.roleName = this.getAction.roleName;
-          this.permissionview = this.getAction.permission;
-          this.subpermission = this.getAction.subPermission;
+          this.getAction = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.businessid = this.getAction.CategoryAccess;
+          this.permissionview = this.getAction.PermissionsAccess;
+          this.subpermission = this.getAction.SubPermissionsAccess;
+
+          for (let data2 of this.businessid) {
+            this.businessvalues.push(data2.businessCategoryId);
+          }
+
           for (let data of this.permissionview) {
             this.values.push(data.permissionId);
           }
+
           //Duplicate Removal start
           this.perValueObject = new Set(this.values);
           for (let value of this.perValueObject) {
             this.perValueArray.push(value);
           }
+
           //Duplicate Removal end
           for (let data1 of this.subpermission) {
             this.subId.push(data1.subPermissionId);
@@ -125,15 +190,18 @@ export class ViewRoleComponent implements OnInit {
           const dialogRef = this.dialog.open(EditRoleComponent, {
             data: {
               per: this.perValueArray,
-              roleName: this.roleName,
+              roleName: rolename,
               role: id,
               sub: this.subId,
+              Busid: this.businessvalues,
               moduleNames: this.moduleName,
             },
+
             disableClose: true,
             enterAnimationDuration: '500ms',
             exitAnimationDuration: '500ms',
           });
+
           dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
             this.Getall();
           });
@@ -147,34 +215,108 @@ export class ViewRoleComponent implements OnInit {
       },
     });
   }
-  onSubmit(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
+
+  onSubmit(id: any) {
     let submitModel: roleactiveInactive = {
       roleId: id,
-      status: this.isChecked ? 1 : 0,
     };
-    this.service.rolesStatus(submitModel).subscribe((res: any) => {
-      this.toastr.success(res.responseMessage);
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.rolesStatus(datamodal).subscribe((res: any) => {
+      this.toastr.success(res.messageDescription);
       setTimeout(() => { this.Getall() }, 200);
     });
   };
 
-  permissionView(id: any) {
-    this.dialog.open(ViewPermissionComponent, {
-      data: { value: id },
-      disableClose: true,
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '500ms',
-    });
-  };
-
-
   subpermissionView(id: any) {
-    this.dialog.open(ViewSubpermissionComponent, {
-      data: { value: id },
-      disableClose: true,
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '500ms',
+    const payload = {
+      roleId: id,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.RolebyIDnew(datamodal).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.viewall?.SubPermissionsAccess;
+          this.dialog.open(ViewSubpermissionComponent, {
+            data: { value: this.getdashboard },
+            disableClose: true,
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms',
+          });
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
     });
+  }
+
+
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      const payload = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal: Payload = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.viewRoles(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.roledata = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.dataSource = new MatTableDataSource(this.roledata.content);
+          this.totalPages = this.roledata.totalElements;
+          this.totalpage = this.roledata.size;
+          this.currentpage = this.roledata.number;
+          this.currentfilvalShow = false;
+        } else {
+          this.roledata = [];
+          this.dataSource = new MatTableDataSource(this.roledata.content);
+          this.totalPages = this.roledata.totalElements;
+          this.totalpage = this.roledata.size;
+          this.currentpage = this.roledata.number;
+          this.currentfilvalShow = false;
+        }
+      });
+    } else {
+      const payload = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: this.currentfilval
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.service.viewRoles(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.roledata = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.dataSource = new MatTableDataSource(this.roledata.content);
+          this.totalPages = this.roledata.totalElements;
+          this.totalpage = this.roledata.size;
+          this.currentpage = this.roledata.number;
+          this.currentfilvalShow = true;
+        } else {
+          this.roledata = [];
+          this.dataSource = new MatTableDataSource(this.roledata.content);
+          this.totalPages = this.roledata.totalElements;
+          this.totalpage = this.roledata.size;
+          this.currentpage = this.roledata.number;
+          this.currentfilvalShow = true;
+        }
+      });
+    }
+
   }
 }

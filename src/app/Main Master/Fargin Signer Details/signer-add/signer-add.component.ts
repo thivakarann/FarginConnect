@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Addsigner } from '../../../fargin-model/fargin-model.module';
 import { MatDialog } from '@angular/material/dialog';
@@ -78,8 +77,6 @@ export class SignerAddComponent {
         Validators.required,
         Validators.maxLength(250),
       ]),
-
-
     });
   }
 
@@ -132,14 +129,16 @@ export class SignerAddComponent {
       adminAddress: this.adminAddress?.value.trim(),
       adminCity: this.adminCity?.value.trim()
     };
-
-    this.service.signeradd(submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.signeradd(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toaster.success(res.responseMessage);
+        this.toaster.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {
-        this.toaster.error(res.responseMessage);
+        this.toaster.error(res.messageDescription);
       }
     });
   }

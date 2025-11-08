@@ -11,7 +11,7 @@ import { ServiceproviderAddComponent } from '../serviceprovider-add/serviceprovi
 import { MatDialog } from '@angular/material/dialog';
 import { ServiceproviderEditComponent } from '../serviceprovider-edit/serviceprovider-edit.component';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { Providerstatus } from '../../../fargin-model/fargin-model.module';
+import { Payload, Providerstatus } from '../../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -52,23 +52,36 @@ export class ServiceProviderComponent implements OnInit {
   valueMSOedit: any;
   errorMessage: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   searchPerformed: boolean = false;
+  Roledetails: any;
 
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit() {
-    this.service.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  };
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
 
           if (this.roleId == 1) {
             this.valueMSOadd = 'MSO-Add';
@@ -78,7 +91,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'MSO-Add') {
                 this.valueMSOadd = 'MSO-Add';
@@ -102,8 +115,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-    this.Getall();
-  };
+  }
 
   Getall() {
     this.service.ServiceProviderView().subscribe((res: any) => {

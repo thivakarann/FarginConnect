@@ -8,6 +8,7 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-whats-app-getall',
@@ -79,6 +80,7 @@ export class EntityWhatsAppGetallComponent implements OnInit {
   searchPerformed: boolean = false;
   SearchApi = false;
   Empty = "";
+  Roledetails: any;
 
   constructor(
     private service: FarginServiceService,
@@ -88,18 +90,29 @@ export class EntityWhatsAppGetallComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.Role();
+    this.Getall();
+  }
 
-    this.service.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
 
           if (this.roleId == 1) {
             this.valueentitysmsexport = 'Entity WhatsApp-Export';
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Entity WhatsApp-Export') {
                 this.valueentitysmsexport = 'Entity WhatsApp-Export';
@@ -111,9 +124,6 @@ export class EntityWhatsAppGetallComponent implements OnInit {
         }
       },
     });
-
-    this.Getall();
-
   }
 
   Getall() {

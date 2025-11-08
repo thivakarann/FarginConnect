@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { BouquetenameAddComponent } from '../bouquetename-add/bouquetename-add.component';
 import { BouquetenameEditComponent } from '../bouquetename-edit/bouquetename-edit.component';
-import { BouquetenameStatus } from '../../../fargin-model/fargin-model.module';
+import { BouquetenameStatus, Payload } from '../../../fargin-model/fargin-model.module';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
@@ -50,20 +50,32 @@ export class BouquetePlanViewallComponent {
   actions: any;
   errorMessage: any;
   searchPerformed: boolean = false;
+  Roledetails: any;
 
   constructor(
     public Bouqutenameviewall: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
   ) { }
 
   ngOnInit(): void {
+    this.Role();
+    this.Getall();
+  }
 
-    this.Bouqutenameviewall.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.Bouqutenameviewall.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuePlanAdd = 'Plan Creation-Add';
             this.valuePlanEdit = 'Plan Creation-Edit';
@@ -72,7 +84,7 @@ export class BouquetePlanViewallComponent {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Plan Creation-Add') {
                 this.valuePlanAdd = 'Plan Creation-Add'
               }
@@ -93,7 +105,6 @@ export class BouquetePlanViewallComponent {
         }
       }
     });
-    this.Getall();
   }
 
   Getall() {

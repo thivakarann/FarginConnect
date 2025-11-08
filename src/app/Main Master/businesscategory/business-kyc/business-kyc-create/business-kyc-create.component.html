@@ -7,12 +7,12 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="addbusinesskyc">
             <div class="form-group">
                 <label class="form-label" for="message">Business Category</label>
-                <select class="form-select" formControlName="businessCategoryId" required>
+                <select class="form-select" formControlName="businessCategoryId"   required>
                     <option style="text-align: center;" selected disabled>Select
                     </option>
                     <option style="text-align: center;" *ngFor="let item of categoryName;"
                         [value]="item.businessCategoryId">
-                        {{item.categoryName}}
+                        {{item.businessCategoryName}}
                     </option>
                 </select>
                 <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
@@ -27,7 +27,7 @@
                             (change)="toggleAllSelection()">Select All</mat-checkbox>
                     </div>
                     <mat-option *ngFor="let item of kycValue"
-                        [value]="item.kycCategoryId">{{item.kycCategoryName}}</mat-option>
+                        [value]="item.businessDocumentTypeId">{{item.documentType}}</mat-option>
                 </mat-select>
                 <div style="color: red; font-size : 12px;margin-top: 2px;"
                     *ngIf="kycCategoryId?.invalid && kycCategoryId?.touched && kycCategoryId?.errors?.['required']">

@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { OfflineSettlement, settlement } from '../fargin-model/fargin-model.module';
+import { OfflineSettlement, Payload, settlement } from '../fargin-model/fargin-model.module';
 import { Location } from '@angular/common';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
@@ -52,12 +52,12 @@ export class EntitySettlementComponent {
   Viewall: any;
   Viewalloffline: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   responseDataListnew: any = [];
   responseDataListnewoffline: any = [];
   response: any = [];
-   offlineresponse: any = [];
+  offlineresponse: any = [];
   searchPerformed: boolean = false;
   searchPerformedoffline: boolean = false;
   FromDateRange!: string;
@@ -84,6 +84,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   filterActionoffline: any = 0;
   selectedLang!: string;
   selectedTransactionType: string = 'Online Settlement';
+  Roledetails:any;
 
 
   displayedOfflineColumns: string[] = [
@@ -104,26 +105,51 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     private ActivateRoute: ActivatedRoute,
     private Location: Location,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
 
   ) { }
 
   ngOnInit(): void {
 
+    this.Role();
+
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
 
-    this.MerchantView.rolegetById(this.roleId).subscribe({
+
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+
+    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+      this.details = res.response;
+      this.detaislone = res.response.merchantpersonal;
+      this.accountid = res.response.merchantpersonal.accountId;
+      this.merchantid = res.response.merchantpersonal.merchantId;
+      this.postrenewal();
+    });
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.MerchantView.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuesettlementexport = 'Entity View Settlement-Export';
             this.valuesettlementview = 'Entity View Settlement-View';
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Entity View Settlement-Export') {
                 this.valuesettlementexport = 'Entity View Settlement-Export';
               }
@@ -136,18 +162,6 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           this.errorMessage = res.responseMessage;
         }
       },
-    });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-      this.details = res.response;
-      this.detaislone = res.response.merchantpersonal;
-      this.accountid = res.response.merchantpersonal.accountId;
-      this.merchantid = res.response.merchantpersonal.merchantId;
-      this.postrenewal();
     });
   }
 
@@ -523,7 +537,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         this.lengthoffline = this.datasOffline.totalElements;
         this.pageIndexoffline = this.datasOffline.number;
         this.pageSizeoffline = this.datasOffline.size;
-      this.filterActionoffline = 1;
+        this.filterActionoffline = 1;
         this.dataSourcesoffline = new MatTableDataSource(this.contentoffline);
         if (this.contentoffline.length === 0) {
           this.dataSourcesoffline = new MatTableDataSource();
@@ -545,7 +559,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         this.lengthoffline = this.datasOffline.totalElements;
         this.pageIndexoffline = this.datasOffline.number;
         this.pageSizeoffline = this.datasOffline.size;
-      this.filterActionoffline = 0;
+        this.filterActionoffline = 0;
         this.dataSourcesoffline = new MatTableDataSource(this.contentoffline);
         if (this.contentoffline.length === 0) {
           this.dataSourcesoffline = new MatTableDataSource();
@@ -555,7 +569,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   };
 
 
-  exportexceloffline(data:any[]) {
+  exportexceloffline(data: any[]) {
     let sno = 1;
     this.responseDataListnewoffline = [];
     data.forEach((element: any) => {
@@ -742,37 +756,37 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   exportDataOffline() {
     if (this.lengthoffline != 0) {
       if (this.filterActionoffline == 1) {
-      const datepipe: DatePipe = new DatePipe('en-US');
-      let formattedstartDate = datepipe.transform(this.FromDateRangeoffline, 'dd/MM/YYYY HH:mm');
-      let formattedendDate = datepipe.transform(this.ToDateRangeoffline, 'dd/MM/yyyy HH:mm');
-      this.DaterangeOffline = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
-      let submitModel: OfflineSettlement = {
-        merchantId: this.id,
-        pageNo: 1,
-        size: this.lengthoffline,
-        query: '',
-        dateRange: this.DaterangeOffline,
-      };
-      this.MerchantView.Entitysettlementoffline(submitModel).subscribe((res: any) => {
-        this.Viewalloffline = JSON.parse(res.response);
-        this.contentoffline = this.Viewalloffline?.content || [];
-        this.exportexceloffline(this.contentoffline);
-      });
-    }
-    else {
-      let submitModel: OfflineSettlement = {
-        merchantId: this.id,
-        pageNo: 1,
-        size: this.lengthoffline,
-        query: '',
-        dateRange: this.DaterangeOffline,
-      };
-      this.MerchantView.Entitysettlementoffline(submitModel).subscribe((res: any) => {
-        this.Viewalloffline = JSON.parse(res.response);
-        this.contentoffline = this.Viewalloffline?.content || [];
-        this.exportexceloffline(this.contentoffline);
-      });
-    }
+        const datepipe: DatePipe = new DatePipe('en-US');
+        let formattedstartDate = datepipe.transform(this.FromDateRangeoffline, 'dd/MM/YYYY HH:mm');
+        let formattedendDate = datepipe.transform(this.ToDateRangeoffline, 'dd/MM/yyyy HH:mm');
+        this.DaterangeOffline = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+        let submitModel: OfflineSettlement = {
+          merchantId: this.id,
+          pageNo: 1,
+          size: this.lengthoffline,
+          query: '',
+          dateRange: this.DaterangeOffline,
+        };
+        this.MerchantView.Entitysettlementoffline(submitModel).subscribe((res: any) => {
+          this.Viewalloffline = JSON.parse(res.response);
+          this.contentoffline = this.Viewalloffline?.content || [];
+          this.exportexceloffline(this.contentoffline);
+        });
+      }
+      else {
+        let submitModel: OfflineSettlement = {
+          merchantId: this.id,
+          pageNo: 1,
+          size: this.lengthoffline,
+          query: '',
+          dateRange: this.DaterangeOffline,
+        };
+        this.MerchantView.Entitysettlementoffline(submitModel).subscribe((res: any) => {
+          this.Viewalloffline = JSON.parse(res.response);
+          this.contentoffline = this.Viewalloffline?.content || [];
+          this.exportexceloffline(this.contentoffline);
+        });
+      }
     }
     else {
       this.toastr.error('No record found');

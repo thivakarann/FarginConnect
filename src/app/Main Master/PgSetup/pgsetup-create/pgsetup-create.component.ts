@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { pgsetupadd } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
@@ -14,7 +13,6 @@ import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-dec
   styleUrl: './pgsetup-create.component.css'
 })
 export class PgsetupCreateComponent implements OnInit {
-
   pgsetupform: any = FormGroup;
   adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   facheckkey: any;
@@ -22,7 +20,6 @@ export class PgsetupCreateComponent implements OnInit {
 
   constructor(
     private service: FarginServiceService,
-    private router: Router,
     private dialog: MatDialog,
     private cryptoService: EncyDecySericeService,
     private toastr: ToastrService
@@ -45,22 +42,27 @@ export class PgsetupCreateComponent implements OnInit {
   get secretKey() {
     return this.pgsetupform.get('secretKey');
   }
+
   submit() {
     let submitModel: pgsetupadd = {
       pgMode: this.pgMode.value,
       secretKey: this.secretKey.value.trim(),
       apiKey: this.apiKey.value.trim(),
-      createdBy: this.adminName
+      createdby: this.adminName,
+      creatorRole: this.adminName
     }
-    this.service.Pgsetupcreate(submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.Pgsetupcreate(datamodal).subscribe((res: any) => {
       this.facheckkey = res.response;
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        this.toastr.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
       }
       else {
-        this.toastr.error(res.responseMessage)
+        this.toastr.error(res.messageDescription)
       }
     })
   }

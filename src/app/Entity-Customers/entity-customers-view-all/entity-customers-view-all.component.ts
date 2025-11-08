@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-customers-view-all',
@@ -24,6 +25,7 @@ export class EntityCustomersViewAllComponent {
   totalpage1: any;
   currentpage1: any;
   QRImage: any;
+  Roledetails: any;
 
   exportexcel() {
     throw new Error('Method not implemented.');
@@ -54,7 +56,7 @@ export class EntityCustomersViewAllComponent {
   accountid: any;
   Viewall: any;
   getdashboard: any[] = [];
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   pageIndex: number = 0;
   pageSize = 5;
@@ -71,20 +73,36 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
   ngOnInit(): void {
-    this.service.rolegetById(this.roleId).subscribe({
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuecustomerview = 'Entity View Customer-View';
             this.QRImage = "Customer-QR"
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Entity View Customer-View') {
                 this.valuecustomerview = 'Entity View Customer-View';
               }
@@ -98,14 +116,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    this.Getall();
   }
-
   Getall() {
     this.service
       .EntityCustomerview(this.id, this.pageSize, this.pageIndex)

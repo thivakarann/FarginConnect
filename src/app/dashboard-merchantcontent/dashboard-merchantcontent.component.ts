@@ -3,6 +3,7 @@ import { LoaderService } from '../Loader service/loader.service';
 import { FarginServiceService } from '../service/fargin-service.service';
 import moment from 'moment';
 import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-dashboard-merchantcontent',
@@ -40,6 +41,7 @@ export class DashboardMerchantcontentComponent {
   currentmonthcustrans: any;
   valueCurrentMonth: any;
   selectedtodays: string = 'dueTransaction';
+  Roledetails: any;
 
   constructor(
     public loaderService: LoaderService,
@@ -49,11 +51,23 @@ export class DashboardMerchantcontentComponent {
 
 
   ngOnInit(): void {
-
-    this.service.rolegetById(this.roleId).subscribe({
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
+    this.Role();
+    this.loadInitialSetupBoxes();
+  }
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueCustomerView = 'Customer Overview';
             this.valueTicketsView = 'Ticket Overview';
@@ -65,7 +79,7 @@ export class DashboardMerchantcontentComponent {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
 
               if (this.actions == 'Customer Overview') {
                 this.valueCustomerView = 'Customer Overview';
@@ -102,10 +116,6 @@ export class DashboardMerchantcontentComponent {
         }
       },
     });
-
-    const today = new Date();
-    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
-    this.loadInitialSetupBoxes();
   }
 
   getmonthtransaction(event: any) {

@@ -12,6 +12,7 @@ import moment from 'moment';
 import { EntityOfflineviewComponent } from '../Entity Onboard/entity-offlineview/entity-offlineview.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-refund',
@@ -74,7 +75,7 @@ export class EntityRefundComponent {
   secretKey: any;
   getdashboard: any[] = [];
   actions: any;
-roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valuerenewexport: any;
   valuerenewview: any;
   valuerenewpay: any;
@@ -129,27 +130,43 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   valueview: any;
   valueexport: any;
   errorMessage: any;
+  Roledetails: any;
   constructor(
     public service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
     private Location: Location,
     private dialog: MatDialog,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
-  ) {}
+  ) { }
   ngOnInit(): void {
-    this.service.rolegetById(this.roleId).subscribe({
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+    this.Role();
+    this.GetAll();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueview = 'Entity View Refund-View';
             this.valueexport = 'Entity View Refund-Export';
           } else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Entity View Refund-View') {
                 this.valueview = 'Entity View Refund-View';
               }
@@ -163,55 +180,49 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
         }
       },
     });
-
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    this.GetAll();
   }
 
   GetAll() {
     this.service
-    .RefundForMerchantView(this.id, this.pageSize, this.pageIndex)
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.refund = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.refund);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.refund = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.refund);
-        this.currentfilvalShow = false;
-      }
-    });
+      .RefundForMerchantView(this.id, this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.refund = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.refund);
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
+          this.refund = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.refund);
+          this.currentfilvalShow = false;
+        }
+      });
   }
   getAdditional() {
     this.service
-    .refundadditionalgetall(this.id, this.pageSize, this.pageIndex)
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.additionaldetails = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSources = new MatTableDataSource(this.additionaldetails);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.additionaldetails = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSources = new MatTableDataSource(this.additionaldetails);
-        this.currentfilvalShow = false;
-      }
-    });
+      .refundadditionalgetall(this.id, this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.additionaldetails = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSources = new MatTableDataSource(this.additionaldetails);
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
+          this.additionaldetails = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSources = new MatTableDataSource(this.additionaldetails);
+          this.currentfilvalShow = false;
+        }
+      });
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -408,35 +419,35 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   refundsearch(filterValue: string) {
     if (filterValue) {
       this.service
-      .RefundForMerchantsearch(
-        this.id,
-        filterValue,
-        this.pageSize,
-        this.pageIndex,
-        1
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.flag == 1) {
-            this.refund = res.response;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.refund);
-            this.currentfilvalShow = true;
-          } else if (res.flag == 2) {
-            this.refund = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.refund);
-            this.currentfilvalShow = true;
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
-      });
+        .RefundForMerchantsearch(
+          this.id,
+          filterValue,
+          this.pageSize,
+          this.pageIndex,
+          1
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.flag == 1) {
+              this.refund = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.refund);
+              this.currentfilvalShow = true;
+            } else if (res.flag == 2) {
+              this.refund = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.refund);
+              this.currentfilvalShow = true;
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
     } else if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;
@@ -445,39 +456,39 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   additionalrefundsearch(filterValue: string) {
     if (filterValue) {
       this.service
-      .RefundForMerchantsearch(
-        this.id,
-        filterValue,
-        this.pageSize,
-        this.pageIndex,
-        2
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.flag == 1) {
-            this.additionalsearchdetails = res.response;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSources = new MatTableDataSource(
-              this.additionalsearchdetails
-            );
-            this.currentfilvalShow = true;
-          } else if (res.flag == 2) {
-            this.additionalsearchdetails = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSources = new MatTableDataSource(
-              this.additionalsearchdetails
-            );
-            this.currentfilvalShow = true;
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
-      });
+        .RefundForMerchantsearch(
+          this.id,
+          filterValue,
+          this.pageSize,
+          this.pageIndex,
+          2
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.flag == 1) {
+              this.additionalsearchdetails = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSources = new MatTableDataSource(
+                this.additionalsearchdetails
+              );
+              this.currentfilvalShow = true;
+            } else if (res.flag == 2) {
+              this.additionalsearchdetails = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSources = new MatTableDataSource(
+                this.additionalsearchdetails
+              );
+              this.currentfilvalShow = true;
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
     } else if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;
@@ -485,117 +496,12 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   }
   filterdate() {
     this.service
-    .OnlineRfundsDateFilter(
-      this.id,
-      this.FromDateRange,
-      this.ToDateRange,
-      this.pageSize,
-      this.pageIndex,
-      1
-    )
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.transaction = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.filterAction = 1;
-      } else if (res.flag == 2) {
-        this.transaction = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.transaction);
-      }
-    });
-  }
-  filteradditionaldate() {
-    this.service
-    .OnlineRfundsDateFilter(
-      this.id,
-      this.FromDateRanges,
-      this.ToDateRanges,
-      this.pageSize,
-      this.pageIndex,
-      2
-    )
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.datetransaction = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSources = new MatTableDataSource(this.datetransaction);
-        this.filterActions = 1;
-      } else if (res.flag == 2) {
-        this.datetransaction = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSources = new MatTableDataSource(this.datetransaction);
-      }
-    });
-  }
-  reset() {
-    this.filterAction = '';
-    this.service
-    .RefundForMerchantView(this.id, this.pageSize, this.pageIndex)
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.refund = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.refund);
-        this.currentfilvalShow = false;
-        this.FromDateRange = '';
-        this.ToDateRange = '';
-      } else if (res.flag == 2) {
-        this.refund = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.refund);
-        this.currentfilvalShow = false;
-        this.FromDateRange = '';
-        this.ToDateRange = '';
-      }
-    });
-  }
-  resetadditional() {
-    this.filterActions = '';
-    this.service
-    .refundadditionalgetall(this.id, this.pageSize, this.pageIndex)
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.additionaldetails = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSources = new MatTableDataSource(this.additionaldetails);
-        this.currentfilvalShow = false;
-        this.FromDateRanges = '';
-        this.ToDateRanges = '';
-      } else if (res.flag == 2) {
-        this.additionaldetails = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSources = new MatTableDataSource(this.additionaldetails);
-        this.currentfilvalShow = false;
-      }
-    });
-  }
-  getData(event: any) {
-    if (this.filterAction == 1) {
-      this.service
       .OnlineRfundsDateFilter(
         this.id,
         this.FromDateRange,
         this.ToDateRange,
-        event.pageSize,
-        event.pageIndex,
+        this.pageSize,
+        this.pageIndex,
         1
       )
       .subscribe((res: any) => {
@@ -605,72 +511,24 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transaction);
+          this.filterAction = 1;
         } else if (res.flag == 2) {
           this.transaction = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.refund);
+          this.dataSource = new MatTableDataSource(this.transaction);
         }
       });
-    } else if (this.currentfilvalShow) {
-      this.service
-      .RefundForMerchantsearch(
-        this.id,
-        this.currentfilval,
-        event.pageSize,
-        event.pageIndex,
-        1
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.flag == 1) {
-            this.refund = res.response;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.refund);
-          } else if (res.flag == 2) {
-            this.transaction = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.refund);
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
-      });
-    } else {
-      this.service
-      .RefundForMerchantView(this.id, event.pageSize, event.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.refund = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.refund);
-        } else if (res.flag == 2) {
-          this.refund = [];
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.refund);
-        }
-      });
-    }
   }
-  getDataAdditional(event: any) {
-    if (this.filterActions == 1) {
-      this.service
+  filteradditionaldate() {
+    this.service
       .OnlineRfundsDateFilter(
         this.id,
         this.FromDateRanges,
         this.ToDateRanges,
-        event.pageSize,
-        event.pageIndex,
+        this.pageSize,
+        this.pageIndex,
         2
       )
       .subscribe((res: any) => {
@@ -680,6 +538,7 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSources = new MatTableDataSource(this.datetransaction);
+          this.filterActions = 1;
         } else if (res.flag == 2) {
           this.datetransaction = [];
           this.totalPages = res.pagination.totalElements;
@@ -688,42 +547,37 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           this.dataSources = new MatTableDataSource(this.datetransaction);
         }
       });
-    } else if (this.currentfilvalShow) {
-      this.service
-      .RefundForMerchantsearch(
-        this.id,
-        this.currentfilvals,
-        event.pageSize,
-        event.pageIndex,
-        2
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.flag == 1) {
-            this.additionalsearchdetails = res.response;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSources = new MatTableDataSource(
-              this.additionalsearchdetails
-            );
-          } else if (res.flag == 2) {
-            this.additionalsearchdetails = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSources = new MatTableDataSource(
-              this.additionalsearchdetails
-            );
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
+  }
+  reset() {
+    this.filterAction = '';
+    this.service
+      .RefundForMerchantView(this.id, this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.refund = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.refund);
+          this.currentfilvalShow = false;
+          this.FromDateRange = '';
+          this.ToDateRange = '';
+        } else if (res.flag == 2) {
+          this.refund = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.refund);
+          this.currentfilvalShow = false;
+          this.FromDateRange = '';
+          this.ToDateRange = '';
+        }
       });
-    } else {
-      this.service
-      .refundadditionalgetall(this.id, event.pageSize, event.pageIndex)
+  }
+  resetadditional() {
+    this.filterActions = '';
+    this.service
+      .refundadditionalgetall(this.id, this.pageSize, this.pageIndex)
       .subscribe((res: any) => {
         if (res.flag == 1) {
           this.additionaldetails = res.response;
@@ -731,14 +585,171 @@ roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSources = new MatTableDataSource(this.additionaldetails);
+          this.currentfilvalShow = false;
+          this.FromDateRanges = '';
+          this.ToDateRanges = '';
         } else if (res.flag == 2) {
           this.additionaldetails = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSources = new MatTableDataSource(this.additionaldetails);
+          this.currentfilvalShow = false;
         }
       });
+  }
+  getData(event: any) {
+    if (this.filterAction == 1) {
+      this.service
+        .OnlineRfundsDateFilter(
+          this.id,
+          this.FromDateRange,
+          this.ToDateRange,
+          event.pageSize,
+          event.pageIndex,
+          1
+        )
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.transaction = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+          } else if (res.flag == 2) {
+            this.transaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.refund);
+          }
+        });
+    } else if (this.currentfilvalShow) {
+      this.service
+        .RefundForMerchantsearch(
+          this.id,
+          this.currentfilval,
+          event.pageSize,
+          event.pageIndex,
+          1
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.flag == 1) {
+              this.refund = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.refund);
+            } else if (res.flag == 2) {
+              this.transaction = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.refund);
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
+    } else {
+      this.service
+        .RefundForMerchantView(this.id, event.pageSize, event.pageIndex)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.refund = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.refund);
+          } else if (res.flag == 2) {
+            this.refund = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.refund);
+          }
+        });
+    }
+  }
+  getDataAdditional(event: any) {
+    if (this.filterActions == 1) {
+      this.service
+        .OnlineRfundsDateFilter(
+          this.id,
+          this.FromDateRanges,
+          this.ToDateRanges,
+          event.pageSize,
+          event.pageIndex,
+          2
+        )
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.datetransaction = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSources = new MatTableDataSource(this.datetransaction);
+          } else if (res.flag == 2) {
+            this.datetransaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSources = new MatTableDataSource(this.datetransaction);
+          }
+        });
+    } else if (this.currentfilvalShow) {
+      this.service
+        .RefundForMerchantsearch(
+          this.id,
+          this.currentfilvals,
+          event.pageSize,
+          event.pageIndex,
+          2
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.flag == 1) {
+              this.additionalsearchdetails = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSources = new MatTableDataSource(
+                this.additionalsearchdetails
+              );
+            } else if (res.flag == 2) {
+              this.additionalsearchdetails = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSources = new MatTableDataSource(
+                this.additionalsearchdetails
+              );
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
+    } else {
+      this.service
+        .refundadditionalgetall(this.id, event.pageSize, event.pageIndex)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.additionaldetails = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSources = new MatTableDataSource(this.additionaldetails);
+          } else if (res.flag == 2) {
+            this.additionaldetails = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSources = new MatTableDataSource(this.additionaldetails);
+          }
+        });
     }
   }
 

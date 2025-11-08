@@ -10,7 +10,7 @@ import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { EntityStatus } from '../../fargin-model/fargin-model.module';
+import { EntityStatus, Payload } from '../../fargin-model/fargin-model.module';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
@@ -95,21 +95,35 @@ export class EntityViewallComponent {
   searchPerformed: boolean = false;
   RenewelFee: any;
   valueWhatsappsetting: any;
+  Roledetails: any;
+  entitypermission: any;
 
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
 
-    this.EntityViewall.rolegetById(this.roleId).subscribe({
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.EntityViewall.RolebyIDnew(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valueEntityAdd = 'Entity Onboard-Add';
             this.valueEntityExport = 'Entity Onboard-Export';
@@ -140,8 +154,8 @@ export class EntityViewallComponent {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              this.actions1 = datas.permission.permission
+              this.actions = datas.subPermissionName;
+              this.actions1 = datas.permission.permissionName
               if (this.actions == 'Entity Onboard-Add') {
                 this.valueEntityAdd = 'Entity Onboard-Add';
               }
@@ -229,7 +243,6 @@ export class EntityViewallComponent {
         }
       }
     });
-    this.Getall();
   }
 
   Getall() {

@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { LoaderService } from '../../Loader service/loader.service';
 import { ExportReportAddComponent } from '../export-report-add/export-report-add.component';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-export-report-viewall',
@@ -58,22 +59,41 @@ export class ExportReportViewallComponent implements OnInit {
   exportreport: any = FormGroup;
   search: any;
   value: any;
+  Roledetails: any;
 
   constructor(
     public service: FarginServiceService,
     private dialog: MatDialog,
     public loaderService: LoaderService,
     public fb: FormBuilder,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
+    this.Role();
+    this.Getall();
 
-    this.service.rolegetById(this.roleId).subscribe({
+    this.exportreport = this.fb.group({
+      exportDataName: ['', [Validators.required]],
+      paymentStatus: [''],
+      merchantId: ['']
+    });
+
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
 
           if (this.roleId == 1) {
             this.value = 'Export Report-Download';
@@ -82,7 +102,7 @@ export class ExportReportViewallComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Export Report-Download') {
                 this.value = 'Export Report-Download'
               }
@@ -98,15 +118,6 @@ export class ExportReportViewallComponent implements OnInit {
         }
       }
     });
-
-    this.Getall();
-
-    this.exportreport = this.fb.group({
-      exportDataName: ['', [Validators.required]],
-      paymentStatus: [''],
-      merchantId: ['']
-    });
-
   }
 
   get exportDataName() {

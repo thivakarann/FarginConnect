@@ -9,7 +9,7 @@ import moment from 'moment';
 import { Workbook } from 'exceljs';
 import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
-import { MerchantTransaction } from '../../fargin-model/fargin-model.module';
+import { MerchantTransaction, Payload } from '../../fargin-model/fargin-model.module';
 import { MerchantTransactionViewComponent } from '../merchant-transaction-view/merchant-transaction-view.component';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
@@ -54,26 +54,59 @@ export class OverallTransactionsViewallComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
- roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
   actions: any;
   errorMessage: any;
+  Roledetails: any;
 
 
-  constructor(private cryptoService:EncyDecySericeService,private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
+  constructor(private cryptoService: EncyDecySericeService, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
 
 
 
   ngOnInit(): void {
 
+    this.Role();
 
+    let submitModel: MerchantTransaction = {
+      accountId: "338",
+      pageNo: this.currentPage,
+      size: '20',
+      query: '',
+      dateRange: this.Daterange,
+      status: ""
+    }
+    this.service.TransactionForMerchant(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
 
-    this.service.rolegetById(this.roleId).subscribe({
+        this.Viewall = JSON.parse(res.response);
+        this.content = this.Viewall?.data?.content;
+        this.filteredData = this.content;
+
+        this.getallData = this.Viewall.data.totalElements;
+
+        // this.toastr.success(res.responseMessage);
+        this.dataSource = new MatTableDataSource(this.filteredData);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+
+    })
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
       next: (res: any) => {
-        
+        if (res.flag == 1) {
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
 
-        if (res.flag == 1){
-          this.getdashboard = res.response?.subPermission;
-          
           if (this.roleId == 1) {
             this.valueTransactionExport = 'Transactions-Export';
             this.valueTransactionView = 'Transactions-View'
@@ -81,8 +114,8 @@ export class OverallTransactionsViewallComponent {
           else {
             for (let datas of this.getdashboard) {
 
-              this.actions = datas.subPermissions;
-              
+              this.actions = datas.subPermissionName;
+
 
               if (this.actions == 'Transactions-Export') {
                 this.valueTransactionExport = 'Transactions-Export';
@@ -100,34 +133,6 @@ export class OverallTransactionsViewallComponent {
         }
       }
     });
-
-
-    let submitModel: MerchantTransaction = {
-      accountId: "338",
-      pageNo: this.currentPage,
-      size: '20',
-      query: '',
-      dateRange: this.Daterange,
-      status: ""
-    }
-    this.service.TransactionForMerchant(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.data?.content;
-        this.filteredData = this.content;
-        
-        this.getallData = this.Viewall.data.totalElements;
-        
-        // this.toastr.success(res.responseMessage);
-        this.dataSource = new MatTableDataSource(this.filteredData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-
-    })
-
-
   }
 
 
@@ -170,13 +175,13 @@ export class OverallTransactionsViewallComponent {
     }
     this.service.TransactionForMerchant(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        
+
         this.Viewall = JSON.parse(res.response);
         this.content = this.Viewall?.data?.content;
         this.filteredData = this.content;
 
         this.getallData = this.Viewall.data.totalElements;
-        
+
         this.toastr.success(res.responseMessage);
       }
     })
@@ -187,7 +192,7 @@ export class OverallTransactionsViewallComponent {
 
 
   exportexcel() {
-    
+
     let sno = 1;
     this.responseDataListnew = [];
     this.filteredData.forEach((element: any) => {

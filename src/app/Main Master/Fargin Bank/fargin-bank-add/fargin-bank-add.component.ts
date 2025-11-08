@@ -19,6 +19,7 @@ export class FarginBankAddComponent {
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private cryptoService: EncyDecySericeService, private dialog: MatDialog, private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
+
   ngOnInit(): void {
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl(null, [
@@ -43,14 +44,10 @@ export class FarginBankAddComponent {
         Validators.pattern(/^[A-Za-z ]{1,50}$/)
       ]),
       typemode: new FormControl('', [
-        Validators.required,
+        Validators.required,]),
 
-      ]),
       ledgerId: new FormControl('', [Validators.required, Validators.pattern(/^\d{1,10}$/
       )]),
-    })
-    this.service.roleactiveViewall().subscribe((res: any) => {
-      this.activeRole = res.response;
     })
   }
 
@@ -89,14 +86,17 @@ export class FarginBankAddComponent {
       typeMode: this.typemode?.value,
       createdBy: this.adminName
     }
-    this.service.FarginCreate(submitmodel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitmodel))
+    }
+    this.service.FarginCreate(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toaster.success(res.responseMessage);
+        this.toaster.success(res.messageDescription);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       }
       else {
-        this.toaster.error(res.responseMessage);
+        this.toaster.error(res.messageDescription);
       }
     })
 

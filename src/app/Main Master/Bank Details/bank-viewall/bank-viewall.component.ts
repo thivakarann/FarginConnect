@@ -3,13 +3,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AddbankDetailsComponent } from '../addbank-details/addbank-details.component';
 import { EditBankDetailsComponent } from '../edit-bank-details/edit-bank-details.component';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { UpdateBankdetailStatus } from '../../../fargin-model/fargin-model.module';
+import { Payload, UpdateBankdetailStatus, Getallstatus } from '../../../fargin-model/fargin-model.module';
 import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
@@ -48,24 +46,43 @@ export class BankViewallComponent implements OnInit {
   errorMessage: any;
   getdashboard: any[] = [];
   roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
   actions: any;
   valuetermViews: any;
   searchPerformed: boolean = false;
+  categoryList: any;
+  totalPages: any;
+  totalpage: any;
+  currentfilvalShow: boolean = false;
+  currentpage: any;
+  currentfilval: any;
+  Roledetails: any;
 
   constructor(
     public bankdetails: FarginServiceService,
     private dialog: MatDialog,
     private toastr: ToastrService,
-    private cryptoService:EncyDecySericeService,
+    private cryptoService: EncyDecySericeService,
 
   ) { }
 
   ngOnInit(): void {
+    this.Role();
+    this.fetchBankDetails()
+  };
 
-    this.bankdetails.rolegetById(this.roleId).subscribe({
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.bankdetails.rolegetById(datamodal).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
           if (this.roleId == 1) {
             this.valuebanklistadd = 'Bank Details-Add'
             this.valuebanklistexport = 'Bank Details-Export'
@@ -74,7 +91,7 @@ export class BankViewallComponent implements OnInit {
           }
           else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+              this.actions = datas.subPermissionName;
               if (this.actions == 'Bank Details-Add') {
                 this.valuebanklistadd = 'Bank Details-Add'
               }
@@ -95,35 +112,76 @@ export class BankViewallComponent implements OnInit {
         }
       }
     });
-    this.fetchBankDetails()
   };
 
   fetchBankDetails() {
-    this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
+    let submitModel: Getallstatus = {
+      pageNumber: 0,
+      pageSize: 5,
+      fromDate: '',
+      toDate: '',
+      status: -1,
+      searchContent: '',
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.bankdetails.bankdetailsViewall(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.dataSource = new MatTableDataSource(this.viewall?.content);
+        this.categoryList = this.viewall.content;
+        this.totalPages = this.viewall.totalElements;
+        this.totalpage = this.viewall.size;
+        this.currentpage = this.viewall.number;
+        this.currentfilvalShow = false;
       }
       else if (res.flag == 2) {
         this.viewall = [];
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(this.viewall?.content);
+        this.categoryList = this.viewall.content;
+        this.totalPages = this.viewall.totalElements;
+        this.totalpage = this.viewall.size;
+        this.currentpage = this.viewall.number;
+        this.currentfilvalShow = false;
       }
     });
   };
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  Search(filterValue: string) {
+    if (filterValue == '' || filterValue == null) { this.toastr.error('Please Enter the Text'); }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: '',
+        pageSize: 5,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: filterValue
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.bankdetails.bankdetailsViewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = true;
+        }
+      });
     }
-  }
+  };
 
   AddBankDetails() {
     const dialogRef = this.dialog.open(AddbankDetailsComponent, {
@@ -148,43 +206,126 @@ export class BankViewallComponent implements OnInit {
     });
   }
 
-  ActiveStatus(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
+  ActiveStatus(id: any) {
     let submitModel: UpdateBankdetailStatus = {
-      bankId: id,
-      activeStatus: this.isChecked ? 1 : 0,
+      bankDetailsId: id,
     };
-    this.bankdetails.activebankdetailsstatus(submitModel).subscribe((res: any) => {
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.bankdetails.activebankdetailsstatus(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          this.fetchBankDetails()
-        }, 200);
-
+        this.toastr.success(res.messageDescription);
+        setTimeout(() => { this.fetchBankDetails() }, 200);
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.messageDescription);
       }
     });
   }
 
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: ''
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.bankdetails.bankdetailsViewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = false;
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+          this.currentfilvalShow = false;
+        }
+      });
+    }
+    else {
+      let submitModel: Getallstatus = {
+        pageNumber: event.pageIndex,
+        pageSize: event.pageSize,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: this.currentfilval
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+      }
+      this.bankdetails.bankdetailsViewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+        } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.content);
+          this.totalPages = this.viewall.totalElements;
+          this.totalpage = this.viewall.size;
+          this.currentpage = this.viewall.number;
+        }
+      });
+    }
 
-  exportexcel() {
+  }
+
+  Exportall() {
+    if (this.totalPages != 0) {
+      const payload = {
+        pageNumber: 0,
+        pageSize: this.totalPages,
+        fromDate: '',
+        toDate: '',
+        status: -1,
+        searchContent: '',
+      };
+      let datamodal = {
+        data: this.cryptoService.encrypt(JSON.stringify(payload))
+      }
+      this.bankdetails.bankdetailsViewall(datamodal).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.exportexcel(this.viewall.content);
+        }
+      });
+    } else {
+      this.toastr.error('No record found');
+    }
+  }
+
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.viewall.forEach((element: any) => {
+    data.forEach((element: any) => {
       let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.bankName);
-      if (element?.activeStatus == 1) {
+      if (element?.status == 1) {
         this.response.push("Active");
       }
       else {
         this.response.push("InActive");
       }
-      this.response.push(element?.createdBy);
+      this.response.push(element?.createdby);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
       if (element?.modifiedAt != null) {
