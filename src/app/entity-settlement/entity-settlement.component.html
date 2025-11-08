@@ -1,0 +1,291 @@
+<div class="row mt-2">
+    <div class="col-md-3">
+        <h5 style="text-align:left;color:#141E46;">Entity Settlement</h5>
+    </div>
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-1">
+        <button style="color:white;background-color: #141E46; border-radius: .5rem;font-size: .875rem;padding:5px 5px;"
+            (click)="close()">Back</button>
+    </div>
+</div>
+
+<span *ngIf="selectedTransactionType == 'Online Settlement'">
+    <mat-card-header>
+        <div class="row g-3 align-items-end">
+
+            <!-- Dropdown -->
+            <div class="col-md-3">
+                <label for="transactionType" class="form-label"><b>Settlement Type</b></label>
+                <select id="transactionType" (change)="transactionsDropdown($event)" class="form-select">
+                    <option [selected]="selectedTransactionType == 'Online Settlement'" value="Online Settlement">
+                        Online Settlement
+                    </option>
+                    <option value="Offline Settlement">Offline Settlement</option>
+                </select>
+            </div>
+
+            <!-- From Date -->
+            <div class="col-md-2">
+                <label for="fromDate" class="form-label"><b>From Date</b></label>
+                <input id="fromDate" class="form-control" type="datetime-local" name="FromDate"
+                    [(ngModel)]="FromDateRange" (change)="checkDate()" [max]="maxDate" onkeydown="return false;">
+            </div>
+
+            <!-- To Date -->
+            <div class="col-md-2">
+                <label for="toDate" class="form-label"><b>To Date</b></label>
+                <input id="toDate" class="form-control" type="datetime-local" name="ToDate" [(ngModel)]="ToDateRange"
+                    [min]="FromDateRange" [max]="maxDate" onkeydown="return false;">
+            </div>
+
+            <!-- Filter Button -->
+            <div class="col-md-1">
+                <button class="buttonDownload"
+                    style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
+                    [disabled]="!FromDateRange || !ToDateRange " (click)="filterdate()">Filter</button>
+            </div>
+
+            <!-- Reset Button -->
+            <div class="col-md-1">
+                <button class="buttonDownload" [disabled]="!FromDateRange || !ToDateRange " style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+                    mat-raised-button (click)="resetFilter()">Reset</button>
+            </div>
+
+            <!-- Export Button -->
+            <div class="col-md-1" *ngIf="valuesettlementexport === 'Entity View Settlement-Export'">
+                <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+                    (click)="exportData()" mat-raised-button
+                    [hidden]="valuesettlementexport!=='Entity View Settlement-Export'">Export</button>
+            </div>
+
+        </div>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
+            <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="settlementId">
+                    <th mat-header-cell *matHeaderCellDef> S.No</th>
+                    <td mat-cell *matCellDef="let data; let i = index"> {{i+1}} </td>
+                </ng-container>
+                <ng-container matColumnDef="accoundid">
+                    <th mat-header-cell *matHeaderCellDef>Account ID</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.accountId ||'--'}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="payoutId">
+                    <th mat-header-cell *matHeaderCellDef>Payout ID</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.payoutId ||'--'}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="benificiary">
+                    <th mat-header-cell *matHeaderCellDef>Beneficiary ID</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.beneficiaryId ||'--'}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef>Amount</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.amount ||'--'}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="reference">
+                    <th mat-header-cell *matHeaderCellDef>Reference</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.reference ||'--'}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="txnItem">
+                    <th mat-header-cell *matHeaderCellDef>Txn Item</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.txnItem ||'--'}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef>Txn Time</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.txnTime | date : "dd/MM/yyyy hh:mm a" }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="View">
+                    <th mat-header-cell *matHeaderCellDef
+                        [hidden]="valuesettlementview!=='Entity View Settlement-View'">
+                        View</th>
+                    <td mat-cell *matCellDef="let data" [hidden]="valuesettlementview!=='Entity View Settlement-View'">
+                        <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"
+                            (click)="viewpayout(data.accountId, data.payoutId)"></i>
+                    </td>
+                </ng-container>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+                <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+                <tr *matNoDataRow>
+                    <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
+                    <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </mat-card-content>
+
+    <mat-card-footer>
+        <mat-paginator (page)="getData($event)" [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="length"
+            [pageSizeOptions]="[5,10, 50, 100, 500, 1000]" aria-label="Select page of users"></mat-paginator>
+    </mat-card-footer>
+</span>
+
+<span *ngIf="selectedTransactionType == 'Offline Settlement'">
+    <mat-card-header>
+        <div class="row g-3 align-items-end">
+
+            <!-- Dropdown -->
+            <div class="col-md-3">
+                <label for="transactionType" class="form-label"><b>Settlement Type</b></label>
+                <select id="transactionType" (change)="transactionsDropdown($event)" class="form-select">
+                    <option value="Online Settlement">Online Settlement</option>
+                    <option [selected]="selectedTransactionType == 'Offline Settlement'" value="Offline Settlement">
+                        Offline Settlement
+                    </option>
+
+                </select>
+            </div>
+
+            <!-- From Date -->
+            <div class="col-md-2">
+                <label for="fromDate" class="form-label"><b>From Date</b></label>
+                <input id="fromDate" class="form-control" type="datetime-local" name="FromDate"
+                    [(ngModel)]="FromDateRangeoffline" (change)="checkDateoffline()" [max]="maxDate"
+                    onkeydown="return false;">
+            </div>
+
+            <!-- To Date -->
+            <div class="col-md-2">
+                <label for="toDate" class="form-label"><b>To Date</b></label>
+                <input id="toDate" class="form-control" type="datetime-local" name="ToDate"
+                    [(ngModel)]="ToDateRangeoffline" [min]="FromDateRangeoffline" [max]="maxDate"
+                    onkeydown="return false;">
+            </div>
+
+            <!-- Filter Button -->
+            <div class="col-md-1">
+                <button class="buttonDownload"
+                    style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
+                    [disabled]="!FromDateRangeoffline || !ToDateRangeoffline "
+                    (click)="filterdateoffline()">Filter</button>
+            </div>
+
+            <!-- Reset Button -->
+            <div class="col-md-1">
+                <button class="buttonDownload" [disabled]="!FromDateRangeoffline || !ToDateRangeoffline " style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+                    mat-raised-button (click)="resetFilteroffline()">Reset</button>
+            </div>
+
+            <!-- Export Button -->
+            <div class="col-md-1" *ngIf="valuesettlementexport === 'Entity View Settlement-Export'">
+                <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+                    (click)="exportDataOffline()" mat-raised-button
+                    [hidden]="valuesettlementexport!=='Entity View Settlement-Export'">Export</button>
+            </div>
+
+        </div>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
+            <table id="season-tble" matSort mat-table [dataSource]="dataSourcesoffline" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="settlementIds">
+                    <th mat-header-cell *matHeaderCellDef> S.No</th>
+                    <td mat-cell *matCellDef="let data; let i = index"> {{i+1}} </td>
+                </ng-container>
+                <ng-container matColumnDef="accoundids">
+                    <th mat-header-cell *matHeaderCellDef>Account ID</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.accountId ||'--'}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="payoutIds">
+                    <th mat-header-cell *matHeaderCellDef>Payout ID</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.accountPayoutId ||'--'}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="benificiarys">
+                    <th mat-header-cell *matHeaderCellDef>Beneficiary ID</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.id ||'--'}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="amounts">
+                    <th mat-header-cell *matHeaderCellDef>Amount</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.amount ||'--'}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="references">
+                    <th mat-header-cell *matHeaderCellDef>Reference</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.txnReference ||'--'}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="txnItems">
+                    <th mat-header-cell *matHeaderCellDef>Txn Item</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.txnItem ||'--'}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdAts">
+                    <th mat-header-cell *matHeaderCellDef>Txn Time</th>
+                    <td mat-cell *matCellDef="let data">
+                        {{data?.txnTime | date : "dd/MM/yyyy hh:mm a" }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Views">
+                    <th mat-header-cell *matHeaderCellDef
+                        [hidden]="valuesettlementview!=='Entity View Settlement-View'">
+                        View</th>
+                    <td mat-cell *matCellDef="let data" [hidden]="valuesettlementview!=='Entity View Settlement-View'">
+                        <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);" (click)="viewOfflinepayout(data.accountPayoutId)"></i>
+                    </td>
+                </ng-container>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedOfflineColumns;sticky:true"></tr>
+                <tr mat-row *matRowDef="let row;columns:displayedOfflineColumns"></tr>
+                <tr *matNoDataRow>
+                    <td class="mat-cell" colspan="0" *ngIf="searchPerformedoffline">No Data</td>
+                    <td class="mat-cell" colspan="0"
+                        *ngIf="!searchPerformedoffline && dataSourcesoffline.data.length === 0">No
+                        Data
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </mat-card-content>
+
+    <mat-card-footer>
+        <mat-paginator (page)="getDataoffline($event)" [pageIndex]="pageIndexoffline" [pageSize]="pageSizeoffline"
+            [length]="lengthoffline" [pageSizeOptions]="[5,10, 50, 100, 500, 1000]"
+            aria-label="Select page of users"></mat-paginator>
+    </mat-card-footer>
+</span>

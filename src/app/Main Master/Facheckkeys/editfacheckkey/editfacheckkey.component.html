@@ -1,0 +1,62 @@
+<div class="container" style="padding: 0;">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Update Facheck Key</h5>
+    </div>
+
+    <body class="page">
+        <main class="main page__main">
+            <form class="form main__form" autocomplete="off" role="form" [formGroup]="facheckkeyFormGroup">
+                <div class="form__grid">
+                    <div class="form__linput">
+                        <label class="form__label" for="apiKey">Api Key</label>
+                        <input class="form-control" id="apiKey" type="text" formControlName="apiKey" required />
+                        <div class="form__error"
+                            *ngIf="apiKey?.invalid && apiKey?.touched && apiKey?.errors?.['required']">
+                            Field is required
+                        </div>
+                    </div>
+                    <div class="form__linput">
+                        <label class="form__label" for="secretKey">Secret Key</label>
+                        <input class="form-control" id="secretKey" type="text" formControlName="secretKey" required />
+                        <div class="form__error"
+                            *ngIf="secretKey?.invalid && secretKey?.touched && secretKey?.errors?.['required']">
+                            Field is required
+                        </div>
+                    </div>
+                    <div class="form__linput">
+                        <label class="form__label" for="applicationId">Application Id</label>
+                        <input class="form-control" id="applicationId" type="text" formControlName="applicationId"
+                            required />
+                        <div class="form__error"
+                            *ngIf="applicationId?.invalid && applicationId?.touched && applicationId?.errors?.['required']">
+                            Field is required
+                        </div>
+                        <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                  " *ngIf="applicationId?.invalid && applicationId?.touched && applicationId?.errors?.['pattern']">
+                            Invalid Format
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form__label" for="message">Mode</label>
+                        <select class="form-select" formControlName="mode">
+                            <option value="" disabled selected>Select Mode</option>
+                            <option value="Test">Test</option>
+                            <option value="Live">Live</option>
+                        </select>
+                        <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
+                            *ngIf="mode?.touched && mode?.mode?.['required']">Please
+                            Choose MSO*</span>
+                    </div>
+                </div>
+                <div class="form__buttons">
+                    <button type="submit" class="btn mx-1 " style="background-color:#7db855be"
+                        [disabled]="facheckkeyFormGroup.invalid" (click)="submit()">Submit</button>
+                    <button type="submit" class="cancel" matDialogClose class="btn"
+                        style="background-color:#141E46;color:white">Cancel</button>
+                </div>
+            </form>
+        </main>
+    </body>

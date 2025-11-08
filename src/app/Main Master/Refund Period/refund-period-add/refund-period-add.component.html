@@ -1,0 +1,54 @@
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Set Refund Period</h3>
+</div>
+
+<body class="page">
+    <main class="main page__main">
+        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
+            <div class=" mb-3">
+                <div class="form__linput">
+                    <label class="form__label" for="fname">Payment Method</label>
+                    <select formControlName="paymentMethod" id="paymentMethod" class="form-control form-select">
+                        <option value="" disabled selected>Select</option>
+                        <option value="UPI">UPI/QR</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Net Banking">Net Banking</option>
+                    </select>
+                    <div style="color: red; font-size: 12px;margin-top: 2px;"
+                        *ngIf="paymentMethod?.invalid && paymentMethod?.touched && paymentMethod?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form__label" for="Entity Name">Refund Period</label>
+                    <input type="text" placeholder="Refund Period (in Days)" id="Entity Name" formControlName="day"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="day?.invalid && day?.touched && day?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="day?.invalid && day?.touched && day?.errors?.['pattern']">
+                        Please enter whole numbers only
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    matDialogClose>Cancel</button>
+            </div>
+        </form>
+    </main>
+</body>

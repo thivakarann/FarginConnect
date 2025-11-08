@@ -1,10 +1,89 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { FarginServiceService } from '../../../service/fargin-service.service';
+import { ToastrService } from 'ngx-toastr';
+import { Businessedit } from '../../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-editcategory',
   templateUrl: './editcategory.component.html',
-  styleUrl: './editcategory.component.css'
+  styleUrl: './editcategory.component.css',
 })
-export class EditcategoryComponent {
+export class EditcategoryComponent implements OnInit {
+  editcategory: any = FormGroup;
+  businessCategoryId: any;
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+  categorys: any;
+  mccCodes: any;
+  days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
+  autoDebitDates: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
+    private toastr: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { this.businessCategoryId = data.value.businessCategoryId; }
+
+  ngOnInit(): void {
+    this.editcategory = this.fb.group({
+      categoryName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(50),
+      ]),
+      mccCode: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[0-9]{4}$/),
+      ]),
+      autoDebitDate: new FormControl('', [Validators.required]),
+    });
+    this.categorys = this.data.value.businessCategoryName;
+    this.editcategory.controls['categoryName'].value = this.categorys;
+    this.mccCodes = this.data.value.mccCode;
+    this.editcategory.controls['mccCode'].value = this.mccCodes;
+    this.autoDebitDates = this.data.value.autoDebitDate;
+    this.editcategory.controls['autoDebitDate'].value = this.autoDebitDates;
+  }
+
+  get categoryName() {
+    return this.editcategory.get('categoryName');
+  }
+
+  get autoDebitDate() {
+    return this.editcategory.get('autoDebitDate');
+  }
+
+  get mccCode() {
+    return this.editcategory.get('mccCode');
+  }
+
+  Editsubmit() {
+    let submitModel: Businessedit = {
+      businessCategoryId: this.businessCategoryId,
+      businessCategoryName: this.categoryName.value.trim(),
+      mccCode: this.mccCode.value.trim(),
+      modifiedBy: this.adminName,
+      autoDebitDate: this.autoDebitDate?.value,
+      modifierRole: this.adminName
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.BusinessEdit(datamodal).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.messageDescription);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      } else {
+        this.toastr.error(res.messageDescription);
+      }
+    });
+  }
 }

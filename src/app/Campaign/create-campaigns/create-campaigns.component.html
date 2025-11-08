@@ -1,0 +1,83 @@
+<div class="card-header">
+  <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Create Campaign</h3>
+</div>
+
+<body class="">
+  <main class="main page__main">
+    <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="announcementform">
+      <div class="form__row">
+        <div class="form__linput ">
+          <label class="form__label" for="fname">{{"Subject"}}</label>
+          <input type="text" id="subject" class="form-control" formControlName="subject" required />
+          <div style="color: red; font-size: 12px;margin-top: 2px;"
+            *ngIf="subject?.invalid && subject?.touched && subject?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="form__linput ">
+          <label class="form__label">Date</label>
+          <input onkeydown="return false;" class="form-control" type="date" formControlName="startDate" required
+            [min]="minDate">
+          <div style="color: red; font-size: 12px;margin-top: 2px;"
+            *ngIf="startDate?.invalid && startDate?.touched && startDate?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+      </div>
+      <div class="form__row">
+        <div class="form__linput ">
+          <label class="form__label">{{"Content"}}</label>
+          <textarea class="form-control" type="text" formControlName="contents" required></textarea>
+          <div style="color: red; font-size: 12px;margin-top: 2px;"
+            *ngIf="contents?.invalid && contents?.touched && contents?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="color: red; font-size: 12px;margin-top: 2px;"
+            *ngIf="contents?.invalid   && contents?.errors?.['maxlength']">
+            Only 1000 characters are allowed
+          </div>
+        </div>
+      </div>
+      <div class="form__row">
+        <div class="form__linput ">
+          <label class="form__label">{{"Image"}}</label>
+          <input type="file" id="email" accept="image/png, image/jpeg" (change)="onFileSelected($event)"
+            class="form-control" formControlName="document" required />
+          <div style="color: red; font-size: 12px;margin-top: 2px;"
+            *ngIf="document?.invalid && document?.touched && document?.errors?.['required']">
+            Field is required
+          </div>
+          <div class="note">
+            <p>
+              <i class="icon-info"></i>
+              Note : PNG, JPEG, GIF, and other file types are only supported here.
+            </p>
+          </div>
+        </div>
+        <div class="form__linput ">
+          <label class="form__label">{{"Upload File"}}</label>
+          <input type="file" accept=".csv" class="form-control" formControlName="uploadFile" required
+            (change)="uploadBulkFile($event)" />
+          <div style="color: red; font-size: 12px; margin-top: 2px;"
+            *ngIf="uploadFile?.invalid && uploadFile?.touched && uploadFile?.errors?.['required']">
+            Field is required
+          </div>
+          <div class="note">
+            <ul>
+              <li>Only Excel-compatible files are accepted. PNG, JPEG, GIF, and other file types are not supported.</li>
+              <li style="color:red">Maximum 500 Records Only Allowed to Upload For Single Time</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex">
+        <button type="submit" class="btn mx-1" style="background-color: #7db855be" [disabled]="announcementform.invalid"
+          (click)="save()">Submit
+        </button>
+        <button type="submit" class="btn" style="background-color: #141e46; color: white" matDialogClose>
+          Cancel
+        </button>
+      </div>
+    </form>
+  </main>
+</body>

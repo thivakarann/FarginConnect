@@ -1,0 +1,256 @@
+<mat-card>
+  <div class="form-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Bank Verification Details</h5>
+    <button type="button" class="btn btn-secondary" mat-dialog-close>
+      Back
+    </button>
+  </div>
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Full Name*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.fullName }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Account Number*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.accountNumber }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>IFSC Code*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.ifsc }}
+    </div>
+  </div>
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Bank Name*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.bankName }}
+    </div>
+  </div>
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Branch Name*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.branchName }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Account Exists*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.accountExists }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Upi Id*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.upi_id }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Response Code*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.response_code }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Npci bo Response Code*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.npci_bo_response_code }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Npci Status Code*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.npci_status_code }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Npci Status Description*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.npci_status_description }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Address*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.address }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Centre Name*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.centreName }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Micr*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.micr }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Rtgs*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.rtgs }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Neft*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.neft }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Imps*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.imps }}
+    </div>
+  </div>
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Upi*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.upi }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>District*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.district }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Bank Code*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.bank_code }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Micr Check*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.micr_check }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Bank Id*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.bankId }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Beneficiary Id*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.beneficiaryId }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Reference Id*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.reference_id }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Message*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.message }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Status*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.status }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Remarks*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.reMarks }}
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col-md-6">
+      <b>Response Date & Time*</b>
+    </div>
+    <div class="col-md-6">
+      {{ bankverifyres?.responseDateAndTime }}
+    </div>
+  </div>
+</mat-card>

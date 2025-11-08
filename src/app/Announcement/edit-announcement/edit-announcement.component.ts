@@ -1,0 +1,101 @@
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { announceEdit } from '../../fargin-model/fargin-model.module';
+import { FarginServiceService } from '../../service/fargin-service.service';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+
+@Component({
+  selector: 'app-edit-announcement',
+  templateUrl: './edit-announcement.component.html',
+  styleUrl: './edit-announcement.component.css'
+})
+export class EditAnnouncementComponent {
+  announcementform: any = FormGroup;
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  categoryvalue: any;
+  businessCategoryIds: any;
+  announcementContentEnglishs: any;
+  startDates: any;
+  endDates: any;
+  announcementid: any;
+  minDate: any = Date;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+
+  constructor(private dialog: MatDialog,
+    private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
+    private toastr: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder,) { }
+
+
+  ngOnInit(): void {
+
+    this.announcementid = this.data.value.announcementId
+
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0]
+
+    this.announcementform = this._formBuilder.group(
+      {
+        businessCategoryId: ['', Validators.required],
+        announcementContentEnglish: ['', Validators.required],
+        startDate: ['', Validators.required],  // Empty start date
+        endDate: ['', Validators.required]     // Empty end date
+      },);
+
+    if (this.data && this.data.value) {
+      this.announcementform.patchValue({
+        businessCategoryId: this.data.value.businessCategory.businessCategoryId,
+        announcementContentEnglish: this.data.value.announcementContentEnglish,
+        startDate: this.data.value.startDate,
+        endDate: this.data.value.endDate,
+      });
+    } else {
+      console.error('Data is not defined');
+    }
+
+    this.service.BusinesscategoryKycactive().subscribe((res: any) => {
+      this.categoryvalue = res.response;
+    })
+  }
+
+  get businessCategoryId() {
+    return this.announcementform.get('businessCategoryId');
+  }
+
+  get announcementContentEnglish() {
+    return this.announcementform.get('announcementContentEnglish');
+  }
+
+  get startDate() {
+    return this.announcementform.get('startDate');
+  }
+
+  get endDate() {
+    return this.announcementform.get('endDate')
+  }
+
+  submit() {
+    let submitModel: announceEdit = {
+      announcementId: this.announcementid,
+      businessCategoryIds: this.businessCategoryId.value,
+      announcementContentEnglish: this.announcementContentEnglish.value.trim(),
+      startDate: this.startDate.value,
+      endDate: this.endDate.value,
+      updatedBy: this.adminName
+    };
+    this.service.announcementEdit(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
+
+  }
+}

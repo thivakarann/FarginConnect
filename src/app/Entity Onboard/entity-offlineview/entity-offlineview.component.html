@@ -1,0 +1,69 @@
+<body>
+    <span>
+        <div class="card" style="width: 570px; font-size: 14px;height:auto">
+            <div class="form-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0" style="color:black">Refund Details</h5>
+            </div>
+            <!-- <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button> -->
+
+            <div class="card">
+                <table class="table table-bordered"
+                    style="background-color: white; text-align: left;border: 1px solid rgb(154, 154, 153);">
+                    <tbody>
+                        <tr>
+                            <td class="datas">Refund Type</td>
+                            <td id="data">{{details?.typeMode}}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="datas">Payment Method</td>
+                            <td id="data">{{ details?.paymentMethod }}</td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Refund Reference Number
+                            </td>
+                            <td id="data">{{ details?.bankReference || "-" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Paid Amount</td>
+                            <td id="data">{{details?.paidAmount.toFixed(2)}}</td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Refunded Amount</td>
+                            <td id="data">{{details?.refundAmount}}</td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Record Created At</td>
+                            <td id="data">{{details?.createdAt| date:'dd/MM/yyyy hh:mm a' }}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="datas">Paid Date</td>
+                            <td>{{details?.refundDateTime| date:'dd/MM/yyyy hh:mm a' }} </td>
+                        </tr>
+
+                        <tr>
+                            <td class="datas">Status</td>
+                            <td id="data" style="font-weight: 500;">
+                                <span *ngIf="details?.refundStatus == 'COMPLETED'" class="text-success">
+                                    {{ details?.refundStatus}}</span>
+
+                                <span *ngIf="details?.refundStatus   ==  'INITIATED'" class="text-warning">
+                                    {{ details?.refundStatus || '--'}}</span>
+
+
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="text-center mt-3 mb-2">
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    matDialogClose>Close</button>
+            </div>
+        </div>
+    </span>
+</body>

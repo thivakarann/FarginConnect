@@ -1,0 +1,95 @@
+<div class="card" style="font-size: 14px; height: 590px">
+  <div class="form-header d-flex justify-content-between align-items-center">
+    <h6 class="mb-0 text-center" style="color: #fff">
+      Transaction Information
+    </h6>
+    <button type="button" class="btn btn-secondary" mat-dialog-close>
+      Back
+    </button>
+  </div>
+  <table
+    class="table table-bordered"
+    style="
+      background-color: white;
+      text-align: left;
+      border: 1px solid rgb(154, 154, 153);
+    "
+  >
+    <tbody>
+      <tr>
+        <td class="datas">Payment ID</td>
+        <td id="data">{{ content?.paymentId }}</td>
+      </tr>
+      <tr>
+        <td class="datas">Account ID</td>
+        <td id="data">{{ content?.attempt?.accountId }}</td>
+      </tr>
+      <tr>
+        <td class="datas">Terminal ID</td>
+        <td id="data">{{ content?.attempt?.terminalId }}</td>
+      </tr>
+      <tr>
+        <td class="datas">Bank Reference</td>
+        <td class="datas">Bank Reference</td>
+        <td
+          id="data"
+          *ngIf="
+            content?.bankReference == null || content?.bankReference == 'null'
+          "
+        >
+          -
+        </td>
+
+        <td
+          id="data"
+          *ngIf="
+            content?.bankReference != null && content?.bankReference != 'null'
+          "
+        >
+          {{ content?.bankReference }}
+        </td>
+      </tr>
+
+      <tr>
+        <td class="datas">Payment Status</td>
+        <td id="data">
+          <span
+            *ngIf="content?.attempt?.completed == 'SUCCESS'"
+            class="text-success"
+            >{{ content?.attempt?.completed }}</span
+          >
+          <span
+            *ngIf="content?.attempt?.completed == 'FAILURE'"
+            class="text-danger"
+            >{{ content?.attempt?.completed }}</span
+          >
+        </td>
+      </tr>
+      <tr>
+        <td class="datas">Customer Name</td>
+        <td id="data">{{ content?.attempt?.customer }}</td>
+      </tr>
+      <tr>
+        <td class="datas">VPA</td>
+        <td id="data">{{ content?.attempt?.vpa }}</td>
+      </tr>
+
+      <tr>
+        <td class="datas">Total Payable Amount</td>
+        <td id="data" class="text-success">₹{{ content?.attempt?.amount?.toFixed(2) }}</td>
+      </tr>
+      <tr>
+        <td class="datas">IGST</td>
+        <td id="data">{{ content?.igst || "--" }}</td>
+      </tr>
+      <tr>
+        <td class="datas">CGST</td>
+        <td id="data">{{ content?.cgst || "--" }}</td>
+      </tr>
+      <tr>
+        <td class="datas">SGST</td>
+        <td id="data">{{ content?.sgst || "--" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

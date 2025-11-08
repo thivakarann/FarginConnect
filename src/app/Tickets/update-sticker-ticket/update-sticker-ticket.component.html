@@ -1,0 +1,33 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+
+<div class="form-header d-flex justify-content-between align-items-center">
+  <h5 class="mb-0" style="color: black;">Sticker Count Update</h5>
+</div>
+
+<div class="well">
+  <form [formGroup]="updatestickerticket">
+    <div class="form-group mb-3">
+      <label for="stickerCount">Sticker Count</label>
+      <input ngModel={{this.stickerCountraise}}  type="text" id="stickerCount"
+        class="form-control" formControlName="stickerCount" (input)="calculateTotal()" />
+      <span class="errormge"
+        *ngIf="updatestickerticket.controls['stickerCount'].touched && updatestickerticket.controls['stickerCount'].errors?.['required']">Field
+        is required*</span>
+      <span class="errormge"
+        *ngIf="updatestickerticket.controls['stickerCount'].touched && updatestickerticket.controls['stickerCount'].errors?.['pattern']">
+        Please enter a valid number
+      </span>
+    </div>
+    <div class="form-group mb-3">
+      <label style="text-align: wrap;text-indent: 5px;font-weight: 500;">
+        <b>Note:</b> Total Amount for Sticker cost is <b>{{ totalAmount }}</b>
+      </label>
+    </div>
+    <button type="submit" class="btn mx-1" style="background-color: #7db855be" (click)="save()"
+      [disabled]="updatestickerticket.invalid">Submit</button>
+    <button type="submit" class="btn" style="background-color:#141E46;color:white" matDialogClose>Cancel</button>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

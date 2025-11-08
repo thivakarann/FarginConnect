@@ -1,0 +1,273 @@
+import { Component } from '@angular/core';
+import { LoaderService } from '../Loader service/loader.service';
+import { FarginServiceService } from '../service/fargin-service.service';
+import moment from 'moment';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../fargin-model/fargin-model.module';
+
+@Component({
+  selector: 'app-dashboard-merchantcontent',
+  templateUrl: './dashboard-merchantcontent.component.html',
+  styleUrl: './dashboard-merchantcontent.component.css'
+})
+export class DashboardMerchantcontentComponent {
+  customercount: any;
+  duepending: any;
+  dashboardemployecount: any;
+  customertotal: any;
+  selectedPeriods: string = 'thisMonths';
+  lastmonth: any;
+  fromDates: any;
+  toDates: any;
+  maxDate: any;
+  selectedadditionalPeriods: string = 'thisadditionalMonths';
+  additionalmonth: any;
+  activemerchant: any;
+  merchantId: any;
+  myForm: any;
+  viewcustomersearch: any;
+  customerInput: string = '';
+  isNoDataFound: boolean = false;
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  getdashboard: any[] = [];
+  actions: any;
+  errorMessage: any;
+  valueCustomerView: any;
+  valueTicketsView: any;
+  valueEmployeeView: any;
+  valuetodaytrans: any;
+  Monthtrans: any;
+  AdditionTrans: any;
+  currentmonthcustrans: any;
+  valueCurrentMonth: any;
+  selectedtodays: string = 'dueTransaction';
+  Roledetails: any;
+
+  constructor(
+    public loaderService: LoaderService,
+    private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
+  ) { }
+
+
+  ngOnInit(): void {
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
+    this.Role();
+    this.loadInitialSetupBoxes();
+  }
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;
+          if (this.roleId == 1) {
+            this.valueCustomerView = 'Customer Overview';
+            this.valueTicketsView = 'Ticket Overview';
+            this.valueEmployeeView = 'Employee Overview';
+            this.valuetodaytrans = 'Today Transactions';
+            this.Monthtrans = 'Monthly Collection Analytics Existing Connections';
+            this.AdditionTrans = 'Additional Collection Analytics';
+            this.valueCurrentMonth = 'Current Month Collection Analytics New Connections';
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissionName;
+
+              if (this.actions == 'Customer Overview') {
+                this.valueCustomerView = 'Customer Overview';
+              }
+
+              if (this.actions == 'Ticket Overview') {
+                this.valueTicketsView = 'Ticket Overview';
+              }
+
+              if (this.actions == 'Employee Overview') {
+                this.valueEmployeeView = 'Employee Overview';
+              }
+
+              if (this.actions == 'Today Transactions') {
+                this.valuetodaytrans = 'Today Transactions';
+              }
+
+              if (this.actions == 'Monthly Collection Analytics Existing Connections') {
+                this.Monthtrans = 'Monthly Collection Analytics Existing Connections';
+              }
+
+              if (this.actions == 'Current Month Collection Analytics New Connections') {
+                this.valueCurrentMonth = 'Current Month Collection Analytics New Connections';
+              }
+
+              if (this.actions == 'Additional Collection Analytics') {
+                this.AdditionTrans = 'Additional Collection Analytics';
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      },
+    });
+  }
+
+  getmonthtransaction(event: any) {
+    this.selectedPeriods = event;
+    if (event == 'LastMonths') {
+      this.service.dashboardlastmonthcustomertransactions(this.merchantId).subscribe((res: any) => {
+        this.lastmonth = res.response;
+      });
+    };
+    if (event == 'thisMonths') {
+      this.service.dashboardthismonthcustomertransactions(this.merchantId).subscribe((res: any) => {
+        this.lastmonth = res.response;
+      });
+    }
+  }
+
+  custom() {
+    this.service.dashboarddatecustomertransactions(this.merchantId, this.fromDates, this.toDates).subscribe((res: any) => {
+      this.lastmonth = res.response;
+    });
+  };
+
+  getadditionalmonthtransaction(event: any) {
+    this.selectedadditionalPeriods = event;
+    if (event == 'LastaditionalMonths') {
+      this.service.dashboardlastmonthadditionaltransactions(this.merchantId).subscribe((res: any) => {
+        this.additionalmonth = res.response;
+      });
+    };
+    if (event == 'thisadditionalMonths') {
+      this.service.dashboardthismonthadditionaltransactions(this.merchantId).subscribe((res: any) => {
+        this.additionalmonth = res.response;
+      });
+    }
+  }
+
+
+  resetmonth() {
+    this.fromDates = '';
+    this.toDates = '';
+    this.selectedPeriods = '';
+  }
+  future(value: any) {
+    value.reset();
+  }
+
+  loadInitialSetupBoxes() {
+    this.service.actvemerchant().subscribe((res: any) => {
+      this.activemerchant = res.response;
+    });
+    this.customercount = '';
+    this.dashboardemployecount = '';
+    this.duepending = '';
+    this.additionalmonth = '';
+    this.lastmonth = '';
+    this.currentmonthcustrans = '';
+    this.fromDates = '';
+    this.toDates = '';
+    this.selectedPeriods = '';
+    this.selectedadditionalPeriods = '';
+    this.customertotal = '';
+  }
+
+  onInputChange() {
+    const input = this.customerInput;
+    if (!input) {
+      this.loadInitialSetupBoxes();
+      return;
+    }
+    for (let index = 0; index < this.activemerchant.length; index++) {
+      const element = this.activemerchant[index];
+      if (element.merchantLegalName == this.customerInput) {
+        this.merchantId = element.merchantId;
+        console.log(this.merchantId);
+      }
+    };
+    this.service.dashboardcount(this.merchantId).subscribe((res: any) => {
+      this.customercount = res.response;
+    });
+    this.service.dashboardviewpendings(this.merchantId).subscribe((res: any) => {
+      this.duepending = res.response;
+    });
+    this.service.dashboardemployeecounts(this.merchantId).subscribe((res: any) => {
+      this.dashboardemployecount = res.response;
+    });
+    this.service.dashbaordcustomerday(this.merchantId, 1).subscribe((res: any) => {
+      this.customertotal = res.response;
+    });
+    this.service.dashboardcurrentmonthcustomertransactions(this.merchantId).subscribe((res: any) => {
+      this.currentmonthcustrans = res.response;
+    });
+    this.service.dashboardthismonthcustomertransactions(this.merchantId).subscribe((res: any) => {
+      this.selectedPeriods = 'thisMonths';
+      this.lastmonth = res.response;
+    });
+    this.service.dashboardthismonthadditionaltransactions(this.merchantId).subscribe((res: any) => {
+      this.selectedadditionalPeriods = 'thisadditionalMonths';
+      this.additionalmonth = res.response;
+    });
+    this.customercount = '';
+    this.dashboardemployecount = '';
+    this.duepending = '';
+    this.additionalmonth = '';
+    this.lastmonth = '';
+    this.currentmonthcustrans = '';
+    this.fromDates = '';
+    this.toDates = '';
+    this.selectedPeriods = '';
+    this.selectedadditionalPeriods = '';
+    this.customertotal = '';
+  }
+
+  fetchSetupBoxData() {
+    if (!this.customerInput) {
+      this.loadInitialSetupBoxes();
+      this.isNoDataFound = false; // Reset the flag
+      return;
+    };
+    this.service.actvemerchantsearch(this.customerInput).subscribe((res: any) => {
+      if (res.response && res.response.length > 0) {
+        this.activemerchant = res.response;
+        this.isNoDataFound = false; // Reset the flag as data exists
+      }
+      else {
+        this.activemerchant = []; // Clear the merchant list
+        this.isNoDataFound = true; // Set flag to true to display "No data found"
+      }
+    },
+      (error) => {
+        console.error('Error fetching merchant data:', error);
+        this.isNoDataFound = true;
+      }
+    );
+  };
+
+  gettodaytransactionmethod(event: any) {
+    this.selectedtodays = event;
+    if (this.selectedtodays) {
+      if (event == 'dueTransaction') {
+        this.service.dashbaordcustomerday(this.merchantId, 1).subscribe((res: any) => {
+          this.customertotal = res.response;
+        });
+      }
+      else if (event == 'additionalTransaction') {
+        this.service.dashbaordcustomerday(this.merchantId, 2).subscribe((res: any) => {
+          this.customertotal = res.response;
+        });
+
+      }
+    }
+  };
+
+
+
+}

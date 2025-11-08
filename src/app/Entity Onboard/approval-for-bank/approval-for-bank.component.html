@@ -1,0 +1,94 @@
+<link
+  href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
+/>
+<div class="card-header d-flex justify-content-between align-items-center">
+  <h5 class="mb-0" style="color: black">Approval For Bank</h5>
+</div>
+<div class="container">
+  <div class="well">
+    <form [formGroup]="myForm">
+      <div class="row mt-3">
+        <div class="col-12 form-group">
+          <label for="Bussiness category">Select Approval</label>
+          <select
+            formControlName="approvalStatus"
+            id="Bussiness category"
+            class="form-control form-select"
+          >
+            <option value="" disabled selected>Select</option>
+            <option value="approved">approved</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="approvalStatus?.invalid && approvalStatus?.touched && approvalStatus?.errors?.['required']"
+          >
+            Field is required
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="address">Comments</label>
+          <textarea
+            id="fname"
+            type="text"
+            class="form__input"
+            cols="10"
+            rows="2"
+            class="form-control"
+            formControlName="reMarks"
+          ></textarea>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="reMarks?.invalid && reMarks?.touched && reMarks?.errors?.['required']"
+          >
+            Field is required
+          </div>
+             <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="reMarks?.errors?.['maxlength']"
+          >
+            Maximum length should be 250
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <button
+          (click)="submit()"
+          [disabled]="myForm.invalid"
+          type="submit"
+          class="btn mx-1"
+          style="background-color: #7db855be"
+        >
+          Submit
+        </button>
+        <button
+          type="submit"
+          class="btn"
+          style="background-color: #141e46; color: white"
+          matDialogClose
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

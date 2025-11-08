@@ -1,0 +1,49 @@
+.errormge {
+    color: red;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .form-header {
+    background-color: #bcdf72; /* Header background color */
+    color: white;
+    padding: 0.5rem;
+   
+   
+  }
+ 
+  .form-group label {
+    font-weight: 500;
+  }
+ 
+  .form-control {
+    border-radius: 0.375rem;
+  }
+ 
+  .btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+  }
+ 
+  .btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+  }
+ 
+  .btn {
+    border-radius: 0.375rem;
+  }
+ 
+  .well {
+    background-color: #ffffff; /* Card background color */
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1); /* Light shadow */
+  }
+ 
+  @media (max-width: 576px) {
+    .form-group label {
+      font-size: 0.9rem; /* Adjust label font size for smaller screens */
+    }
+  }
+ 

@@ -1,0 +1,550 @@
+import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
+import { ServicePaymentViewComponent } from '../service-payment-view/service-payment-view.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { FarginServiceService } from '../../../service/fargin-service.service';
+import { manualpay, Onetimepay, Payload } from '../../../fargin-model/fargin-model.module';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+interface Option { entityName: string; merchantId: number; }
+
+@Component({
+  selector: 'app-service-payments-viewall',
+  templateUrl: './service-payments-viewall.component.html',
+  styleUrl: './service-payments-viewall.component.css'
+})
+
+
+export class ServicePaymentsViewallComponent {
+  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = [
+    'sno',
+    'paymentId',
+    'InVoiceNumber',
+    'entityname',
+    'paymentmethod',
+    'paymenttype',
+    'amount',
+    'createdDateTime',
+    'pgOnboardDate',
+    'status',
+    'paidAt',
+    'view',
+    'CheckStatus',
+    'receipt',
+  ];
+  viewall: any;
+  @ViewChild('tableContainer') tableContainer!: ElementRef;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  FromDateRange!: string;
+  currentPage!: number;
+  ToDateRange!: string;
+  Daterange!: string;
+  Viewall: any;
+  content: any;
+  filteredData: any;
+  getallData: any;
+  term: any;
+  responseDataListnew: any = [];
+  response: any = [];
+  date1: any;
+  date2: any;
+  transaction: any;
+  showcategoryData!: boolean;
+  valueserviceexport: any;
+  valueserviceView: any;
+  getdashboard: any[] = [];
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  actions: any;
+  errorMessage: any;
+  valueserviceReceipt: any;
+  valueservicecheck: any;
+  pageIndex: number = 0;
+  pageSize = 5;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  transactionexport: any;
+  pageIndex1: number = 0;
+  pageSize1 = 5;
+  totalpage1: any;
+  totalPages1: any;
+  currentpage1: any;
+  pageIndex2: number = 0;
+  pageSize2 = 5;
+  totalpage2: any;
+  totalPages2: any;
+  currentpage2: any;
+  filter: boolean = false;
+  filter1: boolean = false;
+  filters: boolean = false;
+  currentfilVal: any = "";
+  dialogRef: any;
+  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
+  @ViewChild('OnetimepayDateFilter') OnetimepayDateFilter!: TemplateRef<any>;
+  @ViewChild('OneTimePaymentsearch') OneTimePaymentsearch!: TemplateRef<any>;
+  backs: any = '';
+  userInput: string = '';
+  options: Option[] = [];
+  search: any;
+  Onetimepayfilter: any = FormGroup;
+  Onetimepay: any = FormGroup;
+  flags: any
+  addpay: any;
+  merchantId: any;
+  selectedOption: any;
+  filterValue: any;
+  pageIndex3: number = 0;
+  pageSize3 = 5;
+  totalPages3: any;
+  currentpage3: any;
+  totalpage3: any;
+  filter3: boolean = true;
+  search1: any;
+  maxDate: any;
+  currentfilvalShow: boolean = false;
+  searchPerformed: boolean = false;
+  Roledetails: any;
+
+  constructor(private cryptoService: EncyDecySericeService, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
+
+  ngOnInit(): void {
+
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
+
+    this.Role();
+    this.Getall()
+
+    this.Onetimepay = this.fb.group({
+      pay: ['', [Validators.required]],
+      startDate: ['',],
+      endDate: ['',],
+      selectedOption: [null, [Validators.required]],
+      search1: ['']
+    });
+
+    this.Onetimepayfilter = this.fb.group({
+      FromDateRange: ['', Validators.required],
+      ToDateRange: ['', Validators.required]
+    });
+
+  }
+
+
+  get pay() {
+    return this.Onetimepay.get('pay');
+  }
+
+  get startDate() {
+    return this.Onetimepay.get('startDate');
+  }
+  get endDate() {
+    return this.Onetimepay.get('endDate');
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+
+    this.service.rolegetById(datamodal).subscribe({
+      next: (res: any) => {
+
+        if (res.flag == 1) {
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAccess;;
+          if (this.roleId == 1) {
+            this.valueserviceView = 'one Time Payments-View'
+            this.valueserviceexport = 'one Time Payments-Export'
+            this.valueserviceReceipt = 'one Time Payments-Invoice'
+            this.valueservicecheck = 'one Time Payments-Check Status'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissionName;
+              if (this.actions == 'one Time Payments-View') {
+                this.valueserviceView = 'one Time Payments-View'
+              }
+              if (this.actions == 'one Time Payments-Export') {
+                this.valueserviceexport = 'one Time Payments-Export'
+              }
+              if (this.actions == 'one Time Payments-Invoice') {
+                this.valueserviceReceipt = 'one Time Payments-Invoice'
+              }
+              if (this.actions == 'one Time Payments-Check Status') {
+                this.valueservicecheck = 'one Time Payments-Check Status'
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
+  }
+
+
+  Getall() {
+    this.service.OneTimeAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.currentfilvalShow = false;
+        this.FromDateRange = '';
+        this.ToDateRange = '';
+      } else if (res.flag == 2) {
+        this.transaction = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.currentfilvalShow = false;
+        this.FromDateRange = '';
+        this.ToDateRange = '';
+      }
+    });
+  }
+
+  track(id: any) {
+    let submitModel: manualpay = {
+      payId: id?.merchantPayId,
+    }
+    this.service.Manualpay(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage)
+        setTimeout(() => { this.Getall() }, 500);
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    })
+  }
+
+  filterdate() {
+    const fromDate = this.Onetimepayfilter.get('FromDateRange')?.value;
+    const toDate = this.Onetimepayfilter.get('ToDateRange')?.value;
+    this.service.OneTimeTransactionFilter(fromDate, toDate, this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dialog.closeAll()
+      }
+      else if (res.flag == 2) {
+        this.toastr.error(res.responseMessage);
+        this.dialog.closeAll()
+        this.transaction = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+      }
+    })
+  };
+
+  viewreciept(id: any) {
+    this.service.ManualRecieptView(id).subscribe((res: any) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      }
+    })
+  }
+
+  transactionview(id: any) {
+    this.dialog.open(ServicePaymentViewComponent, {
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "500ms",
+      disableClose: true,
+      data: { value: id, },
+      maxHeight: '600px',
+    })
+  }
+
+  onetimepay(filterValue: string) {
+    if (filterValue) {
+      this.service.Onetimepayment(filterValue, this.pageSize, this.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transaction = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.transaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+    }
+    else if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+  }
+
+  Filter(event: any) {
+    this.filterValue = event.target.value;
+    this.filterbymso();
+  }
+
+  filterbymso() {
+    if (this.filterValue == 'Filterbyonetimepay') {
+      this.dialogRef = this.dialog.open(this.OneTimePaymentsearch, {
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '500ms',
+        disableClose: true,
+        position: { right: '0px' },
+      });
+    }
+    else if (this.filterValue == 'OneTimepayDatefilter') {
+      this.dialogRef = this.dialog.open(this.OnetimepayDateFilter, {
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '500ms',
+        disableClose: true,
+        position: { right: '0px' },
+      });
+    }
+  }
+
+  onInputChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.userInput = inputElement.value;
+  }
+
+  onSearchClick(searchSelect: NgSelectComponent): void {
+    this.searchAPI(this.userInput);
+    if (!searchSelect.isOpen) {
+      searchSelect.open();
+    }
+  }
+
+  onDropdownChange(selectedItem: any): void {
+    if (selectedItem) {
+      this.selectedOption = selectedItem.merchantId;
+      this.search1 = selectedItem.entityName;
+      this.merchantId = this.selectedOption;
+    }
+  }
+
+  searchAPI(query: string): void {
+    this.service.OneTimepaySearch(query).subscribe((res: any) => {
+      if (res.flag === 1) {
+        this.options = res.response.map((item: any) => ({
+          entityName: item.entityName,
+          merchantId: item.merchantId
+        }));
+
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    },
+      (error) => {
+        console.error('Error fetching data from API', error);
+      });
+  }
+
+  onClear(): void {
+    this.options = []; // Clear dropdown options
+    this.selectedOption = null; // Reset the selected option
+    this.userInput = ''; // Clear the input variable, if any
+  }
+
+  Additionalpay() {
+    if (!this.startDate?.value && !this.endDate?.value) {
+      this.flags = 1;
+    } else {
+      this.flags = 2;
+    }
+    let submitModel: Onetimepay = {
+      paymentStatus: this.pay?.value,
+      merchantId: this.merchantId,
+      flag: this.flags,
+      startDate: this.startDate?.value,
+      endDate: this.endDate?.value
+    };
+    this.service.OneTimepayFilter(this.pageSize, this.pageIndex, submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.addpay = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.addpay);
+        this.dialog.closeAll()
+      } else if (res.flag == 2) {
+        this.toastr.error(res.responseMessage);
+        this.dialog.closeAll()
+        this.addpay = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.addpay);
+      }
+    });
+
+
+  }
+
+  close() {
+    this.dialog.closeAll();
+    this.backs = '';
+    this.filterValue = null;
+  }
+
+  resetcustomer(): void {
+    this.Onetimepay.reset()
+    this.userInput = '';
+    this.options = [];
+    this.selectedOption = '';
+    this.search1 = '';
+  }
+
+  resetfilter() {
+    this.Onetimepayfilter.reset();
+  }
+
+
+  future(value: any) {
+    value.reset()
+  }
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service.Onetimepayment(this.currentfilVal, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transaction = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+
+          } else if (res.flag == 2) {
+            this.transaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+    }
+
+    else if (this.filterValue === 'Filterbyonetimepay') {
+      if (!this.startDate?.value && !this.endDate?.value) {
+        this.flags = 1;
+        console.log('Flag set to 1:', this.flags);
+      } else {
+        this.flags = 2;
+        console.log('Flag set to 2:', this.flags);
+      }
+      let submitModel: Onetimepay = {
+        paymentStatus: this.pay?.value,
+        merchantId: this.merchantId,
+        flag: this.flags,
+        startDate: this.startDate?.value,
+        endDate: this.endDate?.value
+      };
+      this.service.OneTimepayFilter(event.pageSize, event.pageIndex, submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.addpay = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.addpay);
+
+          this.dialog.closeAll()
+        } else if (res.flag == 2) {
+          this.toastr.error(res.responseMessage);
+          this.dialog.closeAll()
+          this.addpay = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.addpay);
+
+        }
+      });
+
+    }
+    else if (this.filterValue === 'OneTimepayDatefilter') {
+      const fromDate = this.Onetimepayfilter.get('FromDateRange')?.value;
+      const toDate = this.Onetimepayfilter.get('ToDateRange')?.value;
+      this.service.OneTimeTransactionFilter(fromDate, toDate, event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.transaction = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+          this.dialog.closeAll()
+
+        }
+        else if (res.flag == 2) {
+          this.toastr.error(res.responseMessage);
+          this.dialog.closeAll()
+          this.transaction = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+
+        }
+      })
+    }
+    else {
+      this.service.OneTimeAllTransactions(event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.transaction = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+
+        } else if (res.flag == 2) {
+          this.transaction = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+
+        }
+      });
+    }
+  }
+
+}

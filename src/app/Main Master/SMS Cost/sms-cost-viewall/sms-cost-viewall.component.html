@@ -1,0 +1,88 @@
+<h4 style="text-align:left;color:#141E46;">SMS Cost Details</h4>
+
+<mat-card-header>
+    <div class="row mt-4">
+        <div class="col">
+            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+                class="custom-btn btn-10 me-3" data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button
+                (click)="Addsms()" [hidden]="valuesmsadd!=='SMS Cost-Update' || viewall.length!=0">Create</button>
+        </div>
+    </div>
+</mat-card-header>
+
+
+<mat-card-content>
+    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+        <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="smsId">
+                <th mat-header-cell *matHeaderCellDef> S.No</th>
+                <td mat-cell *matCellDef="let viewall; let i = index"> {{i+1}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef>Cost Per SMS</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.costPerSms.toFixed(2)}}</td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Effective From</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.effectiveFrom | date:'dd/MM/yyyy' }}
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="smsStatus">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="smsstatus!=='SMS Cost-Status'">
+                    Status</th>
+                <td mat-cell *matCellDef="let viewall" [hidden]="smsstatus!=='SMS Cost-Status'">
+                    <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.status===1"
+                        (change)="ActiveStatus(viewall.smsCostId)">
+                    </mat-slide-toggle>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="View">
+                <th [hidden]="valuesmsstatus!=='SMS Cost-History'" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    History</th>
+                <td [hidden]="valuesmsstatus!=='SMS Cost-History'" style="text-wrap: wrap;" mat-cell
+                    *matCellDef="let viewall">
+                    <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye" (click)="view(viewall.smsCostId)"></i>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Edit">
+                <th [hidden]="Edit!=='SMS Cost-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Action</th>
+                <td [hidden]="Edit!=='SMS Cost-Edit'" mat-cell *matCellDef="let viewall" (click)="Updatesms(viewall)">
+                    <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdBy">
+                <th mat-header-cell *matHeaderCellDef>Updated By</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.createdby}}</td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="createdDateTime">
+                <th mat-header-cell *matHeaderCellDef>Updated At</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.createdDateTime | date:'dd/MM/yyyy hh:mm a' }}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+            <tr *matNoDataRow>
+                <td class="mat-cell" colspan="4">No Data</td>
+            </tr>
+        </table>
+    </div>
+</mat-card-content>
+
+<mat-card-footer>
+    <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons aria-labels="select page of users">
+    </mat-paginator>
+</mat-card-footer>

@@ -2,249 +2,470 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<!------ Include the above in your HEAD tag ---------->
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-    content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
-  <title>Sidebar template</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
-
-</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
 <body>
-  <div class="page-wrapper chiller-theme toggled">
-    <div class="toggle">
 
-      <a id="show-sidebar" class="btn btn-sm btn-dark">
-        <i class="fas fa-bars">
-        </i>
-      </a>
+  <div class="page-wrapper chiller-theme toggled">
+
+    <div class="toggle">
+      <a id="show-sidebar" class="btn btn-sm btn-dark"><i class="fas fa-bars"></i></a>
 
       <div class="center">
-        <h2 style="font-size: 20px; margin-left:45px;">WELCOME FARGIN CONNECT</h2>
+        <h2 style="font-size: 20px; margin-left:45px;">FARGIN CONNECT</h2>
       </div>
+
       <div class="dropdown" id="profile-dropdown">
         <button class="btn dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user"></i> <!-- User icon -->
+          <i class="fas fa-user"></i>
         </button>
         <div class="dropdown-content">
-          <a><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Profile</a>
-          <a><i class="fa fa-key" aria-hidden="true"></i> &nbsp; Change Password</a>
-          <a><i class="fas fa-sign-out-alt"></i> &nbsp; Log Out</a>
+          <a routerLink="viewprofile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Profile</a>
+          <a (click)="changepassword()"><i class="fa fa-key" aria-hidden="true"></i> &nbsp; Change Password</a>
+          <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Log Out</a>
         </div>
       </div>
 
     </div>
-    <div>
-      <nav id="sidebar" class="sidebar-wrapper">
-        <div class="sidebar-content">
-          <div class="sidebar-brand">
-            <div class="img">
-              <img style="width: 70px;height: 45px;" src="assets/fargin_connect_logo.jpg">
-            </div>
-            <a style="color: white;">Fargin Connect</a>
-            <div id="close-sidebar">
-              <i class="fas fa-bars"></i>
-            </div>
-          </div>
-          <div class="">
-            <!-- <div class="user-pic">
-          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-            alt="User picture">
-        </div>
-        <div class="user-info">
-          <span class="user-name">Jhon
-            <strong>Smith</strong>
-          </span>
-          <span class="user-role">Administrator</span>
-          <span class="user-status">
-            <i class="fa fa-circle"></i>
-            <span>Online</span>
-          </span>
-        </div> -->
-          </div>
-          <!-- sidebar-header  -->
-          <!-- <div class="sidebar-search">
-        <div>
-          <div class="input-group">
-            <input type="text" class="form-control search-menu" placeholder="Search...">
-            <div class="input-group-append">
-              <span class="input-group-text">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </span>
-            </div>
+
+    <nav id="sidebar" class="sidebar-wrapper">
+      <div class="sidebar-content">
+        <div class="sidebar-brand">
+          <div class="img"><img style="width: 70px;height: 50px;" src="assets/farginblue.png"></div>
+          <a style="color: white;">Fargin Connect Super Admin</a>
+          <div id="close-sidebar">
+            <i class="fas fa-bars"></i>
           </div>
         </div>
-      </div> -->
-          <!-- sidebar-search  -->
-          <div class="sidebar-menu">
-            <ul>
-              <li class="header-menu">
-                <span>General</span>
-              </li>
+        <div class=""></div>
 
-              <li>
-                <a routerLink="dashboard-content">
-                  <i class="fa fa-tachometer-alt"></i>
-                  <span routerLink="testpage">Dashboard</span>
-                  <!-- <a routerLink="testpage">Documentation</a> -->
-                  <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
-                </a>
-              </li>
+        <!-- sidebar-search  -->
+        <div class="sidebar-menu">
+          <ul>
 
-              <li>
-                <a routerLink="fas fa-user-plus">
-                  <i class="fa fa-tachometer-alt"></i>
-                  <span routerLink="entity-viewall">Entity Onboard</span>
-                  <!-- <a routerLink="testpage">Documentation</a> -->
-                  <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
-                </a>
-              </li>
+            <li class="header-menu"><span></span></li>
 
-              <li class="sidebar-dropdown">
-                <a>
-                  <i class="fa fa-shopping-cart"></i>
-                  <span>Main Master</span>
-                  <!-- <span class="badge badge-pill badge-danger">3</span> -->
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li>
-                      <a>Business Category
+            <li class="sidebar-dropdown" style="cursor: pointer;">
+              <a>
+                <i class="fa fa-dashboard"></i>
+                <span>Dashboard</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li>
+                    <a routerLink="dashboard-content">
+                      Admin Dashboard
+                    </a>
+                  </li>
+                  <li [hidden]="valueEntityDashboard !=='Entity Dashboard'">
+                    <a routerLink="dashboardmerchant">
+                      Entity Dashboard
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
 
-                      </a>
-                    </li>
-                    <li>
-                      <a>Orders</a>
-                    </li>
-                    <li>
-                      <a>Credit cart</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="sidebar-dropdown">
-                <a>
-                  <i class="far fa-gem"></i>
-                  <span>Components</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li>
-                      <a>General</a>
-                    </li>
-                    <li>
-                      <a>Panels</a>
-                    </li>
-                    <li>
-                      <a>Tables</a>
-                    </li>
-                    <li>
-                      <a>Icons</a>
-                    </li>
-                    <li>
-                      <a>Forms</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="sidebar-dropdown">
-                <a>
-                  <i class="fa fa-chart-line"></i>
-                  <span>Charts</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li>
-                      <a>Pie chart</a>
-                    </li>
-                    <li>
-                      <a>Line chart</a>
-                    </li>
-                    <li>
-                      <a>Bar chart</a>
-                    </li>
-                    <li>
-                      <a>Histogram</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="sidebar-dropdown">
-                <a>
-                  <i class="fa fa-globe"></i>
-                  <span>Maps</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li>
-                      <a>Google maps</a>
-                    </li>
-                    <li>
-                      <a>Open street map</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="header-menu">
-                <span>Extra</span>
-              </li>
-              <li>
-                <a>
-                  <i class="fa fa-book"></i>
-                  <span routerLink="testpage">Documentation</span>
-                  <!-- <a routerLink="testpage">Documentation</a> -->
-                  <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
-                </a>
-              </li>
-              <li>
-                <a>
-                  <i class="fa fa-calendar"></i>
-                  <span>Calendar</span>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <i class="fa fa-folder"></i>
-                  <span>Examples</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <!-- sidebar-menu  -->
+            <li [hidden]="valueEntity!=='Entity Onboard'">
+              <a routerLink="entity-viewall">
+                <i class="fa fa-user-plus"></i>
+                <span>Entity Onboard</span>
+              </a>
+            </li>
+
+            <li [hidden]="valueentityagreement!=='Entity Agreement'">
+              <a routerLink="agreement-viewall">
+                <i class="fa-solid fa-handshake"></i>
+                <span>Entity Agreement</span>
+              </a>
+            </li>
+
+            <li [hidden]="valueCustomer!=='Customers'">
+              <a routerLink="Overall-Customer-view">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span>Customers</span>
+              </a>
+            </li>
+
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
+              <a>
+                <i class="fa-solid fa-comment-sms" style="font-size: 14px;"></i>
+                <span>SMS</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueentitysms!=='Entity Sms'">
+                    <a routerLink="entity-sms-viewall">
+                      Entity Sms
+                    </a>
+                  </li>
+                  <li [hidden]="valuesmshistory!=='SMS History'">
+                    <a routerLink="smshistory">
+                      SMS History
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valueentityWhatsapp!=='Entity WhatsApp'  && valuewhatsApphistory!=='WhatsApp History' && valuewhatsAppBulkUploadResponse !=='WhatsApp Bulk Upload Status'">
+              <a>
+                <i class="fa-brands fa-whatsapp" style="font-size: 14px;"></i>
+                <span>WhatsApp</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueentityWhatsapp!=='Entity WhatsApp'">
+                    <a routerLink="entity-whats-app-getall">
+                      Entity WhatsApp
+                    </a>
+                  </li>
+                  <li [hidden]="valuewhatsApphistory!=='WhatsApp History'">
+                    <a routerLink="whats-app-history">
+                      WhatsApp History
+                    </a>
+                  </li>
+                  <li [hidden]="valuewhatsAppBulkUploadResponse!=='WhatsApp Bulk Upload Status'">
+                    <a routerLink="WhatsApp-Bulk-Upload">
+                      WhatsApp Bulk Upload Status
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuecustomerpayment!=='Customer Payment' &&
+            valuecustomersubscription!=='Cloud Fee Payments' &&
+            valuecustomermanualpayment!=='one Time Payments' &&
+            valueCustomizationPayments!=='Customized Payment' && valueAdditionalPayments!=='Additional Payments'">
+              <a>
+                <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                <span>Transactions</span>
+              </a>
+
+              <div class="sidebar-submenu">
+                <ul>
+
+                  <li routerLink="service-payments-viewall" [hidden]="valuecustomermanualpayment!=='one Time Payments'">
+                    <a>One Time Payments</a>
+                  </li>
+
+                  <li routerLink="maintenance-trans-viewall"
+                    [hidden]="valuecustomersubscription!=='Cloud Fee Payments'">
+                    <a> Cloud Fee Payments</a>
+                  </li>
+
+                  <li routerLink="otherpayments-viewall" [hidden]="valueCustomizationPayments!=='Customized Payment'">
+                    <a>Customization Payments</a>
+                  </li>
+
+                  <li [hidden]="valuecustomerpayment!=='Customer Payment'">
+                    <a routerLink="customer-trans-viewall">
+                      Customer Payments
+                    </a>
+                  </li>
+
+                  <li routerLink="additional-payments" [hidden]="valueAdditionalPayments!=='Additional Payments'">
+                    <a>Additional Payments</a>
+                  </li>
+
+                </ul>
+              </div>
+
+            <li [hidden]="valueonlienrefund!=='Online Refunds'">
+              <a routerLink="refund-getall">
+                <i class="fa-solid fa-sitemap" aria-hidden="true"></i>
+                <span>Online Refunds
+                </span>
+              </a>
+            </li>
+
+
+            <li [hidden]="valueautodebit!=='Cloud Fee AutoDebit'">
+              <a routerLink="entity-auto-debit-getall">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                <span>Cloud Fee Auto Debit</span>
+              </a>
+            </li>
+
+            <li [hidden]="valueRenewel!=='Renewal Fee Auto Debit'">
+              <a routerLink="renewal-autodebit">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                <span>Renewal Fee Auto Debit</span>
+              </a>
+            </li>
+
+            <li [hidden]="valuebranch!=='Branch'">
+              <a routerLink="Branch-viewall">
+                <i class="fa-solid fa-sitemap"></i>
+                <span>Branch</span>
+              </a>
+            </li>
+
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valuefarginpolicy!=='Fargin Policy' && valueMerchantpolicy!=='Merchant Policy'">
+              <a>
+                <i class="fas fa-hands-holding-child icon" aria-hidden="true"></i>
+                <span>Terms and Policy</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valuefarginpolicy!=='Fargin Policy'">
+                    <a routerLink="view-policy">
+                      Fargin Policy
+                    </a>
+                  </li>
+                  <li routerLink="Terms-policy" [hidden]="valueMerchantpolicy!=='Merchant Policy'">
+                    <a>Merchant Policy</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valueTickets!=='Entity Request' && valuecustomerticket!=='Customer Request'">
+              <a>
+                <i class="fa-solid fa-ticket"></i>
+                <span>Service Request</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueTickets!=='Entity Request'">
+                    <a routerLink="viewticket" style="display: flex; align-items: center;">
+                      Entity Request &nbsp;
+                      <span class="matBadge" matBadgeColor="warn" matBadge="{{totalOpenTickets}}" matBadgeSize="medium"
+                        matBadgeOverlap="true" style="margin-left: 9px;">
+                      </span>
+                    </a>
+                  </li>
+                  <li [hidden]="valuecustomerticket!=='Customer Request'">
+                    <a routerLink="customer-viewall">Customer Request</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueRegion!=='Region'&& ValueMSO!=='MSO'">
+              <a>
+                <i class="fa-solid fa-people-line"></i>
+                <span>Service Provider</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="ValueMSO!=='MSO'">
+                    <a routerLink="service-provider">MSO</a>
+                  </li>
+                  <li [hidden]="valueRegion!=='Region'">
+                    <a routerLink="Region">Region</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuechannelConfiguration!=='Channel Creation' && 
+          valueBroadcasterConfiguration!=='Broadcaster Creation' && 
+          valuePlanConfiguration!=='Plan Creation' && 
+          valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
+              <a>
+                <i class="fa-solid fa-tv"></i>
+                <span>Channels & Packages</span>
+              </a>
+
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueBroadcasterConfiguration!=='Broadcaster Creation'">
+                    <a routerLink="bouquatename-viewall">Broadcaster Creation</a>
+                  </li>
+                  <li [hidden]="valuePlanConfiguration!=='Plan Creation'">
+                    <a routerLink="bouquete-plan-viewall">
+                      Plan Creation
+                    </a>
+                  </li>
+                  <li [hidden]="valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
+                    <a routerLink="bouquets-viewall">Broadcaster Bouquets</a>
+                  </li>
+                  <li [hidden]="valuechannelConfiguration!=='Channel Creation'">
+                    <a routerLink="alacarte-viewall">Channel Creation
+                    </a>
+                  </li>
+                  <!-- 
+                   <li>
+                 <a routerLink="dpoviewall">DPO Bouqutes</a>
+               </li> -->
+                </ul>
+              </div>
+
+            <li [hidden]="valueReport!=='Export Report'">
+              <a routerLink="Export-Report">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                <span>Export Report</span>
+              </a>
+            </li>
+
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valueBusinessCategory!=='Bussiness Category' &&
+           valueBusinessKYC!=='Business Category Doc' &&
+           valueFacheck!=='FaCheck Key' &&
+           valuemerchantPlan!=='Merchant Plan' &&
+           valuepgsetupkey!=='PG SetupKey' &&
+           valueWithdrawalfee!=='Withdrawal Fee' &&
+           valueBuisneesDoCument!=='Business Document Type' &&
+           valuerefundper!=='Refund Period' &&
+           valueSignerDetails!=='Signer Details' && valuestickercost!=='Sticker Cost'  && valuebankdetails!=='Bank Details' && valuesmscost!=='SMS Cost' && valuemerchantPlan!=='Entity Plan'">
+              <a>
+                <i class="fa fa-cogs"></i>
+                <span>Main Master</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueBusinessCategory!=='Bussiness Category'">
+                    <a routerLink="view-category">Business Category
+                    </a>
+                  </li>
+                  <li [hidden]="valueBuisneesDoCument!=='Business Document Type'">
+                    <a routerLink="viewall-kyccategory">Business Document Type </a>
+                  </li>
+                  <li [hidden]="valueBusinessKYC!=='Business Category Doc'">
+                    <a routerLink="Business-kyc">Business Category Doc</a>
+                  </li>
+                  <!-- <li [hidden]="valueRegion!=='Region'">
+                  <a routerLink="Region">Region</a>
+                </li>
+                <li [hidden]="ValueMSO!=='MSO'">
+                  <a routerLink="service-provider">MSO</a>
+                </li> -->
+                  <li [hidden]="valuemerchantPlan!=='Entity Plan'">
+                    <a routerLink="merchant-plan-viewall">Entity Plan</a>
+                  </li>
+
+                  <!-- <li [hidden]="valueBusinessPlan!=='Business Plan'">
+                    <a routerLink="agreementplan">Business Plan</a>
+                  </li> -->
+                  <li [hidden]="valueehatsapp!=='WhatsappVendors'">
+                    <a routerLink="vendors-viewall">WhatsApp Vendors</a>
+                  </li>
+
+                  <li [hidden]="valuesmscost!=='SMS Cost'">
+                    <a routerLink="sms-cost-viewall">SMS Cost</a>
+                  </li>
+
+                  <li [hidden]="valuestickercost!=='Sticker Cost'">
+                    <a routerLink="sticker-view">Sticker Cost</a>
+                  </li>
+
+                  <li [hidden]="valuebankdetails!=='Bank Details'">
+                    <a routerLink="bank-viewall">Bank Details </a>
+                  </li>
+                  <li [hidden]="valuefarginbank!=='Fargin bank'">
+                    <a routerLink="fargin-viewall">Fargin bank details </a>
+                  </li>
+
+                  <li [hidden]="valueSignerDetails!=='Signer Details'">
+                    <a routerLink="signer-getall">Signer Details</a>
+                  </li>
+
+                  <li [hidden]="valueFacheck!=='FaCheck Key'">
+                    <a routerLink="viewfacheckkey">Facheck Key</a>
+                  </li>
+
+                  <li [hidden]="valuepgsetupkey!=='PG SetupKey'">
+                    <a routerLink="pgsetup-view">PG Setupkey</a>
+                  </li>
+
+
+                  <li [hidden]="valuerefundper!=='Refund Period'">
+                    <a routerLink="refund-period-viewall">Refund Period</a>
+                  </li>
+                  <!-- <li [hidden]="valueWithdrawalfee!=='Withdrawal Fee'">
+                  <a routerLink="viewwithdrawal">Withdrawal Fee</a>
+                </li> -->
+                </ul>
+              </div>
+            </li>
+
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueUser!=='User' && valueRole!=='Role'">
+              <a>
+                <i class="fa-solid fa-person-circle-check"></i>
+                <span>User Management</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li routerLink="view-role" [hidden]="valueRole!=='Role'">
+                    <a>Role</a>
+                  </li>
+                  <li [hidden]="valueUser!=='User'">
+                    <a routerLink="/dashboard/admindetails">User
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li [hidden]="valueannouncement!=='Announcement'">
+              <a routerLink="view-announcement">
+                <i class="fa fa-bullhorn"></i>
+                <span>Announcement</span>
+              </a>
+            </li>
+
+            <li [hidden]="valuecampaign!=='Campaign'">
+              <a routerLink="view-campaign">
+                <i class="fa fa-bullhorn"></i>
+                <span>Campaign</span>
+              </a>
+            </li>
+
+            <li [hidden]="valuesurvey!=='Survey'">
+              <a routerLink="surveyviewall">
+                <i class="fa-solid fa-square-poll-vertical" aria-hidden="true"></i>
+                <span>Survey</span>
+              </a>
+            </li>
+
+
+            <!-- <li [hidden]="valueentitydues!=='Entity Dues'">
+              <a routerLink="app-dues">
+                <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                <span>Entity Dues</span>
+              </a>
+            </li> -->
+
+            <!-- <li [hidden]="valueTransaction!=='Transactions'">
+              <a routerLink="overall-transactions-viewall">
+                <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                <span>Transactions</span>
+              </a>
+            </li> -->
+
+            <!-- <li [hidden]="valuepayOut!=='Payout'">
+              <a routerLink="view-beneficiary">
+                <i class="fas fa-landmark icon"></i>
+                <span>Payout</span>
+              </a>
+            </li> -->
+
+          </ul>
         </div>
+      </div>
+    </nav>
 
-      </nav>
-      <!-- sidebar-wrapper  -->
-      <main class="page-content">
-        <div class="container-fluid" style="margin-top: 5%;">
+    <!-- sidebar-wrapper  -->
 
-
-          <router-outlet></router-outlet>
-        </div>
-      </main>
-    </div>
-    <!-- page-content" -->
+    <main class="page-content" style="background-color:#dde1e9;min-height: 100vh; overflow-y: auto;">
+      <div style="margin-top:50px;">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
   </div>
+
+
   <!-- page-wrapper -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </body>
-
-</html>

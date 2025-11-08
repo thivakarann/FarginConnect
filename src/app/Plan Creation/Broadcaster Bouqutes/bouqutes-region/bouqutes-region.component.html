@@ -1,0 +1,132 @@
+<!-- <div>
+    <div class="card table-nowrap table-card">
+        <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+
+                <tr style="margin-top: 2%;">
+                    <th>S No</th>
+                    <th>MSO</th>
+                    <th>Region</th>
+
+
+                </tr>
+
+                <tbody
+                    *ngFor="let item of ServiceProvideregions|paginate: { itemsPerPage:2, currentPage: currentPage } | search: searchText;let i=index">
+
+                    <td class="text-center">{{i+1}}</td>
+                    <td class="text-center">{{item.broadCasterRegion.service.serviceProviderName}}</td>
+                    <td class="text-center">{{item.broadCasterRegion.stateName}}</td>
+
+
+
+
+                </tbody>
+            </table>
+            <div class="text-end mt-3">
+                <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
+
+            </div>
+
+            <div style="text-align: left;" >
+                <button
+                  (click)="close()"  style="background-color: rgb(94, 94, 128);color: white;border:1px solid whitesmoke ;margin-bottom: 2%; border-radius: 5px; margin-left: 2%;">Close</button>
+            </div>
+        </div>
+    </div>
+
+</div> -->
+
+
+<div class="form-header d-flex justify-content-between align-items-center mx-auto">
+    <h4 class="mb-0"><b>Broadcaster Name :
+        </b>{{ServiceProvideregions[0]?.broadCasterBouquet?.bundleChannel?.broadCasterName}}</h4>
+    <button type="button" class="btn btn-secondary" style="font-size: 13px;" (click)="close()">Back</button>
+
+</div>
+
+
+<p style="color: rgb(66, 66, 201);font-weight: 600;">Note: "(If the region is already added, you cannot add more
+    channels here. Instead, add it using the channel view)"</p>
+<div class="row">
+    <div class="col-md-3 mt-3 ">
+        <div class="search ">
+            <form class="form">
+                <label for="search">
+                    <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off"
+                        placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+
+                    <div class="icon">
+                        <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                stroke-linecap="round"></path>
+                        </svg>
+                        <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                            <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                stroke-linecap="round">
+                            </path>
+                        </svg> -->
+                    </div>
+                    <button type="reset" class="close-btn">
+                        <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                fill-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </label>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+    </div>
+    <div class="d-flex justify-content-end col-md-3 mt-3">
+        <button (click)="addExtraChannels(details,serviceid)"
+            style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add</button>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12 mb-3 mb-lg-5 mt-2">
+        <div class="card table-nowrap table-card">
+            <div class="table-responsive text-nowrap text-center">
+                <table class="table table-hover" id="customers">
+                    <tr>
+                        <th>S No</th>
+                        <th>MSO</th>
+                        <th>Region</th>
+                        <th>Status</th>
+
+                        <!-- <th>Edit</th> -->
+                        <th>Channel View</th>
+                    </tr>
+
+                    <tbody
+                        *ngFor="let item of ServiceProvideregions | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i = index">
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">{{item.broadCasterBouquet.serviceProvider.serviceProviderName}}</td>
+                        <td class="text-center">{{item.broadCasterRegion.stateName}}</td>
+                        <!-- <td class="text-center"><i style="cursor: pointer;font-size:15px; color:#545497;padding: 0px;" class="fas fa-edit"
+                        (click)="Edit(details?.bouquetId,item.broadCasterRegionId)"></i></td> -->
+                        <td class="text-center">
+                            <mat-slide-toggle class="example-margin" color="primary" [checked]="item.status == 1"
+                                (change)="onSubmit($event, item.broadCasterRegionId)" style="transform: scale(0.9)">
+                            </mat-slide-toggle>
+                        </td>
+                        <td class="text-center"><i style="cursor: pointer;font-size:15px; color:#545497;padding: 0px;"
+                                class="fas fa-eye"
+                                (click)="Viewdata(item?.broadCasterRegionId, item?.broadCasterRegion?.regionId)"></i>
+                        </td>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="text-end">
+                <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+<h5 style="text-align:left;color:#141E46;">WhatsApp Action History</h5>
+<mat-card-header>
+    <div class="row mt-4">
+        <div class="col">
+            <div class="search ">
+                <form class="form">
+                    <label for="search">
+                        <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search"
+                            id="search" type="text">
+                        <div class="icon">
+                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                    stroke-linecap="round">
+                                </path>
+                            </svg>
+                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
+                                </path>
+                            </svg>
+                        </div>
+                        <button type="reset" (click)="Getall()" class="close-btn">
+                            <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    fill-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </label>
+                </form>
+            </div>&nbsp;&nbsp;&nbsp;
+            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
+                (click)="exportexcel()">Export</button>
+            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
+                (click)="close()">Back</button>
+        </div>
+    </div>
+</mat-card-header>
+<!-- <mat-card> -->
+<mat-card-content>
+    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin">
+        <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
+            <ng-container matColumnDef="merWhatsappSmsEditId">
+                <th mat-header-cell *matHeaderCellDef>S.No</th>
+                <td mat-cell *matCellDef="let data; let i = index">
+                    {{ i + 1 }}
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="actionType">
+                <th mat-header-cell *matHeaderCellDef>Action Type</th>
+                <td mat-cell *matCellDef="let data">
+                    {{ data?.actionType}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vendorName">
+                <th mat-header-cell *matHeaderCellDef>Vendor Name</th>
+                <td mat-cell *matCellDef="let data">
+                    {{ data?.vendorName}}
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="smsEnableStatus">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let data">
+                    <span *ngIf=" data?.smsEnableStatus =='ACTIVE'" style="color: green;">Active</span>
+                    <span *ngIf=" data?.smsEnableStatus =='INACTIVE'" style="color: red;">InActive</span>
+
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="templateTitle">
+                <th mat-header-cell *matHeaderCellDef>Type of Message</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    {{Viewall?.templateTitle}}
+
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="templateType">
+                <th mat-header-cell *matHeaderCellDef>Recipient</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    <span *ngIf="Viewall?.templateType=='Merchant'">Merchant</span>
+                    <span *ngIf="Viewall?.templateType=='Customer'">Customer</span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Lan">
+                <th mat-header-cell *matHeaderCellDef>Langauge</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    <span *ngIf="Viewall?.templateLanguage=='en'">English</span>
+                    <span *ngIf="Viewall?.templateLanguage=='ta'">Tamil</span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="smsCharge">
+                <th mat-header-cell *matHeaderCellDef>Charges</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    <Span *ngIf="Viewall?.smsCharge == 'Applicable'" style="color: #28a745;">Applicable</Span>
+                    <Span *ngIf="Viewall?.smsCharge == 'Not Applicable'" style="color:#dc3545;">Not Applicable</Span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="smsCount">
+                <th mat-header-cell *matHeaderCellDef>Count</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    {{Viewall?.smsCount}}
+                </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="templateDescription">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let data">
+                    <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
+                        (click)="Whatsappdescription(data?.templateDescription)">
+                    </i>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdBy">
+                <th mat-header-cell *matHeaderCellDef>Updated By</th>
+                <td mat-cell *matCellDef="let Viewall">{{Viewall?.createdBy || '-'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdDateTime">
+                <th mat-header-cell *matHeaderCellDef>Updated At</th>
+                <td mat-cell *matCellDef="let Viewall"> {{ Viewall?.createdDateTime ? (Viewall?.createdDateTime | date:'dd/MM/yyyy hh:mma') : '-'}}
+                </td>
+            </ng-container>
+
+
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+            <tr *matNoDataRow>
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
+                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</mat-card-content>
+<mat-card-footer>
+    <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
+        aria-labels="select page of users"></mat-paginator>
+</mat-card-footer>

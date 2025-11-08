@@ -1,7 +1,15 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { AddExtraChannels } from '../fargin-model/fargin-model.module';
+import { MatOption } from '@angular/material/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FarginServiceService } from '../service/fargin-service.service';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { MatSelect } from '@angular/material/select';
+
+
+
+
 
 @Component({
   selector: 'app-testpage',
@@ -9,43 +17,62 @@ import { MatSort } from '@angular/material/sort';
   styleUrl: './testpage.component.css'
 })
 export class TestpageComponent {
-  dataSource: any;
-  displayedColumns: string[] = ["ticketRaiseId", "subject", "content", "memberProfiles", "comments", "status", "action", "createdBy", "createdDateTime"]
-  addbusiness: any = FormGroup;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  myForm!: FormGroup;
+  channelslist: any[] = [];
+  allSelected = false;
+  filteredChannelsList: any[] = [];
+  @ViewChild('select') select!: MatSelect;
+  id: any;
 
-
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    public AddExtra: FarginServiceService,
+    private dialog: MatDialog,
+    private toastr: ToastrService,
+  ) { }
 
   ngOnInit(): void {
+    this.AddExtra.ActiveAlcards().subscribe((res: any) => {
+      this.channelslist = res.response;
+    });
 
+    this.myForm = new FormGroup({
+      alcotId: new FormControl([], Validators.required),
+      searchTerm: new FormControl('') // Initialize searchTerm control
+    });
   }
 
-  onSubmit() {
-
+  get alcotId() {
+    return this.myForm.get('alcotId');
   }
 
-  admin() {
-
+  toggleAllSelection(checked: boolean) {
+    this.allSelected = checked;
+    this.select.options.forEach((item: MatOption) => {
+      checked ? item.select() : item.deselect();
+    });
   }
 
-  exportexcel() {
-
+  filteredChannels() {
+    const term = this.myForm.get('searchTerm')?.value.toLowerCase();
+    return this.channelslist.filter(channel =>
+      channel.channelName.toLowerCase().includes(term)
+    );
   }
 
-  cancel() {
-
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
+  // submit() {
+  //   let submitModel: AddExtraChannels = {
+  //     alcotId: this.alcotId?.value,
+  //     bouquteId: 4
+  //   };
+  //   this.AddExtra.AddExtraChannelsforBouquete(submitModel).subscribe((res: any) => {
+  //     if (res.flag == 1) {
+  //       this.toastr.success(res.responseMessage);
+  //       this.dialog.closeAll();
+  //       window.location.reload();
+  //     } else {
+  //       this.toastr.error(res.responseMessage);
+  //     }
+  //   });
+  // }
 }

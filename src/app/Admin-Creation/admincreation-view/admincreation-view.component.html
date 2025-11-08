@@ -1,0 +1,107 @@
+<div class="col-12">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0"> View User Details</h4>
+        <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
+
+    </div>
+    <article class="card car-details label-info">
+        <div class="card-body">
+            <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
+                <div class="w-100">
+                    <div class="d-flex flex-md-row flex-column">
+                        <h3 class="mr-3">General Information</h3>
+                    </div>
+                    <hr>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">
+                                            Name</div>
+                                        <div class="w-50">{{this.viewData?.name}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">
+                                            Role</div>
+                                        <div class="w-50">{{this.viewData?.roleEntity?.roleName}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">
+                                            Gender</div>
+                                        <div class="w-50">{{this.viewData?.gender}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">EmailAddress
+                                        </div>
+                                        <div class="w-50">{{this.viewData?.emailAddress}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">Mobile Number</div>
+                                        <div class="w-50">{{this.viewData.mobileNumber}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">Address</div>
+                                        <div class="w-50">{{this.viewData.address}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">City</div>
+                                        <div class="w-50">{{this.viewData.city}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">State</div>
+                                        <div class="w-50">{{this.viewData.state}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="d-flex flex-column">
+
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">Country
+                                        </div>
+                                        <div class="w-50">{{this.viewData.country}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">Pincode</div>
+                                        <div class="w-50">{{this.viewData.pincode}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">Account Status</div>
+                                        <div class="w-50">
+                                            <span *ngIf="this.viewData.status==1"
+                                                style="color:green;">Active</span>
+                                            <span *ngIf="this.viewData.status==0"
+                                                style="color:red;">InActive</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">Created By</div>
+                                        <div class="w-50">{{this.viewData.createdby}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">Created At</div>
+                                        <div class="w-50">{{this.viewData.createdDateTime|date:'dd/MM/yyyy hh:mm a'}}</div>
+                                    </div>
+
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">Modified By</div>
+                                        <div class="w-50">{{this.viewData.modifiedBy}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">Modified At</div>
+                                        <div class="w-50">{{this.viewData.modifiedDateTime|date:'dd/MM/yyyy hh:mm a'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+
+
+</div>

@@ -1,0 +1,111 @@
+<div class="row mt-2">
+  <div class="col-md-3">
+    <h5 style="text-align: left; color: #141e46">Online Payouts</h5>
+  </div>
+  <div class="col-md-8"></div>
+  <div class="col-md-1">
+    <button style="
+        color: white;
+        background-color: #141e46;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        padding: 5px 5px;
+      " (click)="close()">
+      Back
+    </button>
+  </div>
+</div>
+<mat-card-header>
+  <div class="row">
+
+    <div class="col-md-4 mt-4">
+      <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)="exportexcel()"
+        mat-raised-button>Export</button>
+    </div>
+
+    <div class="col-md-3">
+      <label><b>From Date</b></label>
+      <input onkeydown="return false;" class="form-control" type="datetime-local" name="FromDate"
+        [(ngModel)]="FromDateRange" (change)="checkDate()" [max]="maxDate" style="height:35px;border-radius: 5px;">
+    </div>
+    <div class="col-md-3">
+      <label><b>To Date</b></label>
+      <input onkeydown="return false;" class="form-control" type="datetime-local" name="ToDate"
+        [(ngModel)]="ToDateRange" [min]="FromDateRange" [max]="maxDate" style="height:35px;border-radius: 5px;">
+    </div>
+
+    <div class="col-md-1 mt-4">
+      <button class="buttonDownload" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+        mat-raised-button [disabled]="!FromDateRange || !ToDateRange " (click)="filterdate()">Filter</button>
+    </div>
+
+    <div class="col-md-1 mt-4">
+      <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
+        (click)="resetFilter()">Reset</button>
+    </div>
+  </div>
+</mat-card-header>
+<mat-card-content>
+  <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin">
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="settlementId">
+        <th mat-header-cell *matHeaderCellDef>S.No</th>
+        <td mat-cell *matCellDef="let data; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+      <ng-container matColumnDef="accoundid">
+        <th mat-header-cell *matHeaderCellDef>Payout ID</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.payoutId || "--" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="payoutId">
+        <th mat-header-cell *matHeaderCellDef>Transaction ID</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.transactionId || "--" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.amount || "--" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="reference">
+        <th mat-header-cell *matHeaderCellDef>Reference</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.reference || "--" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="txnItem">
+        <th mat-header-cell *matHeaderCellDef>Txn Item</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.txnItem || "--" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Txn Time</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.txnTime | date : "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr *matNoDataRow>
+        <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
+        <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">
+          No Data
+        </td>
+      </tr>
+    </table>
+  </div>
+</mat-card-content>
+<mat-card-footer>
+  <mat-paginator (page)="getData($event)" [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="length"
+    [pageSizeOptions]="[5, 50, 100, 500, 1000]" aria-label="Select page of users"></mat-paginator>
+</mat-card-footer>

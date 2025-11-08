@@ -1,147 +1,1280 @@
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" />
 
 <div class="container">
-    <div class="form-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Entity Onboard</h5>
-        <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
-    </div>
-    <div class="well">
-        <form>
-            <div class="row mb-3">
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Entity Name*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
-                <div class="col-sm-4 form-group">
-                    <label for="state">Merchant Legal Name*</label>
-                    <input type="text" id="state" placeholder="Enter State Name Here.." class="form-control">
-                </div>
-                <div class="col-sm-4 form-group">
-                    <label for="zip">Account DisplayName*</label>
-                    <input type="text" id="zip" placeholder="AccountDisplayName.." class="form-control">
-                </div>
-            </div>
 
-            <div class="row mb-3">
+  <div class="form-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Entity Onboard</h5>
+    <button type="button" class="btn btn-secondary" (click)="close()">
+      Back
+    </button>
+  </div>
+
+  <!-- Personel details -->
+
+  <div class="well" *ngIf="personeldetails == true">
+    <h4 class="card-header" style="font-weight: 500">1.Personal Details</h4>
+    <form [formGroup]="myForm" style="margin-top: 1%" autocomplete="off">
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="Entity Name">Entity Name</label>
+          <input type="text" id="Entity Name" formControlName="entityName" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="entityName?.invalid && entityName?.touched && entityName?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="entityName?.errors?.['pattern']">
+            Invalid format
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="entityName?.errors?.['maxlength']">
+            Maximum length should be 100
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="legalname">Entity Legal Name</label>
+          <input type="text" formControlName="merchantLegalName" id="legalname" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="merchantLegalName?.invalid && merchantLegalName?.touched && merchantLegalName?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="merchantLegalName?.errors?.['pattern']">
+            Invalid format
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="merchantLegalName?.errors?.['maxlength']">
+            Maximum length should be 100
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="accountdisplayname">Account Display Name</label>
+          <input type="text" formControlName="accountDisplayName" id="accountdisplayname" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="accountDisplayName?.invalid && accountDisplayName?.touched && accountDisplayName?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="accountDisplayName?.errors?.['pattern']">
+            Invalid format
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="accountDisplayName?.errors?.['maxlength']">
+            Maximum length should be 100
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="Bussiness category">Business category</label>
+          <select formControlName="businessCategoryIds" (change)="onCategoryChange($event)" id="Bussiness category"
+            class="form-select">
+            <option value="" disabled selected>Select</option>
+            <option *ngFor="let item of categorydetails" [value]="item.businessCategoryId">
+              {{ item.categoryName }}
+            </option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="businessCategoryIds?.invalid && businessCategoryIds?.touched && businessCategoryIds?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="MccCode">Mcc Code</label>
+          <input formControlName="MccCode" readonly type="text" id="MccCode" class="form-control"
+            ngModel="{{ this.mcccode }}" />
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="EntityPlan">Entity Plan</label>
+          <select formControlName="merchantPlanId" id="EntityPlan" class="form-select">
+            <option value="" disabled selected>Select</option>
+            <option *ngFor="let item of entittyplanviewall" [value]="item.merchantPlanId">
+              {{ item.planName }}
+            </option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="merchantPlanId?.invalid && merchantPlanId?.touched && merchantPlanId?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="contactname">Owner/Contact Name</label>
+          <input type="text" formControlName="contactName" id="contactname" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="contactName?.invalid && contactName?.touched && contactName?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="contactName?.errors?.['pattern']">
+            Invalid format
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="contactName?.errors?.['maxlength']">
+            maximum length should be 100
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label for="emails">Owner/Contact Email</label>
+          <input type="email" formControlName="contactEmail" id="emails" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="contactEmail?.invalid && contactEmail?.touched && contactEmail?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="contactEmail?.errors?.['pattern']">
+            Please Enter a valid Email
+          </div>
+
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="contactEmail?.errors?.['maxlength']">
+            Maxlength of email should be 40
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="mobile">Primary Mobile Number</label>
+          <input type="tel" maxLength="10" [class.invalid]="myForm.errors?.['mobileNumbersMatch']"
+            formControlName="contactMobile" id="mobile" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="contactMobile?.invalid && contactMobile?.touched && contactMobile?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="contactMobile?.errors?.['pattern']">
+            Please Enter a valid Mobile Number
+          </div>
+        </div>
+
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="secondary">Secondary Mobile Number(Optional)</label>
+          <input maxLength="10" [class.invalid]="myForm.errors?.['mobileNumbersMatch']"
+            formControlName="secondaryMobile" type="tel" id="secondary" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="secondaryMobile?.errors?.['pattern']">
+            Please Enter a valid Mobile Number
+          </div>
+          <div style="color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;" *ngIf="myForm.errors?.['mobileNumbersMatch'] && secondaryMobile?.touched">
+            Primary and Secondary numbers should be different.
+          </div>
+
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="gsts">GSTIN(Optional)</label>
+          <input formControlName="gstIn" type="text" id="gsts" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="gstIn?.invalid && gstIn?.touched && gstIn?.errors?.['pattern']">
+            Enter a Valid GST Number
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="websites">Website (Optional)</label>
+          <input type="text" formControlName="website" id="websites" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="website?.invalid && website?.touched && website?.errors?.['pattern']">
+            Enter a Valid Link
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+
+        <div class="col-sm-4 form-group">
+          <label for="countrys">Country</label>
+          <input type="text" formControlName="country" id="countrys" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="country?.invalid && country?.touched && country?.errors?.['required']">
+            Field is required
+          </div>
+
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="country?.errors?.['pattern']">
+            Invalid format
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="country?.errors?.['maxlength']">
+            Maximum length should be 100
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="states">State</label>
+          <input type="text" formControlName="stateName" id="states" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="stateName?.invalid && stateName?.touched && stateName?.errors?.['required']">
+            Field is required
+          </div>
+
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="stateName?.errors?.['pattern']">
+            Invalid format
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="stateName?.errors?.['maxlength']">
+            Maximum length should be 100
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="citys">City</label>
+          <input type="text" formControlName="city" id="citys" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="city?.invalid && city?.touched && city?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="city?.errors?.['pattern']">
+            Invalid format
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="city?.errors?.['maxlength']">
+            Maximum length should be 100
+          </div>
+        </div>
+
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="areas">Area</label>
+          <input type="text" formControlName="area" id="areas" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="area?.invalid && area?.touched && area?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="area?.errors?.['pattern']">
+            Invalid format
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="pincode">Pincode</label>
+          <input minlength="6" maxlength="6" type="text" formControlName="zipcode" id="pincode" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="zipcode?.invalid && zipcode?.touched && zipcode?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="zipcode?.invalid && zipcode?.touched && zipcode?.errors?.['pattern']">
+            Enter a valid Pincode
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="billing">Billing Address</label>
+          <input type="text" formControlName="billingAddress" id="billing" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="billingAddress?.invalid && billingAddress?.touched && billingAddress?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="row mb-3">
+        <!-- <div class="col-sm-4 form-group">
+                    <label for="period">LCO Billing Model</label>
+                    <select formControlName="periodName" type="text" class="form-select" id="period">
+                        <option value="Prepaid">Prepaid</option>
+                        <option value="PostPaid">PostPaid</option>
+                    </select>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="periodName?.invalid && periodName?.touched && periodName?.errors?.['required']">
+                        Field is required*
+                    </div>
+                </div> -->
+        <div class="col-sm-4 form-group">
+          <label for="Logomerchant">Merchant Logo(Optional)</label>
+          <input formControlName="logo" type="file" class="form-control" (change)="getlogo($event)" />
+          <!-- <span class="error">*Only JPG/PNG/JPEG Files Allowed And Maximum Size Upto 20MB Allowed </span> -->
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="billing">Manual Trans OTP Status</label>
+          <input type="text" readonly val formControlName="customerManualStatus" id="billing" class="form-control" />
+          <!-- <select formControlName="customerManualStatus" type="text" class="form-select" id="billing">
+            <option value="1">Enable</option>
+            <option value="0">Disable</option>
+          </select> -->
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="customerManualStatus?.invalid && customerManualStatus?.touched && customerManualStatus?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="billing">Offline Qr</label>
+          <select formControlName="offlineQrEnable" type="text" class="form-select" id="billing">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="offlineQrEnable?.invalid && offlineQrEnable?.touched && offlineQrEnable?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="row mb-3">
+
+        <div class="col-sm-4 form-group">
+          <label for="billing">LCO Customer Billing Cycle</label>
+          <select formControlName="billingMode" type="text" class="form-select" id="billing">
+            <!-- <option value="Prorated">Prorated</option> -->
+            <option value="Month">Monthly</option>
+            <!-- <option value="Full">Full</option> -->
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="billingMode?.invalid && billingMode?.touched && billingMode?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="billing">Cloud Fee Applicable</label>
+          <select formControlName="cloudFeeEnable" (change)="cloudFeeEnableChange($event)" type="text"
+            class="form-select" id="billing">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="cloudFeeEnable?.invalid && cloudFeeEnable?.touched && cloudFeeEnable?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="billing">LCO Cloud Fee Auto Debit</label>
+          <select formControlName="autoDebitStatus" type="text" class="form-select" id="billing">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="autoDebitStatus?.invalid && autoDebitStatus?.touched && autoDebitStatus?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+
+
+        <!-- 
                 <div class="col-sm-4 form-group">
-                    <label for="Bussiness category">Bussiness category</label>
-                    <select [(ngModel)]="GetMcccode" (ngModelChange)="Mccode(GetMcccode)" id="Bussiness category"
-                        class="form-control form-select">
-                        <option value="" disabled selected>Select</option>
-                        <option *ngFor="let item of categorydetails" [value]="item.businessCategoryId">
-                            {{item.categoryName}}</option>
+                    <label for="billing">PayOut</label>
+                    <select formControlName="payoutEnable" type="text" class="form-select" id="billing">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
 
                     </select>
-                </div>
-                <div class="col-sm-4 form-group">
-                    <label for="Mcc Code">Mcc Code</label>
-                    <input readonly type="text" id="Mcc Code" placeholder="123" class="form-control">
-                </div>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="payoutEnable?.invalid && payoutEnable?.touched && payoutEnable?.errors?.['required']">
+                        Field is required*
+                    </div>
+                </div> -->
 
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">GSTIN(Optional)</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
+
+
+      </div>
+
+      <div class="row mb-3">
+
+        <div class="col-sm-4 form-group">
+          <label for="billing">LCO Renewal Fee Auto Debit</label>
+          <select formControlName="renewalAutoDebit" type="text" class="form-select" id="billing">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="renewalAutoDebit?.invalid && renewalAutoDebit?.touched && renewalAutoDebit?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="billing">Customer Due Generation Mode</label>
+          <select formControlName="customerPaymentMode" type="text" class="form-select" id="billing">
+            <!-- <option value="Manual">Manual</option> -->
+            <option value="Auto">Auto</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="customerPaymentMode?.invalid && customerPaymentMode?.touched && customerPaymentMode?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="Entity Name">SMS Merchant Name</label>
+          <input placeholder="Maximum 20 Characters Allowed" type="text" id="Entity Name"
+            formControlName="smsMerchantName" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="smsMerchantName?.invalid && smsMerchantName?.touched && smsMerchantName?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="smsMerchantName?.errors?.['pattern']">
+            Invalid format
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="smsMerchantName?.errors?.['maxlength']">
+            Maximum length should be 20
+          </div>
+        </div>
+        <!-- <div class="col-sm-4 form-group">
+          <label for="billing">LCO Customer SmsTag(Optional)</label>
+          <select formControlName="customerSmsTag" type="text" class="form-select" id="billing">
+            <option value="Single">Single</option>
+            <option value="Multiple">Multiple</option>
+          </select>
+       
+        </div> -->
+        <div class="col-sm-4 form-group">
+          <label for="billing">LCO Customer Reminder Notification</label>
+          <select (change)="duealert($event)" formControlName="customerDuesEnable" type="text" class="form-select"
+            id="billing">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value != '1'">
+          <label for="billing">LCO Customer Notification Frequency</label>
+          <select [required]="customerDuesEnable?.value == '1'" formControlName="customerDuesDate" type="text"
+            class="form-select" id="billing">
+            <option value="1">Daily</option>
+            <option value="2">Two Days Once</option>
+            <option value="3">Three Days Once</option>
+            <option value="4">Once</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="customerDuesDate?.invalid && customerDuesDate?.touched && customerDuesDate?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value != '1'">
+          <label for="billing">LCO Customer Notification Start Date</label>
+
+          <select [required]="customerDuesEnable?.value == '1'" id="dayPicker" formControlName="dueDate"
+            class="form-select">
+            <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="dueDate?.invalid && dueDate?.touched && dueDate?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value != '1'">
+          <label for="billing">LCO Customer Notification End Date</label>
+          <select [required]="customerDuesEnable?.value == '1'" id="dayPicker" formControlName="dueEndDate"
+            class="form-select">
+            <option *ngFor="let Day of Days" [value]="Day">{{ Day }}</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="dueEndDate?.invalid && dueEndDate?.touched && dueEndDate?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+      </div>
+      <div>
+        <button (click)="Submit()" type="submit" class="btn mx-1" style="background-color: #7db855be"
+          [disabled]="this.myForm.invalid">
+          Submit
+        </button>
+        <button type="submit" class="btn" style="background-color: #141e46; color: white" (click)="close()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Bank Details  -->
+
+  <div class="well" style="margin-top: 2%" *ngIf="Bankdetails == true">
+    <h4 class="card-header" style="font-weight: 500">2.Bank Details</h4>
+    <form [formGroup]="myForm2" style="margin-top: 2%">
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="Entity Name">Account Holder Name</label>
+          <input type="text" id="Entity Name" formControlName="accountHolderName" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="accountHolderName?.invalid && accountHolderName?.errors?.['pattern']">
+            Enter a Valid Name
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="accountHolderName?.errors?.['maxlength']">
+            maximum length should be 100
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="state">Account Number</label>
+          <input type="text" formControlName="accountNumber" id="state" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['pattern']">
+            Enter a Valid Account Number
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="state">Type Mode</label>
+          <select class="form-control form-select" id="types" formControlName="typemode">
+            <option value="" disabled hidden>Select All</option>
+            <option value="Online">Online</option>
+            <option value="Offline">Offline</option>
+          </select>
+          <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="typemode?.invalid && typemode?.touched && typemode?.errors?.['required']">
+            Field is required
+          </div>
+
+        </div>
+
+
+      </div>
+      <div class="row mb-3">
+
+        <div class="col-sm-4 form-group">
+          <label for="Bussiness category">Account Type</label>
+          <select formControlName="accountType" id="Bussiness category" class="form-control form-select">
+            <option value="Savings account">Savings account</option>
+            <option value="Current account">Current account</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="accountType?.invalid && accountType?.touched && accountType?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label for="Bussiness category">Select Bank</label>
+          <select formControlName="bankName" id="Bussiness category" class="form-control form-select">
+            <option *ngFor="let item of BankNames" [value]="item.bankId">
+              {{ item.bankName }}
+            </option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="Entity Name">Branch Name</label>
+          <input type="text" id="Entity Name" formControlName="branchName" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['required']">
+            Field is required
+          </div>
+
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']">
+            Invalid format
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="branchName?.errors?.['maxlength']">
+            Maximum length should be 100
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="Entity Name">IFSC Code</label>
+          <input type="text" id="Entity Name" formControlName="ifscCode" class="form-control" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['pattern']">
+            Enter a Valid IFSC Code
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="state" class="form__label">PG Ledger ID (Optional)</label>
+          <input type="text" formControlName="ledgerId" id="state" class="form-control" />
+
+          <!-- <div style="color: red; font-size: 12px; margin-top: 2px;"
+                    *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['pattern']">
+                    Must be exactly 4 digits and only numbers are allowed.
+                </div> -->
+          <!-- <div
+            style="color: red; font-size: 12px; margin-top: 2px"
+            *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']"
+          >
+            Field is required
+          </div> -->
+
+          <div style="color: red; font-size: 12px; margin-top: 2px"
+            *ngIf="ledgerId?.invalid && ledgerId?.errors?.['pattern']">
+            Only Numbers are Allowed (Upto 15 Digits)
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+      </div>
+      <div>
+        <button (click)="BankSubmit()" [disabled]="myForm2.invalid" type="submit" class="btn mx-1"
+          style="background-color: #7db855be">
+          Submit
+        </button>
+        <button type="submit" class="btn" style="background-color: #141e46; color: white" (click)="close()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- KYC Details -->
+
+
+  <div class="well" style="margin-top: 2%" *ngIf="KYCdetails == true">
+    <h4 class="card-header" style="font-weight: 500">3.KYC Details</h4>
+    <mat-horizontal-stepper linear>
+      <mat-step [stepControl]="firstFormGroup" [completed]="false">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Identity</ng-template>
+
+          <div class="form__row">
+            <div class="form__linput">
+              <label class="form__label" for="identityProof"><b>Identity Proof</b></label>
+              <select formControlName="identityProof" class="form-select" (change)="onIdentityProofChange($event)">
+                <option hidden>Select..</option>
+                <option value="Aadhar Card">Aadhar Card</option>
+                <option value="Pancard">Pancard</option>
+                <option value="Voter Id Proof">Voter Id Proof</option>
+                <option value="Passport">Passport</option>
+                <option value="Driving License">Driving License</option>
+              </select>
+              <div *ngIf="identityProof?.invalid && identityProof?.touched && identityProof?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="form__linput">
+              <label class="form__label"><b>Enter {{ selectElement }} Number</b></label>
+              <input class="form-control" id="mccCode" type="text" formControlName="identityProofNo" />
+              <div *ngIf="
+                  identityProofNo &&
+                  identityProofNo.invalid &&
+                  (identityProofNo.touched || identityProofNo.dirty)
+                ">
+                <small *ngIf="identityProofNo.errors?.['required']" style="color: red; font-size: 12px">This field is
+                  required.</small>
+                <small *ngIf="identityProofNo.errors?.['pattern']" style="color: red; font-size: 12px">Enter a valid {{
+                  selectElement }} number.</small>
+              </div>
+            </div>
+          </div>
 
-                <div class="col-sm-4 form-group">
-                    <label for="Mcc Code">PanCard Number*</label>
-                    <input type="text" id="Mcc Code" placeholder="123" class="form-control">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">AadharCard Number (Optional)</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Website (Optional)</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
+          <div class="form__row">
+            <div class="form__linput">
+              <label class="form__label"><b>Upload Front Copy</b></label>
+              <input class="form-control" formControlName="identityFrontPath" (change)="onFileSelected($event)"
+                type="file" />
+              <div
+                *ngIf="identityFrontPath?.invalid && identityFrontPath?.touched && identityFrontPath?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
             </div>
 
-
-            <div class="row mb-3">
-
-                <div class="col-sm-4 form-group">
-                    <label for="Mcc Code">Country*</label>
-                    <input type="text" id="Mcc Code" placeholder="123" class="form-control">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">State*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">City*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
+            <div class="form__linput">
+              <label class="form__label"><b>Upload Back Copy</b></label>
+              <input class="form-control" formControlName="identityBackPath" (change)="onFileSelected2($event)"
+                type="file" />
+              <div
+                *ngIf="identityBackPath?.invalid && identityBackPath?.touched && identityBackPath?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
             </div>
+          </div>
+          <div class="form__row">
+            <div class="form__linput">
+              <label *ngIf="selectElement == 'Driving License'" class="form__label"><b>Date of Birth</b></label>
+              <label *ngIf="selectElement == 'Passport'" class="form__label"><b>Date of Birth </b></label>
 
-            <div class="row mb-3">
+              <input *ngIf="selectElement == 'Driving License'" class="form-control" type="date"
+                formControlName="drivingLicenceDob" [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
 
-                <div class="col-sm-4 form-group">
-                    <label for="Mcc Code">Pincode*</label>
-                    <input type="text" id="Mcc Code" placeholder="123" class="form-control">
-                </div>
+              <input *ngIf="selectElement == 'Passport'" class="form-control" type="date" formControlName="passportDob"
+                [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
 
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Area*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Billing Address*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
+              <div
+                *ngIf="(selectElement == 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
+                                         (selectElement == 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
+                                         (selectElement == 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
             </div>
+            <div class="form__linput"></div>
+          </div>
 
-
-            <div class="row mb-3">
-
-                <div class="col-sm-4 form-group">
-                    <label for="Mcc Code">Owner/Contact Name*</label>
-                    <input type="text" id="Mcc Code" placeholder="123" class="form-control">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Owner/Contact Email*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Primary Mobile Number*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
-            </div>
-
-
-            <div class="row mb-3">
-
-                <div class="col-sm-4 form-group">
-                    <label for="Mcc Code">Secondary Mobile Number(Optional)</label>
-                    <input type="text" id="Mcc Code" placeholder="123" class="form-control">
-                </div>
-
-                <div class="col-sm-4 form-group">
-
-                </div>
-
-                <div class="col-sm-4 form-group">
-
-                </div>
-            </div>
-
-
-            <div>
-                <button type="submit" class="btn mx-1 " style="background-color:#7db855be">Submit</button>
-                <button type="submit" class="btn" style="background-color:#141E46;color:white" (click)="close()">Cancel</button>
-            </div>
+          <div>
+            <button mat-raised-button matStepperNext [disabled]="firstFormGroup.invalid">
+              Next
+            </button>
+          </div>
         </form>
-    </div>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" [completed]="false">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Address</ng-template>
+
+          <div class="form__row">
+            <div class="form__linput">
+              <label class="form__label" for="identityType"><b>Address Proof</b></label>
+              <select formControlName="addressProof" class="form-select" (change)="onAddressProofChange($event)">
+                <option hidden>Select..</option>
+                <option *ngIf="this.selectElement != 'Aadhar Card'" value="Aadhar Card">
+                  Aadhar Card
+                </option>
+                <option *ngIf="this.selectElement != 'Voter Id Proof'" value="Voter Id Proof">
+                  Voter Id Proof
+                </option>
+                <option *ngIf="this.selectElement != 'Passport'" value="Passport">
+                  Passport
+                </option>
+                <option *ngIf="this.selectElement != 'Driving License'" value="Driving License">
+                  Driving License
+                </option>
+              </select>
+              <div *ngIf="addressProof?.invalid && addressProof?.touched && addressProof?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
+            </div>
+
+            <div class="form__linput">
+              <label class="form__label"><b>Enter {{ selectElements }} Number</b></label>
+              <input class="form-control" id="addressProofNo" type="text" formControlName="addressProofNo" />
+              <div *ngIf="
+                  addressProofNo &&
+                  addressProofNo.invalid &&
+                  (addressProofNo.touched || addressProofNo.dirty)
+                ">
+                <small *ngIf="addressProofNo.errors?.['required']" style="color: red; font-size: 12px">This field is
+                  required.</small>
+                <small *ngIf="addressProofNo.errors?.['pattern']" style="color: red; font-size: 12px">Enter a valid {{
+                  selectElements }} number.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__linput">
+              <label class="form__label"><b>Upload Front Copy</b></label>
+              <input class="form-control" formControlName="addressFrontPath" (change)="onaddressfront($event)"
+                type="file" />
+              <div
+                *ngIf="addressFrontPath?.invalid && addressFrontPath?.touched && addressFrontPath?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
+            </div>
+
+            <div class="form__linput">
+              <label class="form__label"><b>Upload Back Copy</b></label>
+              <input class="form-control" formControlName="addressBackPath" (change)="onaddressback($event)"
+                type="file" />
+              <div *ngIf="addressBackPath?.invalid && addressBackPath?.touched && addressBackPath?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__linput">
+              <label *ngIf="selectElements == 'Driving License'" class="form__label"><b>Date of Birth</b></label>
+              <label *ngIf="selectElements == 'Passport'" class="form__label"><b>Date of Birth </b></label>
+
+              <input *ngIf="selectElements == 'Driving License'" class="form-control" type="date"
+                formControlName="drivingLicenceDobs" [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
+
+              <input *ngIf="selectElements == 'Passport'" class="form-control" type="date"
+                formControlName="passportDobs" [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
+              <div
+                *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
+                                         (selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
+                                         (selectElements  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
+            </div>
+            <div class="form__linput"></div>
+          </div>
+
+          <div>
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button matStepperNext [disabled]="secondFormGroup.invalid">
+              Next
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="thirdFormGroup" [completed]="false">
+        <form [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>Signature</ng-template>
+          <div class="form__row">
+            <div class="form__linput">
+              <label class="form__label" for="identityType"><b>Signature Proof</b></label>
+              <select formControlName="signatureProof" class="form-select" (change)="onasignproof($event)">
+                <option hidden>Select..</option>
+                <option *ngIf="
+                    this.selectElements != 'Pancard' &&
+                    this.selectElement != 'Pancard'
+                  " value="Pancard">
+                  Pancard
+                </option>
+                <option *ngIf="
+                    this.selectElements != 'Passport' &&
+                    this.selectElement != 'Passport'
+                  " value="Passport">
+                  Passport
+                </option>
+                <option *ngIf="
+                    this.selectElements != 'Driving License' &&
+                    this.selectElement != 'Driving License'
+                  " value="Driving License">
+                  Driving License
+                </option>
+              </select>
+              <div *ngIf="signatureProof?.invalid && signatureProof?.touched && signatureProof?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
+            </div>
+
+            <div class="form__linput">
+              <label class="form__label"><b>Enter {{ select }} Number</b></label>
+              <input class="form-control" id="signatureProofNo" type="text" formControlName="signatureProofNo" />
+              <div *ngIf="
+                  signatureProofNo &&
+                  signatureProofNo.invalid &&
+                  (signatureProofNo.touched || signatureProofNo.dirty)
+                ">
+                <small *ngIf="signatureProofNo.errors?.['required']" style="color: red; font-size: 12px">This field is
+                  required.</small>
+                <small *ngIf="signatureProofNo.errors?.['pattern']" style="color: red; font-size: 12px">Enter a valid {{
+                  select }} number.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__linput">
+              <label class="form__label"><b>Upload Front Copy</b></label>
+              <input class="form-control" formControlName="signatureFrontPath" (change)="onasignfront($event)"
+                type="file" />
+              <div
+                *ngIf="signatureFrontPath?.invalid && signatureFrontPath?.touched && signatureFrontPath?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
+            </div>
+
+            <div class="form__linput">
+              <label class="form__label"><b>Upload Back Copy</b></label>
+              <input class="form-control" formControlName="signatureBackPath" (change)="onasignback($event)"
+                type="file" />
+              <div
+                *ngIf="signatureBackPath?.invalid && signatureBackPath?.touched && signatureBackPath?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__linput">
+              <label *ngIf="select == 'Driving License'" class="form__label"><b>Date of Birth</b></label>
+              <label *ngIf="select == 'Passport'" class="form__label"><b>Date of Birth </b></label>
+
+              <input *ngIf="select == 'Driving License'" class="form-control" type="date"
+                formControlName="drivingLicenceDobss" [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
+
+              <input *ngIf="select == 'Passport'" class="form-control" type="date" formControlName="passportDobss"
+                [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
+              <div
+                *ngIf="(select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
+                                         (select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&
+                                         (select  === 'Driving License' ? drivingLicenceDobss : passportDobss)?.errors?.['required']"
+                style="color: red; font-size: 12px">
+                Field is required
+              </div>
+            </div>
+            <div class="form__linput"></div>
+          </div>
+          <div>
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button (click)="kycsubmit()" [disabled]="thirdFormGroup.invalid">
+              Finish
+            </button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+
+  <!-- Business Doc Add -->
+
+  <div class="well" style="margin-top: 2%" *ngIf="BussinessDocument == true">
+    <h4 class="card-header" style="font-weight: 500">4.Business Document</h4>
+
+    <form [formGroup]="fourthFormGroup">
+      <div class="form__row">
+        <div class="form__linput">
+          <label class="form__label"><b>Document Name</b></label>
+          <select class="form-select" formControlName="kycCategoryIds">
+            <option *ngFor="let item of KYCDocNames" [value]="item.entityKycCategory?.kycCategoryId">
+              {{ item.entityKycCategory.kycCategoryName }}
+            </option>
+          </select>
+          <div *ngIf="kycCategoryIds?.invalid && kycCategoryIds?.touched && kycCategoryIds?.errors?.['required']"
+            style="color: red; font-size: 12px">
+            Field is required
+          </div>
+        </div>
+
+        <div class="form__linput">
+          <label class="form__label"><b>Document ID</b></label>
+          <input class="form-control" id="mccCode" type="text" formControlName="docNumber" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="docNumber?.errors?.['maxlength']">
+            maximum length should be 100
+          </div>
+          <!-- <div *ngIf="docNumber && docNumber.invalid && (docNumber.touched || docNumber.dirty)">
+                        <small *ngIf="docNumber.errors?.['required']" style="color: red; font-size: 12px;">This field is
+                            required.</small>
+                        <small *ngIf="docNumber.errors?.['pattern']" style="color: red; font-size: 12px;">Enter a valid
+                            {{selectElement}} number.</small>
+                    </div> -->
+        </div>
+      </div>
+
+      <div class="form__row">
+        <div class="form__linput">
+          <label class="form__label"><b>Expiry Date</b></label>
+          <input onkeydown="return false;" class="form-control" type="date" formControlName="expiryDate" />
+          <!-- <div style="color: red; font-size: 12px;margin-top: 2px;"
+                        *ngIf="expiryDate?.invalid && expiryDate?.touched && expiryDate?.errors?.['required']">
+                        Field is required
+                    </div> -->
+        </div>
+        <div class="form__linput">
+          <label class="form__label"><b>Upload Front Copy</b></label>
+          <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)" type="file" />
+          <div *ngIf="docFrontPath?.invalid && docFrontPath?.touched && docFrontPath?.errors?.['required']"
+            style="color: red; font-size: 12px">
+            Field is required
+          </div>
+        </div>
+      </div>
+      <div class="form__row">
+        <div class="form__linput">
+          <label class="form__label"><b>Upload Back Copy</b></label>
+          <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file" />
+          <div *ngIf="docBackPath?.invalid && docBackPath?.touched && docBackPath?.errors?.['required']"
+            style="color: red; font-size: 12px">
+            Field is required
+          </div>
+        </div>
+
+        <div class="form__linput"></div>
+      </div>
+
+      <div>
+        <button (click)="docSubmit()" [disabled]="fourthFormGroup.invalid" type="submit" class="btn mx-1"
+          style="background-color: #7db855be">
+          Submit
+        </button>
+        <button type="submit" class="btn" style="background-color: #141e46; color: white" (click)="close()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

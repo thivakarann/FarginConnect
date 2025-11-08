@@ -1,10 +1,75 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators, } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { FarginServiceService } from '../../../service/fargin-service.service';
+import { Businessadd } from '../../../fargin-model/fargin-model.module';
+import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-addcategory',
   templateUrl: './addcategory.component.html',
-  styleUrl: './addcategory.component.css'
+  styleUrl: './addcategory.component.css',
 })
-export class AddcategoryComponent {
+export class AddcategoryComponent implements OnInit {
+  days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
+  addcategory: any = FormGroup;
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
+  constructor(
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private cryptoService: EncyDecySericeService,
+    private toastr: ToastrService
+  ) { }
+
+  ngOnInit(): void {
+    this.addcategory = new FormGroup({
+      categoryName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(50),
+      ]),
+      mccCode: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[0-9]{4}$/),
+      ]),
+      autoDebitDate: new FormControl('', [Validators.required]),
+    });
+  }
+
+  get categoryName() {
+    return this.addcategory.get('categoryName');
+  }
+
+  get mccCode() {
+    return this.addcategory.get('mccCode');
+  }
+
+  get autoDebitDate() {
+    return this.addcategory.get('autoDebitDate');
+  }
+
+  submit() {
+    let submitModel: Businessadd = {
+      businessCategoryName: this.categoryName.value.trim(),
+      mccCode: this.mccCode.value,
+      createdby: this.adminName,
+      autoDebitDate: this.autoDebitDate?.value,
+      creatorRole: ''
+    };
+    let datamodal = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+    this.service.BusinessCreate(datamodal).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.messageDescription);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      } else {
+        this.toastr.error(res.messageDescription);
+      }
+    });
+  }
 }

@@ -1,0 +1,47 @@
+.card-header {
+  background-color: #7db855be;
+  color: #141e46;
+  font-family: "Roboto";
+}
+
+.buttonDownload {
+  width: 90px;
+  display: inline-block;
+  position: relative;
+  padding: 10px;
+  background-color: #7db855be;
+  color: black;
+  font-family: sans-serif;
+  text-decoration: none;
+  font-size: 1em;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  margin-top: 8px;
+}
+.buttonDownloads {
+  width: 90px;
+  display: inline-block;
+  position: relative;
+  padding: 10px;
+  background-color: #141e46;
+  color: white;
+  font-family: sans-serif;
+  text-decoration: none;
+  font-size: 1em;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  margin-top: 8px;
+  margin-left: 4px;
+}
+.form__label {
+  font-weight: 500;
+}
+.buttonDownload:disabled {
+  cursor: not-allowed; /* Indicates the button is not clickable */
+  background-color: #cccccc; /* Changes the background color */
+  color: #666666; /* Changes the text color */
+  opacity: 0.6; /* Makes the button appear faded */
+  border: 1px solid #999999; /* Modifies the border styling */
+}

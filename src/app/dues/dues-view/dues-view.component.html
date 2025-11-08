@@ -1,0 +1,67 @@
+<div class="card" style=" font-size: 14px;height:525px;">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h6 class="mb-0 text-center" style="color:#fff;">Transaction Information</h6>
+        <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+    </div>
+
+        <table class="table table-bordered"
+            style="background-color: white; text-align: left;border: 1px solid rgb(154, 154, 153);">
+            <tbody>
+                <tr>
+                    <td class="datas">Transaction ID</td>
+                    <td id="data">{{ transaction?.paymentId }}</td>
+                </tr>
+                <tr>
+                    <td class="datas">Bank Reference</td>
+                    <td id="data">{{ transaction?.bankReference }}</td>
+                </tr>
+
+                <tr>
+                    <td class="datas">Customer Name</td>
+                    <td id="data">{{ transaction?.merchantId?.entityName }}</td>
+                </tr>
+                <tr>
+                    <td class="datas">Customer Email</td>
+                    <td id="data">{{
+                        transaction?.merchantId?.contactEmail}}</td>
+                </tr>
+                <tr>
+                    <td class="datas">Customer Mobile</td>
+                    <td id="data">{{
+                        transaction?.merchantId?.contactMobile}}</td>
+                </tr>
+                <tr>
+                    <td class="datas">Order Reference</td>
+                    <td id="data">{{ transaction?.orderReference}}</td>
+                </tr>
+                <tr>
+                    <td class="datas">Payment Method</td>
+                    <td id="data">{{ transaction?.paymentMethod}}</td>
+                </tr>
+
+
+                <tr>
+                    <td class="datas">Paid At</td>
+                    <td id="data">{{ transaction?.createdDateTime | date:'yyyy-MM-dd hh:mm a'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="datas">Status</td>
+                    <td id="data" style="font-weight: 500;">
+                        <span *ngIf="transaction?.paymentStatus == 'Success'" class="text-success">
+                            {{ transaction?.paymentStatus}}</span>
+
+                        <span *ngIf="transaction?.paymentStatus   == 'Pending'" class="text-warning">
+                            {{ transaction?.paymentStatus || '--'}}</span>
+
+                        <span *ngIf="transaction?.paymentStatus  == 'Failure'" class="text-danger">
+                            {{ transaction?.paymentStatus||'--'}}</span>
+
+                    </td>
+                </tr>
+             
+            </tbody>
+        </table>
+
+
+    </div>

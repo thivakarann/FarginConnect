@@ -6651,7 +6651,7 @@
             },
             match,
             log: label => {
-              console.log(label, {
+              
                 constructors,
                 constructor: key,
                 params: args
@@ -19719,7 +19719,7 @@
         if (console.error) {
           console.error(message, ...x);
         } else {
-          console.log(message, ...x);
+          
         }
       }
     };
@@ -30764,7 +30764,7 @@
       const isSet = name => has$2(values, name);
       const debug = () => {
         try {
-          console.log(JSON.parse(JSON.stringify(rawInitialOptions, (_key, value) => {
+          
             if (isBoolean(value) || isNumber(value) || isString(value) || isNull(value) || isArray$1(value) || isPlainObject(value)) {
               return value;
             }
@@ -32035,16 +32035,16 @@
       return storage;
     })();
 
-    let localStorage;
+    let sessionStorage;
     try {
       const test = '__storage_test__';
-      localStorage = window.localStorage;
-      localStorage.setItem(test, test);
-      localStorage.removeItem(test);
+      sessionStorage = window.sessionStorage;
+      sessionStorage.setItem(test, test);
+      sessionStorage.removeItem(test);
     } catch (e) {
-      localStorage = create();
+      sessionStorage = create();
     }
-    var LocalStorage = localStorage;
+    var sessionStorage = sessionStorage;
 
     const publicApi = {
       geom: { Rect },
@@ -32056,7 +32056,7 @@
         EventDispatcher,
         Observable,
         I18n,
-        LocalStorage,
+        sessionStorage,
         ImageUploader
       },
       dom: {

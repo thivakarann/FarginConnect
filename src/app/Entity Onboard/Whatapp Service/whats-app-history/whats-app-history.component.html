@@ -1,0 +1,199 @@
+<h4 style="text-align:left;color:#141E46;">WhatsApp History</h4>
+
+<mat-card-header>
+    <div class="d-flex flex-wrap align-items-center gap-3 justify-content-start">
+
+        <!-- Search Input -->
+        <div class="search">
+            <form class="form">
+                <label for="search">
+                     <input #input required autocomplete="off" placeholder="Search" id="search" type="text"
+                            name="search" [(ngModel)]="currentfilval" />
+                    <div class="icon">
+                        <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                stroke-linecap="round"></path>
+                        </svg>
+                    </div>
+                    <button (click)="resetSearchFilter()" type="reset" class="close-btn">
+                        <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                fill-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </label>
+            </form>
+        </div>
+
+        <!-- Go Button -->
+        <button (click)="Search(currentfilval)"
+            style="color:white;background-color: #141E46;border-radius: 10px;font-size:12px"
+            mat-raised-button>Go</button>
+
+        <!-- Actions Dropdown -->
+        <div class="dropdown"
+            [hidden]="valueDownload!=='Download WhatsApp Bulk Upload Template' && valueUpload!=='Upload WhatsApp File'">
+            <button class="btn btn-secondary dropdown-toggle custom-btn btn-10"
+                style="color: white;background-color: #141e46;font-size: 13px;border-radius: 10px;width: 106px;height: 37px;font-weight: 600;"
+                type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Actions
+            </button>
+            <ul class="dropdown-menu" style="font-size: 14px;" aria-labelledby="dropdownMenuButton">
+                <li>
+                    <button [hidden]="valueDownload!=='Download WhatsApp Bulk Upload Template'" class="dropdown-item"
+                        (click)="excelbulk()">Download WhatsApp Bulk Upload Template</button>
+                </li>
+                <li>
+                    <button [hidden]="valueUpload!=='Upload WhatsApp File'" class="dropdown-item"
+                        (click)="createWhatsApp()">Upload WhatsApp File</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- From Date -->
+        <div style="margin-top: -27px;">
+            <label><b>From Date</b></label>
+            <input onkeydown="return false;" class="form-control" type="date" name="FromDate"
+                [(ngModel)]="FromDateRange" (change)="checkDate()" [max]="maxDate"
+                style="height:35px;width:150px;border-radius: 5px;">
+        </div>
+
+        <!-- To Date -->
+        <div style="margin-top: -27px;">
+            <label><b>To Date</b></label>
+            <input onkeydown="return false;" class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
+                [min]="FromDateRange" [max]="maxDate" style="height:35px;width:150px;border-radius: 5px;">
+        </div>
+
+        <!-- Filter Button -->
+        <button class="buttonDownload" style="font-size: 12px;" [disabled]="!FromDateRange|| !ToDateRange"
+            mat-raised-button (click)="filterdate()">Filter</button>
+
+        <!-- Reset Button -->
+        <button [disabled]="!FromDateRange|| !ToDateRange" class="buttonDownload" style="font-size: 12px;"
+            mat-raised-button (click)="resetDateFilter()">Reset</button>
+
+    </div>
+</mat-card-header>
+
+
+
+
+<mat-card-content>
+    <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
+        <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="sno">
+                <th mat-header-cell *matHeaderCellDef> S.No</th>
+                <td mat-cell *matCellDef="let viewall; let i = index"> {{i+1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="accountId">
+                <th mat-header-cell *matHeaderCellDef>Account Id</th>
+                <td mat-cell *matCellDef="let viewall">{{ viewall?.accountId}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="entityName">
+                <th mat-header-cell *matHeaderCellDef>Entity Name</th>
+                <td mat-cell *matCellDef="let viewall">{{ viewall?.entityName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="mobileNumber">
+                <th mat-header-cell *matHeaderCellDef>Mobile Number</th>
+                <td mat-cell *matCellDef="let viewall">{{ viewall?.mobileNumber }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Vendor">
+                <th mat-header-cell *matHeaderCellDef>Vendor</th>
+                <td mat-cell *matCellDef="let Viewall">{{ Viewall?.vendorName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="templateType">
+                <th mat-header-cell *matHeaderCellDef>Recipient</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    <span *ngIf="Viewall?.templateType=='Merchant'">Merchant</span>
+                    <span *ngIf="Viewall?.templateType=='Customer'">Customer</span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Title">
+                <th mat-header-cell *matHeaderCellDef>Title</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    {{Viewall?.templateTitle}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="TempDescription">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    <div class="privacy-policy-container">
+                        <span *ngIf="!Visible">{{ Viewall.smsMessage| slice:0:limit }}</span>
+                        <span *ngIf="Visible">{{ Viewall.smsMessage }}</span>
+                        <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
+                            (click)="description(Viewall.smsMessage )">
+                            {{ Visible ? 'Read Less' : '...Read More' }}
+                        </i>
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Lan">
+                <th mat-header-cell *matHeaderCellDef>Langauge</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    <span *ngIf="Viewall?.templateLanguage=='en'">English</span>
+                    <span *ngIf="Viewall?.templateLanguage=='ta'">Tamil</span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Charges">
+                <th mat-header-cell *matHeaderCellDef>Charges</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    <Span *ngIf="Viewall?.smsChargeStatus == 'Applicable'" style="color: #28a745;">Applicable</Span>
+                    <Span *ngIf="Viewall?.smsChargeStatus == 'Not Applicable'" style="color:#dc3545;">Not
+                        Applicable</Span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="smsAmount">
+                <th mat-header-cell *matHeaderCellDef>Cost</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    {{Viewall?.perSmsAmount.toFixed(2)}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="responseStatus">
+                <th mat-header-cell *matHeaderCellDef>Message Status</th>
+                <td mat-cell *matCellDef="let Viewall">
+                    <span *ngIf="Viewall?.responseStatus == 'Success'" class="text-success">
+                        Success
+                    </span>
+                    <span *ngIf="Viewall?.responseStatus == 'Failed'" class="text-danger">
+                        Failed
+                    </span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Created At</th>
+                <td mat-cell *matCellDef="let Viewall"> {{ Viewall?.createdDateTime | date:'dd/MM/yyyy hh:mma'}}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+            <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+            <tr *matNoDataRow>
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
+                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+                </td>
+            </tr>
+        </table>
+    </div>
+</mat-card-content>
+
+<mat-card-footer>
+    <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
+        [pageSizeOptions]="[5, 10, 50, 100, 200,300,500]" aria-label="Select page">
+    </mat-paginator>
+</mat-card-footer>

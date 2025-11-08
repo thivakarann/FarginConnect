@@ -1,0 +1,30 @@
+<i style="
+    margin-left: 95%;
+    font-size: 27px;
+    margin-bottom: 1px;
+    margin-top: 4px;
+    color: red;
+  "></i>
+
+<img *ngIf="imageSrc" [src]="imageSrc" style="
+    width: 500px;
+    height: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  " />
+
+<div *ngIf="!imageSrc" style="padding-top:13px;" class="text-center">
+  <h4>No data Found</h4>
+</div>
+
+<div class="p-2">
+  <form [formGroup]="myForm">
+    <label class="form__label">Update Channel Logo</label>
+    <input class="form-control" formControlName="logo" (change)="onFileSelected($event)" type="file" />
+
+    <button class="buttonDownload mt-2" [disabled]="myForm.invalid" (click)="submit($event)">
+      Update
+    </button>
+    <button class="buttonDownloads mt-2" matDialogClose>Cancel</button>
+  </form>
+</div>

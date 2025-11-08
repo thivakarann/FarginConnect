@@ -1,0 +1,1577 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" />
+<div class="container">
+  <div class="form-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">
+      Create Plan
+      <span style="font-size: 15px">Note: Required to Enter Numbers, N/A or Hyphen(-)</span>
+    </h5>
+    <button type="button" class="btn btn-secondary" (click)="close()">
+      Back
+    </button>
+  </div>
+  <div class="well">
+    <form [formGroup]="myForm">
+      <div class="row">
+        <div class="col-sm-3 form-group">
+          <label for="firstName">Plan Name</label>
+          <input type="text" id="firstName" class="form-control" formControlName="planName" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['required']">
+            *field is Required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['pattern']">
+            Invalid format.(max 50 characters)
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="lastName">Service Fee</label>
+          <input type="text" id="lastName" placeholder="Amount" class="form-control" formControlName="servicefee" />
+          <div class="error" *ngIf="servicefee?.invalid && servicefee?.touched && servicefee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1" *ngIf="servicefee?.invalid && servicefee?.touched && servicefee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="firstName">AMC/MMC</label>
+          <input type="text" id="firstName" placeholder="Amount" class="form-control" formControlName="mmcAmount" />
+          <div class="error" *ngIf="mmcAmount?.invalid && mmcAmount?.touched && mmcAmount?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1" *ngIf="mmcAmount?.invalid && mmcAmount?.touched && mmcAmount?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="lastName">Security Deposit Amount</label>
+          <input type="text" id="lastName" placeholder="Amount" class="form-control"
+            formControlName="securityDepositAmount" />
+          <div class="error"
+            *ngIf="securityDepositAmount?.invalid && securityDepositAmount?.touched && securityDepositAmount?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="securityDepositAmount?.invalid && securityDepositAmount?.touched && securityDepositAmount?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-sm-3 form-group">
+          <label for="lastName">Settlement Cycle</label>
+          <select formControlName="settlementCycle" id="settlementCycle" class="form-control form-select mt-1">
+            <option value="" disabled selected>Select</option>
+            <option value="T+1">T+1</option>
+            <option value="T+2">T+2</option>
+            <option value="T+3">T+3</option>
+            <option value="T+4">T+4</option>
+            <option value="T+5">T+5</option>
+            <option value="T+6">T+6</option>
+            <option value="T+7">T+7</option>
+            <option value="T+8">T+8</option>
+            <option value="T+9">T+9</option>
+            <option value="T+10">T+10</option>
+            <option value="N/A">N/A</option>
+          </select>
+          <div class="error"
+            *ngIf="settlementCycle?.invalid && settlementCycle?.touched && settlementCycle?.errors?.['required']">
+            field is Requied
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="netBankingPercentage" style="font-size: 12px">Net Banking (HDFC/SBI/Kotak/ICICI/Axis)</label>
+          <input type="text" id="netBankingPercentage" class="form-control" placeholder="Percentage"
+            formControlName="netBankingPercentage" />
+          <div class="error"
+            *ngIf="netBankingPercentage?.invalid && netBankingPercentage?.touched && netBankingPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="netBankingPercentage?.invalid && netBankingPercentage?.touched && netBankingPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="netBankingFixedFee" style="font-size: 12px">Net Banking (HDFC/SBI/Kotak/ICICI/Axis)</label>
+          <input type="text" id="netBankingFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="netBankingFixedFee" />
+          <div class="error"
+            *ngIf="netBankingFixedFee?.invalid && netBankingFixedFee?.touched && netBankingFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="netBankingFixedFee?.invalid && netBankingFixedFee?.touched && netBankingFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="ecollectPercentage" style="font-size: 12px">Net Banking Other Bank</label>
+          <input type="text" id="ecollectPercentage" class="form-control" placeholder="Percentage"
+            formControlName="nbOtherBankPercentage" />
+          <div class="error"
+            *ngIf="nbOtherBankPercentage?.invalid && nbOtherBankPercentage?.touched && nbOtherBankPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="nbOtherBankPercentage?.invalid && nbOtherBankPercentage?.touched && nbOtherBankPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="netBankingAmount" style="font-size: 12px"
+            >Net Banking<br />(HDFC/SBI/Kotak/ICICI/Axis)</label
+          >
+          <input
+            type="text"
+            id="netBankingAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="netBankingAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="netBankingAmount?.invalid && netBankingAmount?.touched && netBankingAmount?.errors?.['required']"
+          >
+             field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="netBankingAmount?.invalid && netBankingAmount?.touched && netBankingAmount?.errors?.['pattern']"
+          >
+            Invalid data
+
+          </div>
+        </div> -->
+
+        <!-- <div class="col-sm-2 form-group" style="padding-top: 11px">
+          <label for="ecollectAmount" style="font-size: 12px"
+            >Net Banking Other Bank</label
+          >
+          <input
+            type="text"
+            id="ecollectAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="nbOtherBankAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="nbOtherBankAmount?.invalid && nbOtherBankAmount?.touched && nbOtherBankAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="nbOtherBankAmount?.invalid && nbOtherBankAmount?.touched && nbOtherBankAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+
+        <div class="col-sm-3 form-group">
+          <label for="ecollectFixedFee" style="font-size: 12px">Net Banking Other Bank</label>
+          <input type="text" id="ecollectFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="nbOtherBankFixedFee" />
+          <div class="error"
+            *ngIf="nbOtherBankFixedFee?.invalid && nbOtherBankFixedFee?.touched && nbOtherBankFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="nbOtherBankFixedFee?.invalid && nbOtherBankFixedFee?.touched && nbOtherBankFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="ecollectPercentage" style="font-size: 12px">e-Collect</label>
+          <input type="text" id="ecollectPercentage" class="form-control" placeholder="Percentage"
+            formControlName="ecollectPercentage" />
+          <div class="error"
+            *ngIf="ecollectPercentage?.invalid && ecollectPercentage?.touched && ecollectPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="ecollectPercentage?.invalid && ecollectPercentage?.touched && ecollectPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="ecollectFixedFee" style="font-size: 12px">e-Collect</label>
+          <input type="text" id="ecollectFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="ecollectFixedFee" />
+          <div class="error"
+            *ngIf="ecollectFixedFee?.invalid && ecollectFixedFee?.touched && ecollectFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="ecollectFixedFee?.invalid && ecollectFixedFee?.touched && ecollectFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="disbursementPercentage" style="font-size: 12px">Disbursement API</label>
+          <input type="text" id="disbursementPercentage" class="form-control" placeholder="Percentage"
+            formControlName="disbursementPercentage" />
+          <div class="error"
+            *ngIf="disbursementPercentage?.invalid && disbursementPercentage?.touched && disbursementPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="disbursementPercentage?.invalid && disbursementPercentage?.touched && disbursementPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <!-- <div class="col-sm-3 form-group">
+          <label for="ecollectAmount" style="font-size: 12px">e-Collect</label>
+          <input
+            type="text"
+            id="ecollectAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="ecollectAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="ecollectAmount?.invalid && ecollectAmount?.touched && ecollectAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="ecollectAmount?.invalid && ecollectAmount?.touched && ecollectAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+
+        <!-- <div class="col-sm-2 form-group">
+          <label for="disbursementAmount" style="font-size: 12px"
+            >Disbursement API</label
+          >
+          <input
+            type="text"
+            id="disbursementAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="disbursementAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="disbursementAmount?.invalid && disbursementAmount?.touched && disbursementAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="disbursementAmount?.invalid && disbursementAmount?.touched && disbursementAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+
+        <div class="col-sm-3 form-group">
+          <label for="disbursementFixedFee" style="font-size: 12px">Disbursement API</label>
+          <input type="text" id="disbursementFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="disbursementFixedFee" />
+          <div class="error"
+            *ngIf="disbursementFixedFee?.invalid && disbursementFixedFee?.touched && disbursementFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="disbursementFixedFee?.invalid && disbursementFixedFee?.touched && disbursementFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <!-- <div class="col-sm-2 form-group">
+          <label for="internationalAmount" style="font-size: 12px"
+            >International API</label
+          >
+          <input
+            type="text"
+            id="internationalAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="internationalAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="internationalAmount?.invalid && internationalAmount?.touched && internationalAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="internationalAmount?.invalid && internationalAmount?.touched && internationalAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="internationalPercentage" style="font-size: 12px">International API</label>
+          <input type="text" id="internationalPercentage" class="form-control" placeholder="Percentage"
+            formControlName="internationalPercentage" />
+          <div class="error"
+            *ngIf="internationalPercentage?.invalid && internationalPercentage?.touched && internationalPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="internationalPercentage?.invalid && internationalPercentage?.touched && internationalPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="internationalFixedFee" style="font-size: 12px">International API</label>
+          <input type="text" id="internationalFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="internationalFixedFee" />
+          <div class="error"
+            *ngIf="internationalFixedFee?.invalid && internationalFixedFee?.touched && internationalFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="internationalFixedFee?.invalid && internationalFixedFee?.touched && internationalFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <!-- <div class="col-sm-2 form-group">
+          <label for="upiAmount" style="font-size: 12px">UPI </label>
+          <input
+            type="text"
+            id="upiAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="upiAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="upiAmount?.invalid && upiAmount?.touched && upiAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="upiAmount?.invalid && upiAmount?.touched && upiAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="upiPercentage" style="font-size: 12px">UPI</label>
+          <input type="text" id="upiPercentage" class="form-control" placeholder="Percentage"
+            formControlName="upiPercentage" />
+          <div class="error"
+            *ngIf="upiPercentage?.invalid && upiPercentage?.touched && upiPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="upiPercentage?.invalid && upiPercentage?.touched && upiPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row mt-3">
+
+        <!-- <div class="col-sm-2 form-group">
+          <label for="dynamicqrAmount" style="font-size: 12px"
+            >Dynamic QR</label
+          >
+          <input
+            type="text"
+            id="dynamicqrAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="dynamicqrAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="dynamicqrAmount?.invalid && dynamicqrAmount?.touched && dynamicqrAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="dynamicqrAmount?.invalid && dynamicqrAmount?.touched && dynamicqrAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="upiFixedFee" style="font-size: 12px">UPI</label>
+          <input type="text" id="upiFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="upiFixedFee" />
+          <div class="error" *ngIf="upiFixedFee?.invalid && upiFixedFee?.touched && upiFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1" *ngIf="upiFixedFee?.invalid && upiFixedFee?.touched && upiFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="dynamicqrPercentage" style="font-size: 12px">Dynamic QR</label>
+          <input type="text" id="dynamicqrPercentage" class="form-control" placeholder="Percentage"
+            formControlName="dynamicqrPercentage" />
+          <div class="error"
+            *ngIf="dynamicqrPercentage?.invalid && dynamicqrPercentage?.touched && dynamicqrPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="dynamicqrPercentage?.invalid && dynamicqrPercentage?.touched && dynamicqrPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="dynamicqrFixedFee" style="font-size: 12px">Dynamic QR</label>
+          <input type="text" id="dynamicqrFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="dynamicqrFixedFee" />
+          <div class="error"
+            *ngIf="dynamicqrFixedFee?.invalid && dynamicqrFixedFee?.touched && dynamicqrFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="dynamicqrFixedFee?.invalid && dynamicqrFixedFee?.touched && dynamicqrFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+      </div>
+
+      <h5 class="mt-3">Card</h5>
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="rupaydebitcardmaxAmount" style="font-size: 12px"
+            >Rupay Debit Card (> 2000 )</label
+          >
+          <input
+            type="text"
+            id="rupaydebitcardmaxAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="rupaydebitcardmaxAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="rupaydebitcardmaxAmount?.invalid && rupaydebitcardmaxAmount?.touched && rupaydebitcardmaxAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="rupaydebitcardmaxAmount?.invalid && rupaydebitcardmaxAmount?.touched && rupaydebitcardmaxAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="rupaydebitcardmaxPercentage" style="font-size: 12px">Rupay Debit Card (> 2000 )</label>
+          <input type="text" id="rupaydebitcardmaxPercentage" class="form-control" placeholder="Percentage"
+            formControlName="rupaydebitcardmaxPercentage" />
+          <div class="error"
+            *ngIf="rupaydebitcardmaxPercentage?.invalid && rupaydebitcardmaxPercentage?.touched && rupaydebitcardmaxPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="rupaydebitcardmaxPercentage?.invalid && rupaydebitcardmaxPercentage?.touched && rupaydebitcardmaxPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="rupaydebitcardmaxFixedFee" style="font-size: 12px">Rupay Debit Card (> 2000 )</label>
+          <input type="text" id="rupaydebitcardmaxFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="rupaydebitcardmaxFixedFee" />
+          <div class="error"
+            *ngIf="rupaydebitcardmaxFixedFee?.invalid && rupaydebitcardmaxFixedFee?.touched && rupaydebitcardmaxFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="rupaydebitcardmaxFixedFee?.invalid && rupaydebitcardmaxFixedFee?.touched && rupaydebitcardmaxFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <!-- <div class="col-sm-2 form-group">
+          <label for="rupaydebitcardminAmount" style="font-size: 12px"
+            >Rupay Debit Card (< 2000 )</label
+          >
+          <input
+            type="text"
+            id="rupaydebitcardminAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="rupaydebitcardminAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="rupaydebitcardminAmount?.invalid && rupaydebitcardminAmount?.touched && rupaydebitcardminAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="rupaydebitcardminAmount?.invalid && rupaydebitcardminAmount?.touched && rupaydebitcardminAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="rupaydebitcardminPercentage" style="font-size: 12px">Rupay Debit Card (< 2000 )</label>
+              <input type="text" id="rupaydebitcardminPercentage" class="form-control" placeholder="Percentage"
+                formControlName="rupaydebitcardminPercentage" />
+              <div class="error"
+                *ngIf="rupaydebitcardminPercentage?.invalid && rupaydebitcardminPercentage?.touched && rupaydebitcardminPercentage?.errors?.['required']">
+                field is Requied
+              </div>
+              <div class="error1"
+                *ngIf="rupaydebitcardminPercentage?.invalid && rupaydebitcardminPercentage?.touched && rupaydebitcardminPercentage?.errors?.['pattern']">
+                Invalid data
+              </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="rupaydebitcardminFixedFee" style="font-size: 12px">Rupay Debit Card (< 2000 )</label>
+              <input type="text" id="rupaydebitcardminFixedFee" class="form-control" placeholder="Fixed Fee"
+                formControlName="rupaydebitcardminFixedFee" />
+              <div class="error"
+                *ngIf="rupaydebitcardminFixedFee?.invalid && rupaydebitcardminFixedFee?.touched && rupaydebitcardminFixedFee?.errors?.['required']">
+                field is Requied
+              </div>
+              <div class="error1"
+                *ngIf="rupaydebitcardminFixedFee?.invalid && rupaydebitcardminFixedFee?.touched && rupaydebitcardminFixedFee?.errors?.['pattern']">
+                Invalid data
+              </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="otherdebitcardmaxAmount" style="font-size: 12px"
+            >Other Debit Card (> 2000 )</label
+          >
+          <input
+            type="text"
+            id="otherdebitcardmaxAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="otherdebitcardmaxAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="otherdebitcardmaxAmount?.invalid && otherdebitcardmaxAmount?.touched && otherdebitcardmaxAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="otherdebitcardmaxAmount?.invalid && otherdebitcardmaxAmount?.touched && otherdebitcardmaxAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="otherdebitcardmaxPercentage" style="font-size: 12px">Other Debit Card (> 2000 )</label>
+          <input type="text" id="otherdebitcardmaxPercentage" class="form-control" placeholder="Percentage"
+            formControlName="otherdebitcardmaxPercentage" />
+          <div class="error"
+            *ngIf="otherdebitcardmaxPercentage?.invalid && otherdebitcardmaxPercentage?.touched && otherdebitcardmaxPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="otherdebitcardmaxPercentage?.invalid && otherdebitcardmaxPercentage?.touched && otherdebitcardmaxPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="otherdebitcardmaxFixedFee" style="font-size: 12px">Other Debit Card (> 2000 )</label>
+          <input type="text" id="otherdebitcardmaxFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="otherdebitcardmaxFixedFee" />
+          <div class="error"
+            *ngIf="otherdebitcardmaxFixedFee?.invalid && otherdebitcardmaxFixedFee?.touched && otherdebitcardmaxFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="otherdebitcardmaxFixedFee?.invalid && otherdebitcardmaxFixedFee?.touched && otherdebitcardmaxFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+
+        <!-- <div class="col-sm-2 form-group">
+          <label for="otherdebitcardminAmount" style="font-size: 12px"
+            >Other Debit Card (< 2000 )</label
+          >
+          <input
+            type="text"
+            id="otherdebitcardminAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="otherdebitcardminAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="otherdebitcardminAmount?.invalid && otherdebitcardminAmount?.touched && otherdebitcardminAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="otherdebitcardminAmount?.invalid && otherdebitcardminAmount?.touched && otherdebitcardminAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="otherdebitcardminPercentage" style="font-size: 12px">Other Debit Card (< 2000 )</label>
+              <input type="text" id="otherdebitcardminPercentage" class="form-control" placeholder="Percentage"
+                formControlName="otherdebitcardminPercentage" />
+              <div class="error"
+                *ngIf="otherdebitcardminPercentage?.invalid && otherdebitcardminPercentage?.touched && otherdebitcardminPercentage?.errors?.['required']">
+                field is Requied
+              </div>
+              <div class="error1"
+                *ngIf="otherdebitcardminPercentage?.invalid && otherdebitcardminPercentage?.touched && otherdebitcardminPercentage?.errors?.['pattern']">
+                Invalid data
+              </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="otherdebitcardminFixedFee" style="font-size: 12px">Other Debit Card (< 2000 )</label>
+              <input type="text" id="otherdebitcardminFixedFee" class="form-control" placeholder="Fixed Fee"
+                formControlName="otherdebitcardminFixedFee" />
+              <div class="error"
+                *ngIf="otherdebitcardminFixedFee?.invalid && otherdebitcardminFixedFee?.touched && otherdebitcardminFixedFee?.errors?.['required']">
+                field is Requied
+              </div>
+              <div class="error1"
+                *ngIf="otherdebitcardminFixedFee?.invalid && otherdebitcardminFixedFee?.touched && otherdebitcardminFixedFee?.errors?.['pattern']">
+                Invalid data
+              </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="amexAmount" style="font-size: 12px">Amex Card</label>
+          <input
+            type="text"
+            id="amexAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="amexAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="amexAmount?.invalid && amexAmount?.touched && amexAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="amexAmount?.invalid && amexAmount?.touched && amexAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="amexPercentage" style="font-size: 12px">Amex Card</label>
+          <input type="text" id="amexPercentage" class="form-control" placeholder="Percentage"
+            formControlName="amexPercentage" />
+          <div class="error"
+            *ngIf="amexPercentage?.invalid && amexPercentage?.touched && amexPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="amexPercentage?.invalid && amexPercentage?.touched && amexPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="amexFixedFee" style="font-size: 12px">Amex Card</label>
+          <input type="text" id="amexFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="amexFixedFee" />
+          <div class="error"
+            *ngIf="amexFixedFee?.invalid && amexFixedFee?.touched && amexFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="amexFixedFee?.invalid && amexFixedFee?.touched && amexFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <!-- <div class="col-sm-2 form-group">
+          <label for="dinnerscardAmount" style="font-size: 12px"
+            >Dinners Card
+          </label>
+          <input
+            type="text"
+            id="dinnerscardAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="dinnerscardAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="dinnerscardAmount?.invalid && dinnerscardAmount?.touched && dinnerscardAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="dinnerscardAmount?.invalid && dinnerscardAmount?.touched && dinnerscardAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="dinnerscardPercentage" style="font-size: 12px">Dinners Card</label>
+          <input type="text" id="dinnerscardPercentage" class="form-control" placeholder="Percentage"
+            formControlName="dinnerscardPercentage" />
+          <div class="error"
+            *ngIf="dinnerscardPercentage?.invalid && dinnerscardPercentage?.touched && dinnerscardPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="dinnerscardPercentage?.invalid && dinnerscardPercentage?.touched && dinnerscardPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="dinnerscardFixedFee" style="font-size: 12px">Dinners Card</label>
+          <input type="text" id="dinnerscardFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="dinnerscardFixedFee" />
+          <div class="error"
+            *ngIf="dinnerscardFixedFee?.invalid && dinnerscardFixedFee?.touched && dinnerscardFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="dinnerscardFixedFee?.invalid && dinnerscardFixedFee?.touched && dinnerscardFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="corporateAmount" style="font-size: 12px"
+            >Corporate/Commercial Card</label
+          >
+          <input
+            type="text"
+            id="corporateAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="corporateAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="corporateAmount?.invalid && corporateAmount?.touched && corporateAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="corporateAmount?.invalid && corporateAmount?.touched && corporateAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="corporatePercentage" style="font-size: 12px">Corporate/Commercial Card</label>
+          <input type="text" id="corporatePercentage" class="form-control" placeholder="Percentage"
+            formControlName="corporatePercentage" />
+          <div class="error"
+            *ngIf="corporatePercentage?.invalid && corporatePercentage?.touched && corporatePercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="corporatePercentage?.invalid && corporatePercentage?.touched && corporatePercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="corporateFixedFee" style="font-size: 12px">Corporate/Commercial Card</label>
+          <input type="text" id="corporateFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="corporateFixedFee" />
+          <div class="error"
+            *ngIf="corporateFixedFee?.invalid && corporateFixedFee?.touched && corporateFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="corporateFixedFee?.invalid && corporateFixedFee?.touched && corporateFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <!-- <div class="col-sm-2 form-group">
+          <label for="prepaidcardAmount" style="font-size: 12px"
+            >Prepaid Card
+          </label>
+          <input
+            type="text"
+            id="prepaidcardAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="prepaidcardAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="prepaidcardAmount?.invalid && prepaidcardAmount?.touched && prepaidcardAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="prepaidcardAmount?.invalid && prepaidcardAmount?.touched && prepaidcardAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="prepaidcardPercentage" style="font-size: 12px">Prepaid Card</label>
+          <input type="text" id="prepaidcardPercentage" class="form-control" placeholder="Percentage"
+            formControlName="prepaidcardPercentage" />
+          <div class="error"
+            *ngIf="prepaidcardPercentage?.invalid && prepaidcardPercentage?.touched && prepaidcardPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="prepaidcardPercentage?.invalid && prepaidcardPercentage?.touched && prepaidcardPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="prepaidcardFixedFee" style="font-size: 12px">Prepaid Card</label>
+          <input type="text" id="prepaidcardFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="prepaidcardFixedFee" />
+          <div class="error"
+            *ngIf="prepaidcardFixedFee?.invalid && prepaidcardFixedFee?.touched && prepaidcardFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="prepaidcardFixedFee?.invalid && prepaidcardFixedFee?.touched && prepaidcardFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="creditCardAmount" style="font-size: 12px"
+            >Credit Card
+          </label>
+          <input
+            type="text"
+            id="creditCardAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="creditCardAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="creditCardAmount?.invalid && creditCardAmount?.touched && creditCardAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="creditCardAmount?.invalid && creditCardAmount?.touched && creditCardAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="creditCardPercentage" style="font-size: 12px">Credit Card
+          </label>
+          <input type="text" id="creditCardPercentage" class="form-control" placeholder="Percentage"
+            formControlName="creditCardPercentage" />
+          <div class="error"
+            *ngIf="creditCardPercentage?.invalid && creditCardPercentage?.touched && creditCardPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="creditCardPercentage?.invalid && creditCardPercentage?.touched && creditCardPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="creditCardFixedFee" style="font-size: 12px">Credit Card
+          </label>
+          <input type="text" id="creditCardFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="creditCardFixedFee" />
+          <div class="error"
+            *ngIf="creditCardFixedFee?.invalid && creditCardFixedFee?.touched && creditCardFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="creditCardFixedFee?.invalid && creditCardFixedFee?.touched && creditCardFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+      </div>
+
+      <h5 class="mt-3">Wallets</h5>
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="phonepeAmount" style="font-size: 12px">Phonepe</label>
+          <input
+            type="text"
+            id="phonepeAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="phonepeAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="phonepeAmount?.invalid && phonepeAmount?.touched && phonepeAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="phonepeAmount?.invalid && phonepeAmount?.touched && phonepeAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="phonepePercentage" style="font-size: 12px">Phonepe</label>
+          <input type="text" id="phonepePercentage" class="form-control" placeholder="Percentage"
+            formControlName="phonepePercentage" />
+          <div class="error"
+            *ngIf="phonepePercentage?.invalid && phonepePercentage?.touched && phonepePercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="phonepePercentage?.invalid && phonepePercentage?.touched && phonepePercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="phonepeFixedFee" style="font-size: 12px">Phonepe</label>
+          <input type="text" id="phonepeFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="phonepeFixedFee" />
+          <div class="error"
+            *ngIf="phonepeFixedFee?.invalid && phonepeFixedFee?.touched && phonepeFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="phonepeFixedFee?.invalid && phonepeFixedFee?.touched && phonepeFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <!-- <div class="col-sm-2 form-group">
+          <label for="freechargeAmount" style="font-size: 12px"
+            >FreeCharge
+          </label>
+          <input
+            type="text"
+            id="freechargeAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="freechargeAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="freechargeAmount?.invalid && freechargeAmount?.touched && freechargeAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="freechargeAmount?.invalid && freechargeAmount?.touched && freechargeAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="freechargePercentage" style="font-size: 12px">FreeCharge</label>
+          <input type="text" id="freechargePercentage" class="form-control" placeholder="Percentage"
+            formControlName="freechargePercentage" />
+          <div class="error"
+            *ngIf="freechargePercentage?.invalid && freechargePercentage?.touched && freechargePercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="freechargePercentage?.invalid && freechargePercentage?.touched && freechargePercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="freechargeFixedFee" style="font-size: 12px">FreeCharge</label>
+          <input type="text" id="freechargeFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="freechargeFixedFee" />
+          <div class="error"
+            *ngIf="freechargeFixedFee?.invalid && freechargeFixedFee?.touched && freechargeFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="freechargeFixedFee?.invalid && freechargeFixedFee?.touched && freechargeFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="payzappAmount" style="font-size: 12px">Payzapp </label>
+          <input
+            type="text"
+            id="payzappAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="payzappAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="payzappAmount?.invalid && payzappAmount?.touched && payzappAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="payzappAmount?.invalid && payzappAmount?.touched && payzappAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="payzappPercentage" style="font-size: 12px">Payzapp
+          </label>
+          <input type="text" id="payzappPercentage" class="form-control" placeholder="Percentage"
+            formControlName="payzappPercentage" />
+          <div class="error"
+            *ngIf="payzappPercentage?.invalid && payzappPercentage?.touched && payzappPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="payzappPercentage?.invalid && payzappPercentage?.touched && payzappPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="payzappFixedFee" style="font-size: 12px">Payzapp </label>
+          <input type="text" id="payzappFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="payzappFixedFee" />
+          <div class="error"
+            *ngIf="payzappFixedFee?.invalid && payzappFixedFee?.touched && payzappFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="payzappFixedFee?.invalid && payzappFixedFee?.touched && payzappFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <!-- <div class="col-sm-2 form-group">
+          <label for="paytmAmount" style="font-size: 12px">Paytm </label>
+          <input
+            type="text"
+            id="paytmAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="paytmAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="paytmAmount?.invalid && paytmAmount?.touched && paytmAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="paytmAmount?.invalid && paytmAmount?.touched && paytmAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="paytmPercentage" style="font-size: 12px">Paytm </label>
+          <input type="text" id="paytmPercentage" class="form-control" placeholder="Percentage"
+            formControlName="paytmPercentage" />
+          <div class="error"
+            *ngIf="paytmPercentage?.invalid && paytmPercentage?.touched && paytmPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="paytmPercentage?.invalid && paytmPercentage?.touched && paytmPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="paytmFixedFee" style="font-size: 12px">Paytm </label>
+          <input type="text" id="paytmFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="paytmFixedFee" />
+          <div class="error"
+            *ngIf="paytmFixedFee?.invalid && paytmFixedFee?.touched && paytmFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="paytmFixedFee?.invalid && paytmFixedFee?.touched && paytmFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="OlamoneyAmount" style="font-size: 12px">Ola Money </label>
+          <input
+            type="text"
+            id="OlamoneyAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="OlamoneyAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="OlamoneyAmount?.invalid && OlamoneyAmount?.touched && OlamoneyAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="OlamoneyAmount?.invalid && OlamoneyAmount?.touched && OlamoneyAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="OlamoneyPercentage" style="font-size: 12px">Ola Money
+          </label>
+          <input type="text" id="OlamoneyPercentage" class="form-control" placeholder="Percentage"
+            formControlName="OlamoneyPercentage" />
+          <div class="error"
+            *ngIf="OlamoneyPercentage?.invalid && OlamoneyPercentage?.touched && OlamoneyPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="OlamoneyPercentage?.invalid && OlamoneyPercentage?.touched && OlamoneyPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="OlamoneyFixedFee" style="font-size: 12px">Ola Money
+          </label>
+          <input type="text" id="OlamoneyFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="OlamoneyFixedFee" />
+          <div class="error"
+            *ngIf="OlamoneyFixedFee?.invalid && OlamoneyFixedFee?.touched && OlamoneyFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="OlamoneyFixedFee?.invalid && OlamoneyFixedFee?.touched && OlamoneyFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <!-- <div class="col-sm-2 form-group">
+          <label for="mobikwikAmount" style="font-size: 12px">Mobikwik</label>
+          <input
+            type="text"
+            id="mobikwikAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="mobikwikAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="mobikwikAmount?.invalid && mobikwikAmount?.touched && mobikwikAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="mobikwikAmount?.invalid && mobikwikAmount?.touched && mobikwikAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="mobikwikPercentage" style="font-size: 12px">Mobikwik</label>
+          <input type="text" id="mobikwikPercentage" class="form-control" placeholder="Percentage"
+            formControlName="mobikwikPercentage" />
+          <div class="error"
+            *ngIf="mobikwikPercentage?.invalid && mobikwikPercentage?.touched && mobikwikPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="mobikwikPercentage?.invalid && mobikwikPercentage?.touched && mobikwikPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="mobikwikFixedFee" style="font-size: 12px">Mobikwik</label>
+          <input type="text" id="mobikwikFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="mobikwikFixedFee" />
+          <div class="error"
+            *ngIf="mobikwikFixedFee?.invalid && mobikwikFixedFee?.touched && mobikwikFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="mobikwikFixedFee?.invalid && mobikwikFixedFee?.touched && mobikwikFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="reliancejiomoneyAmount" style="font-size: 12px"
+            >Reliance Jio Money
+          </label>
+          <input
+            type="text"
+            id="reliancejiomoneyAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="reliancejiomoneyAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="reliancejiomoneyAmount?.invalid && reliancejiomoneyAmount?.touched && reliancejiomoneyAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="reliancejiomoneyAmount?.invalid && reliancejiomoneyAmount?.touched && reliancejiomoneyAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="reliancejiomoneyPercentage" style="font-size: 12px">Reliance Jio Money
+          </label>
+          <input type="text" id="reliancejiomoneyPercentage" class="form-control" placeholder="Percentage"
+            formControlName="reliancejiomoneyPercentage" />
+          <div class="error"
+            *ngIf="reliancejiomoneyPercentage?.invalid && reliancejiomoneyPercentage?.touched && reliancejiomoneyPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="reliancejiomoneyPercentage?.invalid && reliancejiomoneyPercentage?.touched && reliancejiomoneyPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="reliancejiomoneyFixedFee" style="font-size: 12px">Reliance Jio Money</label>
+          <input type="text" id="reliancejiomoneyFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="reliancejiomoneyFixedFee" />
+          <div class="error"
+            *ngIf="reliancejiomoneyFixedFee?.invalid && reliancejiomoneyFixedFee?.touched && reliancejiomoneyFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="reliancejiomoneyFixedFee?.invalid && reliancejiomoneyFixedFee?.touched && reliancejiomoneyFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <!-- <div class="col-sm-2 form-group">
+          <label for="airtelmoneyAmount" style="font-size: 12px"
+            >Airtel Money</label
+          >
+          <input
+            type="text"
+            id="airtelmoneyAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="airtelmoneyAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="airtelmoneyAmount?.invalid && airtelmoneyAmount?.touched && airtelmoneyAmount?.errors?.['required']"
+          >
+            field is Requied
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="airtelmoneyAmount?.invalid && airtelmoneyAmount?.touched && airtelmoneyAmount?.errors?.['pattern']"
+          >
+            Invalid data
+          </div>
+        </div> -->
+        <div class="col-sm-3 form-group">
+          <label for="airtelmoneyPercentage" style="font-size: 12px">Airtel Money</label>
+          <input type="text" id="airtelmoneyPercentage" class="form-control" placeholder="Percentage"
+            formControlName="airtelmoneyPercentage" />
+          <div class="error"
+            *ngIf="airtelmoneyPercentage?.invalid && airtelmoneyPercentage?.touched && airtelmoneyPercentage?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error"
+            *ngIf="airtelmoneyPercentage?.invalid && airtelmoneyPercentage?.touched && airtelmoneyPercentage?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="airtelmoneyFixedFee" style="font-size: 12px">Airtel Money</label>
+          <input type="text" id="airtelmoneyFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="airtelmoneyFixedFee" />
+          <div class="error"
+            *ngIf="airtelmoneyFixedFee?.invalid && airtelmoneyFixedFee?.touched && airtelmoneyFixedFee?.errors?.['required']">
+            field is Requied
+          </div>
+          <div class="error1"
+            *ngIf="airtelmoneyFixedFee?.invalid && airtelmoneyFixedFee?.touched && airtelmoneyFixedFee?.errors?.['pattern']">
+            Invalid data
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <button (click)="submit()" type="submit" class="btn mx-1" style="background-color: #7db855be"
+          [disabled]="this.myForm.invalid">
+          Submit
+        </button>
+        <button (click)="close()" type="submit" class="btn" style="background-color: #141e46; color: white">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

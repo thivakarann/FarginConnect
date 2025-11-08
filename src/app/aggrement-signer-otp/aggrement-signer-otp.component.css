@@ -1,0 +1,133 @@
+.otp-dialog {
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    color: #555;
+    cursor: pointer;
+}
+
+.otp-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #141E46;
+    margin-bottom: 0.5rem;
+}
+
+.otp-subtitle {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0.25rem;
+}
+
+.otp-number {
+    font-weight: 600;
+    color: #3f51b5;
+    margin-bottom: 2rem;
+}
+
+.otp-input-group {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.otp-input-group input {
+    width: 60px;
+    height: 50px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.otp-input-group input:focus {
+    border-color: #3f51b5;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+}
+
+.verify-button {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background-color: #141E46;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.verify-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.verify-button:hover:not(:disabled) {
+    background-color: #0f1533;
+}
+
+.otp-timer {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    color: #555;
+}
+
+.otp-timer span {
+    color: red;
+    font-weight: 600;
+}
+
+.resend {
+    font-size: 0.95rem;
+    margin-top: 0.75rem;
+    color: #666;
+}
+
+.resend a {
+    color: #9184ed;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .otp-dialog {
+        padding: 1.5rem;
+    }
+
+    .otp-input-group {
+        gap: 10px;
+    }
+
+    .otp-input-group input {
+        width: 48px;
+        height: 56px;
+        font-size: 1.25rem;
+    }
+
+    .verify-button {
+        font-size: 1rem;
+    }
+}

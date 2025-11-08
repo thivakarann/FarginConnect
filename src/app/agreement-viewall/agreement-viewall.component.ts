@@ -1,0 +1,371 @@
+import { Component, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { Workbook } from 'exceljs';
+import FileSaver from 'file-saver';
+import moment from 'moment';
+import { FarginServiceService } from '../service/fargin-service.service';
+import { EncyDecySericeService } from '../Encrypt-Decrypt Service/ency-decy-serice.service';
+import { Payload } from '../fargin-model/fargin-model.module';
+
+@Component({
+  selector: 'app-agreement-viewall',
+  templateUrl: './agreement-viewall.component.html',
+  styleUrl: './agreement-viewall.component.css',
+})
+export class AgreementViewallComponent {
+  strings = '@';
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  dataSource!: MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  MobileNumber: any;
+  copiedIndex: number = -1;
+  displayedColumns: string[] = [
+    'sno',
+    'entityname',
+    'merchantName',
+    'merchantDesignation',
+    'stampAmount',
+    'considerationAmount',
+    'facheckEstampSatus',
+    'farginsignerstatus',
+    'entitysignerstatus',
+    'agreement',
+    'signedcopy',
+    'createdat',
+    'createdby',
+  ];
+  FormSearch!: FormGroup;
+  responseDataListnew: any = [];
+  response: any = [];
+  valuecustomerticketexport: any;
+  valuecustomerticketedit: any;
+  errorMessage: any;
+  getdashboard: any[] = [];
+  actions: any;
+  valuedescription: any;
+  valuedescriptionImage: any;
+  ticketexport: any;
+  agreementdata: any;
+  date1: any;
+  valueagreeExport: any;
+  valueagreeView: any;
+  valueagreeAgreement: any;
+  valueagreeSignedCopy: any;
+  valueagreementlink: any;
+  search: boolean = false;
+  Roledetails: any;
+
+  constructor(
+    private service: FarginServiceService,
+    private router: Router,
+    private cryptoService: EncyDecySericeService,
+
+  ) { }
+
+  ngOnInit(): void {
+    this.Role();
+    this.Getall();
+  }
+
+  Role() {
+    const payload = {
+      roleId: this.roleId,
+    };
+
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.service.rolegetById(datamodal).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.Roledetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+          this.getdashboard = this.Roledetails.SubPermissionsAcces
+          if (this.roleId == '1') {
+            this.valueagreeExport = 'Entity Agreement-Export';
+            this.valueagreeView = 'Entity Agreement-Plan Overview';
+            this.valueagreeAgreement = 'Entity Agreement-Agreement';
+            this.valueagreeSignedCopy = 'Entity Agreement-Agreement Signed Copy';
+            this.valueagreementlink = 'Entity Agreement-Agreement Link';
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissionName;
+              if (this.actions == 'Entity Agreement-Export') {
+                this.valueagreeExport = 'Entity Agreement-Export';
+              }
+              if (this.actions == 'Entity Agreement-Plan Overview') {
+                this.valueagreeView = 'Entity Agreement-Plan Overview';
+              }
+              if (this.actions == 'Entity Agreement-Agreement') {
+                this.valueagreeAgreement = 'Entity Agreement-Agreement';
+              }
+              if (this.actions == 'Entity Agreement-Agreement Signed Copy') {
+                this.valueagreeSignedCopy =
+                  'Entity Agreement-Agreement Signed Copy';
+              }
+              if (this.actions == 'Entity Agreement-Agreement Link') {
+                this.valueagreementlink = 'Entity Agreement-Agreement Link';
+              }
+            }
+          }
+        } else {
+          this.errorMessage = res.responseMessage;
+        }
+      },
+    });
+  }
+
+  Getall() {
+    this.service.AgreementgetAll().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.agreementdata = res.response.reverse();
+        this.dataSource = new MatTableDataSource(this.agreementdata);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+        this.dataSource.filterPredicate = (data: any, filter: string) => {
+          const transformedFilter = filter.trim().toLowerCase();
+          const dataStr = Object.keys(data)
+            .reduce((currentTerm: string, key: string) => {
+              return (
+                currentTerm +
+                (typeof data[key] === 'object'
+                  ? JSON.stringify(data[key])
+                  : data[key])
+              );
+            }, '')
+            .toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
+      }
+      else {
+        this.agreementdata = [];
+        this.dataSource = new MatTableDataSource(this.agreementdata);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+  }
+
+  copyText1(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copiedIndex = index;
+    setTimeout(() => (this.copiedIndex = -1), 2000);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.search = filterValue.length > 0;
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  Back(id: any) {
+    this.router.navigate([`customer-verify-view/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  }
+
+  view(id: any) {
+    this.router.navigate([`/allagreementplan/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  }
+
+  viewagreementdoc(id: any) {
+    this.service.viewagreementdoucments(id, 1).subscribe((res: any) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      };
+    });
+  }
+
+  viewsignedagreementdoc(id: any) {
+    this.service.viewagreementdoucments(id, 2).subscribe((res: any) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      };
+    });
+  }
+
+  exportexcel() {
+    let sno = 1;
+    this.responseDataListnew = [];
+    this.agreementdata.forEach((element: any) => {
+      this.response = [];
+      this.response.push(sno);
+      this.response.push(element?.entityName);
+      this.response.push(element?.merchantName);
+      this.response.push(element?.merchantDesignation);
+      this.response.push(element?.stampAmount);
+      this.response.push(element?.considerationAmount);
+      this.response.push(element?.facheckEstampSatus);
+      if (element?.adminAgreementStatus == 'PENDING') {
+        this.response.push('Not Signed');
+      } else {
+        this.response.push('Signed');
+      }
+      if (element?.merchantAgreementStatus == 'PENDING') {
+        this.response.push('Not Signed');
+      } else {
+        this.response.push('Signed');
+      }
+      this.response.push(element?.createdBy);
+
+      if (element.createdDateTime) {
+        this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+      }
+      else {
+        this.response.push('');
+      }
+      sno++;
+      this.responseDataListnew.push(this.response);
+    });
+    this.excelexportCustomer();
+  }
+
+  excelexportCustomer() {
+    const header = [
+      'S.No',
+      'Entity Name',
+      'Signer Name',
+      'Signer Designation',
+      'Stamp Amount',
+      'Consideration Amount',
+      'Facheck E-Stamp Status',
+      'Fargin Signer Status',
+      'Entity Signer Status',
+      'Created By',
+      'Created At',
+
+    ];
+
+    const data = this.responseDataListnew;
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Entity Agreement');
+
+    worksheet.addRow([]);
+    let headerRow = worksheet.addRow(header);
+    headerRow.font = { bold: true };
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFFFFFF' },
+        bgColor: { argb: 'FF0000FF' },
+      };
+
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+
+    data.forEach((d: any) => {
+      let row = worksheet.addRow(d);
+      let qty = row.getCell(1);
+      let qty1 = row.getCell(2);
+      let qty2 = row.getCell(3);
+      let qty3 = row.getCell(4);
+      let qty4 = row.getCell(5);
+      let qty5 = row.getCell(6);
+      let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
+      let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
+
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty9.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty10.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+    workbook.xlsx.writeBuffer().then((data: any) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });
+      FileSaver.saveAs(blob, 'Entity Agreement.xlsx');
+    });
+  }
+}

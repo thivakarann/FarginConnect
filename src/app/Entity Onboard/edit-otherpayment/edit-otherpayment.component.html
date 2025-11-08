@@ -1,0 +1,111 @@
+
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+<div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Update Customization Payment</h5>
+    <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
+</div>
+
+<span [hidden]="this.value2 == true">
+  
+       
+            <div class="container" [hidden]="this.value == false ">
+                <div class="well">
+                    <p class="d-flex justify-content-center" style="color: #141E46;
+                    text-align: justify;
+                    font-family: emoji;
+                    font-size: 16px; padding: 10px 2px;">Please check with the customer before modifying the amount, As the status is currently showing as 'Initiated'. If the amount has already been paid and debited from the customer's account, do you still want to proceed with modifying the amount?</p>
+                    <div class="d-flex justify-content-center" style="margin-bottom:10px; margin-top: -10px;">
+                        <div class="form-check">
+                            <input  style="cursor: pointer;"  class="input green" type="radio" [value]="1" name="yes" id="yes"
+                            (click)="Trackapi()" />
+                            <label class="form-check-label" for="yes"> &nbsp;
+                               Yes
+                            </label>
+                        </div>&nbsp;&nbsp;
+                        <div class="form-check">
+                            <input style="cursor: pointer;"  class="input yellow" type="radio"[value]="2" name="No" id="No" (click)="close()">
+                            <label class="form-check-label" for="No">&nbsp;
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+    <div class="container" [hidden]="this.value == true">
+        <div class="well">
+            <form [formGroup]="myForm">
+                <div class="row mt-3">
+                    <div class="col-12 form-group">
+                        <label for="address">Service Name</label>
+                        <input id="fname" type="text" class="form__input" class="form-control" formControlName="serviceName"
+                            ngModel="{{this.servicename}}">
+                            <div
+                            style="color: red; font-size: 12px; margin-top: 2px;"
+                            *ngIf="serviceName?.invalid && serviceName?.touched && serviceName?.errors?.['pattern']"
+                            >
+                            Only alphabetic characters are allowed
+                            </div>
+                    
+                            <div
+                            style="color: red; font-size: 12px; margin-top: 2px;"
+                            *ngIf="serviceName?.invalid && serviceName?.touched && serviceName?.errors?.['required']"
+                            >
+                            Field is required
+                            </div>
+                            
+                            <div
+                            style="color: red; font-size: 12px; margin-top: 2px;"
+                            *ngIf="serviceName?.invalid && serviceName?.touched && serviceName?.errors?.['maxlength']">
+                            Maximum length is 30 characters
+                            </div>
+    
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 form-group">
+                        <label for="address">Paid Amount</label>
+                        <input id="fname" type="text" class="form__input" class="form-control" formControlName="paidAmount"
+                            ngModel="{{this.paidamount}}">
+                            <div style="
+                            color: red;
+                            font-size: 12px;
+                            margin-top: 2px;
+                            position: relative; 
+                          " *ngIf="paidAmount?.invalid && paidAmount?.touched && paidAmount?.errors?.['required']">
+                             Field is required
+                         </div>
+                            <div style="
+                               color: red;
+                               font-size: 12px;
+                               margin-top: 2px;
+                               position: relative; 
+                             " *ngIf="paidAmount?.invalid && paidAmount?.touched && paidAmount?.errors?.['pattern']">
+                                Only positive numbers are allowed
+                            </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
+                        style="background-color:#7db855be">Submit</button>
+                    <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                        matDialogClose>Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</span>
+
+
+
+ <div class="container" [hidden]="this.value2 == false" >
+    <div class="well">
+        <p class="d-flex justify-content-center" style="color: #141E46;
+        text-align: justify;
+        font-family: emoji;
+        font-size: 16px;padding: 15px 2px;">The Amount has already been paid and debited from the customer's account</p>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

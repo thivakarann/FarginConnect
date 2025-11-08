@@ -1,1 +1,362 @@
-<p>dashboard-content works!</p>
+<!-- Dashboard Counts Starts -->
+
+<div>
+  <div class="dashboard">
+    <div class="card border-success">
+      <div class="icon">👥</div>
+      <div class="title">Total Merchants</div>
+      <div class="value">{{counts?.totalMerchantCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">🆕</div>
+      <div class="title">Onboarded Merchants</div>
+      <div class="value">{{counts?.totalPgOnboardMerchantCount}}</div>
+    </div>
+
+    <div class="card border-success">
+      <div class="icon">👤</div>
+      <div class="title">Active Merchants</div>
+      <div class="value">{{counts?.totalactiveMerchantCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">🚫</div>
+      <div class="title">Inactive Merchants</div>
+      <div class="value">{{counts?.totalInActiveMerchantCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">🕑</div>
+      <div class="title">Pending Merchants</div>
+      <div class="value">{{counts?.totalPendingMerchantCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">✔️</div>
+      <div class="title">Approved Merchants</div>
+      <div class="value">{{counts?.totalApprovedMerchantCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">🎟️</div>
+      <div class="title">Total Tickets</div>
+      <div class="value">{{counts?.totalTicketCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">📩</div>
+      <div class="title">Total Open Tickets</div>
+      <div class="value">{{counts?.totalTicketMemberOpenCount}}</div>
+    </div>
+      <div class="card border-success">
+      <div class="icon">📩</div>
+      <div class="title">Total ReOpen Tickets</div>
+      <div class="value">{{counts?.totalTicketMemberReOpenCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">⏳</div>
+      <div class="title">Tickets on Hold</div>
+      <div class="value">{{counts?.totalTicketMemberHoldCount}}</div>
+    </div>
+
+
+    <div class="card border-success">
+      <div class="icon">✅</div>
+      <div class="title">Closed Tickets</div>
+      <div class="value">{{counts?.totalTicketMemberclosedCount}}</div>
+    </div>
+  </div>
+</div>
+&nbsp;
+
+<!-- Dashboard Counts Ends -->
+
+
+
+<!-- Today Trans Starts -->
+
+<div class="section">
+  <div class="card" [hidden]="valueDashboardTransactionOverview !== 'Today Transaction Overview'">
+    <h5>Today's Transaction Overview</h5>
+    <div class="transaction-details">
+      <div class="transaction-item">
+        <span class="amount">₹ {{todayamount?.totalAmount || 0}}</span>
+        <p class="label total">Total Amount</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount">₹ {{todayamount?.successAmount || 0}}</span>
+        <p class="label success">Successful Amount</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount">₹ {{todayamount?.failedAmount || 0}}</span>
+        <p class="label failed">Failed Amount</p>
+      </div>
+      <!-- <div class="transaction-item">
+        <span class="amount">₹ {{todayamount?.pendingAmount || 0}}</span>
+        <p class="label pending">Pending Amount</p>
+      </div> -->
+    </div>
+  </div>
+</div>
+&nbsp;
+
+<!-- Today Trans Ends -->
+
+
+
+<!-- Overall  Graph Starts -->
+
+<div class="row">
+
+  <!-- Business Category  Graph Starts -->
+
+  <div class="col-6">
+    <div class="card" style="height:560px" [hidden]="valuetotalmerchants !== 'Total Merchants'">
+      <div class="container mt-2">
+        <div class="text-center">
+          <h6>Merchant Count Details</h6>
+        </div>
+        <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif">Select Period</label>
+        <select (change)="onCategoryChange($event)" name="" id="" style="font-size: 12px" class="form-select"
+          [value]="initialCategoryId">
+          <option value="" disabled selected>Select Category</option>
+          <option *ngFor="let val of categorydetails" [value]="val.businessCategoryId">
+            {{ val.categoryName }}
+          </option>
+        </select>
+        <div style="width: 90%; height: 400px; display: flex; justify-content: center;">
+          <canvas id="myCanvas"></canvas>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Business Category  Graph Ends -->
+
+
+  <!-- Last Seven Days Transaction Starts -->
+
+  <div class="col-6">
+    <div class="card" style="height:560px" [hidden]="valueTotalcount !== 'Total Count'">
+      <div class="container mt-2">
+        <div class="text-center">
+          <h6>Last Seven Days Transaction Details</h6>
+        </div>
+        &nbsp;
+
+        <canvas id="sevenChartCanvas"></canvas>
+        <div class="card-body" style="margin-top: 22px;">
+          <!-- First Row -->
+          <div class="row"></div>
+
+          <div class="d-flex justify-content-center">
+            {{ sevenper?.totalCount || 0 }}
+          </div>
+          <div class="d-flex justify-content-center">
+            <strong>Total Count</strong>
+          </div>
+
+          <hr style="
+              height: 2px;
+              border-width: 0;
+              color: gray;
+              background-color: gray;
+            " />
+          <!-- Second Row -->
+          <div class="row">
+            <div class="col">
+              <div><strong>Success Amount</strong></div>
+              <div>₹{{ sevenper?.successAmount || 0 }}</div>
+              <br>
+              <div>
+                Success Percentage
+                <b>{{ sevenper?.successCountPercentage || 0 }}</b>
+              </div>
+            </div>
+
+            <div class="col">
+              <div><strong>Failed Amount</strong></div>
+              <div>₹{{ sevenper?.failedAmount || 0 }}</div>
+              <br>
+              <div>
+                Failed Percentage
+                <b>{{ sevenper?.failedCountPercentage || 0 }}</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  &nbsp;
+
+  <!-- Last Seven Days Transaction Ends -->
+
+
+  <!-- Merchant Transaction Starts -->
+
+  <div>
+    <div class="card" [hidden]="valuetransactionoverview !== 'Transaction Overview'">
+      <div class="container mt-2">
+        <div class="text-center">
+          <h5>Merchant Transaction Details</h5>
+        </div>
+        <form [formGroup]="transactionform">
+          <div class="row mt-2">
+            <div class="col-md-4">
+              <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif">Select
+                Period</label><br />
+              <select [(ngModel)]="selectedPeriod" (ngModelChange)="get(selectedPeriod)" style="font-size: 12px"
+                id="period" class="form-select" formControlName="selectperiods">
+                <option value="" disabled selected>Select Period</option>
+                <option value="Last7Days">Last 7 Days</option>
+                <option value="Last14Days">Last 14 Days</option>
+                <option value="LastMonth">Last Month</option>
+                <option value="thisMonth">This Month</option>
+                <option value="customRange">Custom Range</option>
+              </select>
+            </div>
+
+            <div class="col-md-4" *ngIf="selectedPeriod === 'customRange'">
+              <label style="font-size: 12px; font-family: Arial, Helvetica, sans-serif">From Date &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; To Date</label><br />
+              <div class="input-group">
+                <input onkeydown="return false;" style="font-size: 12px; height: 35px" type="date" class="form-control"
+                  [(ngModel)]="fromDate" formControlName="selecttransaction" />
+                <input onkeydown="return false;" type="date" style="font-size: 12px; height: 35px" class="form-control"
+                  [(ngModel)]="toDate" formControlName="selecttransaction" />
+                <button (click)="customranges()" class="btn btn" style="
+                  border: none;
+                  background: linear-gradient(
+                    45deg,
+                    rgba(16, 211, 78, 0.548) 0%,
+                    rgb(43, 132, 52) 100%
+                  );
+                  color: white;
+                ">
+                  Go
+                </button>
+              </div>
+            </div>
+
+
+            <div class="col-md-1 mt-4"> <button
+                style="color: white; background-color: rgb(179, 3, 3); border-radius: 10px;"
+                (click)="resetTransactionForm()" mat-raised-button>Reset</button> </div>
+          </div>
+        </form>
+
+        &nbsp;
+        <canvas id="barChartCanvas" height="100"></canvas>
+
+        &nbsp;&nbsp;
+      </div>
+      <br />
+    </div>
+  </div>
+  &nbsp;
+
+  <!-- Merchant Transaction Ends -->
+
+
+
+  <!-- Merchant Transaction By Category Starts-->
+
+  <div class="card" [hidden]="valueTransactionDetails !== 'Transaction Details'">
+    <div class="text-center">
+      <h5>Transaction Details</h5>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <label for="period" style="font-size: 14px; font-weight: 600">Select Business Category</label><br />
+
+        <select (change)="categorybusiness($event)" id="Bussiness category" class="form-select" style="font-size: 12px"
+          id="period">
+          <option value="" disabled selected>Select</option>
+          <option *ngFor="let item of categorydetails" [value]="item.businessCategoryId">
+            {{ item.categoryName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label for="period" style="font-size: 14px; font-weight: 600">Select Merchant</label><br />
+        <select style="font-size: 12px" id="period" class="form-select" [ngModel]="selectedmerchant"
+          (change)="onMerchantChange($event)">
+          <option selected disabled>Select</option>
+          <option *ngFor="let item of catgry" [value]="item.merchantId">
+            {{ item.merchantLegalName }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <canvas id="maintenanceChartCanvas"></canvas>
+      </div>
+      <div class="col-md-6">
+        <canvas id="oneTimeChartCanvas"></canvas>
+      </div>
+
+    </div>
+
+    &nbsp;
+
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <canvas id="otherPaymentChartCanvas"></canvas>
+      </div>
+    </div>
+    &nbsp;&nbsp;
+  </div>
+
+  <!-- Merchant Transaction By Category ENDS-->
+
+
+  <!-- Top Payment Methods (For Past 7 Days) Starts -->
+
+
+  <div class="row">
+    <div class="col-6">
+      <div class="card" [hidden]="valuetoppaymentmethod !== 'Seven Days Payment Method'">
+        <h5>Top Payment Methods (For Past 7 Days)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Payment Method</th>
+                <th>Count</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let method of topseven">
+                <td>
+                  {{
+                  method.paymentMethod
+                  ? method.paymentMethod
+                  : "Not Specified"
+                  }}
+                </td>
+                <td>{{ method.count }}</td>
+                <td>₹{{ method.amounts?.toFixed(2)}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Top Payment Methods (For Past 7 Days) Ends -->
+
+</div>
+
+<!-- Business Category Graph Ends -->
+
+
+
+

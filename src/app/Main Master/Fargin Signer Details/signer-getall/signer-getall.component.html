@@ -1,0 +1,132 @@
+<h4 style="text-align:left;color:#141E46;">Signer Details</h4>
+
+<mat-card-header>
+    <div class="row mt-4">
+        <div class="col">
+            <button [hidden]="valueSignerDetailscreate!='Signer Details-Create'|| data.length!=0"
+                style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
+                (click)="AddsignerDetails()">Create</button>
+        </div>
+    </div>
+</mat-card-header>
+
+<mat-card-content>
+    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+        <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
+            <ng-container matColumnDef="sno">
+                <th mat-header-cell *matHeaderCellDef> S.No</th>
+                <td mat-cell *matCellDef="let businesscategory; let i = index"> {{i+1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="signAdminName">
+                <th mat-header-cell *matHeaderCellDef>Signer Name</th>
+                <td mat-cell *matCellDef="let data">{{data.signAdminName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="signAdminEmail">
+                <th mat-header-cell *matHeaderCellDef>Signer Email</th>
+                <td mat-cell *matCellDef="let data"> {{data.signAdminEmail}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="signAdminMobile">
+                <th mat-header-cell *matHeaderCellDef>Signer Mobile</th>
+                <td mat-cell *matCellDef="let data">
+                    {{ data.signAdminMobile}}
+
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th [hidden]="valueSignerDetailsStatus!='Signer Details-Status'" mat-header-cell *matHeaderCellDef
+                    mat-sort-header>Status</th>
+                <td [hidden]="valueSignerDetailsStatus!='Signer Details-Status'" mat-cell *matCellDef="let data">
+                    <mat-slide-toggle class="example-margin" color="primary" [checked]="data.activeStatus==1"
+                        (change)="ActiveStatus(data.signId)" style="transform: scale(0.9)">
+                    </mat-slide-toggle>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Edit">
+                <th [hidden]="valueSignerDetailsupdate!='Signer Details-Update'" mat-header-cell *matHeaderCellDef
+                    mat-sort-header>
+                    Action
+                </th>
+                <td [hidden]="valueSignerDetailsupdate!='Signer Details-Update'" mat-cell *matCellDef="let data">
+                    <i style="cursor: pointer; font-size: 15px; color: #545497" class="fas fa-edit"
+                        (click)="Edit(data)"></i>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="adminCountry">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+                <td mat-cell *matCellDef="let data">
+                    {{ data.adminCountry }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="adminState">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+                <td mat-cell *matCellDef="let data">
+                    {{ data.adminState }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="adminCity">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
+                <td mat-cell *matCellDef="let data">
+                    {{ data.adminCity }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="adminPincode">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Pincode</th>
+                <td mat-cell *matCellDef="let data">
+                    {{ data.adminPincode }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="adminAddress">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+                <td mat-cell *matCellDef="let data">
+                    {{ data.adminAddress }}
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="View">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>History</th>
+                <td style="text-wrap: wrap;" mat-cell *matCellDef="let data">
+                    <i style="cursor: pointer;font-size: 17px;color: #545497" class="fa fa-eye"
+                        (click)="view(data.signId)"></i>
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="createdBy">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated By</th>
+                <td mat-cell *matCellDef="let data">
+                    {{ data.createdBy }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated At</th>
+                <td mat-cell *matCellDef="let data">{{data.createdAt | date:'dd/MM/yyyy hh:mm a'}}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+            <tr *matNoDataRow>
+                <td class="mat-cell" colspan="4">No Data</td>
+            </tr>
+        </table>
+
+    </div>
+</mat-card-content>
+
+<mat-card-footer>
+    <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
+        [pageSizeOptions]="[5, 50, 100, 500, 1000]" aria-label="Select page"></mat-paginator>
+</mat-card-footer>

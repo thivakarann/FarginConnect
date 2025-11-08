@@ -1,0 +1,70 @@
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FarginServiceService } from '../../service/fargin-service.service';
+import { ToastrService } from 'ngx-toastr';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { LeveloneApproval } from '../../fargin-model/fargin-model.module';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
+
+@Component({
+  selector: 'app-level-one-approval',
+  templateUrl: './level-one-approval.component.html',
+  styleUrl: './level-one-approval.component.css',
+})
+export class LevelOneApprovalComponent implements OnInit {
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  myForm!: FormGroup;
+  merchantId: any;
+  approval: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+
+  constructor(
+    private service: FarginServiceService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private cryptoService: EncyDecySericeService,
+    private toaster: ToastrService,
+    private dialog: MatDialog
+  ) { }
+  ngOnInit(): void {
+    this.merchantId = this.data.value;
+
+    this.myForm = new FormGroup({
+      approvalStatus: new FormControl('', [Validators.required]),
+      remarks: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(250),
+      ]),
+    });
+  }
+
+  get approvalStatus() {
+    return this.myForm.get('approvalStatus');
+  }
+  get remarks() {
+    return this.myForm.get('remarks');
+  }
+
+  submit() {
+    let submitModel: LeveloneApproval = {
+      merchantId: this.merchantId,
+      approvalStatusL1: this.approvalStatus?.value,
+      approvedByL1: this.adminName,
+      comment: this.remarks?.value.trim(),
+    };
+    this.service.MerchantLevelApprovalOne(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.approval = res.response;
+        this.toaster.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      } else if (res.flag == 2) {
+        this.toaster.warning(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      }
+      else {
+        this.toaster.error(res.responseMessage);
+      }
+    });
+  }
+}

@@ -1,0 +1,80 @@
+.card-header {
+ 
+  background-color:#7db855be;
+  color: #141E46;
+  font-family: "Roboto";
+}
+ 
+.buttonDownload {
+  width:80px;
+  display: inline-block;
+  position: relative;
+  padding:10px;
+  background-color: #4CC713;
+  color: white;
+  font-family: sans-serif;
+  text-decoration: none;
+  font-size: small;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+ }
+ .form__label{
+  font-weight: 500;
+}
+ 
+ 
+/* Base styles for modal content */
+.modal-body {
+padding: 15px;
+}
+ 
+.center {
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+ 
+.responsive-image {
+width: 100%;   /* Make the image responsive */
+max-width: 550px;  /* Set a max-width for larger screens */
+height: 270px;  /* Maintain aspect ratio */
+justify-content: center;
+}
+ 
+.no-data-container {
+width: 100%;
+max-width: 500px;
+margin: 0 auto;
+}
+ 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+.responsive-image {
+  max-width: 100%;  /* Take full width on smaller screens */
+}
+.no-data-container {
+  width: 90%;  /* Allow for a bit more margin on smaller screens */
+  text-align: center;
+}
+}
+ 
+@media (max-width: 576px) {
+.responsive-image {
+  max-width: 100%;
+}
+.no-data-container {
+  width: 100%; /* On extra-small screens, the "No Data Found" message will use full width */
+  text-align: center;
+}
+}
+ 
+ 
+button.buttonDownload:disabled {
+  cursor: not-allowed; /* Indicates the button is not clickable */
+  background-color: #cccccc; /* Changes the background color */
+  color: #666666; /* Changes the text color */
+  opacity: 0.6; /* Makes the button appear faded */
+  border: 1px solid #999999; /* Modifies the border styling */
+}
+ 

@@ -1,0 +1,225 @@
+<!--   -->
+
+<h4 style="text-align: left; color: #141e46">A-LA-CARTE Channels</h4>
+<mat-card-header>
+  <div class="row mt-4">
+    <div class="col-md-9 d-flex flex-wrap">
+      <div class="search">
+        <form class="form">
+          <label for="search">
+            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text" name="search"
+              [(ngModel)]="currentfilval" />
+            <div class="icon">
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                </path>
+              </svg>
+            </div>
+            <button (click)="reload()" type="reset" class="close-btn">
+              <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </label>
+        </form>
+      </div>
+      &nbsp;
+      <button (click)="Alacarte(currentfilval)" style="
+          color: white;
+          background-color: #141e46;
+          border-radius: 10px;
+          font-size: 12px;
+        " mat-raised-button>
+        Go
+      </button>
+
+      <button style="
+          color: white;
+          background-color: #141e46;
+          border-radius: 10px;
+          font-size: 12px;
+        " class="custom-btn btn-10" data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button
+        (click)="add()" [hidden]="valuealcartAdd !== 'Channel Creation-Add'">
+        Create
+      </button>
+      <button style="
+          color: white;
+          background-color: #141e46;
+          border-radius: 10px;
+          font-size: 12px;
+        " mat-raised-button [hidden]="valuealcartHistory !== 'Channel Creation-History'" (click)="alacartehistory()">
+        History
+      </button>
+
+      <div class="dropdown" [hidden]="
+          valueDownload !== 'Download A-LA-CARTE Template' &&
+          valueUpload !== 'Upload A-LA-CARTE File' &&
+          Uploadstatus !== 'Bulk Upload Status'
+        ">
+        <button class="btn btn-secondary dropdown-toggle custom-btn btn-10" style="
+            color: white;
+            background-color: #141e46;
+            font-size: 13px;
+            border-radius: 10px;
+            width: 106px;
+            height: 37px;
+            font-weight: 600;
+          " type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          Actions
+        </button>
+        <ul class="dropdown-menu" style="font-size: 14px; gap: 2px" aria-labelledby="dropdownMenuButton">
+          <li [hidden]="valueDownload !== 'Download A-LA-CARTE Template'">
+            <button (click)="excel()" class="dropdown-item">Download A-LA-CARTE Template</button>
+          </li>
+
+          <li [hidden]="valueUpload !== 'Upload A-LA-CARTE File'">
+            <button (click)="createalacrateupload()" class="dropdown-item">Upload A-LA-CARTE File</button>
+          </li>
+          <li [hidden]="Uploadstatus !== 'Bulk Upload Status'">
+            <button (click)="status()" class="dropdown-item">Bulk Upload Status</button>
+          </li>
+        </ul>
+      </div>
+      <button (click)="reload()" class="refresh-btn">
+        <i class="fa fa-refresh"></i>
+      </button>
+    </div>
+  </div>
+</mat-card-header>
+<!-- <mat-card> -->
+<mat-card-content>
+  <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin">
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="alcotId">
+        <th mat-header-cell *matHeaderCellDef>S.No</th>
+        <td mat-cell *matCellDef="let viewall; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="channelName">
+        <th mat-header-cell *matHeaderCellDef>Channel Name</th>
+        <td mat-cell *matCellDef="let viewall">{{ viewall.channelName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="channelNo">
+        <th mat-header-cell *matHeaderCellDef>Channel No</th>
+        <td mat-cell *matCellDef="let viewall">{{ viewall.channelNo }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Channel Type</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.type == 1 ? "Paid" : "Free" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let viewall">₹{{ viewall.price }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="language">
+        <th mat-header-cell *matHeaderCellDef>Language</th>
+        <td mat-cell *matCellDef="let viewall">{{ viewall.language }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="generic">
+        <th mat-header-cell *matHeaderCellDef>Generic</th>
+        <td mat-cell *matCellDef="let viewall">{{ viewall.generic }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="region">
+        <th mat-header-cell *matHeaderCellDef>Region</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.region?.stateName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="msos">
+        <th mat-header-cell *matHeaderCellDef>Service Provider Name</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.region?.service?.serviceProviderName }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Broadcaster">
+        <th mat-header-cell *matHeaderCellDef>Broadcaster</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.bundleChannelId?.broadCasterName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="alcotStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header
+          [hidden]="valuealcartStatus !== 'Channel Creation-Status'">
+          Channel Status
+        </th>
+        <td mat-cell *matCellDef="let viewall" [hidden]="valuealcartStatus !== 'Channel Creation-Status'">
+          <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.alcotStatus == 1"
+            (change)="ActiveStatus($event, viewall.alcotId)" style="transform: scale(0.9)">
+          </mat-slide-toggle>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="View">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuealcartView !== 'Channel Creation-View'">
+          View
+        </th>
+        <td style="cursor: pointer" mat-cell *matCellDef="let viewall" (click)="Viewdata(viewall.alcotId)"
+          [hidden]="valuealcartView !== 'Channel Creation-View'">
+          <i class="fas fa-eye" style="font-size: 16px; color: rgb(39, 39, 95)"></i>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Edit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuealcartEdit !== 'Channel Creation-Edit'">
+          Edit
+        </th>
+        <td style="cursor: pointer" mat-cell *matCellDef="let viewall" (click)="Edit(viewall.alcotId)"
+          [hidden]="valuealcartEdit !== 'Channel Creation-Edit'">
+          <i class="fa fa-edit" style="font-size: 16px; color: rgb(39, 39, 95)"></i>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdBy">
+        <th mat-header-cell *matHeaderCellDef>Created By</th>
+        <td mat-cell *matCellDef="let viewall">{{ viewall.createdBy }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Created At</th>
+        <td mat-cell *matCellDef="let viewunion">
+          {{ viewunion.createdAt | date : "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="modifiedBy">
+        <th mat-header-cell *matHeaderCellDef>Modified By</th>
+        <td mat-cell *matCellDef="let viewall">{{ viewall.modifiedBy }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="modifiedAt">
+        <th mat-header-cell *matHeaderCellDef>Modified At</th>
+        <td mat-cell *matCellDef="let viewunion">
+          {{ viewunion.modifiedAt | date : "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr *matNoDataRow>
+        <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
+          No Data For{{ input.value }}
+        </td>
+        <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">
+          No Data
+        </td>
+      </tr>
+    </table>
+  </div>
+  <mat-card-footer>
+    <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
+      [pageSizeOptions]="[5, 10, 50, 100, 200]" aria-label="Select page">
+    </mat-paginator>
+  </mat-card-footer>
+</mat-card-content>

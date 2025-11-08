@@ -1,0 +1,155 @@
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FarginServiceService } from '../../../service/fargin-service.service';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { BroadcasterBouquetadd, Region } from '../../../fargin-model/fargin-model.module';
+import { MatOption, MatSelect } from '@angular/material/select';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+
+@Component({
+  selector: 'app-bouqutes-add',
+  templateUrl: './bouqutes-add.component.html',
+  styleUrl: './bouqutes-add.component.css'
+})
+export class BouqutesAddComponent implements OnInit {
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
+  myForm!: FormGroup;
+  details: any;
+  channelslist: any;
+  @ViewChild('select') select: any = MatSelect;
+  allSelected = false;
+  @ViewChild('selects') selects: any = MatSelect;
+  allselected = false;
+  Plandetails: any;
+  channleid: any;
+  ActiveRegions: any;
+  ActiveMSO: any;
+  serviceproviderid: any;
+  regionId: any;
+  ActiveregionID: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+
+  constructor(
+    public BroadcasterBouquetAdd: FarginServiceService,
+    private toastr: ToastrService,
+    private cryptoService:EncyDecySericeService,
+    private dialog: MatDialog
+  ) { }
+
+  ngOnInit(): void {
+
+    this.BroadcasterBouquetAdd.BoucatenamesActive().subscribe((res: any) => {
+      this.details = res.response;
+      this.details.sort((a: any, b: any) => a.broadCasterName.localeCompare(b.broadCasterName));
+    });
+
+    this.BroadcasterBouquetAdd.activeprovider().subscribe((res: any) => {
+      this.ActiveMSO = res.response;
+      this.ActiveMSO.sort((a: any, b: any) => a.serviceProviderName.localeCompare(b.serviceProviderName));
+    });
+
+    this.myForm = new FormGroup({
+      bundleChannelId: new FormControl('', Validators.required),
+      alcotId: new FormControl('', Validators.required),
+      amount: new FormControl('', [Validators.required,
+      Validators.pattern("^(?!0+(\\.0{1,2})?$)\\d+(\\.\\d{1,2})?$")]),
+      boqCreationId: new FormControl('', Validators.required),
+      serviceId: new FormControl('', Validators.required),
+      regId: new FormControl('', Validators.required),
+    });
+  }
+
+  get bundleChannelId() {
+    return this.myForm.get('bundleChannelId')
+  }
+
+  get alcotId() {
+    return this.myForm.get('alcotId')
+  }
+
+  get amount() {
+    return this.myForm.get('amount')
+  }
+
+  get boqCreationId() {
+    return this.myForm.get('boqCreationId')
+  }
+
+  get regId() {
+    return this.myForm.get('regId')
+  }
+
+  get serviceId() {
+    return this.myForm.get('serviceId')
+  };
+
+  toggleAllSelection() {
+    if (this.allSelected) {
+      this.select.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.select.options.forEach((item: MatOption) => item.deselect());
+    }
+  }
+
+  toggleAllSelections() {
+    if (this.allselected) {
+      this.selects.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.selects.options.forEach((item: MatOption) => item.deselect());
+    }
+  }
+
+  name(id: any) {
+    this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(id).subscribe((res: any) => {
+      this.Plandetails = res.response;
+      this.Plandetails.sort((a: any, b: any) => a.bouquetName.localeCompare(b.bouquetName));
+    })
+  };
+
+  activeregionids() {
+    let submitModel: Region = {
+      regionsId: this.regId?.value
+    }
+    this.BroadcasterBouquetAdd.createAlcotChannelActiveRegion(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        if (Array.isArray(res.response)) {
+          this.channelslist = res.response;;
+        }
+      }
+    })
+  }
+
+  getregions(id: any) {
+    this.BroadcasterBouquetAdd.ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
+      this.ActiveRegions = res.response;
+      this.ActiveRegions.sort((a: any, b: any) => a.stateName.localeCompare(b.stateName));
+    })
+  }
+
+  submit() {
+    let submitModel: BroadcasterBouquetadd = {
+      bundleChannelId: Number(this.bundleChannelId?.value),
+      alcotId: this.alcotId?.value,
+      amount: Number(this.amount?.value.trim()),
+      boqCreationId: Number(this.boqCreationId?.value),
+      serviceId: Number(this.serviceId?.value),
+      regId: this.regId?.value,
+      createdBy: this.adminName
+    };
+    this.BroadcasterBouquetAdd.BroadcasterBoucateadd(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll()
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    })
+  }
+}
+
+

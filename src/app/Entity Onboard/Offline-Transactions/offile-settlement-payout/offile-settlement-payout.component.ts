@@ -1,0 +1,379 @@
+import { DatePipe, Location } from '@angular/common';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
+import { Workbook } from 'exceljs';
+import FileSaver from 'file-saver';
+import moment from 'moment';
+import { PayoutOfflineSettlement } from '../../../fargin-model/fargin-model.module';
+import { FarginServiceService } from '../../../service/fargin-service.service';
+import { ToastrService } from 'ngx-toastr';
+import { EncyDecySericeService } from '../../../Encrypt-Decrypt Service/ency-decy-serice.service';
+
+@Component({
+  selector: 'app-offile-settlement-payout',
+  templateUrl: './offile-settlement-payout.component.html',
+  styleUrl: './offile-settlement-payout.component.css',
+})
+export class OffileSettlementPayoutComponent {
+  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = [
+    'sno',
+    'txnItem',
+    'accountPayoutId',
+    'Amount',
+    'txnReference',
+    'txnTime'
+  ];
+  viewall: any;
+  @ViewChild('tableContainer') tableContainer!: ElementRef;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  FromDateRange!: string;
+  currentPage!: number;
+  ToDateRange!: string;
+  Daterange!: string;
+  Viewall: any;
+  content: any;
+  filteredData: any;
+  getallData: any;
+  term: any;
+  responseDataListnew: any = [];
+  response: any = [];
+  date1: any;
+  date2: any;
+  valueTransactionExport: any;
+  valueTransactionView: any;
+  getdashboard: any[] = [];
+  roleId: any = this.cryptoService.decrypt(sessionStorage.getItem('Nine') || '');
+  actions: any;
+  errorMessage: any;
+  id: any;
+  merchantId: any;
+  pauoutid: any;
+  maxDate: any;
+  length: any;
+  pageIndex: any;
+  pageSize: any;
+  filterAction: any = 0;
+
+  constructor(
+    private service: FarginServiceService,
+    private ActivateRoute: ActivatedRoute,
+    private location: Location,
+    private toastr: ToastrService,
+    private cryptoService: EncyDecySericeService,
+
+
+
+  ) { }
+
+  ngOnInit(): void {
+
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.pauoutid = param.value;
+      this.merchantId = param.value1
+    });
+
+    this.Getall();
+
+
+  }
+  Getall() {
+
+
+    this.filterAction = 0;
+    this.FromDateRange = '';
+    this.ToDateRange = '';
+    this.Daterange = '';
+
+    let submitModel: PayoutOfflineSettlement = {
+      merchantId: this.merchantId,
+      pageNo: '0',
+      size: '5',
+      query: '',
+      dateRange: this.Daterange,
+      payoutId: this.pauoutid,
+    };
+    this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.Viewall = JSON.parse(res.response);
+        this.content = this.Viewall?.content;
+        this.filteredData = this.content;
+        this.length = this.Viewall.totalElements;
+        this.pageIndex = this.Viewall.number;
+        this.pageSize = this.Viewall.size;
+        this.dataSource = new MatTableDataSource(this.filteredData);
+      }
+      if (this.filteredData.length === 0) {
+        this.dataSource = new MatTableDataSource();
+      };
+
+    });
+  }
+
+  filterdate() {
+    const datepipe: DatePipe = new DatePipe('en-US');
+    let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+    let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
+    this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+    let submitModel: PayoutOfflineSettlement = {
+      merchantId: this.merchantId,
+      pageNo: this.currentPage,
+      size: '5',
+      query: '',
+      dateRange: this.Daterange,
+      payoutId: this.pauoutid,
+    };
+    this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.Viewall = JSON.parse(res.response);
+        this.content = this.Viewall?.content;
+        this.filteredData = this.content;
+        this.length = this.Viewall.totalElements;
+        this.pageIndex = this.Viewall.number;
+        this.pageSize = this.Viewall.size;
+        this.dataSource = new MatTableDataSource(this.filteredData);
+        this.filterAction = 1;
+      }
+      if (this.filteredData.length === 0) {
+        this.dataSource = new MatTableDataSource();
+      }
+    });
+  }
+
+
+  getData(event: any) {
+    if (this.filterAction == 1) {
+      const datepipe: DatePipe = new DatePipe('en-US');
+      let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+      let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
+      this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+      let submitModel: PayoutOfflineSettlement = {
+        merchantId: this.merchantId,
+        pageNo: event.pageIndex + 1,
+        size: event.pageSize,
+        query: '',
+        dateRange: this.Daterange,
+        payoutId: this.pauoutid,
+      };
+      this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.content;
+          this.filteredData = this.content;
+          this.length = this.Viewall.totalElements;
+          this.pageIndex = this.Viewall.number;
+          this.pageSize = this.Viewall.size;
+          this.filterAction = 1;
+
+          this.dataSource = new MatTableDataSource(this.filteredData);
+        }
+        if (this.filteredData.length === 0) {
+          this.dataSource = new MatTableDataSource();
+        }
+      });
+    }
+    else {
+      let submitModel: PayoutOfflineSettlement = {
+        pageNo: event.pageIndex + 1,
+        size: event.pageSize,
+        query: '',
+        dateRange: this.Daterange,
+        payoutId: this.pauoutid,
+        merchantId: this.merchantId,
+      };
+
+      this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.content;
+          this.filteredData = this.content;
+          this.length = this.Viewall.totalElements;
+          this.pageIndex = this.Viewall.number;
+          this.pageSize = this.Viewall.size;
+          this.filterAction = 0;
+          this.dataSource = new MatTableDataSource(this.filteredData);
+        }
+        if (this.filteredData.length === 0) {
+          this.dataSource = new MatTableDataSource();
+        };
+      });
+    }
+
+  };
+
+  close() {
+    this.location.back();
+  };
+
+  exportexcel(data: any[]) {
+    let sno = 1;
+    this.responseDataListnew = [];
+    data.forEach((element: any) => {
+      this.response = [];
+      this.response.push(sno);
+      this.response.push(element?.accountPayoutId);
+      this.response.push(element?.amount);
+      this.response.push(element?.txnReference);
+      this.response.push(element?.txnItem);
+      if (element?.txnTime) {
+        this.response.push(moment(element?.txnTime).format('DD/MM/yyyy hh:mm a'));
+      }
+      else {
+        this.response.push('');
+      };
+      sno++;
+      this.responseDataListnew.push(this.response);
+    });
+    this.excelexportCustomer();
+  };
+
+  excelexportCustomer() {
+    const header = [
+      'S.No',
+      'Payout ID',
+      'Amount',
+      'Reference',
+      'Txn Item',
+      'Txn Time',
+    ];
+    const data = this.responseDataListnew;
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('View All Payouts');
+
+    worksheet.addRow([]);
+    let headerRow = worksheet.addRow(header);
+    headerRow.font = { bold: true };
+    // Cell Style : Fill and Border
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFFFFFF' },
+        bgColor: { argb: 'FF0000FF' },
+      };
+
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+
+    data.forEach((d: any) => {
+      let row = worksheet.addRow(d);
+      let qty = row.getCell(1);
+      let qty1 = row.getCell(2);
+      let qty2 = row.getCell(3);
+      let qty3 = row.getCell(4);
+      let qty4 = row.getCell(5);
+      let qty5 = row.getCell(6);
+
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+
+    workbook.xlsx.writeBuffer().then((data: any) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });
+      FileSaver.saveAs(blob, 'View All Payouts.xlsx');
+    });
+  }
+
+  checkDate() {
+    this.ToDateRange = '';
+  }
+
+
+  exportData() {
+    if (this.length != 0) {
+      if (this.filterAction == 1) {
+        const datepipe: DatePipe = new DatePipe('en-US');
+        let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+        let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
+        this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+        let submitModel: PayoutOfflineSettlement = {
+          merchantId: this.merchantId,
+          pageNo: 1,
+          size: this.length,
+          query: '',
+          dateRange: this.Daterange,
+          payoutId: this.pauoutid,
+        };
+        this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.Viewall = JSON.parse(res.response);
+            this.content = this.Viewall?.content;
+            this.filteredData = this.content;
+            this.exportexcel(this.filteredData);
+
+          }
+
+        });
+      }
+      else {
+        let submitModel: PayoutOfflineSettlement = {
+          pageNo: 1,
+          size: this.length,
+          query: '',
+          dateRange: this.Daterange,
+          payoutId: this.pauoutid,
+          merchantId: this.merchantId,
+        };
+
+        this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.Viewall = JSON.parse(res.response);
+            this.content = this.Viewall?.content;
+            this.filteredData = this.content;
+            this.exportexcel(this.filteredData);
+          }
+        });
+      }
+    }
+    else {
+      this.toastr.error('No record found');
+    }
+  }
+
+}

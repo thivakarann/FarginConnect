@@ -1,0 +1,95 @@
+<div class="card" style=" font-size: 14px;">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h6 class="mb-0 text-center" style="color:black;">Transaction Information</h6>
+        <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+    </div>
+
+    <table class="table table-bordered"
+        style="background-color: white; text-align: left;border: 1px solid rgb(154, 154, 153);">
+        <tbody>
+            <tr>
+                <td class="datas">Payment ID</td>
+                <td id="data">{{ transaction?.pgPaymentId ||'--' }}</td>
+            </tr>
+            <tr>
+                <td class="datas">Total Amount</td>
+                <td id="data" class="text-success">₹{{transaction?.totalPayableAmount?.toFixed(2)}}</td>
+            </tr>
+
+            <tr>
+                <td class="datas">Bank Reference</td>
+                <td id="data">
+                    <span *ngIf="transaction?.bankReference == null || transaction?.bankReference == 'null' ">-</span>
+                    <span *ngIf="transaction?.bankReference != null && transaction?.bankReference != 'null'">
+                        {{transaction?.bankReference}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="datas">Reference Number</td>
+                <td id="data"><span *ngIf="transaction?.utrNumber == null || transaction?.utrNumber == 'null' ">-</span>
+                    <span *ngIf="transaction?.utrNumber != null && transaction?.utrNumber != 'null'">
+                        {{transaction?.utrNumber}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="datas">Card Expiry</td>
+                <td id="data">
+                    <span *ngIf="transaction?.cardExpiry == null || transaction?.cardExpiry == 'null' ">-</span>
+                    <span *ngIf="transaction?.cardExpiry != null && transaction?.cardExpiry != 'null'">
+                        {{transaction?.cardExpiry}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="datas">Card Masked No</td>
+                <td id="data">
+                    <span *ngIf="transaction?.cardNoMasked == null || transaction?.cardNoMasked == 'null' ">-</span>
+                    <span *ngIf="transaction?.cardNoMasked != null && transaction?.cardNoMasked != 'null'">
+                        {{transaction?.cardNoMasked}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="datas">Payment Method</td>
+                <td id="data">{{ transaction?.paymentMethod}}</td>
+            </tr>
+
+            <tr>
+                <td class="datas">Manual Updated By</td>
+                <td id="data">{{ transaction?.updatedBy}}</td>
+            </tr>
+
+
+            <tr>
+                <td class="datas">Paid At</td>
+                <td id="data">{{ transaction?.paymentDateTime | date:'dd/MM/yyyy hh:mm a'}}
+                </td>
+            </tr>
+            <tr>
+                <td class="datas">Status</td>
+                <td id="data" style="font-weight: 500;">
+                    <span *ngIf="transaction?.paymentStatus == 'Success'" class="text-success">
+                        {{ transaction?.paymentStatus}}</span>
+
+                    <span *ngIf="transaction?.paymentStatus == 'Pending'" class="text-warning">
+                        {{ transaction?.paymentStatus || '--'}}</span>
+
+
+                    <span *ngIf="transaction?.paymentStatus== 'Initiated'" class="text-primary">
+                        {{ transaction?.paymentStatus || '--'}}</span>
+
+                    <span *ngIf="transaction?.paymentStatus  == 'Payment Incomplete'" class="text-danger">
+                        {{ transaction?.paymentStatus||'--'}}</span>
+
+
+                    <span *ngIf="transaction?.paymentStatus== 'Failure'" class="text-danger">
+                        {{ transaction?.paymentStatus||'--'}}</span>
+
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+</div>

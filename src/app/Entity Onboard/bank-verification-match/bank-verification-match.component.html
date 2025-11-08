@@ -1,0 +1,67 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h2>🏦 Bank Matching Details</h2>
+    <button matDialogClose class="close-btn">Close</button>
+  </div>
+
+  <div *ngIf="Bankdetails && bankverifyres" class="table-wrapper">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>S.NO</th>
+          <th>Field</th>
+          <th>Given Details</th>
+          <th>Facheck Details</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Account Holder Name</td>
+          <td>{{ Bankdetails?.accountHolderName }}</td>
+          <td>{{ bankverifyres?.accountName }}</td>
+          <td [ngClass]="Bankdetails?.accountHolderName === bankverifyres?.accountName ? 'matched' : 'not-matched'">
+            {{ Bankdetails?.accountHolderName === bankverifyres?.accountName ? 'Matched' : 'Not Matched' }}
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Account Number</td>
+          <td>{{ Bankdetails?.accountNumber }}</td>
+          <td>{{ bankverifyres?.accountNumber }}</td>
+          <td [ngClass]="Bankdetails?.accountNumber === bankverifyres?.accountNumber ? 'matched' : 'not-matched'">
+            {{ Bankdetails?.accountNumber === bankverifyres?.accountNumber ? 'Matched' : 'Not Matched' }}
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Bank Name</td>
+          <td>{{ Bankdetails?.bankId?.bankName }}</td>
+          <td>{{ bankverifyres?.bankName }}</td>
+          <td [ngClass]="Bankdetails?.bankId?.bankName === bankverifyres?.bankName ? 'matched' : 'not-matched'">
+            {{ Bankdetails?.bankId?.bankName === bankverifyres?.bankName ? 'Matched' : 'Not Matched' }}
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Branch Name</td>
+          <td>{{ Bankdetails?.branchName }}</td>
+          <td>{{ bankverifyres?.branchName }}</td>
+          <td [ngClass]="Bankdetails?.branchName === bankverifyres?.branchName ? 'matched' : 'not-matched'">
+            {{ Bankdetails?.branchName === bankverifyres?.branchName ? 'Matched' : 'Not Matched' }}
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>IFSC Code</td>
+          <td>{{ Bankdetails?.ifscCode }}</td>
+          <td>{{ bankverifyres?.ifsc }}</td>
+          <td [ngClass]="Bankdetails?.ifscCode === bankverifyres?.ifsc ? 'matched' : 'not-matched'">
+            {{ Bankdetails?.ifscCode === bankverifyres?.ifsc ? 'Matched' : 'Not Matched' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

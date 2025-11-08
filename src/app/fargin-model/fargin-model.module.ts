@@ -1,0 +1,1792 @@
+export interface Captcha {
+  readonly data: any;
+}
+
+export interface Payload {
+  readonly data: any;
+}
+
+export interface VerifyOTP {
+  readonly emailAddress: any;
+  readonly emailOtpCode: any;
+}
+
+
+
+export interface ResetPassword {
+  readonly emailAddress: any;
+  readonly newPassword: any;
+}
+
+export interface ResendOtp {
+  readonly emailAddress: any;
+
+}
+
+export interface Adminstatus {
+  readonly userId: any;
+  readonly modifiedBy: any;
+  readonly modifierRole: any;
+}
+
+export interface AdminCreate {
+  readonly roleId: any;
+  readonly emailAddress: any;
+  readonly mobileNumber: any;
+  readonly name: any;
+  readonly address: any;
+  readonly city: any;
+  readonly state: any;
+  readonly pincode: any;
+  readonly country: any;
+  readonly gender: any;
+  readonly createdby: any;
+}
+
+
+export interface AdminUpdate {
+  readonly userId: any;
+  readonly emailAddress:any;
+  readonly mobileNumber:any;
+  readonly name: any;
+  readonly address: any;
+  readonly city: any;
+  readonly state: any;
+  readonly pincode: any;
+  readonly country: any;
+  readonly gender: any;
+  readonly modifiedBy: any;
+  readonly roleId: any;
+}
+
+
+
+
+
+export interface Businessadd {
+  readonly businessCategoryName: any;
+  readonly mccCode: any;
+  readonly createdby: any;
+  readonly autoDebitDate: any;
+  readonly creatorRole: any;
+}
+
+
+export interface Businessedit {
+  readonly businessCategoryName: any;
+  readonly businessCategoryId: any;
+  readonly mccCode: any;
+  readonly modifiedBy: any;
+  readonly autoDebitDate: any;
+  readonly modifierRole: any;
+}
+
+export interface Businessstatus {
+  readonly businessCategoryId: any;
+  readonly modifiedBy: any;
+  readonly modifierRole: any
+
+}
+
+export interface Businesskycstatus {
+  readonly activeStatus: any;
+}
+
+
+export interface Businesskycadd {
+  readonly businessCategoryId: any;
+  readonly createdby: any;
+  readonly documentTypeIds: any;
+  readonly creatorRole: any;
+}
+
+
+export interface Businesskycedit {
+  readonly businessCategoryDocumentId: any;
+  readonly businessCategoryId: any;
+  readonly documentTypeIds: any;
+  readonly modifiedBy: any;
+  readonly modifierRole: any;
+}
+export interface addentity {
+
+  readonly entityName: any;
+  readonly merchantLegalName: any;
+  readonly accountDisplayName: any;
+  readonly contactName: any;
+  readonly contactMobile: any;
+  readonly secondaryMobile: any;
+  readonly contactEmail: any;
+  readonly gstIn: any;
+  readonly billingAddress: any;
+  readonly area: any;
+  readonly zipcode: any;
+  readonly stateName: any;
+  readonly city: any;
+  readonly contactPerson: any;
+  readonly country: any;
+  readonly locationServed: any;
+  readonly serviceOffered: any;
+  readonly businessCategoryId: any;
+  readonly mccCode: any;
+  readonly website: any;
+  readonly merchantPlanId: any;
+
+}
+
+
+export interface updateentity {
+
+  readonly entityName: any;
+  readonly merchantLegalName: any;
+  readonly accountDisplayName: any;
+  readonly contactName: any;
+  readonly contactMobile: any;
+  readonly secondaryMobile: any;
+  readonly contactEmail: any;
+  readonly gstIn: any;
+  readonly billingAddress: any;
+  readonly area: any;
+  readonly zipcode: any;
+  readonly stateName: any;
+  readonly city: any;
+  readonly contactPerson: any;
+  readonly country: any;
+  readonly locationServed: any;
+  readonly serviceOffered: any;
+  readonly businessCategoryId: any;
+  readonly mccCode: any;
+  readonly website: any;
+  readonly modifiedBy: any;
+
+}
+
+export interface EntityStatus {
+  readonly merchantId: any;
+  readonly accountStatus: any;
+}
+
+export interface EmailTrigger {
+  readonly merchantId: any;
+  readonly linkExpiry: any;
+  readonly description: any;
+  readonly returnUrl: any;
+
+}
+
+export interface AddEntityBank {
+  readonly accountHolderName: any;
+  readonly accountNumber: any;
+  readonly bankId: any;
+  readonly ifscCode: any;
+  readonly branchName: any;
+  readonly accountType: any;
+  readonly merchantId: any;
+  readonly ledgerId: any;
+  readonly createdBy: any;
+  readonly typeMode: any;
+}
+
+
+export interface settopStatus {
+  readonly activeStatus: boolean | number;
+}
+
+export interface BankPrimaryStatus {
+  readonly primaryAccountStatus: boolean | number;
+}
+
+
+
+export interface ApprovalBank {
+  readonly approvalStatus: any;
+  readonly reMarks: any;
+  readonly approvalBy: any;
+}
+
+export interface KycApproval {
+  readonly approvalBy: any;
+  readonly approvalStatus: any;
+  readonly reMarks: any;
+}
+
+
+
+export interface KycAdd {
+  readonly merchantId: any;
+  readonly docFrontPath: any;
+  readonly docBackPath: any;
+  readonly docName: any;
+  readonly docNumber: any;
+  readonly createdBy: any;
+}
+
+
+export interface KycUpdate {
+  readonly merchantDocumentId: any;
+  readonly docFrontPath: any;
+  readonly docBackPath: any;
+  readonly docName: any;
+  readonly docNumber: any;
+  readonly modifiedBy: any;
+}
+
+export interface LeveloneApproval {
+  readonly merchantId: any;
+  readonly approvalStatusL1: any;
+  readonly approvedByL1: any;
+  readonly comment: any;
+}
+export interface LevelTwoApproval {
+  readonly approvalStatusL2: any;
+  readonly approvedByL2: any;
+  readonly commentL2: any;
+}
+
+
+export interface Facheckverification {
+  readonly kycId: any;
+  readonly docNumber: any;
+  readonly approvalBy: any;
+}
+
+export interface PassPortverification {
+  readonly kycId: any;
+  readonly docNumber: any;
+  readonly approvalBy: any;
+  readonly dateOfBirth: any;
+}
+
+export interface Gstverification {
+  readonly kycId: any;
+  readonly docNumber: any;
+  readonly approvalBy: any;
+
+}
+export interface Bankverficiation {
+  readonly merchantBankId: any;
+}
+export interface bankData {
+  readonly accountHolderName: any;
+  readonly accountNumber: any;
+  readonly bankId: any;
+  readonly ifscCode: any;
+  readonly branchName: any;
+  readonly accountType: any;
+  readonly merchantId: any;
+  readonly ledgerId: any;
+  readonly createdBy: any;
+  readonly typeMode: any;
+}
+
+export interface bankedit {
+  readonly accountHolderName: any;
+  readonly accountNumber: any;
+  readonly bankId: any;
+  readonly ifscCode: any;
+  readonly branchName: any;
+  readonly accountType: any;
+  readonly ledgerId: any;
+  readonly modifiedBy: any;
+  readonly typeMode: any;
+}
+
+
+export interface MerchantTransaction {
+  readonly accountId: any;
+  readonly pageNo: any;
+  readonly size: any;
+  readonly query: any;
+  readonly dateRange: any;
+  readonly status: any;
+}
+
+
+export interface Addwithdrawal {
+  readonly amountRange: any;
+  readonly mode: any;
+  readonly gstType: any;
+  readonly fees: any;
+  readonly gstInPercentage: any;
+  readonly createdBy: any;
+}
+export interface Editwithdrawal {
+  readonly amountRange: any;
+  readonly mode: any;
+  readonly gstType: any;
+  readonly fees: any;
+  readonly gstInPercentage: any;
+  readonly modifiedBy: any;
+}
+export interface StatusWithdrawal {
+  readonly withrawalStatus: any
+}
+
+
+export interface VoterIdVerify {
+  readonly kycId: any;
+  readonly docNumber: any;
+  // readonly approvalBy: any;
+}
+
+
+export interface Addbeneficiary {
+  readonly merchantId: any;
+  readonly bankName: any;
+  readonly accountNumber: any;
+  readonly accountHolderName: any;
+  readonly emailAddress: any;
+  readonly ifscCode: any;
+  readonly accountType: any;
+  readonly mobileNumber: any;
+  readonly createdBy: any;
+  readonly branchName: any;
+  readonly upiName: any;
+  readonly type: any;
+}
+export interface Statusbeneficiary {
+  readonly activeStatus: any
+}
+
+
+
+
+
+
+
+
+export interface VerifyOtp {
+  readonly emailAddress: any;
+  readonly otpCode: any;
+}
+export interface ResetPassword {
+  readonly emailAddress: any;
+  readonly newPassword: any;
+}
+
+export interface ResendOtp {
+  readonly emailAddress: any;
+
+}
+export interface ChangePassword {
+  readonly emailAddress: any;
+  readonly oldPassword: any;
+  readonly newPassword: any;
+}
+
+export interface AdminPolicycreate {
+  readonly termAndCondition: any;
+  readonly disclaimer: any;
+  readonly privacyPolicy: any;
+  readonly refundPolicy: any;
+  readonly createdBy: any;
+  readonly merchantId: any;
+}
+
+
+export interface AdminPolicyEdit {
+  readonly termAndCondition: any;
+  readonly disclaimer: any;
+  readonly privacyPolicy: any;
+  readonly refundPolicy: any;
+  // readonly createdBy: any;
+  readonly modifiedBy: any;
+  readonly merchantId: any;
+
+}
+
+
+export interface ticket {
+  readonly approvalStatusUpdatedBy: any;
+  readonly remarks: any;
+  readonly approvalStatus: any;
+}
+
+export interface updatestickerticket {
+  readonly raiseTicketId: any;
+  readonly stickerCount: any;
+  readonly subject: any;
+  readonly merchantId: any;
+  readonly ticketStatus: any;
+  readonly stickerUpdatedBy: any;
+  readonly description: any;
+
+}
+
+export interface subpermission {
+  readonly permissionIds: any;
+  readonly status: any;
+}
+
+export interface role {
+  readonly roleName: any;
+  readonly createdby: any;
+  readonly permissionIds: any;
+  readonly subPermissionIds: any;
+  readonly businessCategoryIds: any;
+}
+
+export interface roleactiveInactive {
+  readonly roleId: any;
+}
+
+
+
+export interface BankPrimaryStatus {
+  readonly primaryAccountStatus: boolean | number;
+}
+
+
+// export interface ApprovalBank {
+//   readonly approvalStatus: any;
+//   readonly reMarks: any;
+//   readonly modifiedBy: any;
+// }
+
+
+export interface RegionAdd {
+  readonly serviceId: any;
+  readonly stateName: any;
+  readonly createdBy: any
+}
+
+export interface RegionStatus {
+  readonly regionId: any;
+  readonly status: any;
+}
+
+export interface RegionEdit {
+  readonly serviceId: any;
+  readonly regionId: any;
+  readonly stateName: any;
+  readonly modifiedBy: any
+}
+
+
+//Service provider
+
+export interface Providerstatus {
+  readonly serviceId: any;
+  readonly status: any;
+}
+
+export interface Providercreate {
+  readonly serviceProviderName: any;
+  readonly serviceProviderLink: any;
+  readonly createdBy: any;
+}
+
+export interface Providerupdate {
+  readonly serviceProviderName: any;
+  readonly serviceProviderLink: any;
+  readonly modifiedBy: any;
+  readonly serviceId: any;
+}
+
+export interface Addfacheckkey {
+  readonly apiKey: any;
+  readonly secretKey: any;
+  readonly applicationId: any;
+  readonly mode: any;
+  readonly createdby: any;
+  readonly creatorRole: any;
+}
+export interface Updatefacheckkey {
+  readonly facheckKeyId: any;
+  readonly apiKey: any;
+  readonly secretKey: any;
+  readonly applicationId: any;
+  readonly mode: any;
+  readonly modifiedBy: any;
+  readonly modifierRole: any;
+}
+export interface Statusfacheckkey {
+  readonly facheckKeyId: any
+}
+
+export interface UpdateAlcart {
+  readonly alcotId: any;
+  readonly regionId: any;
+  readonly bundleChannelId: any;
+  readonly channelName: any;
+  readonly type: any;
+  readonly channelNo: any;
+  readonly generic: any;
+  readonly language: any;
+  readonly price: any;
+  readonly modifiedBy: any;
+
+}
+
+export interface Alcartstatus {
+  readonly alcotId: any;
+  readonly alcotStatus: any;
+}
+
+export interface addBouquetname {
+  readonly broardCaste: any;
+  readonly createdBy: any;
+}
+
+export interface UpdateBouquetname {
+  readonly broardCaste: any;
+  readonly modifiedBy: any;
+  readonly bundleChannelId: any;
+}
+
+export interface broadcasterstatus {
+  readonly status: boolean | number;
+  readonly bundleChannelId: any;
+}
+
+export interface Bouquetenameadd {
+  readonly bundleChannelId: any;
+  readonly bouquetName: any;
+  readonly createdBy: any;
+}
+
+export interface Bouquetenamestatus {
+  readonly boqCreationId: any;
+}
+
+export interface BouquetenameUpdate {
+  readonly bundleChannelId: any;
+  readonly boqCreationId: any;
+  readonly bouquetName: any;
+  readonly modifiedBy: any;
+}
+
+
+export interface BroadcasterBouquetadd {
+  readonly boqCreationId: any;
+  readonly serviceId: any;
+  readonly bundleChannelId: any;
+  readonly alcotId: any;
+  readonly regId: any;
+  readonly amount: any;
+  readonly createdBy: any;
+
+}
+
+export interface AddExtraChannels {
+  readonly alcotChannel: any;
+  readonly boqId: any;
+  readonly broadCasterRegionId: any;
+}
+
+export interface BroadcasterBouquetStatus {
+  readonly status: boolean | number;
+  readonly bouquteId: any;
+
+}
+
+export interface BroadcasterBoucateUpdate {
+  readonly bouquteId: any;
+  readonly amount: any;
+  readonly bouquetName: any;
+}
+
+export interface Broadcastersinglechanelstatus {
+  readonly broadCasterAlcotId: any;
+  readonly channelStatus: any;
+}
+export interface BroadcasterBoucateschannelEdits {
+  readonly broadCasterAlcotId: any;
+  readonly alcotIds: any;
+}
+export interface BroadcasterBouquetregionupdate {
+  readonly broadCasterRegionId: any;
+  readonly regionIds: any;
+}
+
+
+export interface DPOCrate {
+  readonly bundleChannelId: any;
+  readonly boqCreationId: any;
+  readonly regionId: any;
+  readonly alcotId: any;
+  readonly amount: any;
+
+}
+
+
+export interface DPOStatus {
+  readonly status: any;
+}
+
+export interface DPOUpdate {
+  readonly amount: any;
+  readonly broardCaste: any;
+}
+
+export interface DPOChanneloverallstatus {
+  readonly dpoAlcotid: any;
+  readonly channelStatus: any;
+}
+
+
+
+export interface BouquetNameadd {
+  readonly bundleChannelId: any;
+  readonly bouquetName: any;
+  readonly createdBy: any;
+}
+
+export interface BouquetenameStatus {
+  readonly boqCreationId: any;
+  readonly status: any;
+}
+
+export interface BouquetenameUpdate {
+  readonly boqCreationId: any;
+  readonly bouquetName: any;
+  readonly modifiedBy: any;
+}
+
+
+
+export interface MerchantplanCreate {
+  readonly businessCategoryId: any;
+  readonly planName: any;
+  readonly oneTimeSetupFee: any;
+  readonly cloudFee: any;
+  readonly cloudFeeFrequency: any;
+  readonly createdby: any;
+  readonly yearlyRenewalFee: any;
+  readonly customerOnboardLimit: any;
+  readonly voiceBoxRent: any;
+  readonly voiceBoxSetupFee: any;
+}
+
+export interface MerchantplanUpdate {
+  readonly entityPlanId: any;
+  readonly businessCategoryId: any;
+  readonly planName: any;
+  readonly oneTimeSetupFee: any;
+  readonly cloudFee: any;
+  readonly cloudFeeFrequency: any;
+  readonly modifiedBy: any;
+  readonly yearlyRenewalFee: any;
+  readonly customerOnboardLimit: any;
+  readonly voiceBoxRent: any;
+  readonly voiceBoxSetupFee: any;
+}
+
+export interface MerchantPlanStatus {
+  readonly entityPlanId: any;
+}
+
+
+
+export interface Pgsetup {
+  readonly pgKeyId: any;
+}
+
+export interface pgsetupadd {
+  readonly pgMode: any;
+  readonly secretKey: any;
+  readonly apiKey: any;
+  readonly createdby: any;
+  readonly creatorRole: any;
+}
+
+export interface pgsetupedit {
+  readonly pgKeyId: any;
+  readonly pgMode: any;
+  readonly secretKey: any;
+  readonly apiKey: any;
+  readonly modifiedBy: any;
+  readonly modifierRole: any;
+}
+
+//entity settlement Online
+export interface settlement {
+  readonly merchantId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+  readonly status: any;
+}
+
+//entity settlement Offline
+export interface Offlinesettlement {
+  readonly merchantId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+
+}
+
+
+
+
+
+export interface settlements {
+  readonly accountId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+  readonly status: any;
+  readonly payoutId: any;
+  readonly merchantId: any;
+}
+
+export interface oflinePayouts {
+
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+  readonly merchantId: any;
+  readonly payoutId: any;
+
+}
+
+
+export interface PgOnboard {
+  readonly merchantId: any;
+
+}
+
+export interface editroles {
+  readonly businessCategoryIds: any;
+  readonly roleName: any;
+  readonly roleId:any;
+  readonly modifiedBy: any;
+  readonly permissionIds: any;
+  readonly subPermissionIds: any;
+}
+
+
+
+
+export interface BroadcasterBouquetupdate {
+  readonly boqId: any
+  readonly boqCreationId: any;
+  readonly serviceId: any;
+  readonly bundleChannelId: any;
+  // readonly alcotId: any;
+  // readonly regId: any;
+  readonly amount: any;
+  readonly modifiedBy: any;
+
+}
+
+export interface ExtraRegion {
+  readonly boqId: any
+  readonly regionId: any
+  readonly alcotChannel: any
+}
+
+export interface manualPayment {
+  readonly paymentStatus: any;
+  readonly paymentMethod: any;
+  readonly utrNumber: any;
+  readonly merchantId: any;
+  readonly paidAmount: any;
+  readonly date: any;
+  readonly updatedBy: any;
+}
+
+export interface createManualPayment {
+  readonly paymentMethod: any;
+  readonly utrNumber: any;
+  readonly paymentStatus: any;
+  readonly merchantId: any;
+}
+
+export interface KeysUpdate {
+  readonly accountId: any;
+  readonly merchantId: any;
+  readonly apikey: any;
+  readonly secretkey: any;
+}
+
+export interface addpolicy {
+  readonly disclaimer: any;
+  readonly privacyPolicy: any;
+  readonly termAndCondition: any;
+  readonly refundPolicy: any;
+  readonly createdBy: any;
+}
+
+export interface editpolicy {
+  readonly disclaimer: any;
+  readonly privacyPolicy: any;
+  readonly termAndCondition: any;
+  readonly refundPolicy: any;
+  readonly modifiedBy: any;
+}
+
+
+export interface custticketraise {
+  readonly ticketStatus: any;
+  readonly ticketComment: any;
+}
+
+export interface AddBankdetails {
+  readonly bankName: any,
+  readonly createdby: any;
+  readonly creatorRole: any;
+
+}
+
+export interface UpdateBankdetails {
+  readonly bankDetailsId: any;
+  readonly bankName: any;
+  readonly modifiedBy: any;
+  readonly modifierRole: any;
+}
+
+export interface UpdateBankdetailStatus {
+  readonly bankDetailsId: any;
+}
+
+
+export interface policyApproval {
+  readonly approvedStatus: any;
+  readonly approvedBy: any;
+}
+
+export interface QrCodecreation {
+  readonly merchantId: any;
+  readonly qrReference: any;
+  readonly qrGenerateLink: any;
+  readonly qrCreatedBy: any;
+}
+
+export interface DashboardData {
+  date: any;
+  totalAmount: number;
+  initiatedCount: number;
+  pendingCount: number;
+  successCount: number;
+  totalCount: number;
+  successAmount: number;
+  failureAmount: number;
+  failureCount: number;
+  pendingAmount: number;
+}
+
+export interface createManualPayment {
+  readonly paymentMethod: any;
+  readonly utrNumber: any;
+  readonly paymentStatus: any;
+  readonly merchantId: any;
+  readonly date: any;
+  readonly manualApprovalBy: any;
+}
+
+export interface createOtherPayment {
+  readonly serviceName: any;
+  readonly paidAmount: any;
+  readonly createdBy: any;
+  readonly merchantId: any;
+}
+
+export interface updateOtherPayment {
+  readonly serviceName: any;
+  readonly paidAmount: any;
+  readonly modifiedBy: any;
+}
+
+
+export interface identity {
+  readonly identityProof: any;
+  readonly proofId: any;
+  readonly identityProofNo: any;
+}
+
+export interface address {
+  readonly proofId: any;
+  readonly addressProof: any;
+  readonly addressProofNo: any;
+}
+
+export interface signature {
+  readonly proofId: any;
+  readonly signatureProof: any;
+  readonly signatureProofNo: any;
+}
+
+
+export interface verification {
+  readonly facheckDocNumber: any;
+  readonly kycId: any;
+}
+
+export interface Drivingverification {
+  readonly facheckDocNumber: any;
+  readonly kycId: any;
+  readonly dateOfBirth: any;
+}
+
+export interface Pasportverify {
+  readonly kycId: any;
+  readonly facheckDocNumber: any;
+  readonly approvalBy: any;
+  readonly dateOfBirth: any;
+}
+
+export interface verify {
+  readonly kycId: any;
+  readonly facheckDocNumber: any;
+  readonly approvalBy: any;
+}
+
+
+export interface identityapprove {
+  readonly proofId: any;
+  readonly identityAdminComments: any;
+  readonly identityAdminApprovalStatus: any
+  readonly identityAdminApprovedBy: any
+}
+
+export interface addressapprove {
+  readonly proofId: any;
+  readonly addressAdminApprovalStatus: any
+  readonly addressAdminComments: any;
+  readonly addressAdminApprovedBy: any
+}
+export interface signatureapprove {
+  readonly proofId: any;
+  readonly signatureAdminApprovalStatus: any;
+  readonly signatureAdminComments: any
+  readonly signatureAdminApprovedBy: any
+}
+
+export interface kyccateforysts {
+  readonly documentTypeId: any;
+}
+
+export interface kycadd {
+  readonly createdby: any
+  readonly creatorRole: any
+  readonly documentType: any;
+
+}
+
+
+export interface kycedit {
+  readonly documentTypeId: any;
+  readonly documentType: any
+  readonly modifiedBy: any
+  readonly modifierRole: any
+}
+
+
+export interface farginadd {
+  readonly accountHolderName: any;
+  readonly accountNumber: any;
+  readonly bankName: any;
+  readonly ifscCode: any;
+  readonly branchName: any;
+  readonly ledgerId: any;
+  readonly createdBy: any;
+  readonly typeMode: any;
+}
+
+export interface farginUpdate {
+  readonly accountHolderName: any;
+  readonly accountNumber: any;
+  readonly adminBankId: any;
+  readonly bankName: any;
+  readonly ifscCode: any;
+  readonly branchName: any;
+  readonly ledgerId: any;
+  readonly modifiedBy: any;
+  readonly typeMode: any;
+}
+
+export interface farginstatus {
+  readonly activeStatus: any;
+}
+
+
+
+export interface CreateSMS {
+  readonly merchantId: any;
+  readonly type: any;
+  readonly createdBy: any;
+  readonly smsCharge: any
+}
+
+export interface Logout {
+  readonly userId: any;
+  // readonly logout: any;
+}
+
+export interface SmsStatus {
+  readonly smsStatus: boolean | number;
+  readonly modifedBy: any;
+
+}
+export interface SmsUpdate {
+  readonly smsType: any;
+  readonly modifedBy: any;
+  readonly smsCharge: any
+
+}
+
+
+
+export interface documentupdate {
+  readonly merchantDocumentId: any;
+  readonly kycCategoryId: any;
+  readonly docNumber: any
+  readonly modifiedBy: any
+}
+
+export interface documentapproval {
+  readonly approvalBy: any
+  readonly approvalStatus: any
+  readonly reMarks: any
+}
+
+export interface SMSCostAdd {
+  readonly costPerSms: any;
+  readonly createdby: any;
+  readonly effectiveFrom: any;
+}
+
+export interface smscoststatus {
+  readonly smsCostId: any;
+}
+
+
+export interface announceAdd {
+  readonly businessCategoryId: any;
+  readonly announcementContentEnglish: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly createdBy: any
+}
+
+export interface announceEdit {
+  readonly announcementId: any;
+  readonly businessCategoryIds: any;
+  readonly announcementContentEnglish: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly updatedBy: any
+}
+
+export interface announcestatus {
+  readonly announcementId: any;
+  readonly activeStatus: any
+}
+
+
+
+export interface SMSApproval {
+  readonly smsApprovalStatus: any;
+  readonly smsApprovedBy: any;
+}
+
+export interface customerplanStatus {
+  readonly activeStatus: any;
+}
+
+
+export interface customerpay {
+  readonly payId: any;
+  readonly paidAmount: any;
+}
+
+export interface subscriptionpay {
+  readonly payId: any;
+  readonly trackId: any;
+  readonly paidAmount: any;
+}
+
+export interface customizepay {
+  readonly payId: any;
+}
+
+export interface manualpay {
+  readonly payId: any;
+}
+
+
+export interface Region {
+  readonly regionsId: any
+}
+
+
+export interface Addsigner {
+  readonly signAdminEmail: any,
+  readonly signAdminMobile: any,
+  readonly signAdminName: any,
+  readonly createdBy: any
+  readonly adminPosition: any,
+  readonly adminCountry:any,
+  readonly adminAddress:any,
+  readonly adminPincode:any,
+  readonly adminCity:any,
+  readonly adminState:any
+
+}
+
+export interface Updatesigner {
+  readonly signAdminEmail: any;
+  readonly signAdminMobile: any;
+  readonly signAdminName: any;
+  readonly adminPosition: any;
+  readonly adminCountry: any;
+  readonly adminAddress: any;
+  readonly adminPincode: any;
+  readonly adminCity: any;
+  readonly modifiedBy: any;
+  readonly adminState: any;
+  readonly signId: any;
+  
+}
+
+export interface UpdatesignerStatus {
+  readonly signId: any,
+}
+
+export interface AgreementCommerical {
+  readonly planName: any;
+  readonly serviceFee: any;
+  readonly settlementCycle: any;
+  readonly createdBy: any;
+  readonly netBankingAmount: any;
+  readonly netBankingPercentage: any;
+  readonly netBankingFixedFee: any;
+  readonly rupayDebitCardMaxAmount: any;
+  readonly rupayDebitCardMaxPercentage: any;
+  readonly rupayDebitCardMaxFixedFee: any;
+  readonly rupayDebitCardMinAmount: any;
+  readonly rupayDebitCardMinPercentage: any;
+  readonly rupayDebitCardMinFixedFee: any;
+  readonly otherDebitCardMaxAmount: any;
+  readonly otherDebitCardMaxPercentage: any;
+  readonly otherDebitCardMaxFixedFee: any;
+  readonly otherDebitCardMinAmount: any;
+  readonly otherDebitCardMinPercentage: any;
+  readonly otherDebitCardMinFixedFee: any;
+  readonly eCollectAmount: any;
+  readonly eCollectPercentage: any;
+  readonly eCollectFixedFee: any;
+  readonly disbursementApiAmount: any;
+  readonly disbursementApiPercentage: any;
+  readonly disbursementApiFixedFee: any;
+  readonly internationalApiAmount: any;
+  readonly internationApiPercentage: any;
+  readonly internationApiFixedFee: any;
+  readonly amexCardAmount: any;
+  readonly amexCardPercentage: any;
+  readonly amexCardFixedFee: any;
+  readonly dinnersCardAmount: any;
+  readonly dinnersCardPercentage: any;
+  readonly dinnersCardFixedFee: any;
+  readonly corporateOrCommercialCardAmount: any;
+  readonly corporateOrCommercialCardPercentage: any;
+  readonly corporateOrCommercialCardFixedFee: any;
+  readonly prepaidCardAmount: any;
+  readonly prepaidCardPercentage: any;
+  readonly prepaidCardFixedFee: any;
+  readonly walletPhonepeAmount: any;
+  readonly walletPhonepePercentage: any;
+  readonly walletPhonepeFixedFee: any;
+  readonly walletFreeChargeAmount: any;
+  readonly walletFreeChargePercentage: any;
+  readonly walletFreeChargeFixedFee: any;
+  readonly walletPayzappAmount: any;
+  readonly walletPayzappPercentage: any;
+  readonly walletPayzappFixedFee: any;
+  readonly walletPaytmAmount: any;
+  readonly walletPaytmPercentage: any;
+  readonly walletPaytmFixedFee: any;
+  readonly walletOlaMoneyAmount: any;
+  readonly walletOlaMoneyPercentage: any;
+  readonly walletOlaMoneyFixedFee: any;
+  readonly walletMobikwikkAmount: any;
+  readonly walletMobikwikkPercentage: any;
+  readonly walletMobikwikkFixedFee: any;
+  readonly walletRelianceJioMoneyAmount: any;
+  readonly walletRelianceJioMoneyPercentage: any;
+  readonly walletRelianceJioMoneyFixedFee: any;
+  readonly walletAirtelMoneyAmount: any;
+  readonly walletAirtelMoneyPercentage: any;
+  readonly walletAirtelMoneyFixedFee: any;
+  readonly upiAmount: any;
+  readonly upiPercentage: any;
+  readonly upiFixedFee: any;
+  readonly dynamicQrAmount: any;
+  readonly dynamicQrPercentage: any;
+  readonly dynamicQrFixedFee: any;
+  readonly creditCardAmount: any;
+  readonly creditCardPercentage: any;
+  readonly creditCardFixedFee: any;
+  readonly mmcAmount: any;
+  readonly securityDepositAmount: any;
+  readonly nbOtherBankAmount: any;
+  readonly nbOtherBankPercentage: any;
+  readonly nbOtherBankFixedFee: any;
+
+
+}
+export interface UpdateAgreementCommerical {
+  readonly planName: any;
+  readonly serviceFee: any;
+  readonly settlementCycle: any;
+  readonly modifiedBy: any;
+  readonly netBankingAmount: any;
+  readonly netBankingPercentage: any;
+  readonly netBankingFixedFee: any;
+  readonly rupayDebitCardMaxAmount: any;
+  readonly rupayDebitCardMaxPercentage: any;
+  readonly rupayDebitCardMaxFixedFee: any;
+  readonly rupayDebitCardMinAmount: any;
+  readonly rupayDebitCardMinPercentage: any;
+  readonly rupayDebitCardMinFixedFee: any;
+  readonly otherDebitCardMaxAmount: any;
+  readonly otherDebitCardMaxPercentage: any;
+  readonly otherDebitCardMaxFixedFee: any;
+  readonly otherDebitCardMinAmount: any;
+  readonly otherDebitCardMinPercentage: any;
+  readonly otherDebitCardMinFixedFee: any;
+  readonly eCollectAmount: any;
+  readonly eCollectPercentage: any;
+  readonly eCollectFixedFee: any;
+  readonly disbursementApiAmount: any;
+  readonly disbursementApiPercentage: any;
+  readonly disbursementApiFixedFee: any;
+  readonly internationalApiAmount: any;
+  readonly internationApiPercentage: any;
+  readonly internationApiFixedFee: any;
+  readonly amexCardAmount: any;
+  readonly amexCardPercentage: any;
+  readonly amexCardFixedFee: any;
+  readonly dinnersCardAmount: any;
+  readonly dinnersCardPercentage: any;
+  readonly dinnersCardFixedFee: any;
+  readonly corporateOrCommercialCardAmount: any;
+  readonly corporateOrCommercialCardPercentage: any;
+  readonly corporateOrCommercialCardFixedFee: any;
+  readonly prepaidCardAmount: any;
+  readonly prepaidCardPercentage: any;
+  readonly prepaidCardFixedFee: any;
+  readonly walletPhonepeAmount: any;
+  readonly walletPhonepePercentage: any;
+  readonly walletPhonepeFixedFee: any;
+  readonly walletFreeChargeAmount: any;
+  readonly walletFreeChargePercentage: any;
+  readonly walletFreeChargeFixedFee: any;
+  readonly walletPayzappAmount: any;
+  readonly walletPayzappPercentage: any;
+  readonly walletPayzappFixedFee: any;
+  readonly walletPaytmAmount: any;
+  readonly walletPaytmPercentage: any;
+  readonly walletPaytmFixedFee: any;
+  readonly walletOlaMoneyAmount: any;
+  readonly walletOlaMoneyPercentage: any;
+  readonly walletOlaMoneyFixedFee: any;
+  readonly walletMobikwikkAmount: any;
+  readonly walletMobikwikkPercentage: any;
+  readonly walletMobikwikkFixedFee: any;
+  readonly walletRelianceJioMoneyAmount: any;
+  readonly walletRelianceJioMoneyPercentage: any;
+  readonly walletRelianceJioMoneyFixedFee: any;
+  readonly walletAirtelMoneyAmount: any;
+  readonly walletAirtelMoneyPercentage: any;
+  readonly walletAirtelMoneyFixedFee: any;
+  readonly upiAmount: any;
+  readonly upiPercentage: any;
+  readonly upiFixedFee: any;
+  readonly dynamicQrAmount: any;
+  readonly dynamicQrPercentage: any;
+  readonly dynamicQrFixedFee: any;
+  readonly creditCardAmount: any;
+  readonly creditCardPercentage: any;
+  readonly creditCardFixedFee: any;
+  readonly mmcAmount: any;
+  readonly securityDepositAmount: any;
+  readonly nbOtherBankAmount: any;
+  readonly nbOtherBankPercentage: any;
+  readonly nbOtherBankFixedFee: any;
+
+
+
+}
+export interface CreatePlan {
+  readonly merchantId: any;
+  // readonly commercialId: any;
+  readonly createdBy: any;
+  readonly merchantPosition: any;
+  // readonly expiryLink: any;
+  readonly authorizedName: any
+  readonly stampAmount: any;
+  readonly considerationAmount: any;
+}
+
+export interface AdminsignerOtp {
+  readonly otpCode: any
+}
+
+
+export interface AgreementConsent {
+  readonly referenceCode: any,
+  readonly flag: any,
+  readonly consent: any
+}
+
+export interface AgreementlocationTracker {
+  readonly referenceCode: any,
+  readonly flag: any,
+  readonly consent: any,
+  readonly getLocation: any
+  readonly ipAddress: any,
+  readonly locationStatus: any,
+  readonly publicIp: any,
+  readonly country: any,
+  readonly city: any,
+  readonly zip: any,
+  readonly serviceProvider: any,
+  readonly timezone: any,
+  readonly region: any,
+  readonly longitude: any,
+  readonly latitude: any,
+  readonly countryCode: any,
+  readonly regionCode: any,
+  readonly autonomousSystemNumber: any
+}
+
+export interface Agreementextentdate {
+  readonly expiryLink: any
+}
+
+export interface AgreementLinkExpiry {
+  readonly expiryLinkStatus: any;
+}
+export interface OffilneTransaction {
+  readonly merchantId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+  readonly status: any;
+  readonly terminalId: any;
+}
+export interface OfflineSettlement {
+  readonly merchantId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+}
+export interface PayoutOfflineSettlement {
+  readonly merchantId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+  readonly payoutId: any
+}
+
+export interface Branchadd {
+  readonly branchName: any;
+  readonly apiKey: any;
+  readonly secretKey: any;
+  readonly bankName: any;
+  readonly accountHolderName: any;
+  readonly accountNumber: any
+  readonly ifscCode: any;
+  readonly createdBy: any;
+  readonly merchantId: any;
+  readonly accountId: any;
+  readonly smsMerchantName: any;
+}
+
+export interface Branchadds {
+  readonly branchName: any;
+  readonly apiKey: any;
+  readonly secretKey: any;
+  readonly bankName: any;
+  readonly accountHolderName: any;
+  readonly accountNumber: any
+  readonly ifscCode: any;
+  readonly createdBy: any;
+  readonly merchantId: any;
+  readonly accountId: any;
+  readonly smsMerchantName: any;
+}
+export interface BranchEdit {
+  readonly branchName: any;
+  readonly apiKey: any;
+  readonly secretKey: any;
+  readonly bankName: any;
+  readonly accountHolderName: any;
+  readonly accountNumber: any
+  readonly ifscCode: any;
+  readonly modifiedBy: any;
+  readonly accountId: any;
+  readonly smsMerchantName: any;
+
+}
+
+export interface Branchstatus {
+  readonly accountStatus: any;
+}
+
+export interface additionalcustomerpay {
+  readonly payId: any;
+  // readonly trackId:any;
+  // readonly paidAmount:any;
+}
+
+export interface subsmanualpay {
+  readonly paymentMode: any;
+  readonly technicalPayStatus: any;
+  readonly utrNumber: any;
+  readonly updatedBy: any;
+}
+
+export interface stickeradd {
+  readonly businessCategoryId: any;
+  readonly costPerSticker: any;
+  readonly createdBy: any;
+  readonly deliveryDays: any;
+  readonly creatorRole: any;
+  readonly effectiveFrom: any;
+}
+
+export interface stickeredit {
+  readonly businessCategoryId : any;
+  readonly costPerSticker: any;
+  readonly modifiedBy: any;
+  readonly deliveryDays: any;
+  readonly modifierRole: any;
+  readonly effectiveFrom: any;
+  readonly stickerId: any;
+}
+
+export interface stickerstatus {
+  readonly stickerId: any;
+
+}
+
+
+export interface identitybranchapprove {
+  readonly branchProofId: any;
+  readonly identityAdminComments: any;
+  readonly identityAdminApprovalStatus: any
+  readonly identityAdminApprovedBy: any
+}
+
+export interface addressbranchapprove {
+  readonly branchProofId: any;
+  readonly addressAdminApprovalStatus: any
+  readonly addressAdminComments: any;
+  readonly addressAdminApprovedBy: any
+}
+export interface signaturebranchapprove {
+  readonly branchProofId: any;
+  readonly signatureAdminApprovalStatus: any;
+  readonly signatureAdminComments: any
+  readonly signatureAdminApprovedBy: any
+}
+
+export interface branchverification {
+  readonly facheckDocNumber: any;
+  readonly branchProofId: any;
+}
+
+export interface branchDrivingverification {
+  readonly facheckDocNumber: any;
+  readonly branchProofId: any;
+  readonly dateOfBirth: any;
+  readonly approvalBy: any;
+}
+
+export interface branchPasportverify {
+  readonly branchProofId: any;
+  readonly facheckDocNumber: any;
+  readonly approvalBy: any;
+  readonly dateOfBirth: any;
+}
+
+export interface branchverify {
+  readonly branchProofId: any;
+  readonly facheckDocNumber: any;
+  readonly approvalBy: any;
+}
+
+export interface branchstatus {
+  readonly activeStatus: any;
+}
+
+export interface branchterminaladd {
+  readonly terminalNumber: any;
+  readonly merchantId: any;
+  readonly branchId: any;
+  readonly createdBy: any;
+}
+
+export interface branchterminaledit {
+  readonly terminalNo: any;
+  readonly modifiedBy: any;
+}
+
+export interface Entitystatus {
+  readonly activeStatus: any;
+}
+
+export interface entityterminaladd {
+  readonly merchantId: any;
+  readonly terminalNumber: any;
+  readonly createdBy: any;
+}
+
+export interface entityterminaledit {
+  readonly terminalNo: any;
+  readonly modifiedBy: any;
+}
+
+export interface entityterminaltransaction {
+  readonly pageNo: any,
+  readonly query: any,
+  readonly size: any,
+  readonly dateRange: any,
+  readonly status: any,
+  readonly merchantId: any,
+  readonly entityTerminalId: any
+}
+
+
+export interface Branchtransaction {
+  readonly pageNo: any,
+  readonly query: any,
+  readonly size: any,
+  readonly dateRange: any,
+  readonly status: any,
+  readonly merchantId: any,
+  readonly branchTerminalId: any
+}
+
+export interface customerpayfilter {
+  readonly paymentStatus: any;
+  readonly flag: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly merchantId: any;
+}
+
+export interface additionapayfilter {
+  readonly paymentStatus: any;
+  readonly flag: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly merchantId: any;
+}
+
+export interface Cloudfee {
+  readonly paymentStatus: any;
+  readonly flag: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly merchantId: any;
+}
+
+export interface Onetimepay {
+  readonly paymentStatus: any;
+  readonly flag: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly merchantId: any;
+}
+
+
+export interface Otherpayment {
+  readonly paymentStatus: any;
+  readonly flag: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly merchantId: any;
+}
+
+
+export interface Busineessstatus {
+  readonly status: any;
+  readonly commercialId: any;
+}
+
+
+export interface mainkeysbranch {
+  readonly accountStatus: any;
+  readonly flag: any;
+
+}
+
+export interface branchkeys {
+  readonly accountStatus: any;
+  readonly flag: any;
+  readonly branchId: any;
+
+}
+
+export interface ExportReportCreate {
+  readonly createdBy: any;
+  readonly exportDataName: any;
+  readonly exportStartDate: any;
+  readonly exportEndDate: any;
+  readonly exportType: any;
+  readonly merchantId: any;
+  readonly paymentStatus: any;
+  readonly type: any;
+  readonly branchId: any;
+}
+
+export interface ExportReportstatic {
+  readonly createdBy: any,
+  readonly exportDataName: any,
+  readonly exportType: any;
+  readonly dateRange: any,
+  readonly merchantId: any,
+  readonly pageNo: any,
+  readonly query: any,
+  readonly size: any,
+  readonly status: any,
+  readonly terminalId: any,
+  readonly exportStartDate: any,
+  readonly exportEndDate: any,
+  readonly type: any,
+  readonly branchId: any;
+  readonly paymentStatus: any;
+}
+
+export interface ExportReportBranch {
+  readonly createdBy: any;
+  readonly exportDataName: any;
+  readonly exportStartDate: any;
+  readonly exportEndDate: any;
+  readonly merchantId: any;
+  readonly branchId: any;
+  readonly exportType: any;
+  readonly paymentStatus: any;
+  readonly type: any;
+  readonly branchType: any;
+}
+
+export interface RefundCheck {
+  readonly customerRefundId: any;
+}
+
+
+export interface smstrigger {
+  readonly monthlySmsLogId: any;
+}
+export interface dueCumulativeRefunds {
+  readonly refundId: any;
+}
+export interface additionalCumulativeRefunds {
+  readonly refundId: any;
+}
+
+export interface msoregionstatus {
+  readonly status: any;
+  readonly broadCasterRegionId: any;
+}
+
+export interface CraeteWhatappService {
+  readonly merchantId: any;
+  readonly vendorId: any;
+  readonly smsCharge: any;
+  readonly whatsappTemplateId: any;
+  // readonly templateCode: any;
+  readonly templateLanguage: any;
+  readonly createdBy: any;
+}
+
+export interface UpdateWhatappService {
+  readonly merchantWhatsAppId: any;
+  readonly vendorId: any;
+  readonly smsCharge: any;
+  readonly whatsappTemplateId: any;
+  readonly templateCode: any;
+  readonly templateLanguage: any;
+  readonly smsEnableStatus: any;
+  readonly modifedBy: any;
+}
+
+export interface WhatappserviceStatus {
+  readonly merchantWhatsAppId: any;
+  readonly smsEnableStatus: any;
+}
+
+export interface whatappserviceApproval {
+  readonly merchantWhatsAppId: any;
+  readonly smsApprovalStatus: any;
+  readonly smsApprovedBy: any;
+}
+
+export interface VendorsAdd {
+  readonly vendorName:any;
+  readonly vendorMobileNumber:any;
+  readonly vendorAddress:any;
+  readonly vendorGst:any;
+  readonly smsAmount:any;
+  readonly userName:any;
+  readonly password:any;
+  readonly token:any;
+  readonly createdby:any;
+  readonly creatorRole: any;
+}
+
+export interface VendorsUpdate {
+  readonly whatsappVendorId: any;
+  readonly vendorName:any;
+  readonly vendorMobileNumber:any;
+  readonly vendorAddress:any;
+  readonly vendorGst:any;
+  readonly smsAmount:any;
+  readonly userName:any;
+  readonly password:any;
+  readonly token:any;
+  readonly modifiedBy:any;
+  readonly modifierRole: any;
+}
+
+export interface VendorStatus {
+  readonly whatsappVendorId:any;
+}
+
+// //business category 
+
+export interface Getallstatus {
+  readonly pageNumber? : any;
+  readonly pageSize?: any;
+  readonly fromDate?: any;
+  readonly toDate?: any;
+  readonly status?: any;
+  readonly searchContent?: any;
+}
+
+export interface kycactivestatus {
+  readonly status: any;
+}
+
+export interface kycstatus {
+  readonly businessCategoryDocumentId: any;
+  readonly modifiedBy: any;
+  readonly modifierRole: any;
+}
+
+
+export interface farginbankstatus {
+  readonly adminBankId: any;
+
+}
+
+// Sticker
+
+
+
+
+
+

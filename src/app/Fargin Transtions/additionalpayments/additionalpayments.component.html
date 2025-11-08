@@ -1,0 +1,381 @@
+<h4 style="text-align: left; color: #141e46">Additional Payments</h4>
+
+<mat-card-header>
+  <div class="row d-flex flex-wrap align-items-center" style="gap: 10px; flex-wrap: nowrap">
+    <div class="col-md-7 d-flex flex-wrap align-items-center mt-4">
+      <div class="search">
+        <form class="form">
+          <label for="search">
+            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text" name="search"
+              [(ngModel)]="currentfilVal" />
+            <div class="icon">
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                </path>
+              </svg>
+            </div>
+            <button (click)="Getall()" type="reset" class="close-btn">
+              <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </label>
+        </form>
+      </div>
+      &nbsp;&nbsp;&nbsp;
+      <button class="mb-2" (click)="CustomerAdmin(currentfilVal)" style="
+          color: white;
+          background-color: #141e46;
+          border-radius: 10px;
+          font-size: 12px;
+        " mat-raised-button>
+        Go
+      </button>
+    </div>
+    <div class="col-md-3 align-items-center mt-3" style="gap: 10px">
+      <select [(ngModel)]="backs" class="form-select" style="height: 40px; font-size: 15px; margin: 1px; width: 300px"
+        (change)="Filter($event)">
+        <option value="" disabled selected>Filter</option>
+        <option value="Filterbyadditionalpayment">
+          Filter By Additional Payment
+        </option>
+        <option value="AdditionalpayDatefilter">Date Filter for success</option>
+      </select>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="col mt-3">
+      <button class="mt-2.5" style="
+          color: white;
+          background-color: #141e46;
+          border-radius: 10px;
+          font-size: 12px;
+        " mat-raised-button (click)="reset()">
+        Reset
+      </button>
+    </div>
+  </div>
+</mat-card-header>
+
+<mat-card-content>
+  <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin">
+    <span *ngIf="showcategoryData" style="text-align: center; color: red">NO DATA FOUND</span>
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+      *ngIf="!showcategoryData">
+
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef>S.No</th>
+        <td mat-cell *matCellDef="let viewall; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="paymentId">
+        <th mat-header-cell *matHeaderCellDef>Payment ID</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{ transaction.pgPaymentId || "--" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ReceiptNumber">
+        <th mat-header-cell *matHeaderCellDef>Receipt Number</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{ transaction.invoiceNumber || "--" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="entityname">
+        <th mat-header-cell *matHeaderCellDef>Entity Name</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{transaction?.customerId?.merchantId?.entityName == null ? transaction?.entityName
+          : transaction?.customerId?.merchantId?.entityName
+          }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="customername">
+        <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{transaction?.customerId?.customerName == null ? transaction?.customerName
+          : transaction?.customerId?.customerName
+          }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Number">
+        <th mat-header-cell *matHeaderCellDef>Mobile Number</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{transaction?.customerId?.mobileNumber == null ? transaction?.mobileNumber
+          : transaction?.customerId?.mobileNumber
+          }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Service">
+        <th mat-header-cell *matHeaderCellDef>Service Name</th>
+        <td mat-cell *matCellDef="let transaction">
+          <span *ngIf="transaction.flag==1">-</span>
+          <span *ngIf="transaction.flag==2">{{transaction?.inventoryName}}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Stock">
+        <th mat-header-cell *matHeaderCellDef>Stock Category</th>
+        <td mat-cell *matCellDef="let transaction">
+          <span *ngIf="transaction.flag==2">-</span>
+          <span *ngIf="transaction.flag==1">{{transaction?.inventoryName}}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Quantity">
+        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+        <td mat-cell *matCellDef="let transaction">
+          <span *ngIf="transaction?.quantity==0">-</span>
+          <span *ngIf="transaction?.quantity!=0">{{transaction.quantity}}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="paymentmethod">
+        <th mat-header-cell *matHeaderCellDef>Payment Method</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{transaction?.paymentMethod == null? transaction?.paymentMethod
+          : transaction?.paymentMethod
+          }}
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{ transaction?.paidAmount?.toFixed(2) }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdDateTime">
+        <th mat-header-cell *matHeaderCellDef>Due Generated At</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{ transaction.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="paidAt">
+        <th mat-header-cell *matHeaderCellDef>Paid At</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{ transaction.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let transaction">
+          <span *ngIf="transaction?.paymentStatus == 'Success'" class="text-success">
+            {{ transaction?.paymentStatus }}</span>
+          <span *ngIf="transaction?.paymentStatus == 'Due Pending'" class="text-warning">
+            Payment Pending
+          </span>
+          <span *ngIf="transaction?.paymentStatus == 'Initiated'" class="text-primary">
+            {{ transaction?.paymentStatus }}</span>
+          <span *ngIf="transaction?.paymentStatus == 'Payment Incomplete'" class="text-danger">
+            {{ transaction?.paymentStatus }}</span>
+          <span *ngIf="transaction?.paymentStatus == 'Failure'" class="text-danger">
+            {{ transaction?.paymentStatus }}</span>
+          <span *ngIf="transaction?.paymentStatus == 'Due Cancelled'" class="text-danger">
+            {{ transaction?.paymentStatus }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Receipt">
+        <th [hidden]="valuepaymentReceipt !== 'Additional Payments-Receipt'" mat-header-cell *matHeaderCellDef>
+          Receipt
+        </th>
+        <td [hidden]="valuepaymentReceipt !== 'Additional Payments-Receipt'" mat-cell *matCellDef="let viewall">
+          <button class="btn btn-success btn-sm" [disabled]="viewall?.paymentStatus != 'Success'" style="border: none"
+            (click)="Receipt(viewall.customerpaymentId)">
+            <i class="fa-solid fa-download" style="color: #fff"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="CheckStatus">
+        <th [hidden]="
+            valuepaymentCheckStatus !== 'Additional Payments-Check Status'
+          " mat-header-cell *matHeaderCellDef>
+          Check Status
+        </th>
+        <td [hidden]="
+            valuepaymentCheckStatus !== 'Additional Payments-Check Status'
+          " mat-cell *matCellDef="let viewall">
+          <button class="btn btn-primary btn-sm" [disabled]="viewall?.paymentStatus != 'Initiated'"
+            (click)="track(viewall)" style="border-radius: 10px; background-color: #141e46">
+            <i style="font-size: 15px; color: white; cursor: pointer" class="fa">&#xf00c;</i>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="view">
+        <th [hidden]="valuepaymentview !== 'Additional Payments-View'" mat-header-cell *matHeaderCellDef>
+          View
+        </th>
+        <td [hidden]="valuepaymentview !== 'Additional Payments-View'" mat-cell *matCellDef="let transaction">
+          <i style="cursor: pointer" class="fas fa-eye" style="font-size: 16px; color: rgb(39, 39, 95)"
+            (click)="transactionview(transaction?.customerpaymentId)"></i>
+        </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr *matNoDataRow>
+        <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
+          No Data For{{ input.value }}
+        </td>
+        <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">
+          No Data
+        </td>
+      </tr>
+    </table>
+  </div>
+</mat-card-content>
+
+<mat-card-footer>
+  <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
+    [pageSizeOptions]="[5, 10, 50, 100, 200, 300, 500]" aria-label="Select page">
+  </mat-paginator>
+</mat-card-footer>
+
+<!-- additonal pay -->
+
+<ng-template #AdditionalPayment>
+  <span style="max-width: 391px;width:100%">
+    <div style="width:391px" class="dialog-card-header">
+      <h3 class="mb-0" style="text-align: center; font-size: 17px; color: black; padding: 12px">
+        Filter Additional Payment
+      </h3>
+      <div class="col-md-2 d-flex justify-content-end mb-1">
+        <button style="font-size: 14px" class="button1" (click)="close()">
+          Back
+        </button>
+      </div>
+    </div>
+
+    <main class="main page__main">
+      <form [formGroup]="additionalpay" class="form main__form" autocomplete="off" role="form">
+        <div class="search-dropdown-container">
+          <div class="form__linput">
+            <label class="form__label custom-label" for="fnames">Search & Select Entity</label>
+            <div class="search-input-with-button">
+              <ng-select [notFoundText]="options.length === 0 ? '' : 'No item found'" #searchSelect
+                formControlName="selectedOption" [items]="options" bindLabel="entityName"
+                placeholder="Enter Entity Legal Name & Search" [searchable]="true" (input)="onInputChange($event)"
+                (clear)="onClear()" (change)="onDropdownChange($event)">
+              </ng-select>
+              <button type="button" (click)="onSearchClick(searchSelect)" style="
+                font-size: 12px;
+                margin-top: 9px;
+                width: auto;
+                height: 34px;
+                padding: 0 10px;
+                text-align: center;
+                line-height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: -5px;
+                border-radius: 9px;
+              " class="search-button">
+                Search
+              </button>
+            </div>
+          </div>
+
+          <div class="form__linput">
+            <label class="form__label" for="pay">Payment Status</label>
+            <select style="width:368px" class="form-control form-select wider-input" formControlName="pay" name="pay">
+              <option value="All">All</option>
+              <option value="Success">Success</option>
+              <option value="Failure">Failure</option>
+              <option value="Due Pending">Due Pending</option>
+              <option value="Due Cancelled">Due Cancelled</option>
+              <option value="Initiated">Initiated</option>
+              <option value="Payment Incomplete">InComplete</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-left: 20px" class="form__linput">
+          <label style=" margin-top: -14px;
+  margin-bottom: 1px;" class="form__label custom-label" for="startDate">From Date (Optional)</label>
+          <input onkeydown="return false;" (change)="future(endDate)" [max]="maxDate" formControlName="startDate"
+            style="border: 1px solid #ccc; width:365px" class="form-control wider-input" id="startDate" type="date"
+            name="startDate" />
+        </div>
+
+        <div style="margin-left: 20px" class="form__linput">
+          <label style=" margin-top: -14px;
+  margin-bottom: 1px;" class="form__label custom-label" for="endDate">To Date (Optional)</label>
+          <input onkeydown="return false;" [min]="startDate?.value" [max]="maxDate" formControlName="endDate"
+            style="border: 1px solid #ccc; width:365px" class="form-control wider-input" id="endDate" type="date"
+            name="endDate" />
+        </div>
+
+        <div style="margin-left: 20px" class="mt-3">
+          <button type="submit" [disabled]="additionalpay.invalid" (click)="Additionalpay()" class="btn mx-1"
+            style="background-color: #7db855be; height: 39px">
+            Filter
+          </button>
+          <button (click)="resetcustomer()" type="button" class="btn"
+            style="background-color: #141e46; color: white; height: 39px">
+            Reset
+          </button>
+        </div>
+        <br />
+      </form>
+    </main>
+  </span>
+</ng-template>
+
+<!-- Date filter customer -->
+<ng-template #AdditionalPaymentDateFilter>
+  <div style="width: 386px" class="dialog-card-header">
+    <h3 class="mb-0" style="text-align: center; font-size: 17px;color:black;padding:12px">
+      Filter Additional Payment
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" style="font-size: 14px;" (click)="close()">Back</button>
+    </div>
+  </div>
+
+  <main class="main page__main">
+    <form [formGroup]="Datefilteradditionalpay" class="form main__form" autocomplete="off" role="form">
+      <div class="search-dropdown-container">
+        <div class="form__linput">
+          <label class="form__label custom-label" for="FromDateRange">From Date:</label>
+          <input onkeydown="return false;" (change)="
+              future(this.Datefilteradditionalpay.get('ToDateRange')?.value)
+            " [max]="maxDate" class="form-control" formControlName="FromDateRange"
+            style="border: 1px solid #ccc; width: 322px" class="form-control wider-input" id="FromDateRange"
+            type="date" />
+        </div>
+
+        <div class="form__linput">
+          <label class="form__label custom-label" for="ToDateRange">To Date:</label>
+          <input onkeydown="return false;" [min]="this.Datefilteradditionalpay.get('FromDateRange')?.value"
+            [max]="maxDate" class="form-control" formControlName="ToDateRange"
+            style="border: 1px solid #ccc; width: 322px" class="form-control wider-input" id="ToDateRange"
+            type="date" />
+        </div>
+
+        <div style="margin-left: 20px" class="mt-3">
+          <button type="submit" [disabled]="Datefilteradditionalpay.invalid" (click)="filterdate()" class="btn mx-1"
+            style="background-color: #7db855be; height: 39px">
+            Filter
+          </button>
+          <button (click)="resetfilter()" type="button" class="btn"
+            style="background-color: #141e46; color: white; height: 39px">
+            Reset
+          </button>
+        </div>
+        <br />
+      </div>
+    </form>
+  </main>
+</ng-template>

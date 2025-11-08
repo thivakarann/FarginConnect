@@ -1,0 +1,218 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+  border-left: 5px solid transparent;
+}
+
+
+.card.border-info {
+  border-left-color: #0dcaf0;
+  /* Left border color for info */
+}
+
+.card.border-warning {
+  border-left-color: #ffc107;
+}
+
+.card.border-danger {
+  border-left-color: #fd3550;
+}
+
+.card.border-success {
+  border-left-color: #15ca20;
+}
+
+.icon {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.title {
+  font-weight: bold;
+  margin: 6px 0;
+  color: #333;
+}
+
+.value {
+  font-size: 18px;
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* Specific styles for smaller screens */
+@media (max-width: 800px) {
+  .dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.form-select {
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.form-select {
+  width: 100%;
+  font-size: 1rem;
+
+}
+
+#myCanvas {
+  width: 100%;
+  height: 400px;
+}
+
+.card-header {
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  #myCanvas {
+    height: 300px;
+  }
+}
+
+/* styles.css */
+.card {
+  padding: 15px;
+  border: 1px solid #007bff;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.card:nth-child(2) .card {
+  border-color: #28a745;
+}
+
+.card-content {
+  font-size: 14px;
+}
+
+.card-title {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.text-success {
+  color: green;
+  font-weight: bold;
+}
+
+.text-warning {
+  color: orange;
+  font-weight: bold;
+}
+
+.text-danger {
+  color: red;
+  font-weight: bold;
+}
+
+/* Optional: To ensure cards are responsive */
+@media (max-width: 576px) {
+  .card-content {
+    font-size: 12px;
+  }
+}
+
+.card p {
+  margin: 6px 0;
+  font-size: 16px;
+}
+
+.amount {
+  font-weight: bold;
+  color: #333;
+}
+
+.transaction-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.transaction-item {
+  flex: 1;
+  text-align: center;
+}
+
+.amount {
+  font-size: 24px;
+  font-weight: bold;
+  display: block;
+}
+
+.label {
+  margin: 5px 0 0;
+}
+
+/* Different colors for each label */
+.label.total {
+  color: #007bff;
+  /* Blue for Total Amount */
+}
+
+.label.success {
+  color: #28a745;
+  /* Green for Successful Transactions */
+}
+
+.label.failed {
+  color: #dc3545;
+  /* Red for Failed Transactions */
+}
+
+.label.pending {
+  color: #ffc107;
+  /* Yellow for Pending Transactions */
+}
+
+.transaction-methods {
+  margin-top: 10px;
+}
+
+.method-item {
+  margin-bottom: 15px;
+  /* Space between each method item */
+  text-align: left;
+  /* Align text to the left */
+}
+
+.payment-method {
+  font-weight: bold;
+  /* Highlight payment method */
+  color: #007bff;
+  /* Change color for visibility */
+}
+
+.count,
+.amount {
+  font-weight: normal;
+  /* Regular weight for count and amount */
+}

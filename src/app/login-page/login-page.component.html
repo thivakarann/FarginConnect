@@ -1,66 +1,63 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-
-<html lang="en">
-
-<head>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
 
 <body>
-    <div class="container">
-        <div class="sign_in form_container">
-            <form [formGroup]="loginForm">
-                <h1 style="color:#fff;margin-bottom: 20px;margin-top:5px;">Login In</h1>
-                <div class="form-group mt-1">
-                    <input class="email1" type="text" placeholder="Email" formControlName="emailAddress">
-                    <br>
-                    <span class="error"
-                        *ngIf=" emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['required']">
-                        Field is Required*</span>
-                    <span class="error"
-                        *ngIf="emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['pattern']">
-                        Enter
-                        The Valid EmailAddress*</span>
-                </div>
-                <div class="form-group mt-1">
-                    <input class="pass1" type="password" placeholder="Password" formControlName="password"
-                        #passwordInput>
-                    <i class="fa-solid fa-eye-slash" id="eye" [ngClass]="{
-                         'fa-eye-slash': !showPassword,
-                        'fa-eye': showPassword
-                      }" (click)="togglePasswordVisibility(passwordInput)"></i>
-                    <span class="error"
-                        *ngIf="password?.invalid  && password?.touched && password?.errors?.['required']">Password is
-                        Required
-                        *</span>
-                    <span class="error"
-                        *ngIf="password?.invalid  && password?.touched && password?.errors?.['pattern']">
-                        Credentials are Wrong*
-                    </span>
-                </div>
-                <p class="forgetpass" routerLink="/forgot"><b>Forget Your Password?</b></p>
-                <button type="submit" (click)="submit()">Login In</button>
-            </form>
-        </div>
-        <div class="toggle_container">
-            <div class="toggle">
-                <!-- <div class="toggle_panel toggle_left">
-                <h1>Welcome Back!</h1>
-                <p>Enter your personal details to use all of the site features</p>
-                <button class="hidden" >Login In</button>
-              </div> -->
-                <div class="toggle_panel toggle_right">
-                    <img class="mb-3" src="assets/fargin_connect_logo.jpg" style="width:80px;height:80px;">
+  <div class="container">
+    <div class="sign_in form_container">
+      <form [formGroup]="loginForm" autocomplete="off">
+        <h1 style="color:black;margin-bottom:7px;margin-top:17px;">Login</h1>
+        <div class="form-group ">
+          <input type="text" class="email1" [attr.name]="'email1' + uniqueId" [attr.id]="'email1' + uniqueId"
+            autocomplete="off" (change)="resetForm()" placeholder="Email" formControlName="emailAddress">
 
-                    <h1 style="color:#141E46;">Welcome To Fargin Connect</h1>
-                    <p>Login with your details to use all of the features</p>
-                    <!-- <button class="hidden" (click)="toggleForm()">SIGN UP</button> -->
-                </div>
-            </div>
+
+          <span class="error"
+            *ngIf=" emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['required']">
+            Field is Required</span>
+          <span class="error"
+            *ngIf="emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['pattern']">
+            Enter The Valid Email Address</span>
         </div>
+        <div class="form-group ">
+          <input class="pass1" type="password" placeholder="Password" formControlName="password" #passwordInput
+            [attr.name]="'pass_' + uniqueId" [attr.id]="'pass_' + uniqueId" autocomplete="new-password" readonly
+            (focus)="removeReadonly($event)">
+          <i class="fa-solid fa-eye-slash" id="eye" [ngClass]="{'fa-eye-slash': !showPassword,'fa-eye': showPassword}"
+            (click)="togglePasswordVisibility(passwordInput)" style="margin-top: 1px;"></i>
+          <div class="error" *ngIf="password?.invalid && password?.touched && password?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="form-group" *ngIf="password?.valid">
+          <!-- <div class="captcha-container">
+            <input autocomplete="new-password" class="input" ondragstart="return false;" (cut)="false" (copy)="false"
+              (paste)="false" readonly formControlName="captcha" name="randomCaptcha" type="text" class="form-control"
+              style="font-style: italic; background-color: #141E46; color: white; font-weight: 600; text-align: center;">
+            <i style="font-size: 14px; margin-left: 12px; cursor: pointer; color: white" id="refresh"
+              (click)="refreshCaptcha()" class="fa">&#xf021;</i>
+            <input (cut)="false" (copy)="false" (paste)="false" maxlength="6" placeholder="Enter the Captcha"
+              class="captcha-input" formControlName="captcha1" ondrop="return false;">
+            <span class="error" style="margin-left:50px;margin-top:2px">{{message}}</span>
+          </div> -->
+          <div class="captcha-container mp-3">
+            <input autocomplete="new-password" readonly formControlName="captcha" name="randomCaptcha" type="text"
+              class="captcha-display">
+            <i id="refresh" class="fa" (click)="refreshCaptcha()">&#xf021;</i>
+            <input maxlength="6" placeholder="Enter Captcha" class="captcha-input" formControlName="captcha1">
+            <span class="error">{{message}}</span>
+          </div>
+        </div>
+        <span class="forgetpass" routerLink="/forgot" footer-actions><b>Forgot Password?</b></span>
+        <button type="submit" (click)="submit()">Login</button>
+      </form>
     </div>
-    <script src="./script.js"></script>
+    <div class="toggle_container">
+      <div class="toggle">
+        <div class="toggle_panel toggle_right">
+          <img class="mb-3" src="/assets/farginblue.png" style="width:100%;">
+          <h1 style="color:#141E46;">Welcome To Fargin Connect</h1>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
-
-</html>

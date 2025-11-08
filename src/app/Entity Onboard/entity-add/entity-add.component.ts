@@ -1,199 +1,1128 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators, } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { addentity } from '../../Fargin Model/fargin-model/fargin-model.module';
+import { AddEntityBank } from '../../fargin-model/fargin-model.module';
+import moment from 'moment';
+import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
 @Component({
   selector: 'app-entity-add',
   templateUrl: './entity-add.component.html',
-  styleUrl: './entity-add.component.css'
+  styleUrl: './entity-add.component.css',
 })
 export class EntityAddComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  adminName: any = this.cryptoService.decrypt(sessionStorage.getItem('Three') || '');
+  adminId: any = this.cryptoService.decrypt(sessionStorage.getItem('Two') || '');
+
   myForm!: FormGroup;
+  myForm2!: FormGroup;
+  myForm3!: FormGroup;
+  file1!: File;
+  file2!: File;
   categorydetails: any;
   GetMcccode: any;
+  businessCategoryIddata: any;
+  Mcccode: any;
+  Bankdetails: boolean = false;
+  personeldetails: boolean = true;
+  KYCdetails: boolean = false;
+  BussinessDoc: boolean = false;
+  BussinessDocument: boolean = false;
+  merchantid: any;
+  bussinessid: any;
+  errorMessage: any;
+  errormessagetwo: any;
+  KYCDocNames: any;
+  selectedCategoryId: any;
+  entittyplanviewall: any;
+  kycdetails: any;
+  kycDocname: any;
+  kycDocname1: any;
+  kycDocname2: any;
+  kycDocname3: any;
+  kycDocname4: any;
+  kycDocname5: any;
+  kycDocname6: any;
+  emptyBlob = new Blob([], { type: 'application/pdf' });
+  placeholderImage!: File;
+  fileType: any;
+  error!: boolean;
+  file3!: File;
+  businessId: any;
+  mcccode: any;
+  BankNames: any;
+  file4!: File;
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
+  thirdFormGroup!: FormGroup;
+  fourthFormGroup!: FormGroup;
+  selectElement: any;
+  selectElements: any;
+  select: any;
+  file5!: any;
+  file6!: any;
+  kycValue: any;
+  file8!: any;
+  file9!: any;
+  id: any;
+  selectperiod: any;
+  days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
+  Days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
+  uploadImage: any;
+  uploadImage1: any;
+  uploadImage2: any;
+  uploadImage3: any;
+  uploadImage4: any;
+  uploadImage5: any;
+  uploadImage6: any;
+  uploadImage7: any;
+  uploadImage8: any;
+  uploadidentityfront: any;
+  uploadidentityback: any;
+  uploadaddressfront: any;
+  uploadaddressback: any;
+  uploadsignfront: any;
+  uploadsignback: any;
+  uploaddocfront: any;
+  uploaddocback: any;
+  maxDate: any;
+  eighteenYearsAgo: Date;
 
   constructor(
     public AddEntity: FarginServiceService,
     private router: Router,
-    private toastr: ToastrService
-  ) { }
+    private cryptoService: EncyDecySericeService,
+    private toastr: ToastrService,
+    private _formBuilder: FormBuilder
+  ) {
+    const today = new Date();
+    this.eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+  }
+
+
   ngOnInit(): void {
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
+
     this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
-      this.categorydetails = res.response;
+      this.categorydetails = res.response.reverse();
     });
 
+    this.AddEntity.merchantplanactive().subscribe((res: any) => {
+      this.entittyplanviewall = res.response.reverse();
+    });
+
+    this.AddEntity.activebankdetails().subscribe((res: any) => {
+      this.BankNames = res.response.reverse();
+    });
+
+    this.AddEntity.activeViewall().subscribe((res: any) => {
+      this.kycValue = res.response.reverse();
+    });
+
+    // Form One 
+
     this.myForm = new FormGroup({
-      entityName: new FormControl(null, Validators.required),
-      merchantLegalName: new FormControl(null, Validators.required),
-      accountDisplayName: new FormControl(null, Validators.required),
-      contactName: new FormControl(null, Validators.required),
-      contactMobile: new FormControl(null, [
+      entityName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
+      ]),
+      merchantLegalName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
+      ]),
+      accountDisplayName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
+      ]),
+      businessCategoryIds: new FormControl('', [Validators.required]),
+      MccCode: new FormControl(''),
+      contactName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
+      ]),
+      contactMobile: new FormControl('', [
         Validators.required,
         Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$'),
+        Validators.pattern('^[6-9]\\d{9}$')
       ]),
-      secondaryMobile: new FormControl(null, [
-        Validators.required,
+      secondaryMobile: new FormControl('', [
         Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$'),
+        Validators.pattern('^[6-9]\\d{9}$')
       ]),
-      contactEmail: new FormControl(null, [
+      contactEmail: new FormControl('', [
         Validators.required,
-        Validators.pattern("^[a-z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-z0-9.-]+$"),
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$'),
       ]),
-      website: new FormControl(null, Validators.required),
-      gstIn: new FormControl(null, Validators.required),
-      billingAddress: new FormControl(null, Validators.required),
-      area: new FormControl(null, Validators.required),
-      zipcode: new FormControl(null, Validators.required),
-      stateName: new FormControl(null, Validators.required),
-      city: new FormControl(null, Validators.required),
-      contactPerson: new FormControl(null, Validators.required),
-      country: new FormControl(null, Validators.required),
-      locationServed: new FormControl(null, Validators.required),
-      serviceOffered: new FormControl(null, Validators.required),
-      businessCategoryId: new FormControl(null, Validators.required),
-      mccCode: new FormControl(null, Validators.required),
-    })
+      website: new FormControl('', [
+        Validators.pattern(
+          '((http|https)://)(www.)?[a-zA-Z0-9-]+(.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?'
+        ),
+      ]),
+      gstIn: new FormControl('', [
+        Validators.pattern(
+          '^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$'
+        ),
+      ]),
+      billingAddress: new FormControl('', [Validators.required]),
+      area: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$')
+      ]),
+      zipcode: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$'),
+      ]),
+      stateName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
+      ]),
+      city: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
+      ]),
+      country: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
+      ]),
+      merchantPlanId: new FormControl('', [Validators.required]),
+      // periodName: new FormControl('', [Validators.required]),
+      autoDebitStatus: new FormControl('', [Validators.required]),
+      logo: new FormControl(''),
+      billingMode: new FormControl('', [Validators.required]),
+      customerDuesEnable: new FormControl('', [Validators.required]),
+
+
+      renewalAutoDebit: new FormControl('', [Validators.required]),
+
+      customerDuesDate: new FormControl(''),
+
+      dueDate: new FormControl(''),
+
+      dueEndDate: new FormControl(''),
+
+      offlineQrEnable: new FormControl('', [Validators.required]),
+
+      // payoutEnable: new FormControl("", [Validators.required]),
+
+      customerManualStatus: new FormControl('Disable', [Validators.required]),
+
+      customerPaymentMode: new FormControl('', [Validators.required]),
+
+      smsMerchantName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(20),
+      ]),
+      customerSmsTag: new FormControl(''),
+      cloudFeeEnable: new FormControl('', [Validators.required]),
+    },
+      { validators: this.mobileNumbersNotSameValidator });
+
+
+
+    // Form Two
+
+    this.myForm2 = new FormGroup({
+      accountHolderName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z. ]+$'),
+        Validators.maxLength(100),
+      ]),
+      accountNumber: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]{9,18}$'),
+      ]),
+      bankName: new FormControl('', [
+        Validators.required,
+      ]),
+      ifscCode: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$'),
+      ]),
+      branchName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
+      ]),
+      accountType: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$')
+      ]),
+      ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
+      typemode: new FormControl('', [
+        Validators.required,
+
+      ]),
+    });
+
+    // Form Three
+
+    this.firstFormGroup = this._formBuilder.group({
+      identityProof: ['', Validators.required],
+      identityProofNo: ['', Validators.required],
+      identityFrontPath: [null, Validators.required],
+      identityBackPath: [null, Validators.required],
+      drivingLicenceDob: [''],
+      passportDob: [''],
+    });
+
+    this.secondFormGroup = this._formBuilder.group({
+      addressProof: ['', Validators.required],
+      addressProofNo: ['', Validators.required],
+      addressFrontPath: [null, Validators.required],
+      addressBackPath: [null, Validators.required],
+      drivingLicenceDobs: [''],
+      passportDobs: [''],
+    });
+
+    this.thirdFormGroup = this._formBuilder.group({
+      signatureProof: ['', Validators.required],
+      signatureProofNo: ['', Validators.required],
+      signatureFrontPath: [null, Validators.required],
+      signatureBackPath: [null, Validators.required],
+      drivingLicenceDobss: [''],
+      passportDobss: [''],
+    });
+
+    this.fourthFormGroup = this._formBuilder.group({
+      kycCategoryIds: ['', [Validators.required]],
+      docNumber: ['', [Validators.maxLength(100)]],
+      expiryDate: [''],
+      docFrontPath: ['', Validators.required],
+      docBackPath: ['', Validators.required],
+    });
+
+    this.loadPlaceholderImage().then(file => {
+      this.placeholderImage = file;
+    });
+  };
+
+  async loadPlaceholderImage(): Promise<File> {
+    const res = await fetch('assets/fargin_blue.png');
+    const blob = await res.blob();
+    return new File([blob], 'placeholder.jpg', { type: blob.type });
   }
+
+
+  mobileNumbersNotSameValidator(group: AbstractControl): ValidationErrors | null {
+    const primary = group.get('contactMobile')?.value;
+    const secondary = group.get('secondaryMobile')?.value;
+    if (primary && secondary && primary === secondary) {
+      return { mobileNumbersMatch: true };
+    }
+    return null;
+  }
+
+
+  dateFilter = (d: Date | null): boolean => {
+    return d ? d <= this.eighteenYearsAgo : false;
+  }
+
+  duealert(event: any) {
+    this.myForm.get('customerDuesDate')?.setValue('');
+    this.myForm.get('dueDate')?.setValue('');
+    this.myForm.get('dueEndDate')?.setValue('');
+
+  }
+
+  onCategoryChange(event: any) {
+    this.businessId = event.target.value;
+    this.AddEntity.EntityBusinessCategoryId(this.businessId).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.mcccode = res.response.mccCode;
+      }
+    }
+    );
+  }
+
+  cloudFeeEnableChange(event: Event) {
+    const value = (event.target as HTMLSelectElement)?.value;
+    const autoDebitControl = this.myForm.get('autoDebitStatus');
+    if (value === 'No') {
+      this.myForm.get('autoDebitStatus')?.setValue('0');
+      autoDebitControl?.disable();
+    }
+    else if (value === 'Yes') {
+      this.myForm.get('autoDebitStatus')?.setValue(null);
+      autoDebitControl?.reset();
+      autoDebitControl?.enable();
+    }
+  }
+
+  // First Form
 
   get entityName() {
-    return this.myForm.get('entityName')
-
+    return this.myForm.get('entityName');
   }
-  get merchantLegalName() {
-    return this.myForm.get('merchantLegalName')
+  get autoDebitStatus() {
+    return this.myForm.get('autoDebitStatus');
+  }
 
+  get merchantLegalName() {
+    return this.myForm.get('merchantLegalName');
   }
 
   get accountDisplayName() {
-    return this.myForm.get('accountDisplayName')
+    return this.myForm.get('accountDisplayName');
+  }
 
+  get billingMode() {
+    return this.myForm.get('billingMode');
   }
 
   get contactName() {
-    return this.myForm.get('contactName')
-
+    return this.myForm.get('contactName');
   }
-  get contactMobile() {
-    return this.myForm.get(' contactMobile')
-
+  get dueDate() {
+    return this.myForm.get('dueDate');
   }
+
+  get dueEndDate() {
+    return this.myForm.get('dueEndDate');
+  }
+
   get secondaryMobile() {
-    return this.myForm.get('secondaryMobile')
-
+    return this.myForm.get('secondaryMobile');
   }
   get contactEmail() {
-    return this.myForm.get('contactEmail')
-
+    return this.myForm.get('contactEmail');
   }
   get website() {
-    return this.myForm.get('website')
-
+    return this.myForm.get('website');
   }
   get gstIn() {
-    return this.myForm.get(' gstIn')
-
+    return this.myForm.get('gstIn');
   }
   get billingAddress() {
-    return this.myForm.get('billingAddress')
-
+    return this.myForm.get('billingAddress');
   }
   get area() {
-    return this.myForm.get('area')
-
+    return this.myForm.get('area');
   }
   get zipcode() {
-    return this.myForm.get('zipcode')
-
-  } get stateName() {
-    return this.myForm.get(' stateName')
-
+    return this.myForm.get('zipcode');
+  }
+  get stateName() {
+    return this.myForm.get('stateName');
   }
   get city() {
-    return this.myForm.get(' city')
-
+    return this.myForm.get('city');
   }
   get contactPerson() {
-    return this.myForm.get('contactPerson')
-
+    return this.myForm.get('contactPerson');
   }
   get country() {
-    return this.myForm.get('country')
-
+    return this.myForm.get('country');
   }
-  get locationServed() {
-    return this.myForm.get('locationServed')
 
-  } get serviceOffered() {
-    return this.myForm.get('serviceOffered')
-
-  }
-  get businessCategoryId() {
-    return this.myForm.get('businessCategoryId')
-
+  get businessCategoryIds() {
+    return this.myForm.get('businessCategoryIds');
   }
   get mccCode() {
-    return this.myForm.get('mccCode')
+    return this.myForm.get('mccCode');
+  }
 
+  get contactMobile() {
+    return this.myForm.get('contactMobile');
+  }
+
+  get merchantPlanId() {
+    return this.myForm.get('merchantPlanId');
+  }
+
+  // get periodName() {
+  //   return this.myForm.get('periodName')
+  // }
+
+  get logo() {
+    return this.myForm.get('logo');
+  }
+
+  get customerDuesEnable() {
+    return this.myForm.get('customerDuesEnable');
+  }
+
+  get customerDuesDate() {
+    return this.myForm.get('customerDuesDate');
+  }
+
+  get offlineQrEnable() {
+    return this.myForm.get('offlineQrEnable');
+  }
+
+  get renewalAutoDebit() {
+    return this.myForm.get('renewalAutoDebit');
+  }
+
+  // get payoutEnable() {
+  //   return this.myForm.get('payoutEnable')
+  // }
+
+  get customerManualStatus() {
+    return this.myForm.get('customerManualStatus');
+  }
+
+  get customerPaymentMode() {
+    return this.myForm.get('customerPaymentMode');
+  }
+
+  get smsMerchantName() {
+    return this.myForm.get('smsMerchantName');
+  }
+
+  get customerSmsTag() {
+    return this.myForm.get('customerSmsTag');
+  }
+  get cloudFeeEnable() {
+    return this.myForm.get('cloudFeeEnable');
+  }
+
+  // second Form
+
+  get accountHolderName() {
+    return this.myForm2.get('accountHolderName');
+  }
+
+  get accountNumber() {
+    return this.myForm2.get('accountNumber');
+  }
+  get bankName() {
+    return this.myForm2.get('bankName');
+  }
+
+  get ifscCode() {
+    return this.myForm2.get('ifscCode');
+  }
+
+  get branchName() {
+    return this.myForm2.get('branchName');
+  }
+
+  get accountType() {
+    return this.myForm2.get('accountType');
+  }
+
+  get ledgerId() {
+    return this.myForm2.get('ledgerId');
+  }
+  get typemode() {
+    return this.myForm2.get('typemode');
+  }
+  // third Form
+
+  get identityProof() {
+    return this.firstFormGroup.get('identityProof');
+  }
+  get identityProofNo() {
+    return this.firstFormGroup.get('identityProofNo');
+  }
+  get identityFrontPath() {
+    return this.firstFormGroup.get('identityFrontPath');
+  }
+
+  get identityBackPath() {
+    return this.firstFormGroup.get('identityBackPath');
+  }
+
+  get drivingLicenceDob() {
+    return this.firstFormGroup.get('drivingLicenceDob');
+  }
+  get passportDob() {
+    return this.firstFormGroup.get('passportDob');
+  }
+
+  get addressProof() {
+    return this.secondFormGroup.get('addressProof');
+  }
+
+  get addressProofNo() {
+    return this.secondFormGroup.get('addressProofNo');
+  }
+
+  get addressFrontPath() {
+    return this.secondFormGroup.get('addressFrontPath');
+  }
+
+  get addressBackPath() {
+    return this.secondFormGroup.get('addressBackPath');
+  }
+  get drivingLicenceDobs() {
+    return this.secondFormGroup.get('drivingLicenceDobs');
+  }
+  get passportDobs() {
+    return this.secondFormGroup.get('passportDobs');
+  }
+
+  get signatureProof() {
+    return this.thirdFormGroup.get('signatureProof');
+  }
+  get signatureProofNo() {
+    return this.thirdFormGroup.get('signatureProofNo');
+  }
+  get signatureFrontPath() {
+    return this.thirdFormGroup.get('signatureFrontPath');
+  }
+  get signatureBackPath() {
+    return this.thirdFormGroup.get('signatureBackPath');
+  }
+  get drivingLicenceDobss() {
+    return this.thirdFormGroup.get('drivingLicenceDobss');
+  }
+  get passportDobss() {
+    return this.thirdFormGroup.get('passportDobss');
+  }
+
+  // Bussiness form
+
+  get kycCategoryIds() {
+    return this.fourthFormGroup.get('kycCategoryIds');
+  }
+
+  get docNumber() {
+    return this.fourthFormGroup.get('docNumber');
+  }
+
+  get expiryDate() {
+    return this.fourthFormGroup.get('expiryDate');
+  }
+
+  get docFrontPath() {
+    return this.fourthFormGroup.get('docFrontPath');
+  }
+
+  get docBackPath() {
+    return this.fourthFormGroup.get('docBackPath');
+  }
+  onFileSelected(event: any) {
+    this.uploadidentityfront = event.target.files[0];
+    // Ensure this.uploadImage is not null
+    if (this.uploadidentityfront) {
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
+
+      if (acceptableTypes.includes(this.uploadidentityfront.type)) {
+        if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
+          this.toastr.success('Image uploaded successfully');
+        } else {
+          this.toastr.error('Max Image size exceeded');
+          this.identityFrontPath?.reset();
+        }
+      } else {
+        this.toastr.error('File type not acceptable');
+        this.identityFrontPath?.reset();
+      }
+    } else {
+      this.toastr.error('No file selected');
+    }
+  }
+
+  onFileSelected2(event: any) {
+    this.uploadidentityback = event.target.files[0];
+    // Ensure this.uploadImage is not null
+    if (this.uploadidentityback) {
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
+
+      if (acceptableTypes.includes(this.uploadidentityback.type)) {
+        if (this.uploadidentityback.size <= 20 * 1024 * 1024) {
+          this.toastr.success('Image uploaded successfully');
+        } else {
+          this.toastr.error('Max Image size exceeded');
+          this.identityBackPath?.reset();
+        }
+      } else {
+        this.toastr.error('File type not acceptable');
+        this.identityBackPath?.reset();
+      }
+    } else {
+      this.toastr.error('No file selected');
+    }
+  }
+  onaddressfront(event: any) {
+    this.uploadaddressfront = event.target.files[0];
+    // Ensure this.uploadImage is not null
+    if (this.uploadaddressfront) {
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
+
+      if (acceptableTypes.includes(this.uploadaddressfront.type)) {
+        if (this.uploadaddressfront.size <= 20 * 1024 * 1024) {
+          this.toastr.success('Image uploaded successfully');
+        } else {
+          this.toastr.error('Max Image size exceeded');
+          this.addressFrontPath?.reset();
+        }
+      } else {
+        this.toastr.error('File type not acceptable');
+        this.addressFrontPath?.reset();
+      }
+    } else {
+      this.toastr.error('No file selected');
+    }
+  }
+  onaddressback(event: any) {
+    this.uploadaddressback = event.target.files[0];
+    // Ensure this.uploadImage is not null
+    if (this.uploadaddressback) {
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
+      if (acceptableTypes.includes(this.uploadaddressback.type)) {
+        if (this.uploadaddressback.size <= 20 * 1024 * 1024) {
+          this.toastr.success('Image uploaded successfully');
+        } else {
+          this.toastr.error('Max Image size exceeded');
+          this.addressBackPath?.reset();
+        }
+      } else {
+        this.toastr.error('File type not acceptable');
+        this.addressBackPath?.reset();
+      }
+    } else {
+      this.toastr.error('No file selected');
+    }
+  }
+  onasignfront(event: any) {
+    this.uploadsignfront = event.target.files[0];
+    // Ensure this.uploadImage is not null
+    if (this.uploadsignfront) {
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
+
+      if (acceptableTypes.includes(this.uploadsignfront.type)) {
+        if (this.uploadsignfront.size <= 20 * 1024 * 1024) {
+          this.toastr.success('Image uploaded successfully');
+        } else {
+          this.toastr.error('Max Image size exceeded');
+          this.signatureFrontPath?.reset();
+        }
+      } else {
+        this.toastr.error('File type not acceptable');
+        this.signatureFrontPath?.reset();
+      }
+    } else {
+      this.toastr.error('No file selected');
+    }
+  }
+  onasignback(event: any) {
+    this.uploadsignback = event.target.files[0];
+    // Ensure this.uploadImage is not null
+    if (this.uploadsignback) {
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
+
+      if (acceptableTypes.includes(this.uploadsignback.type)) {
+        if (this.uploadsignback.size <= 20 * 1024 * 1024) {
+          this.toastr.success('Image uploaded successfully');
+        } else {
+          this.toastr.error('Max Image size exceeded');
+          this.signatureBackPath?.reset();
+        }
+      } else {
+        this.toastr.error('File type not acceptable');
+        this.signatureBackPath?.reset();
+      }
+    } else {
+      this.toastr.error('No file selected');
+    }
+  }
+
+  onIdentityProofChange(event: any) {
+    this.selectElement = event.target.value;
+    const identityProofNoControl = this.firstFormGroup.get('identityProofNo');
+    const identityProofNoControl1 = this.firstFormGroup.get('passportDob');
+    const identityProofNoControl2 =
+      this.firstFormGroup.get('drivingLicenceDob');
+
+    identityProofNoControl?.clearValidators();
+
+    if (this.selectElement == 'Aadhar Card') {
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[0-9]{12}$'),
+      ]); // 12 digits for Aadhar
+      identityProofNoControl2?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
+    }
+    if (this.selectElement == 'Pancard') {
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{5}[0-9]{4}[A-Z]$'),
+      ]); // PAN format
+      identityProofNoControl2?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
+    }
+    if (this.selectElement == 'Voter Id Proof') {
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{3}[0-9]{7}$'),
+      ]); // Voter ID format
+      identityProofNoControl2?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
+    }
+    if (this.selectElement == 'Passport') {
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
+      ]); // Passport format
+      identityProofNoControl1?.setValidators([Validators.required]); // Driving license format
+
+      identityProofNoControl2?.setValidators([]); // Driving license format
+    }
+    if (this.selectElement == 'Driving License') {
+      identityProofNoControl?.setValidators([Validators.required]);
+      identityProofNoControl2?.setValidators([Validators.required]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
+    }
+
+    // Reset the values of the related fields
+    this.firstFormGroup.get('identityProofNo')?.reset();
+    this.firstFormGroup.get('identityFrontPath')?.reset();
+    this.firstFormGroup.get('identityBackPath')?.reset();
+    this.firstFormGroup.get('drivingLicenceDob')?.reset();
+    this.firstFormGroup.get('passportDob')?.reset();
+
+    // Recheck the form's validity
+    this.firstFormGroup.updateValueAndValidity(); // This is critical to revalidate the whole form group
+  }
+
+  onAddressProofChange(event: any) {
+    this.selectElements = event.target.value;
+    const addressProofNoControl = this.secondFormGroup.get('addressProofNo');
+    const addressProofNoControl1 = this.secondFormGroup.get('passportDobs');
+    const addressProofNoControl2 =
+      this.secondFormGroup.get('drivingLicenceDobs');
+
+    addressProofNoControl?.clearValidators();
+
+    if (this.selectElements == 'Aadhar Card') {
+      addressProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[0-9]{12}$'),
+      ]); // 12 digits for Aadhar
+      addressProofNoControl2?.setValidators([]);
+      addressProofNoControl1?.setValidators([]);
+    }
+    if (this.selectElements == 'Voter Id Proof') {
+      addressProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{3}[0-9]{7}$'),
+      ]);
+      addressProofNoControl2?.setValidators([]);
+      addressProofNoControl1?.setValidators([]);
+    }
+    if (this.selectElements == 'Passport') {
+      addressProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
+      ]); // Passport format
+      addressProofNoControl1?.setValidators([Validators.required]); // Driving license format
+
+      addressProofNoControl2?.setValidators([]);
+    }
+    if (this.selectElements == 'Driving License') {
+      addressProofNoControl?.setValidators([Validators.required]);
+      addressProofNoControl2?.setValidators([Validators.required]); // Driving license format
+      addressProofNoControl1?.setValidators([]);
+    }
+
+    this.secondFormGroup.get('addressProofNo')?.reset();
+    this.secondFormGroup.get('addressFrontPath')?.reset();
+    this.secondFormGroup.get('addressBackPath')?.reset();
+    this.secondFormGroup.get('drivingLicenceDobs')?.reset();
+    this.secondFormGroup.get('passportDobs')?.reset();
+
+    this.secondFormGroup?.updateValueAndValidity();
+  }
+
+  onasignproof(event: any) {
+    this.select = event.target.value;
+    const signatureProofNoControl = this.thirdFormGroup.get('signatureProofNo');
+    const signatureProofNoControl1 = this.thirdFormGroup.get('passportDobss');
+    const signatureProofNoControl2 = this.thirdFormGroup.get(
+      'drivingLicenceDobss'
+    );
+
+    signatureProofNoControl?.clearValidators();
+
+    if (this.select == 'Pancard') {
+      signatureProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{5}[0-9]{4}[A-Z]$'),
+      ]);
+      signatureProofNoControl2?.setValidators([]);
+      signatureProofNoControl1?.setValidators([]);
+    }
+    if (this.select == 'Passport') {
+      signatureProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
+      ]); // Passport format
+      signatureProofNoControl1?.setValidators([Validators.required]); // Driving license format
+
+      signatureProofNoControl2?.setValidators([]);
+    }
+    if (this.select == 'Driving License') {
+      signatureProofNoControl?.setValidators([Validators.required]);
+      signatureProofNoControl2?.setValidators([Validators.required]); // Driving license format
+      signatureProofNoControl1?.setValidators([]);
+    }
+
+    this.thirdFormGroup.get('signatureProofNo')?.reset();
+    this.thirdFormGroup.get('signatureFrontPath')?.reset();
+    this.thirdFormGroup.get('signatureBackPath')?.reset();
+    this.thirdFormGroup.get('drivingLicenceDobss')?.reset();
+    this.thirdFormGroup.get('passportDobss')?.reset();
+
+    this.thirdFormGroup?.updateValueAndValidity();
+  }
+  getlogo(event: any) {
+    this.uploadImage = event.target.files[0];
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success('Image uploaded successfully');
+        } else {
+          this.toastr.error('Max Image size exceeded');
+          this.logo?.reset();
+        }
+      } else {
+        this.toastr.error('File type not acceptable');
+        this.logo?.reset();
+      }
+    } else {
+      this.toastr.error('No file selected');
+    }
+  }
+
+  docfront(event: any) {
+    this.uploaddocfront = event.target.files[0];
+    // Ensure this.uploadImage is not null
+    if (this.uploaddocfront) {
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
+
+      if (acceptableTypes.includes(this.uploaddocfront.type)) {
+        if (this.uploaddocfront.size <= 20 * 1024 * 1024) {
+          this.toastr.success('Image uploaded successfully');
+        } else {
+          this.toastr.error('Max Image size exceeded');
+          this.docFrontPath?.reset();
+        }
+      } else {
+        this.toastr.error('File type not acceptable');
+        this.docFrontPath?.reset();
+      }
+    } else {
+      this.toastr.error('No file selected');
+    }
+  }
+
+  docback(event: any) {
+    this.uploaddocback = event.target.files[0];
+    // Ensure this.uploadImage is not null
+    if (this.uploaddocback) {
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
+
+      if (acceptableTypes.includes(this.uploaddocback.type)) {
+        if (this.uploaddocback.size <= 20 * 1024 * 1024) {
+          this.toastr.success('Image uploaded successfully');
+        } else {
+          this.toastr.error('Max Image size exceeded');
+          this.docBackPath?.reset();
+        }
+      } else {
+        this.toastr.error('File type not acceptable');
+        this.docBackPath?.reset();
+      }
+    } else {
+      this.toastr.error('No file selected');
+    }
   }
 
   Submit() {
-    let submitModel: addentity = {
-      entityName: this.entityName?.value,
-      merchantLegalName: this.merchantLegalName?.value,
-      accountDisplayName: this.accountDisplayName?.value,
-      contactName: this.contactName?.value,
-      contactMobile: this.contactMobile?.value,
-      secondaryMobile: this.secondaryMobile?.value,
-      contactEmail: this.contactEmail?.value,
-      gstIn: this.gstIn?.value,
-      billingAddress: this.billingAddress?.value,
-      area: this.area?.value,
-      zipcode: this.zipcode?.value,
-      stateName: this.stateName?.value,
-      city: this.city?.value,
-      contactPerson: this.contactPerson?.value,
-      country: this.country?.value,
-      locationServed: this.locationServed?.value,
-      serviceOffered: this.serviceOffered?.value,
-      businessCategoryId: this.businessCategoryId?.value,
-      mccCode: this.mccCode?.value
-    }
-    this.AddEntity.EntityAdd(submitModel).subscribe((res: any) => {
+    const formData = new FormData();
+    formData.append('contactEmail', this.contactEmail?.value.trim());
+    formData.append('contactMobile', this.contactMobile?.value.trim());
+    formData.append('entityName', this.entityName?.value.trim());
+    formData.append('planModifyBy', this.adminName);
+    formData.append('merchantLegalName', this.merchantLegalName?.value.trim());
+    formData.append('accountDisplayName', this.accountDisplayName?.value.trim());
+    formData.append('gstIn', this.gstIn?.value.trim() || '-');
+    formData.append('contactName', this.contactName?.value.trim());
+    formData.append('secondaryMobile', this.secondaryMobile?.value.trim());
+    formData.append('billingAddress', this.billingAddress?.value.trim());
+    formData.append('area', this.area?.value.trim());
+    formData.append('stateName', this.stateName?.value.trim());
+    formData.append('country', this.country?.value.trim());
+    formData.append('zipcode', this.zipcode?.value.trim());
+    formData.append('city', this.city?.value.trim());
+    formData.append('businessCategoryId', this.businessId);
+    formData.append('merchantPlanId', this.merchantPlanId?.value);
+    formData.append('mccCode', this.mcccode.trim());
+    formData.append('periodName', 'NA');
+    formData.append('website', this.website?.value.trim() || '');
+    formData.append('merchantLogo', this.uploadImage || this.placeholderImage);
+    formData.append('billingMode', this.billingMode?.value);
+    formData.append('autoDebitStatus', this.autoDebitStatus?.value);
+    formData.append('customerDuesEnable', this.customerDuesEnable?.value);
+    formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
+    formData.append('dueDate', this.dueDate?.value || 0);
+    formData.append('dueEndDate', this.dueEndDate?.value || 0);
+    formData.append('offlineQrEnable', this.offlineQrEnable?.value);
+    formData.append('payoutEnable', '0');
+    formData.append('customerPaymentMode', this.customerPaymentMode?.value);
+    formData.append('renewalAutoDebit', this.renewalAutoDebit?.value);
+    formData.append('customerManualStatus', '0');
+    formData.append('smsMerchantName', this.smsMerchantName?.value);
+    formData.append('customerSmsTag', this.customerSmsTag?.value || 'NA');
+    formData.append('cloudFeeEnable', this.cloudFeeEnable?.value);
+    this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.merchantid = res.response.merchantId;
+        this.bussinessid = res.response.businessCategoryModel.businessCategoryId;
+        this.AddEntity.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
+          this.KYCDocNames = res.response;
+        }
+        );
+        this.toastr.success(res.responseMessage);
+        this.Bankdetails = true;
+        this.personeldetails = false;
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
+  }
+
+  BankSubmit() {
+    let submitModel: AddEntityBank = {
+      accountHolderName: this.accountHolderName?.value.trim(),
+      accountNumber: this.accountNumber?.value.trim(),
+      bankId: this.bankName?.value,
+      ifscCode: this.ifscCode?.value.trim(),
+      branchName: this.branchName?.value.trim(),
+      accountType: this.accountType?.value,
+      merchantId: this.merchantid,
+      ledgerId: this.ledgerId?.value.trim(),
+      typeMode: this.typemode?.value,
+      createdBy: this.adminName,
+    };
+    this.AddEntity.EntitybankAdd(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        this.Bankdetails = false;
+        this.personeldetails = false;
+        this.KYCdetails = true;
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
+  }
+
+  kycsubmit() {
+    const formData = new FormData();
+    formData.append('merchantId', this.merchantid);
+    formData.append('identityFrontPath', this.uploadidentityfront);
+    formData.append('identityBackPath', this.uploadidentityback);
+    formData.append('identityProof', this.identityProof?.value);
+    formData.append('identityProofNo', this.identityProofNo?.value.trim());
+    formData.append('addressFrontPath', this.uploadaddressfront);
+    formData.append('addressBackPath', this.uploadaddressback);
+    formData.append('addressProof', this.addressProof?.value);
+    formData.append('addressProofNo', this.addressProofNo?.value.trim());
+    formData.append('signatureFrontPath', this.uploadsignfront);
+    formData.append('signatureBackPath', this.uploadsignback);
+    formData.append('createdBy', this.adminName);
+    formData.append('signatureProof', this.signatureProof?.value);
+    formData.append('signatureProofNo', this.signatureProofNo?.value.trim());
+    formData.append(
+      'drivingLicenceDob',
+      this.drivingLicenceDob?.value ||
+      this.drivingLicenceDobs?.value ||
+      this.drivingLicenceDobss?.value
+    );
+    formData.append(
+      'passportDob',
+      this.passportDob?.value ||
+      this.passportDobs?.value ||
+      this.passportDobss?.value
+    );
+    this.AddEntity.entitykycs(formData).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        this.KYCdetails = false;
+        this.BussinessDocument = true;
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
+  }
+
+  docSubmit() {
+    const formData = new FormData();
+    formData.append('merchantId', this.merchantid);
+    formData.append('docFrontPath', this.uploaddocfront);
+    formData.append('docBackPath', this.uploaddocback || this.emptyBlob);
+    formData.append('kycCategoryId', this.kycCategoryIds?.value);
+    formData.append('docNumber', this.docNumber?.value.trim());
+    formData.append('expiryDate', this.expiryDate?.value);
+    formData.append('createdBy', this.adminName);
+    this.AddEntity.documentAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.router.navigateByUrl('dashboard/entity-viewall');
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
-      } else this.toastr.error(res.responseMessage);
-
-      console.log(res);
-    })
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
   }
-
 
   close() {
     this.router.navigateByUrl('dashboard/entity-viewall');
-  }
-
-
-
-
-
-
-
-
-
-
-
-  Mccode(id: any) {
-    console.log(id)
   }
 }
