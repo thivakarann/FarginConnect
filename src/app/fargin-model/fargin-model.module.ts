@@ -181,9 +181,9 @@ export interface AddEntityBank {
   readonly ifscCode: any;
   readonly branchName: any;
   readonly accountType: any;
-  readonly merchantId: any;
-  readonly ledgerId: any;
-  readonly createdBy: any;
+  readonly personalDetailsId: any;
+  readonly pgLedgerId: any;
+  readonly createdby: any;
   readonly typeMode: any;
 }
 

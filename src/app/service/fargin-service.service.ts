@@ -109,7 +109,7 @@ export class FarginServiceService {
 
   private readonly Entitygetallexport = 'merchant/getall';
   private readonly entitygetall = 'merchant/getall/';
-  private readonly AddEntity = 'merchant/create';
+  private readonly AddEntity = 'entity/personalDetails/add';
   private readonly EntityKYCBYbusinessid = 'businesskyc/getcategorykyc/';
   private readonly Entityviewbyid = 'merchant/getmerchants/';
   private readonly updateEntity = 'merchant/updateMerchant/';
@@ -118,7 +118,8 @@ export class FarginServiceService {
   private readonly merchantlogo = 'merchant/updateimage ';
   private readonly keysupdate = 'merchant/updateKey';
   private readonly paymentlink = 'paymentlink/getmerchant/';
-  private readonly businessid = 'businesscategory/getById/';
+  private readonly businessid = 'businesscategory/getById';
+  private readonly merchantplanbybusid = 'entityPlan/getByStatus';
   private readonly manualreciept = 'merchantpay/viewreceipt/';
   private readonly entitykyc = 'entityDocument/addDocuments';
   private readonly EntityPlanDetails = 'merchant/viewMerchantPlanHistorys/';
@@ -138,7 +139,7 @@ export class FarginServiceService {
 
   //entity bank
 
-  private readonly EntityBankAdd = 'merchantbank/create';
+  private readonly EntityBankAdd = 'entity/bankDetails/add';
   private readonly EntityBankEdit = 'merchantbank/updatebank/';
   private readonly bankprimarystatus = 'merchantbank/updateprimaryaccount/';
   private readonly bankactivestatus = 'merchantbank/updateactive/';
@@ -1431,8 +1432,12 @@ export class FarginServiceService {
   // }
 
 
-  EntityBusinessCategoryId(id: any) {
-    return this.http.get(`${this.basePath}${this.businessid}${id}`, this.options);
+  EntityBusinessCategoryId(modal:any) {
+    return this.http.post(`${this.basePath}${this.businessid}`,modal,this.options);
+  }
+
+  EntityBusinessCategorybyplan(modal:any){
+    return this.http.post(`${this.basePath}${this.merchantplanbybusid}`,modal,this.options)
   }
 
   //verification response

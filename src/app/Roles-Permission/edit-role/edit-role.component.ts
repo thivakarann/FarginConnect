@@ -42,12 +42,8 @@ export class EditRoleComponent implements OnInit {
   permissiondata: any;
   subpermissiondata: any;
   getbusValue: any;
-  previousBusinessIds: number[] = [];
   previousPermissionIds: number[] = [];
   initialSubPermissionIds: number[] = [];
-  subIdToPermId = new Map<number, number>();
-  isFirstLoad = true;
-
 
 
   constructor(
@@ -87,17 +83,6 @@ export class EditRoleComponent implements OnInit {
     this.editRole.patchValue({
       roleName: this.getRoleName,
       businessCategoryId: this.getbusValue
-    });
-
-    this.editRole.get('permission')!.valueChanges.subscribe((perIds: number[]) => {
-      const subCtrl = this.editRole.get('subPermission')!;
-      if (perIds.length > 0) {
-        subCtrl.setValidators([Validators.required]);
-      } else {
-        subCtrl.clearValidators();
-        subCtrl.setValue([]);
-      }
-      subCtrl.updateValueAndValidity({ emitEvent: false });
     });
 
     this.Businnescat();
@@ -146,80 +131,58 @@ export class EditRoleComponent implements OnInit {
 
   Businnescat() {
     const payload = { status: 1 };
-    const datamodal: Payload = {
+    let datamodal: Payload = {
       data: this.cryptoService.encrypt(JSON.stringify(payload))
     };
 
     this.service.ActiveBus(datamodal).subscribe((res: any) => {
-      this.details = JSON.parse(this.cryptoService.decrypt(res.data));
-      this.valuesbusiness = this.details.map((b: any) => ({
-        value: b.businessCategoryId,
-        viewValue: b.businessCategoryName,
-      }));
-      this.Permission(this.getbusValue);
+      if (res.flag == 1) {
+        this.details = JSON.parse(this.cryptoService.decrypt(res.data));
+        this.valuesbusiness = [];
+        this.details.forEach((element: any) => {
+          this.valuesbusiness.push({
+            value: element.businessCategoryId,
+            viewValue: element.businessCategoryName,
+          });
+        });
+      }
     });
   }
 
-  Permission(currentBusinessIds: number[]) {
-    const isAllCleared = currentBusinessIds.length === 0;
+  Permission(id: any) {
+    this.permissionValue = [];
+    this.values = [];
 
-    if (isAllCleared) {
-      this.permissionValue = [];
-      this.values = [];
-      this.subpermissiondata = [];
-      this.values2 = [];
-      this.subIdToPermId.clear();
-      this.editRole.get('permission')?.setValue([]);
-      this.editRole.get('subPermission')?.setValue([]);
-      this.previousPermissionIds = [];
-      this.previousBusinessIds = [];
-      return;
-    }
+    this.subpermissiondata = [];
+    this.values2 = [];
 
-    const removedBusinessIds = this.previousBusinessIds.filter(id => !currentBusinessIds.includes(id));
+    // ✅ Reset form controls to remove selected values
+    this.editRole.get('permission')?.setValue([]);
+    this.editRole.get('subPermission')?.setValue([]);
 
     const payload = {
-      businessCategoryIds: currentBusinessIds,
+      businessCategoryIds: id,
       status: 1,
       needAdminData: true
     };
     const datamodal: Payload = {
       data: this.cryptoService.encrypt(JSON.stringify(payload))
     };
-
     this.service.permissionget(datamodal).subscribe((res: any) => {
-      const allPermissions = JSON.parse(this.cryptoService.decrypt(res.data));
-
-      const removedPermissionIds = removedBusinessIds.flatMap(id =>
-        allPermissions.filter((p: any) => p.businessCategoryId === id).map((p: any) => p.permissionId)
-      );
-
-      const currentSelectedPermissions = this.editRole.get('permission')?.value || [];
-      const filteredPermissions = currentSelectedPermissions.filter((pid: any) => !removedPermissionIds.includes(pid));
-      this.editRole.get('permission')?.setValue(filteredPermissions);
-
-      const currentSelectedSubs = this.editRole.get('subPermission')?.value || [];
-      const filteredSubs = currentSelectedSubs.filter((subId: number) => {
-        const parentPermId = this.subIdToPermId.get(subId);
-        return parentPermId !== undefined && !removedPermissionIds.includes(parentPermId);
+      this.permissionValue = JSON.parse(this.cryptoService.decrypt(res.data));
+      this.permissionValue.forEach((element: any) => {
+        this.values.push({
+          value: element.permissionId,
+          viewValue: element.permissionName,
+        });
       });
-      this.editRole.get('subPermission')?.setValue(filteredSubs);
-
-      this.permissionValue = allPermissions;
-      this.values = allPermissions.map((p: any) => ({
-        value: p.permissionId,
-        viewValue: p.permissionName,
-      }));
-
-      this.previousBusinessIds = [...currentBusinessIds];
-      this.sendPermissionId(filteredPermissions);
     });
-  }
+  };
 
 
   sendPermissionId(selectedPermissionIds: number[]) {
-    const currentSelected = this.editRole.get('subPermission')?.value || [];
 
+    const currentSelected = this.editRole.get('subPermission')?.value || [];
     const submitModel: subpermission = { permissionIds: selectedPermissionIds, status: 1 };
     const datamodal: Payload = { data: this.cryptoService.encrypt(JSON.stringify(submitModel)) };
 
@@ -229,38 +192,42 @@ export class EditRoleComponent implements OnInit {
       this.values2 = this.subpermissiondata.map((sp: any) => ({
         value: sp.subPermissionId,
         viewValue: sp.subPermissionName,
-        permissionId: sp.permission?.permissionId
+        viewValues: sp.permission?.permissionName,
       }));
 
-      const validSubIds = this.subpermissiondata.map((sp: { subPermissionId: any; }) => sp.subPermissionId);
+      const validSubIds = this.subpermissiondata.map((sp: any) => sp.subPermissionId);
+
+      // Permissions removed
+      const removedPermissions = this.previousPermissionIds.filter(pid => !selectedPermissionIds.includes(pid));
+      const removedSubIds = this.subpermissiondata
+        .filter((sp: any) => removedPermissions.includes(sp.permission?.permissionId))
+        .map((sp: any) => sp.subPermissionId);
+
+      // Permissions newly added (including reselected)
+      const newlyAddedPermissions = selectedPermissionIds.filter(pid => !this.previousPermissionIds.includes(pid));
+      const newlyAddedSubIds = this.subpermissiondata
+        .filter((sp: any) => newlyAddedPermissions.includes(sp.permission?.permissionId))
+        .map((sp: any) => sp.subPermissionId);
 
       let finalSelection: number[];
 
-      if (this.isFirstLoad) {
-        finalSelection = this.getSubValue.filter((subId: any) => validSubIds.includes(subId));
-        this.isFirstLoad = false;
-      } else {
-        const removedPermissions = this.previousPermissionIds.filter(pid => !selectedPermissionIds.includes(pid));
-        const removedSubIds = this.subpermissiondata
-          .filter((sp: { permission: { permissionId: number; }; }) => removedPermissions.includes(sp.permission?.permissionId))
-          .map((sp: { subPermissionId: any; }) => sp.subPermissionId);
+      if (this.previousPermissionIds.length === 0) {
+        // First load → preselect from DB
+        finalSelection = this.initialSubPermissionIds.filter(subId => validSubIds.includes(subId));
+      }
+      else {
+        // Subsequent changes
+        finalSelection = currentSelected.filter((subId: any) => !removedSubIds.includes(subId)) // drop subs of removed permissions
+          .filter((subId: any) => validSubIds.includes(subId));   // keep only valid subs
 
-        const newlyAddedPermissions = selectedPermissionIds.filter(pid => !this.previousPermissionIds.includes(pid));
-        const newlyAddedSubIds = this.subpermissiondata
-          .filter((sp: { permission: { permissionId: number; }; }) => newlyAddedPermissions.includes(sp.permission?.permissionId))
-          .map((sp: { subPermissionId: any; }) => sp.subPermissionId);
-
-        finalSelection = currentSelected
-          .filter((subId: any) => !removedSubIds.includes(subId))
-          .filter((subId: any) => validSubIds.includes(subId))
-          .filter((subId: any) => !newlyAddedSubIds.includes(subId));
+        // ✅ Do NOT auto-add subs of newly added/reselected permissions
+        finalSelection = finalSelection.filter(subId => !newlyAddedSubIds.includes(subId));
       }
 
       this.editRole.get('subPermission')?.setValue(finalSelection);
       this.previousPermissionIds = [...selectedPermissionIds];
     });
   }
-
 
 
 
@@ -280,7 +247,7 @@ export class EditRoleComponent implements OnInit {
     this.service.editRole(datamodal).subscribe((res: any) => {
       this.updateValue = res.response;
       if (res.flag == 1) {
-        this.toastr.success(res.messageDescription);
+        this.toastr.success('Role has been Updated Successfully');
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {

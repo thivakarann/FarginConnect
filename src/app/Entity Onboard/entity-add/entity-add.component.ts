@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AddEntityBank } from '../../fargin-model/fargin-model.module';
+import { AddEntityBank, Payload } from '../../fargin-model/fargin-model.module';
 import moment from 'moment';
 import { EncyDecySericeService } from '../../Encrypt-Decrypt Service/ency-decy-serice.service';
 
@@ -51,6 +51,7 @@ export class EntityAddComponent implements OnInit {
   error!: boolean;
   file3!: File;
   businessId: any;
+  ListbusssID: any;
   mcccode: any;
   BankNames: any;
   file4!: File;
@@ -89,6 +90,8 @@ export class EntityAddComponent implements OnInit {
   uploaddocback: any;
   maxDate: any;
   eighteenYearsAgo: Date;
+  details: any;
+  busineesdetails: any;
 
   constructor(
     public AddEntity: FarginServiceService,
@@ -106,13 +109,7 @@ export class EntityAddComponent implements OnInit {
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
 
-    this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
-      this.categorydetails = res.response.reverse();
-    });
-
-    this.AddEntity.merchantplanactive().subscribe((res: any) => {
-      this.entittyplanviewall = res.response.reverse();
-    });
+    this.Businnescat();
 
     this.AddEntity.activebankdetails().subscribe((res: any) => {
       this.BankNames = res.response.reverse();
@@ -307,6 +304,20 @@ export class EntityAddComponent implements OnInit {
     });
   };
 
+  Businnescat() {
+    const payload = {
+      status: 1,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.AddEntity.ActiveBus(datamodal).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.details = JSON.parse(this.cryptoService.decrypt(res.data));;
+      }
+    })
+  }
+
   async loadPlaceholderImage(): Promise<File> {
     const res = await fetch('assets/fargin_blue.png');
     const blob = await res.blob();
@@ -337,23 +348,50 @@ export class EntityAddComponent implements OnInit {
 
   onCategoryChange(event: any) {
     this.businessId = event.target.value;
-    this.AddEntity.EntityBusinessCategoryId(this.businessId).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.mcccode = res.response.mccCode;
-      }
+    this.ListbusssID = [event.target.value];
+    console.log(this.businessId)
+    console.log(this.ListbusssID)
+
+    const payload = {
+      businessCategoryId: this.businessId,
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
     }
-    );
+    this.AddEntity.EntityBusinessCategoryId(datamodal).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.busineesdetails = JSON.parse(this.cryptoService.decrypt(res.data));;
+        this.mcccode = this.busineesdetails?.mccCode;
+      }
+    });
+    this.MerchnatPlans();
+  }
+
+  MerchnatPlans() {
+    const payload = {
+      status: 1,
+      businessCategoryIds: this.ListbusssID
+    };
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(payload))
+    }
+    this.AddEntity.EntityBusinessCategorybyplan(datamodal).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.entittyplanviewall = JSON.parse(this.cryptoService.decrypt(res.data));;
+      }
+    })
+
   }
 
   cloudFeeEnableChange(event: Event) {
     const value = (event.target as HTMLSelectElement)?.value;
     const autoDebitControl = this.myForm.get('autoDebitStatus');
-    if (value === 'No') {
-      this.myForm.get('autoDebitStatus')?.setValue('0');
+    if (value === 'false') {
+      this.myForm.get('autoDebitStatus')?.setValue('false');
       autoDebitControl?.disable();
     }
-    else if (value === 'Yes') {
-      this.myForm.get('autoDebitStatus')?.setValue(null);
+    else if (value === 'true') {
+      this.myForm.get('autoDebitStatus')?.setValue('false');
       autoDebitControl?.reset();
       autoDebitControl?.enable();
     }
@@ -909,6 +947,7 @@ export class EntityAddComponent implements OnInit {
 
     this.thirdFormGroup?.updateValueAndValidity();
   }
+
   getlogo(event: any) {
     this.uploadImage = event.target.files[0];
     // Ensure this.uploadImage is not null
@@ -987,41 +1026,44 @@ export class EntityAddComponent implements OnInit {
 
   Submit() {
     const formData = new FormData();
-    formData.append('contactEmail', this.contactEmail?.value.trim());
-    formData.append('contactMobile', this.contactMobile?.value.trim());
-    formData.append('entityName', this.entityName?.value.trim());
-    formData.append('planModifyBy', this.adminName);
-    formData.append('merchantLegalName', this.merchantLegalName?.value.trim());
-    formData.append('accountDisplayName', this.accountDisplayName?.value.trim());
-    formData.append('gstIn', this.gstIn?.value.trim() || '-');
-    formData.append('contactName', this.contactName?.value.trim());
-    formData.append('secondaryMobile', this.secondaryMobile?.value.trim());
-    formData.append('billingAddress', this.billingAddress?.value.trim());
-    formData.append('area', this.area?.value.trim());
-    formData.append('stateName', this.stateName?.value.trim());
-    formData.append('country', this.country?.value.trim());
-    formData.append('zipcode', this.zipcode?.value.trim());
-    formData.append('city', this.city?.value.trim());
-    formData.append('businessCategoryId', this.businessId);
-    formData.append('merchantPlanId', this.merchantPlanId?.value);
-    formData.append('mccCode', this.mcccode.trim());
-    formData.append('periodName', 'NA');
-    formData.append('website', this.website?.value.trim() || '');
-    formData.append('merchantLogo', this.uploadImage || this.placeholderImage);
-    formData.append('billingMode', this.billingMode?.value);
-    formData.append('autoDebitStatus', this.autoDebitStatus?.value);
-    formData.append('customerDuesEnable', this.customerDuesEnable?.value);
-    formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
-    formData.append('dueDate', this.dueDate?.value || 0);
-    formData.append('dueEndDate', this.dueEndDate?.value || 0);
-    formData.append('offlineQrEnable', this.offlineQrEnable?.value);
-    formData.append('payoutEnable', '0');
-    formData.append('customerPaymentMode', this.customerPaymentMode?.value);
-    formData.append('renewalAutoDebit', this.renewalAutoDebit?.value);
-    formData.append('customerManualStatus', '0');
-    formData.append('smsMerchantName', this.smsMerchantName?.value);
-    formData.append('customerSmsTag', this.customerSmsTag?.value || 'NA');
-    formData.append('cloudFeeEnable', this.cloudFeeEnable?.value);
+    const payload: any = {
+      contactEmail: this.contactEmail?.value.trim(),
+      primaryMobileNumber: this.contactMobile?.value.trim(),
+      entityName: this.entityName?.value.trim(),
+      createdby: this.adminName,
+      entityLegalName: this.merchantLegalName?.value.trim(),
+      accountDisplayName: this.accountDisplayName?.value.trim(),
+      gstin: this.gstIn?.value.trim() || '-',
+      contactName: this.contactName?.value.trim(),
+      secondaryMobileNumber: this.secondaryMobile?.value.trim(),
+      billingAddress: this.billingAddress?.value.trim(),
+      area: this.area?.value.trim(),
+      state: this.stateName?.value.trim(),
+      country: this.country?.value.trim(),
+      pincode: this.zipcode?.value.trim(),
+      city: this.city?.value.trim(),
+      businessCategoryId: this.businessId,
+      entityPlanId: this.merchantPlanId?.value,
+      mccCode: this.mcccode.trim(),
+      website: this.website?.value.trim() || '',
+      lcoCustomerBillingCycle: this.billingMode?.value,
+      lcoCloudFeeAutoDebit: this.autoDebitStatus?.value,
+      lcoCustomerReminderNotification: this.customerDuesEnable?.value,
+      lcoCustomerNotificationFrequency: this.customerDuesDate?.value || 0,
+      lcoCustomerNotificationStartDate: this.dueDate?.value || 0,
+      lcoCustomerNotificationEndDate: this.dueEndDate?.value || 0,
+      offlineQr: this.offlineQrEnable?.value,
+      customerDueGenerationMode: this.customerPaymentMode?.value,
+      lcoRenewalFeeAutoDebit: this.renewalAutoDebit?.value,
+      manualTransOtpStatus: false,
+      smsMerchantName: this.smsMerchantName?.value,
+      cloudFeeApplicable: this.cloudFeeEnable?.value
+    };
+    const encryptedData = this.cryptoService.encrypt(JSON.stringify(payload));
+    formData.append('data', encryptedData);
+    if (this.uploadImage) { formData.append('merchantLogo', this.uploadImage); }
+    else { formData.append('merchantLogo', this.placeholderImage); }
+
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.merchantid = res.response.merchantId;
@@ -1047,12 +1089,17 @@ export class EntityAddComponent implements OnInit {
       ifscCode: this.ifscCode?.value.trim(),
       branchName: this.branchName?.value.trim(),
       accountType: this.accountType?.value,
-      merchantId: this.merchantid,
-      ledgerId: this.ledgerId?.value.trim(),
+      personalDetailsId: this.merchantid,
+      pgLedgerId: this.ledgerId?.value.trim(),
       typeMode: this.typemode?.value,
-      createdBy: this.adminName,
+      createdby: this.adminName,
     };
-    this.AddEntity.EntitybankAdd(submitModel).subscribe((res: any) => {
+
+    let datamodal: Payload = {
+      data: this.cryptoService.encrypt(JSON.stringify(submitModel))
+    }
+
+    this.AddEntity.EntitybankAdd(datamodal).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.Bankdetails = false;

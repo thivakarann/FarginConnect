@@ -44,7 +44,9 @@
               "node_modules/primeicons/primeicons.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css"
             ],
-            "scripts": []
+            "scripts": [
+               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -108,9 +108,8 @@
           <select formControlName="businessCategoryIds" (change)="onCategoryChange($event)" id="Bussiness category"
             class="form-select">
             <option value="" disabled selected>Select</option>
-            <option *ngFor="let item of categorydetails" [value]="item.businessCategoryId">
-              {{ item.categoryName }}
-            </option>
+            <option *ngFor="let item of details" [value]="item.businessCategoryId">
+              {{item?.businessCategoryName}}</option>
           </select>
           <div style="
               color: red;
@@ -131,7 +130,7 @@
           <label for="EntityPlan">Entity Plan</label>
           <select formControlName="merchantPlanId" id="EntityPlan" class="form-select">
             <option value="" disabled selected>Select</option>
-            <option *ngFor="let item of entittyplanviewall" [value]="item.merchantPlanId">
+            <option *ngFor="let item of entittyplanviewall" [value]="item.entityPlanId">
               {{ item.planName }}
             </option>
           </select>
@@ -421,22 +420,6 @@
       </div>
 
       <div class="row mb-3">
-        <!-- <div class="col-sm-4 form-group">
-                    <label for="period">LCO Billing Model</label>
-                    <select formControlName="periodName" type="text" class="form-select" id="period">
-                        <option value="Prepaid">Prepaid</option>
-                        <option value="PostPaid">PostPaid</option>
-                    </select>
-                    <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        position: relative;
-                        ;
-                      " *ngIf="periodName?.invalid && periodName?.touched && periodName?.errors?.['required']">
-                        Field is required*
-                    </div>
-                </div> -->
         <div class="col-sm-4 form-group">
           <label for="Logomerchant">Merchant Logo(Optional)</label>
           <input formControlName="logo" type="file" class="form-control" (change)="getlogo($event)" />
@@ -462,8 +445,8 @@
         <div class="col-sm-4 form-group">
           <label for="billing">Offline Qr</label>
           <select formControlName="offlineQrEnable" type="text" class="form-select" id="billing">
-            <option value="1">Yes</option>
-            <option value="0">No</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
           <div style="
               color: red;
@@ -484,7 +467,7 @@
           <label for="billing">LCO Customer Billing Cycle</label>
           <select formControlName="billingMode" type="text" class="form-select" id="billing">
             <!-- <option value="Prorated">Prorated</option> -->
-            <option value="Month">Monthly</option>
+            <option value="Monthly">Monthly</option>
             <!-- <option value="Full">Full</option> -->
           </select>
           <div style="
@@ -500,8 +483,8 @@
           <label for="billing">Cloud Fee Applicable</label>
           <select formControlName="cloudFeeEnable" (change)="cloudFeeEnableChange($event)" type="text"
             class="form-select" id="billing">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
           <div style="
               color: red;
@@ -515,8 +498,8 @@
         <div class="col-sm-4 form-group">
           <label for="billing">LCO Cloud Fee Auto Debit</label>
           <select formControlName="autoDebitStatus" type="text" class="form-select" id="billing">
-            <option value="1">Yes</option>
-            <option value="0">No</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
           <div style="
               color: red;
@@ -527,29 +510,6 @@
             Field is required
           </div>
         </div>
-
-
-        <!-- 
-                <div class="col-sm-4 form-group">
-                    <label for="billing">PayOut</label>
-                    <select formControlName="payoutEnable" type="text" class="form-select" id="billing">
-                        <option value="1">Yes</option>
-                        <option value="0">No</option>
-
-                    </select>
-                    <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        position: relative;
-                        ;
-                      " *ngIf="payoutEnable?.invalid && payoutEnable?.touched && payoutEnable?.errors?.['required']">
-                        Field is required*
-                    </div>
-                </div> -->
-
-
-
       </div>
 
       <div class="row mb-3">
@@ -557,8 +517,8 @@
         <div class="col-sm-4 form-group">
           <label for="billing">LCO Renewal Fee Auto Debit</label>
           <select formControlName="renewalAutoDebit" type="text" class="form-select" id="billing">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
           <div style="
               color: red;
@@ -573,7 +533,7 @@
           <label for="billing">Customer Due Generation Mode</label>
           <select formControlName="customerPaymentMode" type="text" class="form-select" id="billing">
             <!-- <option value="Manual">Manual</option> -->
-            <option value="Auto">Auto</option>
+            <option value="AUTO">Auto</option>
           </select>
           <div style="
               color: red;
@@ -614,20 +574,12 @@
             Maximum length should be 20
           </div>
         </div>
-        <!-- <div class="col-sm-4 form-group">
-          <label for="billing">LCO Customer SmsTag(Optional)</label>
-          <select formControlName="customerSmsTag" type="text" class="form-select" id="billing">
-            <option value="Single">Single</option>
-            <option value="Multiple">Multiple</option>
-          </select>
-       
-        </div> -->
         <div class="col-sm-4 form-group">
           <label for="billing">LCO Customer Reminder Notification</label>
           <select (change)="duealert($event)" formControlName="customerDuesEnable" type="text" class="form-select"
             id="billing">
-            <option value="1">Yes</option>
-            <option value="0">No</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
           <div style="
               color: red;
@@ -639,14 +591,14 @@
             Field is required
           </div>
         </div>
-        <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value != '1'">
+        <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value != 'true'">
           <label for="billing">LCO Customer Notification Frequency</label>
-          <select [required]="customerDuesEnable?.value == '1'" formControlName="customerDuesDate" type="text"
+          <select [required]="customerDuesEnable?.value == 'true'" formControlName="customerDuesDate" type="text"
             class="form-select" id="billing">
-            <option value="1">Daily</option>
-            <option value="2">Two Days Once</option>
-            <option value="3">Three Days Once</option>
-            <option value="4">Once</option>
+            <option value="Daily">Daily</option>
+            <option value="Two Days Once">Two Days Once</option>
+            <option value="Three Days Once">Three Days Once</option>
+            <option value="Once">Once</option>
           </select>
           <div style="
               color: red;
@@ -657,10 +609,10 @@
             Field is required
           </div>
         </div>
-        <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value != '1'">
+        <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value != 'true'">
           <label for="billing">LCO Customer Notification Start Date</label>
 
-          <select [required]="customerDuesEnable?.value == '1'" id="dayPicker" formControlName="dueDate"
+          <select [required]="customerDuesEnable?.value == 'true'" id="dayPicker" formControlName="dueDate"
             class="form-select">
             <option *ngFor="let day of days" [value]="day">{{ day }}</option>
           </select>
@@ -674,9 +626,9 @@
           </div>
         </div>
 
-        <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value != '1'">
+        <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value != 'true'">
           <label for="billing">LCO Customer Notification End Date</label>
-          <select [required]="customerDuesEnable?.value == '1'" id="dayPicker" formControlName="dueEndDate"
+          <select [required]="customerDuesEnable?.value == 'true'" id="dayPicker" formControlName="dueEndDate"
             class="form-select">
             <option *ngFor="let Day of Days" [value]="Day">{{ Day }}</option>
           </select>
